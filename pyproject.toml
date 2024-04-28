@@ -9,6 +9,7 @@ license = "GPL-3.0"
 name = "hakushin-py"
 readme = "README.md"
 version = "0.1.0"
+packages = [{include = "hakushin"}]
 
 [tool.poetry.dependencies]
 aiohttp = "^3.9.5"
