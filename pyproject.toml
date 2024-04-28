@@ -1,0 +1,94 @@
+[project]
+name = "hakushin-py"
+requires-python = ">=3.11"
+
+[tool.poetry]
+authors = ["seriaati <seria.ati@gmail.com>"]
+description = "Async API wrapper for hakush.in written in Python."
+license = "GPL-3.0"
+name = "hakushin-py"
+readme = "README.md"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+aiohttp = "^3.9.5"
+aiohttp-client-cache = {version = "^0.11.0", extras = ["sqlite"]}
+pydantic = "^2.7.1"
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.0"
+pytest = "^8.1.2"
+pytest-asyncio = "^0.23.6"
+ruff = "^0.4.2"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+ignore = [
+  "E501",
+  "ANN401",
+  "ANN101",
+  "ANN102",
+  "PLR0913",
+  "PLR2004",
+  "PLR0917",
+  "PLR6301",
+  "ANN002",
+  "ERA001",
+  "RUF100",
+  "D100",
+  "D104",
+  "D105",
+  "D107",
+]
+preview = true
+select = [
+  "E",
+  "W",
+  "C90",
+  "F",
+  "UP",
+  "B",
+  "SIM",
+  "I",
+  "N",
+  "TCH",
+  "ANN",
+  "ASYNC",
+  "A",
+  "C4",
+  "EM",
+  "FA",
+  "ICN",
+  "G",
+  "PIE",
+  "T20",
+  "ARG",
+  "ERA",
+  "LOG",
+  "PL",
+  "TRY",
+  "D",
+  "RUF",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/__init__.py" = ["F403", "F401"]
+"tests/**.py" =  ["D103"]
+"hakushin/models/**.py" = ["N805","TCH001"]
+"test.py" = ["D","T201"]
+
+[tool.ruff.lint.flake8-type-checking]
+quote-annotations = true
+
+[tool.ruff.lint.mccabe]
+max-complexity = 15
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
