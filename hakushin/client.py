@@ -136,17 +136,17 @@ class HakushinAPI:
         return gi.New(**data) if game is Game.GI else hsr.New(**data)
 
     @overload
-    async def fetch_character(
+    async def fetch_character_detail(
         self, character_id: int, game: Literal[Game.GI], *, use_cache: bool = True
-    ) -> gi.GICharacter: ...
+    ) -> gi.CharacterDetail: ...
     @overload
-    async def fetch_character(
+    async def fetch_character_detail(
         self, character_id: int, game: Literal[Game.HSR], *, use_cache: bool = True
-    ) -> hsr.HSRCharacter: ...
-    async def fetch_character(
+    ) -> hsr.CharacterDetail: ...
+    async def fetch_character_detail(
         self, character_id: int, game: Game, *, use_cache: bool = True
-    ) -> gi.GICharacter | hsr.HSRCharacter:
-        """Fetches a character.
+    ) -> gi.CharacterDetail | hsr.CharacterDetail:
+        """Fetches a character with detailed info.
 
         Args:
             character_id (int): The character ID.
@@ -154,14 +154,16 @@ class HakushinAPI:
             use_cache (bool): Whether to use the cache.
 
         Returns:
-            Character: The character object.
+            gi.CharacterDetail | hsr.CharacterDetail: The character object.
         """
         endpoint = f"character/{character_id}"
         data = await self._request(endpoint, game, use_cache)
-        return gi.GICharacter(**data) if game is Game.GI else hsr.HSRCharacter(**data)
+        return gi.CharacterDetail(**data) if game is Game.GI else hsr.CharacterDetail(**data)
 
-    async def fetch_weapon(self, weapon_id: int, *, use_cache: bool = True) -> gi.Weapon:
-        """Fetches a Genshin Impact weapon.
+    async def fetch_weapon_detail(
+        self, weapon_id: int, *, use_cache: bool = True
+    ) -> gi.WeaponDetail:
+        """Fetches a Genshin Impact weapon with detailed info.
 
         Args:
             weapon_id (int): The weapon ID.
@@ -172,12 +174,12 @@ class HakushinAPI:
         """
         endpoint = f"weapon/{weapon_id}"
         data = await self._request(endpoint, Game.GI, use_cache)
-        return gi.Weapon(**data)
+        return gi.WeaponDetail(**data)
 
-    async def fetch_light_cone(
+    async def fetch_light_cone_detail(
         self, light_cone_id: int, *, use_cache: bool = True
-    ) -> hsr.LightCone:
-        """Fetches a HSR light cone.
+    ) -> hsr.LightConeDetail:
+        """Fetches a light cone with detailed info.
 
         Args:
             light_cone_id (int): The light cone ID.
@@ -188,10 +190,12 @@ class HakushinAPI:
         """
         endpoint = f"lightcone/{light_cone_id}"
         data = await self._request(endpoint, Game.HSR, use_cache)
-        return hsr.LightCone(**data)
+        return hsr.LightConeDetail(**data)
 
-    async def fetch_artifact_set(self, set_id: int, *, use_cache: bool = True) -> gi.ArtifactSet:
-        """Fetches an artifact set.
+    async def fetch_artifact_set_detail(
+        self, set_id: int, *, use_cache: bool = True
+    ) -> gi.ArtifactSetDetail:
+        """Fetches an artifact set with detailed info.
 
         Args:
             set_id (int): The artifact set ID.
@@ -202,10 +206,12 @@ class HakushinAPI:
         """
         endpoint = f"artifact/{set_id}"
         data = await self._request(endpoint, Game.GI, use_cache)
-        return gi.ArtifactSet(**data)
+        return gi.ArtifactSetDetail(**data)
 
-    async def fetch_relic_set(self, set_id: int, *, use_cache: bool = True) -> hsr.RelicSet:
-        """Fetches a relic set.
+    async def fetch_relic_set_detail(
+        self, set_id: int, *, use_cache: bool = True
+    ) -> hsr.RelicSetDetail:
+        """Fetches a relic set with detailed info.
 
         Args:
             set_id (int): The relic set ID.
@@ -216,4 +222,4 @@ class HakushinAPI:
         """
         endpoint = f"relicset/{set_id}"
         data = await self._request(endpoint, Game.HSR, use_cache)
-        return hsr.RelicSet(**data)
+        return hsr.RelicSetDetail(**data)

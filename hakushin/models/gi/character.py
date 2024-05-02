@@ -5,10 +5,10 @@ from ..base import APIModel
 
 __all__ = (
     "CharacterConstellation",
+    "CharacterDetail",
     "CharacterInfo",
     "CharacterPassive",
     "CharacterSkill",
-    "GICharacter",
     "Namecard",
     "SkillUpgradeInfo",
     "UpgradeMaterial",
@@ -111,8 +111,8 @@ class CharacterStatsModifier(APIModel):
     prop_growth_curves: list[FightPropGrowthCurve] = Field(alias="PropGrowCurves")
 
 
-class GICharacter(APIModel):
-    """Genshin Impact Character."""
+class CharacterDetail(APIModel):
+    """Genshin Impact character detail."""
 
     # Info
     name: str = Field(alias="Name")

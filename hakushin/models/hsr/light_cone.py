@@ -5,7 +5,7 @@ from pydantic import Field, field_validator, model_validator
 from ...constants import HSR_LIGHT_CONE_RARITY_MAP
 from ..base import APIModel
 
-__all__ = ("LightCone", "SuperimposeInfo")
+__all__ = ("LightConeDetail", "SuperimposeInfo")
 
 
 class SuperimposeInfo(APIModel):
@@ -24,8 +24,8 @@ class SuperimposeInfo(APIModel):
         return values
 
 
-class LightCone(APIModel):
-    """HSR light cone."""
+class LightConeDetail(APIModel):
+    """HSR light cone detail."""
 
     id: int = Field(alias="Id")
     name: str = Field(alias="Name")

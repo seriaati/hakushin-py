@@ -2,7 +2,7 @@ from pydantic import Field
 
 from ..base import APIModel
 
-__all__ = ("Artifact", "ArtifactSet", "SetEffect")
+__all__ = ("Artifact", "ArtifactSetDetail", "SetEffect")
 
 
 class SetEffect(APIModel):
@@ -23,8 +23,8 @@ class Artifact(APIModel):
     description: str = Field(alias="Desc")
 
 
-class ArtifactSet(APIModel):
-    """Genshin Impact artifact set."""
+class ArtifactSetDetail(APIModel):
+    """Genshin Impact artifact set detail."""
 
     id: int = Field(alias="Id")
     icon: str = Field(alias="Icon")

@@ -5,7 +5,7 @@ from pydantic import Field, field_validator, model_validator
 from ...constants import HSR_CHARA_RARITY_MAP
 from ..base import APIModel
 
-__all__ = ("Eidolon", "HSRCharacter", "Skill", "SkillLevelInfo")
+__all__ = ("CharacterDetail", "Eidolon", "Skill", "SkillLevelInfo")
 
 
 class SkillLevelInfo(APIModel):
@@ -35,8 +35,8 @@ class Eidolon(APIModel):
     parameters: list[float] = Field(alias="ParamList")
 
 
-class HSRCharacter(APIModel):
-    """HSR character."""
+class CharacterDetail(APIModel):
+    """HSR character detail."""
 
     id: int = Field(alias="Id")
     name: str = Field(alias="Name")

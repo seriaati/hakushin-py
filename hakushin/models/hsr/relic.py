@@ -18,8 +18,8 @@ class SetEffect(APIModel):
     parameters: list[float] = Field(alias="ParamList")
 
 
-class RelicSet(APIModel):
-    """HSR relic set."""
+class RelicSetDetail(APIModel):
+    """HSR relic set detail."""
 
     name: str = Field(alias="Name")
     icon: str = Field(alias="Icon")

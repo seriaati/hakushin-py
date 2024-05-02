@@ -2,7 +2,7 @@ from pydantic import Field
 
 from ..base import APIModel
 
-__all__ = ("Weapon", "WeaponProperty", "WeaponRefinement", "WeaponStatModifier")
+__all__ = ("WeaponDetail", "WeaponProperty", "WeaponRefinement", "WeaponStatModifier")
 
 
 class WeaponProperty(APIModel):
@@ -28,8 +28,8 @@ class WeaponRefinement(APIModel):
     parameters: list[float] = Field(alias="ParamList")
 
 
-class Weapon(APIModel):
-    """Genshin Impact weapon."""
+class WeaponDetail(APIModel):
+    """Genshin Impact weapon detail."""
 
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
