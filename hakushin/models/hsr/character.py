@@ -3,9 +3,10 @@ from typing import Any
 from pydantic import Field, field_validator, model_validator
 
 from ...constants import HSR_CHARA_RARITY_MAP
+from ...enums import HSRElement, HSRPath
 from ..base import APIModel
 
-__all__ = ("CharacterDetail", "Eidolon", "Skill", "SkillLevelInfo")
+__all__ = ("Character", "CharacterDetail", "Eidolon", "Skill", "SkillLevelInfo")
 
 
 class SkillLevelInfo(APIModel):
@@ -67,3 +68,31 @@ class CharacterDetail(APIModel):
     def gacha_art(self) -> str:
         """Character's gacha art URL."""
         return self.icon.replace("avatarshopicon", "avatardrawcard")
+
+
+class Character(APIModel):
+    """HSR character."""
+
+    id: int  # This field is not present in the API response.
+    icon: str
+    rarity: int = Field(alias="rank")
+    description: str = Field(alias="desc")
+    path: HSRPath = Field(alias="baseType")
+    element: HSRElement = Field(alias="damageType")
+    names: dict[str, str]
+    name: str = Field(None)  # The value of this field is assigned in post processing.
+
+    @field_validator("rarity", mode="before")
+    def _convert_rarity(cls, value: str) -> int:
+        return HSR_CHARA_RARITY_MAP[value]
+
+    @model_validator(mode="before")
+    def _transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
+        # This is probably the most questionable API design decision I've ever seen.
+        values["names"] = {
+            "en": values.pop("en"),
+            "cn": values.pop("cn"),
+            "kr": values.pop("kr"),
+            "jp": values.pop("jp"),
+        }
+        return values

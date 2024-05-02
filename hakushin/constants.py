@@ -7,6 +7,7 @@ __all__ = ("GI_CHARA_RARITY_MAP", "HSR_CHARA_RARITY_MAP", "HSR_LIGHT_CONE_RARITY
 GI_CHARA_RARITY_MAP: Final[dict[str, int]] = {
     "QUALITY_PURPLE": 4,
     "QUALITY_ORANGE": 5,
+    "QUALITY_ORANGE_SP": 5,
 }
 
 HSR_CHARA_RARITY_MAP: Final[dict[str, int]] = {

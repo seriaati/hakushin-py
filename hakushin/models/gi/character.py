@@ -1,9 +1,13 @@
-from pydantic import Field, field_validator
+from typing import Any
+
+from pydantic import Field, field_validator, model_validator
 
 from ...constants import GI_CHARA_RARITY_MAP
+from ...enums import GIElement
 from ..base import APIModel
 
 __all__ = (
+    "Character",
     "CharacterConstellation",
     "CharacterDetail",
     "CharacterInfo",
@@ -145,3 +149,30 @@ class CharacterDetail(APIModel):
     @field_validator("rarity", mode="before")
     def _convert_rarity(cls, value: str) -> int:
         return GI_CHARA_RARITY_MAP[value]
+
+
+class Character(APIModel):
+    """Genshin Impact character."""
+
+    id: str  # This field is not present in the API response.
+    icon: str
+    rarity: int = Field(alias="rank")
+    description: str = Field(alias="desc")
+    element: GIElement
+    names: dict[str, str]
+    name: str = Field(None)  # This value of this field is assigned in post processing.
+
+    @field_validator("rarity", mode="before")
+    def _convert_rarity(cls, value: str) -> int:
+        return GI_CHARA_RARITY_MAP[value]
+
+    @model_validator(mode="before")
+    def _transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
+        # This is probably the most questionable API design decision I've ever seen.
+        values["names"] = {
+            "EN": values.pop("EN"),
+            "CHS": values.pop("CHS"),
+            "KR": values.pop("KR"),
+            "JP": values.pop("JP"),
+        }
+        return values

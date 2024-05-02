@@ -56,7 +56,13 @@ class HakushinAPI:
         await self.close()
 
     async def _request(
-        self, endpoint: str, game: Game, use_cache: bool, *, static: bool = False
+        self,
+        endpoint: str,
+        game: Game,
+        use_cache: bool,
+        *,
+        static: bool = False,
+        in_data: bool = False,
     ) -> dict[str, Any]:
         """A helper function to make requests to the API.
 
@@ -65,6 +71,7 @@ class HakushinAPI:
             game (Game): The game to fetch data for.
             use_cache (bool): Whether to use the cache.
             static (bool): Whether the endpoint is static data (not language specific), defaults to False.
+            in_data (bool): Whether the endpoint is in the data directory, defaults to False.
 
         Returns:
             dict: The response data.
@@ -73,13 +80,19 @@ class HakushinAPI:
             msg = "Call `start` before making requests."
             raise RuntimeError(msg)
 
+        if static and in_data:
+            msg = "static and data cannot be True at the same time."
+            raise RuntimeError(msg)
+
         lang = HSR_LANG_MAP[self.lang] if game is Game.HSR else self.lang.value
 
-        url = (
-            f"{self.BASE_URL}/{game.value}/{endpoint}.json"
-            if static
-            else f"{self.BASE_URL}/{game.value}/data/{lang}/{endpoint}.json"
-        )
+        if static:
+            url = f"{self.BASE_URL}/{game.value}/{endpoint}.json"
+        elif in_data:
+            url = f"{self.BASE_URL}/{game.value}/data/{endpoint}.json"
+        else:
+            url = f"{self.BASE_URL}/{game.value}/data/{lang}/{endpoint}.json"
+
         LOGGER_.debug("Requesting %s...", url)
 
         if not use_cache:
@@ -134,6 +147,32 @@ class HakushinAPI:
         endpoint = "new"
         data = await self._request(endpoint, game, use_cache, static=True)
         return gi.New(**data) if game is Game.GI else hsr.New(**data)
+
+    @overload
+    async def fetch_characters(
+        self, game: Literal[Game.GI], *, use_cache: bool = True
+    ) -> list[gi.Character]: ...
+    @overload
+    async def fetch_characters(
+        self, game: Literal[Game.HSR], *, use_cache: bool = True
+    ) -> list[hsr.Character]: ...
+    async def fetch_characters(
+        self, game: Game, *, use_cache: bool = True
+    ) -> list[gi.Character] | list[hsr.Character]:
+        """Fetches all characters in the game.
+
+        Args:
+            game (Game): The game to fetch data for.
+            use_cache (bool): Whether to use the cache.
+
+        Returns:
+            list[Character]: The list of character objects.
+        """
+        endpoint = "character"
+        data = await self._request(endpoint, game, use_cache, in_data=True)
+        if game is Game.GI:
+            return [gi.Character(id=char_id, **char) for char_id, char in data.items()]
+        return [hsr.Character(id=int(char_id), **char) for char_id, char in data.items()]
 
     @overload
     async def fetch_character_detail(

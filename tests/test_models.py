@@ -11,6 +11,13 @@ async def test_new() -> None:
 
 
 @pytest.mark.asyncio
+async def test_characters() -> None:
+    async with hakushin.HakushinAPI() as client:
+        await client.fetch_characters(hakushin.Game.GI)
+        await client.fetch_characters(hakushin.Game.HSR)
+
+
+@pytest.mark.asyncio
 async def test_character() -> None:
     async with hakushin.HakushinAPI() as client:
         gi_new = await client.fetch_new(hakushin.Game.GI)
