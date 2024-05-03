@@ -8,6 +8,7 @@ __all__ = (
     "Artifact",
     "ArtifactSet",
     "ArtifactSetDetail",
+    "ArtifactSetDetailSetEffects",
     "ArtifactSetEffect",
     "ArtifactSetEffects",
     "SetEffect",
@@ -25,6 +26,8 @@ class SetEffect(APIModel):
 
 
 class ArtifactSetDetailSetEffects(APIModel):
+    """Artifact set's set effects."""
+
     two_piece: SetEffect
     four_piece: SetEffect | None = None
 
