@@ -4,18 +4,18 @@ from .enums import Language
 
 __all__ = ("GI_CHARA_RARITY_MAP", "HSR_CHARA_RARITY_MAP", "HSR_LIGHT_CONE_RARITY_MAP")
 
-GI_CHARA_RARITY_MAP: Final[dict[str, int]] = {
+GI_CHARA_RARITY_MAP: Final[dict[str, Literal[4, 5]]] = {
     "QUALITY_PURPLE": 4,
     "QUALITY_ORANGE": 5,
     "QUALITY_ORANGE_SP": 5,
 }
 
-HSR_CHARA_RARITY_MAP: Final[dict[str, int]] = {
+HSR_CHARA_RARITY_MAP: Final[dict[str, Literal[4, 5]]] = {
     "CombatPowerAvatarRarityType4": 4,
     "CombatPowerAvatarRarityType5": 5,
 }
 
-HSR_LIGHT_CONE_RARITY_MAP: Final[dict[str, int]] = {
+HSR_LIGHT_CONE_RARITY_MAP: Final[dict[str, Literal[4, 5]]] = {
     "CombatPowerLightconeRarity4": 4,
     "CombatPowerLightconeRarity5": 5,
 }

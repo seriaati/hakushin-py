@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
 
@@ -30,11 +30,11 @@ class LightConeDetail(APIModel):
     id: int = Field(alias="Id")
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
-    rarity: int = Field(alias="Rarity")
+    rarity: Literal[4, 5] = Field(alias="Rarity")
     superimpose_info: SuperimposeInfo = Field(alias="Refinements")
 
     @field_validator("rarity", mode="before")
-    def _convert_rarity(cls, value: str) -> int:
+    def _convert_rarity(cls, value: str) -> Literal[4, 5]:
         return HSR_LIGHT_CONE_RARITY_MAP[value]
 
     @model_validator(mode="before")

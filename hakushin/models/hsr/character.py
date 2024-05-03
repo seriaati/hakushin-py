@@ -42,12 +42,12 @@ class CharacterDetail(APIModel):
     id: int = Field(alias="Id")
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
-    rarity: int = Field(alias="Rarity")
+    rarity: Literal[4, 5] = Field(alias="Rarity")
     eidolons: dict[str, Eidolon] = Field(alias="Ranks")
     skills: dict[str, Skill] = Field(alias="Skills")
 
     @field_validator("rarity", mode="before")
-    def _convert_rarity(cls, value: str) -> int:
+    def _convert_rarity(cls, value: str) -> Literal[4, 5]:
         return HSR_CHARA_RARITY_MAP[value]
 
     @model_validator(mode="before")
@@ -75,7 +75,7 @@ class Character(APIModel):
 
     id: int  # This field is not present in the API response.
     icon: str
-    rarity: int = Field(alias="rank")
+    rarity: Literal[4, 5] = Field(alias="rank")
     description: str = Field(alias="desc")
     path: HSRPath = Field(alias="baseType")
     element: HSRElement = Field(alias="damageType")
@@ -83,7 +83,7 @@ class Character(APIModel):
     name: str = Field(None)  # The value of this field is assigned in post processing.
 
     @field_validator("rarity", mode="before")
-    def _convert_rarity(cls, value: str) -> int:
+    def _convert_rarity(cls, value: str) -> Literal[4, 5]:
         return HSR_CHARA_RARITY_MAP[value]
 
     @model_validator(mode="before")

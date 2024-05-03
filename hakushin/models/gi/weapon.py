@@ -35,7 +35,7 @@ class WeaponDetail(APIModel):
 
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
-    rarity: int = Field(alias="Rarity")
+    rarity: Literal[4, 5] = Field(alias="Rarity")
     icon: str = Field(alias="Icon")
 
     stat_modifiers: dict[str, WeaponStatModifier] = Field(alias="StatsModifier")
@@ -49,7 +49,7 @@ class Weapon(APIModel):
 
     id: int  # This field is not present in the API response.
     icon: str
-    rarity: int = Field(alias="rank")
+    rarity: Literal[4, 5] = Field(alias="rank")
     description: str = Field(alias="desc")
     names: dict[Literal["EN", "CHS", "KR", "JP"], str]
     name: str = Field(None)  # This value of this field is assigned in post processing.

@@ -80,7 +80,7 @@ class UpgradeMaterial(APIModel):
     name: str = Field(alias="Name")
     id: int = Field(alias="Id")
     count: int = Field(alias="Count")
-    rarity: int = Field(alias="Rank")
+    rarity: Literal[4, 5] = Field(alias="Rank")
 
     @property
     def icon(self) -> str:
@@ -122,7 +122,7 @@ class CharacterDetail(APIModel):
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
     info: CharacterInfo = Field(alias="CharaInfo")
-    rarity: int = Field(alias="Rarity")
+    rarity: Literal[4, 5] = Field(alias="Rarity")
     icon: str = Field(alias="Icon")
 
     # Combat
@@ -147,7 +147,7 @@ class CharacterDetail(APIModel):
         return self.icon.replace("AvatarIcon", "Gacha_AvatarImg")
 
     @field_validator("rarity", mode="before")
-    def _convert_rarity(cls, value: str) -> int:
+    def _convert_rarity(cls, value: str) -> Literal[4, 5]:
         return GI_CHARA_RARITY_MAP[value]
 
 
@@ -156,14 +156,14 @@ class Character(APIModel):
 
     id: str  # This field is not present in the API response.
     icon: str
-    rarity: int = Field(alias="rank")
+    rarity: Literal[4, 5] = Field(alias="rank")
     description: str = Field(alias="desc")
     element: GIElement
     names: dict[Literal["EN", "CHS", "KR", "JP"], str]
     name: str = Field(None)  # This value of this field is assigned in post processing.
 
     @field_validator("rarity", mode="before")
-    def _convert_rarity(cls, value: str) -> int:
+    def _convert_rarity(cls, value: str) -> Literal[4, 5]:
         return GI_CHARA_RARITY_MAP[value]
 
     @model_validator(mode="before")
