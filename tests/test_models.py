@@ -51,6 +51,12 @@ async def test_light_cone() -> None:
 
 
 @pytest.mark.asyncio
+async def test_artifact_sets() -> None:
+    async with hakushin.HakushinAPI() as client:
+        await client.fetch_artifact_sets()
+
+
+@pytest.mark.asyncio
 async def test_artifact_set() -> None:
     async with hakushin.HakushinAPI() as client:
         gi_new = await client.fetch_new(hakushin.Game.GI)
