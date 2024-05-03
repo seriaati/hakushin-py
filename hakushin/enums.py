@@ -6,17 +6,23 @@ __all__ = ("Game", "Language")
 class Game(StrEnum):
     """Games supported by the Hakushin API."""
 
-    GI = "gi"  # Genshin Impact
-    HSR = "hsr"  # Honkai Star Rail
+    GI = "gi"
+    """Genshin Impact."""
+    HSR = "hsr"
+    """Honkai: Star Rail."""
 
 
 class Language(StrEnum):
     """Lanauges supported by the Hakushin API."""
 
-    EN = "en"  # English
-    ZH = "zh"  # Simplified Chinese
-    KO = "ko"  # Korean
-    JA = "ja"  # Japanese
+    EN = "en"
+    """English."""
+    ZH = "zh"
+    """Simple Chinese."""
+    KO = "ko"
+    """Korean."""
+    JA = "ja"
+    """Japanese."""
 
 
 class GIElement(StrEnum):

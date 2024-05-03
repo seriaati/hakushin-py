@@ -29,6 +29,12 @@ async def test_character() -> None:
 
 
 @pytest.mark.asyncio
+async def test_weapons() -> None:
+    async with hakushin.HakushinAPI() as client:
+        await client.fetch_weapons()
+
+
+@pytest.mark.asyncio
 async def test_weapon() -> None:
     async with hakushin.HakushinAPI() as client:
         gi_new = await client.fetch_new(hakushin.Game.GI)

@@ -1,18 +1,32 @@
-from pydantic import Field
+from typing import Any, Literal
+
+from pydantic import Field, field_validator, model_validator
 
 from ..base import APIModel
 
-__all__ = ("Artifact", "ArtifactSetDetail", "SetEffect")
+__all__ = (
+    "Artifact",
+    "ArtifactSet",
+    "ArtifactSetDetail",
+    "ArtifactSetEffect",
+    "ArtifactSetEffects",
+    "SetEffect",
+)
 
 
 class SetEffect(APIModel):
     """Artifact set's set effect."""
 
-    id: int = Field(alias="id")
-    affix_id: int = Field(alias="AffixId")
+    id: int
+    affix_id: int = Field(alias="affixId")
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
     parameters: list[float] = Field(alias="paramList")
+
+
+class ArtifactSetDetailSetEffects(APIModel):
+    two_piece: SetEffect
+    four_piece: SetEffect | None = None
 
 
 class Artifact(APIModel):
@@ -28,5 +42,49 @@ class ArtifactSetDetail(APIModel):
 
     id: int = Field(alias="Id")
     icon: str = Field(alias="Icon")
-    effects: list[SetEffect] = Field(alias="Affix")
+    set_effect: ArtifactSetDetailSetEffects = Field(alias="Affix")
     parts: dict[str, Artifact] = Field(alias="Parts")
+
+    @field_validator("set_effect", mode="before")
+    def _assign_set_effect(cls, value: list[dict[str, Any]]) -> dict[str, Any]:
+        return {
+            "two_piece": value[0],
+            "four_piece": value[1] if len(value) > 1 else None,
+        }
+
+
+class ArtifactSetEffect(APIModel):
+    """Artifact set effect."""
+
+    names: dict[Literal["EN", "KR", "CHS", "JP"], str]
+    name: str = Field(None)  # The value of this field is assigned in post processing.
+    descriptions: dict[Literal["EN", "KR", "CHS", "JP"], str] = Field(alias="desc")
+    description: str = Field(None)  # The value of this field is assigned in post processing.
+
+    @model_validator(mode="before")
+    def _transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
+        values["names"] = values.pop("name")
+        return values
+
+
+class ArtifactSetEffects(APIModel):
+    """Artifact set effects."""
+
+    two_piece: ArtifactSetEffect
+    four_piece: ArtifactSetEffect | None = None
+
+
+class ArtifactSet(APIModel):
+    """Genshin Impact artifact set."""
+
+    id: int
+    icon: str
+    rarities: list[int] = Field(alias="rank")
+    set_effect: ArtifactSetEffects = Field(alias="set")
+
+    @field_validator("set_effect", mode="before")
+    def _assign_set_effects(cls, value: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "two_piece": next(iter(value.values())),
+            "four_piece": list(value.values())[1] if len(value) > 1 else None,
+        }

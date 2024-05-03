@@ -1,8 +1,10 @@
-from pydantic import Field
+from typing import Any, Literal
+
+from pydantic import Field, model_validator
 
 from ..base import APIModel
 
-__all__ = ("WeaponDetail", "WeaponProperty", "WeaponRefinement", "WeaponStatModifier")
+__all__ = ("Weapon", "WeaponDetail", "WeaponProperty", "WeaponRefinement", "WeaponStatModifier")
 
 
 class WeaponProperty(APIModel):
@@ -40,3 +42,24 @@ class WeaponDetail(APIModel):
     xp_requirements: dict[str, float] = Field(alias="XPRequirements")
     ascension: dict[str, dict[str, float]] = Field(alias="Ascension")
     refinments: dict[str, WeaponRefinement] = Field(alias="Refinement")
+
+
+class Weapon(APIModel):
+    """Genshin Impact weapon."""
+
+    id: int  # This field is not present in the API response.
+    icon: str
+    rarity: int = Field(alias="rank")
+    description: str = Field(alias="desc")
+    names: dict[Literal["EN", "CHS", "KR", "JP"], str]
+    name: str = Field(None)  # This value of this field is assigned in post processing.
+
+    @model_validator(mode="before")
+    def _transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
+        values["names"] = {
+            "EN": values.pop("EN"),
+            "CHS": values.pop("CHS"),
+            "KR": values.pop("KR"),
+            "JP": values.pop("JP"),
+        }
+        return values

@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
 
@@ -79,7 +79,7 @@ class Character(APIModel):
     description: str = Field(alias="desc")
     path: HSRPath = Field(alias="baseType")
     element: HSRElement = Field(alias="damageType")
-    names: dict[str, str]
+    names: dict[Literal["en", "cn", "kr", "jp"], str]
     name: str = Field(None)  # The value of this field is assigned in post processing.
 
     @field_validator("rarity", mode="before")

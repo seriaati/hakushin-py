@@ -1,4 +1,4 @@
-from typing import Final
+from typing import Final, Literal
 
 from .enums import Language
 
@@ -20,10 +20,18 @@ HSR_LIGHT_CONE_RARITY_MAP: Final[dict[str, int]] = {
     "CombatPowerLightconeRarity5": 5,
 }
 
-HSR_LANG_MAP: Final[dict[Language, str]] = {
+HSR_API_LANG_MAP: Final[dict[Language, Literal["en", "jp", "kr", "cn"]]] = {
     Language.EN: "en",
     Language.JA: "jp",
     Language.KO: "kr",
     Language.ZH: "cn",
 }
-"""Map to convert language enum for GI to for HSR."""
+"""Map to convert API language enum to HSR API language."""
+
+GI_LANG_MAP: Final[dict[Language, Literal["EN", "JP", "KR", "CHS"]]] = {
+    Language.EN: "EN",
+    Language.JA: "JP",
+    Language.KO: "KR",
+    Language.ZH: "CHS",
+}
+"""Map to convert API language enum to GI data language."""

@@ -7,7 +7,7 @@ from aiohttp_client_cache.session import CachedSession
 from hakushin.enums import Game, Language
 from hakushin.errors import HakushinError, NotFoundError
 
-from .constants import HSR_LANG_MAP
+from .constants import GI_LANG_MAP, HSR_API_LANG_MAP
 from .models import gi, hsr
 
 __all__ = ("HakushinAPI",)
@@ -84,7 +84,7 @@ class HakushinAPI:
             msg = "static and data cannot be True at the same time."
             raise RuntimeError(msg)
 
-        lang = HSR_LANG_MAP[self.lang] if game is Game.HSR else self.lang.value
+        lang = HSR_API_LANG_MAP[self.lang] if game is Game.HSR else self.lang.value
 
         if static:
             url = f"{self.BASE_URL}/{game.value}/{endpoint}.json"
@@ -170,9 +170,17 @@ class HakushinAPI:
         """
         endpoint = "character"
         data = await self._request(endpoint, game, use_cache, in_data=True)
+
         if game is Game.GI:
-            return [gi.Character(id=char_id, **char) for char_id, char in data.items()]
-        return [hsr.Character(id=int(char_id), **char) for char_id, char in data.items()]
+            characters = [gi.Character(id=char_id, **char) for char_id, char in data.items()]
+            for char in characters:
+                char.name = char.names[GI_LANG_MAP[self.lang]]
+        else:
+            characters = [hsr.Character(id=int(char_id), **char) for char_id, char in data.items()]
+            for char in characters:
+                char.name = char.names[HSR_API_LANG_MAP[self.lang]]
+
+        return characters
 
     @overload
     async def fetch_character_detail(
@@ -198,6 +206,19 @@ class HakushinAPI:
         endpoint = f"character/{character_id}"
         data = await self._request(endpoint, game, use_cache)
         return gi.CharacterDetail(**data) if game is Game.GI else hsr.CharacterDetail(**data)
+
+    async def fetch_weapons(self, *, use_cache: bool = True) -> list[gi.Weapon]:
+        """Fetches all weapons in the game.
+
+        Args:
+            use_cache (bool): Whether to use the cache.
+
+        Returns:
+            list[Weapon]: The list of weapon objects.
+        """
+        endpoint = "weapon"
+        data = await self._request(endpoint, Game.GI, use_cache, in_data=True)
+        return [gi.Weapon(id=int(weapon_id), **weapon) for weapon_id, weapon in data.items()]
 
     async def fetch_weapon_detail(
         self, weapon_id: int, *, use_cache: bool = True
@@ -230,6 +251,32 @@ class HakushinAPI:
         endpoint = f"lightcone/{light_cone_id}"
         data = await self._request(endpoint, Game.HSR, use_cache)
         return hsr.LightConeDetail(**data)
+
+    async def fetch_artifact_sets(self, *, use_cache: bool = True) -> list[gi.ArtifactSet]:
+        """Fetches all artifact sets in the game.
+
+        Args:
+            use_cache (bool): Whether to use the cache.
+
+        Returns:
+            list[ArtifactSet]: The list of artifact set objects.
+        """
+        endpoint = "artifact"
+        data = await self._request(endpoint, Game.GI, use_cache, in_data=True)
+        sets = [gi.ArtifactSet(**set_) for set_ in data.values()]
+        for set_ in sets:
+            set_.set_effect.two_piece.name = set_.set_effect.two_piece.names[GI_LANG_MAP[self.lang]]
+            set_.set_effect.two_piece.description = set_.set_effect.two_piece.descriptions[
+                GI_LANG_MAP[self.lang]
+            ]
+            if set_.set_effect.four_piece is not None:
+                set_.set_effect.four_piece.name = set_.set_effect.four_piece.names[
+                    GI_LANG_MAP[self.lang]
+                ]
+                set_.set_effect.four_piece.description = set_.set_effect.four_piece.descriptions[
+                    GI_LANG_MAP[self.lang]
+                ]
+        return sets
 
     async def fetch_artifact_set_detail(
         self, set_id: int, *, use_cache: bool = True
