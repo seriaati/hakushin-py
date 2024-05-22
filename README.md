@@ -1,38 +1,40 @@
 # hakushin-py
 
- An async API wrapper for [Hakushin](https://hakush.in/) written in Python. Hakushin is a website that display Genshin Impact and Honkai: Star Rail game data, including the beta ones.  
- > Note: I am not the developer of Hakushin.  
-
-## Quick Links
+## Quick links
 
 Developing something for Hoyoverse games? Here's a collection of Python async API wrappers for Hoyoverse games made by me:
 
 - [enka.py](https://github.com/seriaati/enka-py) is an Enka Network API wrapper for fetching in-game showcase.
 - [yatta.py](https://github.com/seriaati/yatta) is a Project Yatta API wrapper for fetching Honkai Star Rail game data.
-- [ambr.py](https://github.com/seriaati/yatta) is a Project Ambr API wrapper for fetching Genshin Impact game data.
-- [hakushin.py](https://github.com/seriaati/hakushin) is a Hakushin API wrapper for fetching Genshin Impact and Honkai Star Rail beta game data.
+- [ambr.py](https://github.com/seriaati/ambr) is a Project Ambr API wrapper for fetching Genshin Impact game data.
+- [hakushin.py](https://github.com/seriaati/hakushin-py) is a Hakushin API wrapper for fetching Genshin Impact and Honkai Star Rail beta game data.
 
-## Features
+## Introduction
+
+hakushin-py is an async API wrapper for [hakush.in](https://hakush.in/) written in Python.  
+Hakush.in is a website that displays beta game data for Genshin Impact and Honkai Star Rail.
+
+> Note: I am not the developer of hakush.in
+
+### Features
 
 - Fully typed.
+- Fully asynchronous by using `aiofiles`, `aiohttp`, and `asyncio`, suitable for Discord bots.
 - Provides direct icon URLs.
-- Fully asynchronous by using `aiosqlite`, `aiohttp`, and `asyncio`.
+- Supports Python 3.11+.
+- Supports all game languages.
+- Supports both Genshin Impact and Honkai Star Rail.
 - Supports persistent caching using SQLite.
-- Supports [Pydantic V2](https://github.com/pydantic/pydantic).
-- Supports both Genshin Impact and Honkai: Star Rail.
-- 100% test coverage.
+- Supports [Pydantic V2](https://github.com/pydantic/pydantic), this also means full autocomplete support.
 
-> [!IMPORTANT]  
-> This wrapper is mainly focused on fetching beta game data, this mean that it **does not** cover all the endpoints of the Hakushin API and models do not cover all the fields from the API's response.
-
-## Installing
+## Installation
 
 ```bash
 # poetry
-poetry add git+https://github.com/seriaati/hakushin-py
+poetry add hakushin-py
 
 # pip
-pip install git+https://github.com/seriaati/hakushin-py
+pip install hakushin-py
 ```
 
 ## Quick Example
@@ -42,61 +44,18 @@ import hakushin
 import asyncio
 
 async def main() -> None:
-    async with hakushin.HakushinAPI() as client:
-        await client.fetch_character(10000095, hakushin.Game.GI)
-        await client.fetch_character(1309, hakushin.Game.HSR)
+    async with hakushin.HakushinAPI(hakushin.Language.EN) as client:
+        await client.fetch_new(hakushin.Game.GI)
 
 asyncio.run(main())
 ```
 
-# Usage
+## Getting Started
 
-## Starting and closing the client properly
+Read the [wiki](https://github.com/seriaati/hakushin-py/wiki) to learn more about on how to use this wrapper.
 
-To use the client properly, you can either:  
-Manually call `start()` and `close()`  
+## Questions, Issues, Contributions
 
-```py
-import hakushin
-import asyncio
-
-async def main() -> None:
-    api = hakushin.HakushinAPI()
-    await api.start()
-    await api.fetch_new(hakushin.Game.GI)
-    await api.close()
-
-asyncio.run(main())
-```
-
-Or use the `async with` syntax:  
-
-```py
-import hakushin
-import asyncio
-
-async def main() -> None:
-    async with hakushin.HakushinAPI() as api:
-        await api.fetch_new(hakushin.Game.GI)
-
-asyncio.run(main())
-```
-
-> [!IMPORTANT]  
-> You ***need*** to call `start()` or the api client will not function properly; the `close()` method closes the request session and database properly.
-
-## Finding models' attributes
-
-If you're using an IDE like VSCode or Pycharm, then you can see all the attributes and methods the model has in the autocomplete.
-> [!TIP]
-> If you're using VSCode, `alt` + `left click` on the attribute, then the IDE will bring you to the source code of this wrapper for you to see all the fields defined, most classes and methods have docstrings for you to reference to.
-
-## Catching exceptions
-
-If data is not found (API returns 404), then `hakushin.errors.NotFoundError` will be raised.
-
-# Questions, issues, contributions
-
-For questions, you can contact me on [Discord](https://discord.com/users/410036441129943050) or open an [issue](https://github.com/seriaati/hakushin/issues).  
-To report issues with this wrapper, open an [issue](https://github.com/seriaati/hakushin/issues).  
-To contribute, fork this repo and submit a [pull request](https://github.com/seriaati/hakushin/pulls).
+For questions, you can contact me on [Discord](https://discord.com/users/410036441129943050) or open an [issue](https://github.com/seriaati/hakushin-py/issues).  
+To report issues with this wrapper, open an [issue](https://github.com/seriaati/hakushin-py/issues).  
+To contribute, fork this repo and submit a [pull request](https://github.com/seriaati/hakushin-py/pulls).
