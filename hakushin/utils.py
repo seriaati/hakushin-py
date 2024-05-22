@@ -1,5 +1,13 @@
 import re
 
+__all__ = (
+    "cleanup_text",
+    "format_num",
+    "replace_layout",
+    "replace_params",
+    "replace_placeholders",
+)
+
 
 def format_num(digits: int, calculation: float) -> str:
     """Format a number to a string with a fixed number of digits after the decimal point.
@@ -79,3 +87,26 @@ def cleanup_text(text: str) -> str:
     """
     clean = re.compile(r"<.*?>|\{SPRITE_PRESET#[^\}]+\}")
     return re.sub(clean, "", text).replace("\\n", "\n")
+
+
+def replace_placeholders(text: str, param_list: list[float]) -> str:
+    """Replaces placeholders in the given text with values from the parameter list.
+
+    Args:
+        text (str): The text containing placeholders to be replaced.
+        param_list (list[float]): The list of parameter values.
+
+    Returns:
+        str: The text with placeholders replaced by their corresponding values.
+    """
+    placeholders: list[str] = re.findall(r"#\d+\[i\]%?", text)
+
+    for placeholder in placeholders:
+        index = int(placeholder[1])
+        format_ = placeholder[-1]
+        value = param_list[index - 1]
+        if format_ == "%":
+            value *= 100
+        text = text.replace(placeholder, f"{round(value)}{'%' if format_ == '%' else ''}")
+
+    return text
