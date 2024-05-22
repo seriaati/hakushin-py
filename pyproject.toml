@@ -2,6 +2,10 @@
 name = "hakushin-py"
 requires-python = ">=3.11"
 
+[project.urls]
+"Bug Tracker" = "https://github.com/seriaati/hakushin-py/issues"
+Repository = "https://github.com/seriaati/hakushin-py.git"
+
 [tool.poetry]
 authors = ["seriaati <seria.ati@gmail.com>"]
 description = "Async API wrapper for hakush.in written in Python."
