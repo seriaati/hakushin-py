@@ -82,6 +82,10 @@ class Character(APIModel):
     names: dict[Literal["en", "cn", "kr", "jp"], str]
     name: str = Field(None)  # The value of this field is assigned in post processing.
 
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/hsr/UI/avatarshopicon/{value}.webp"
+
     @field_validator("rarity", mode="before")
     def _convert_rarity(cls, value: str) -> Literal[4, 5]:
         return HSR_CHARA_RARITY_MAP[value]

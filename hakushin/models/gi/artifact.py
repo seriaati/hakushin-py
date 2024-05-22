@@ -39,6 +39,10 @@ class Artifact(APIModel):
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
 
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/gi/UI/{value}.webp"
+
 
 class ArtifactSetDetail(APIModel):
     """Genshin Impact artifact set detail."""
@@ -47,6 +51,10 @@ class ArtifactSetDetail(APIModel):
     icon: str = Field(alias="Icon")
     set_effect: ArtifactSetDetailSetEffects = Field(alias="Affix")
     parts: dict[str, Artifact] = Field(alias="Parts")
+
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/gi/UI/{value}.webp"
 
     @field_validator("set_effect", mode="before")
     def _assign_set_effect(cls, value: list[dict[str, Any]]) -> dict[str, Any]:
@@ -84,6 +92,10 @@ class ArtifactSet(APIModel):
     icon: str
     rarities: list[int] = Field(alias="rank")
     set_effect: ArtifactSetEffects = Field(alias="set")
+
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/gi/UI/{value}.webp"
 
     @field_validator("set_effect", mode="before")
     def _assign_set_effects(cls, value: dict[str, Any]) -> dict[str, Any]:

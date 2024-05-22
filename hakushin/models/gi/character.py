@@ -29,6 +29,10 @@ class Namecard(APIModel):
     description: str = Field(alias="Desc")
     icon: str = Field(alias="Icon")
 
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/gi/UI/{value}.webp"
+
 
 class CharacterInfo(APIModel):
     """Character's information."""
@@ -43,6 +47,10 @@ class SkillUpgradeInfo(APIModel):
     icon: str = Field(alias="Icon")
     attributes: list[str] = Field(alias="Desc")
     parameters: list[float] = Field(alias="Param")
+
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/gi/UI/{value}.webp"
 
     @field_validator("attributes", mode="before")
     def _remove_empty_attributes(cls, value: list[str]) -> list[str]:
@@ -146,6 +154,10 @@ class CharacterDetail(APIModel):
         """Character's gacha art URL."""
         return self.icon.replace("AvatarIcon", "Gacha_AvatarImg")
 
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/gi/UI/{value}.webp"
+
     @field_validator("rarity", mode="before")
     def _convert_rarity(cls, value: str) -> Literal[4, 5]:
         return GI_CHARA_RARITY_MAP[value]
@@ -161,6 +173,10 @@ class Character(APIModel):
     element: GIElement
     names: dict[Literal["EN", "CHS", "KR", "JP"], str]
     name: str = Field(None)  # This value of this field is assigned in post processing.
+
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/gi/UI/{value}.webp"
 
     @field_validator("rarity", mode="before")
     def _convert_rarity(cls, value: str) -> Literal[4, 5]:

@@ -50,6 +50,10 @@ class RelicSetDetail(APIModel):
     parts: dict[str, Relic] = Field(alias="Parts")
     set_effects: SetDetailSetEffects = Field(alias="RequireNum")
 
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/hsr/UI/itemfigures/{value}.webp"
+
     @field_validator("set_effects", mode="before")
     def _assign_set_effects(cls, value: dict[str, Any]) -> dict[str, Any]:
         return {
@@ -91,6 +95,10 @@ class RelicSet(APIModel):
     names: dict[Literal["en", "cn", "kr", "jp"], str]
     name: str = Field(None)  # The value of this field is assigned in post processing.
     set_effect: RelicSetEffects = Field(alias="set")
+
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/hsr/UI/itemfigures/{value}.webp"
 
     @field_validator("set_effect", mode="before")
     def _assign_set_effect(cls, value: dict[str, Any]) -> dict[str, Any]:

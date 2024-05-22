@@ -1,6 +1,6 @@
 from typing import Any, Literal
 
-from pydantic import Field, model_validator
+from pydantic import Field, field_validator, model_validator
 
 from ..base import APIModel
 
@@ -43,6 +43,10 @@ class WeaponDetail(APIModel):
     ascension: dict[str, dict[str, float]] = Field(alias="Ascension")
     refinments: dict[str, WeaponRefinement] = Field(alias="Refinement")
 
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/gi/UI/{value}.webp"
+
 
 class Weapon(APIModel):
     """Genshin Impact weapon."""
@@ -53,6 +57,10 @@ class Weapon(APIModel):
     description: str = Field(alias="desc")
     names: dict[Literal["EN", "CHS", "KR", "JP"], str]
     name: str = Field(None)  # This value of this field is assigned in post processing.
+
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/gi/UI/{value}.webp"
 
     @model_validator(mode="before")
     def _transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:

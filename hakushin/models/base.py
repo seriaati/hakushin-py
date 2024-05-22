@@ -19,9 +19,7 @@ class APIModel(BaseModel):
     @model_validator(mode="after")
     def _format_fields(self) -> Self:
         for field_name, field_value in self.fields.items():
-            if "icon" in field_name:
-                setattr(self, field_name, f"https://api.hakush.in/gi/UI/{field_value}.webp")
-            elif field_name in {"name", "description", "story"} and isinstance(field_value, str):
+            if field_name in {"name", "description", "story"} and isinstance(field_value, str):
                 setattr(self, field_name, cleanup_text(field_value))
 
         return self
