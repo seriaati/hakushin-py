@@ -9,6 +9,7 @@ from hakushin.errors import HakushinError, NotFoundError
 
 from .constants import GI_LANG_MAP, HSR_API_LANG_MAP
 from .models import gi, hsr
+from .utils import cleanup_text, replace_placeholders
 
 __all__ = ("HakushinAPI",)
 
@@ -293,6 +294,34 @@ class HakushinAPI:
         endpoint = f"artifact/{set_id}"
         data = await self._request(endpoint, Game.GI, use_cache)
         return gi.ArtifactSetDetail(**data)
+
+    async def fetch_relic_sets(self, *, use_cache: bool = True) -> list[hsr.RelicSet]:
+        """Fetches all relic sets in the game.
+
+        Args:
+            use_cache (bool): Whether to use the cache.
+
+        Returns:
+            list[RelicSet]: The list of relic set objects.
+        """
+        endpoint = "relicset"
+        data = await self._request(endpoint, Game.HSR, use_cache, in_data=True)
+        sets = [hsr.RelicSet(id=int(set_id), **set_) for set_id, set_ in data.items()]
+
+        for set_ in sets:
+            set_.name = set_.names[HSR_API_LANG_MAP[self.lang]]
+            two_piece = set_.set_effect.two_piece
+            two_piece.description = replace_placeholders(
+                cleanup_text(two_piece.descriptions[HSR_API_LANG_MAP[self.lang]]),
+                two_piece.parameters,
+            )
+            if (four_piece := set_.set_effect.four_piece) is not None:
+                four_piece.description = replace_placeholders(
+                    cleanup_text(four_piece.descriptions[HSR_API_LANG_MAP[self.lang]]),
+                    four_piece.parameters,
+                )
+
+        return sets
 
     async def fetch_relic_set_detail(
         self, set_id: int, *, use_cache: bool = True
