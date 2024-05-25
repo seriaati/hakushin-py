@@ -237,6 +237,22 @@ class HakushinAPI:
         data = await self._request(endpoint, Game.GI, use_cache)
         return gi.WeaponDetail(**data)
 
+    async def fetch_light_cones(self, *, use_cache: bool = True) -> list[hsr.LightCone]:
+        """Fetches all light cones in the game.
+
+        Args:
+            use_cache (bool): Whether to use the cache.
+
+        Returns:
+            list[LightCone]: The list of light cone objects.
+        """
+        endpoint = "lightcone"
+        data = await self._request(endpoint, Game.HSR, use_cache, in_data=True)
+        return [
+            hsr.LightCone(id=int(light_cone_id), **light_cone)
+            for light_cone_id, light_cone in data.items()
+        ]
+
     async def fetch_light_cone_detail(
         self, light_cone_id: int, *, use_cache: bool = True
     ) -> hsr.LightConeDetail:

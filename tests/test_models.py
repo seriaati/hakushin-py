@@ -43,6 +43,12 @@ async def test_weapon() -> None:
 
 
 @pytest.mark.asyncio
+async def test_light_cones() -> None:
+    async with hakushin.HakushinAPI() as client:
+        await client.fetch_light_cones()
+
+
+@pytest.mark.asyncio
 async def test_light_cone() -> None:
     async with hakushin.HakushinAPI() as client:
         hsr_new = await client.fetch_new(hakushin.Game.HSR)

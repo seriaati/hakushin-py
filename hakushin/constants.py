@@ -15,7 +15,8 @@ HSR_CHARA_RARITY_MAP: Final[dict[str, Literal[4, 5]]] = {
     "CombatPowerAvatarRarityType5": 5,
 }
 
-HSR_LIGHT_CONE_RARITY_MAP: Final[dict[str, Literal[4, 5]]] = {
+HSR_LIGHT_CONE_RARITY_MAP: Final[dict[str, Literal[3, 4, 5]]] = {
+    "CombatPowerLightconeRarity3": 3,
     "CombatPowerLightconeRarity4": 4,
     "CombatPowerLightconeRarity5": 5,
 }
