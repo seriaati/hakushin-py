@@ -16,6 +16,12 @@ Hakush.in is a website that displays beta game data for Genshin Impact and Honka
 
 > Note: I am not the developer of hakush.in
 
+## Important Note
+
+This wrapper does not support all endpoints from hakush.in, it is mainly focused on fetching the beta game data.  
+This means I selectively chose the endpoints and API fields that I personally think are useful for theorycrafting.  
+If you want a more complete wrapper for game data, use [ambry.py](https://github.com/seriaati/ambr) and [yatta.py](https://github.com/seriaati/yatta) instead.
+
 ### Features
 
 - Fully typed.
