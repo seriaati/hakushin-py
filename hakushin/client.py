@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 import logging
-from typing import Any, Final, Literal, Self, overload
+from typing import TYPE_CHECKING, Any, Final, Literal, Self, overload
 
 from aiohttp_client_cache.backends.sqlite import SQLiteBackend
 from aiohttp_client_cache.session import CachedSession
@@ -10,6 +12,9 @@ from hakushin.errors import HakushinError, NotFoundError
 from .constants import GI_LANG_MAP, HSR_API_LANG_MAP
 from .models import gi, hsr
 from .utils import cleanup_text, replace_placeholders
+
+if TYPE_CHECKING:
+    import aiohttp
 
 __all__ = ("HakushinAPI",)
 
@@ -29,6 +34,7 @@ class HakushinAPI:
         cache_ttl: int = 3600,
         headers: dict[str, Any] | None = None,
         debug: bool = False,
+        session: aiohttp.ClientSession | None = None,
     ) -> None:
         """Initializes the Hakushin API client.
 
@@ -38,11 +44,12 @@ class HakushinAPI:
             cache_ttl (int): The time-to-live for cache entries.
             headers (dict): The headers to pass with the request.
             debug (bool): Whether to enable debug logging.
+            session (aiohttp.ClientSession): The client session to use.
         """
         self.lang = lang
         self.cache_ttl = cache_ttl
 
-        self._session: CachedSession | None = None
+        self._session = session
         self._cache = SQLiteBackend(cache_path, expire_after=cache_ttl)
         self._headers = headers or {"User-Agent": "hakuashin-py"}
         self._debug = debug
@@ -96,7 +103,7 @@ class HakushinAPI:
 
         LOGGER_.debug("Requesting %s...", url)
 
-        if not use_cache:
+        if not use_cache and isinstance(self._session, CachedSession):
             async with self._session.disabled(), self._session.get(url) as resp:
                 if resp.status != 200:
                     self._handle_error(resp.status, url)
@@ -124,7 +131,7 @@ class HakushinAPI:
 
     async def start(self) -> None:
         """Starts the client session."""
-        self._session = CachedSession(headers=self._headers, cache=self._cache)
+        self._session = self._session or CachedSession(headers=self._headers, cache=self._cache)
 
     async def close(self) -> None:
         """Closes the client session."""
