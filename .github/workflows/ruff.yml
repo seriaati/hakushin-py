@@ -1,0 +1,48 @@
+name: Ruff
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  ruff:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+      
+      - name: Set git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Run linter
+        run: ruff check --fix --output-format=github .
+
+      - name: Commit auto-fix changes
+        run: |
+          git add .
+          git diff-index --quiet HEAD || git commit -m "fix: Apply ruff auto-fixes"
+      
+      - name: Run formatter
+        run: ruff format .
+
+      - name: Commit formatting changes
+        run: |
+          git add .
+          git diff-index --quiet HEAD || git commit -m "style: Apply ruff formatting"
+      
+      - name: Push changes
+        run: git push origin main
