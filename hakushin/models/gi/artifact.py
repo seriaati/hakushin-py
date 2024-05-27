@@ -92,6 +92,8 @@ class ArtifactSet(APIModel):
     icon: str
     rarities: list[int] = Field(alias="rank")
     set_effect: ArtifactSetEffects = Field(alias="set")
+    names: dict[Literal["EN", "KR", "CHS", "JP"], str]
+    name: str = Field(None)  # The value of this field is assigned in post processing.
 
     @field_validator("icon", mode="before")
     def _convert_icon(cls, value: str) -> str:
@@ -103,3 +105,8 @@ class ArtifactSet(APIModel):
             "two_piece": next(iter(value.values())),
             "four_piece": list(value.values())[1] if len(value) > 1 else None,
         }
+
+    @model_validator(mode="before")
+    def _extract_names(cls, values: dict[str, Any]) -> dict[str, Any]:
+        values["names"] = next(iter(values["set"].values()))["name"]
+        return values

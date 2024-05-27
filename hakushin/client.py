@@ -289,6 +289,7 @@ class HakushinAPI:
         data = await self._request(endpoint, Game.GI, use_cache, in_data=True)
         sets = [gi.ArtifactSet(**set_) for set_ in data.values()]
         for set_ in sets:
+            set_.name = set_.names[GI_LANG_MAP[self.lang]]
             set_.set_effect.two_piece.name = set_.set_effect.two_piece.names[GI_LANG_MAP[self.lang]]
             set_.set_effect.two_piece.description = set_.set_effect.two_piece.descriptions[
                 GI_LANG_MAP[self.lang]
