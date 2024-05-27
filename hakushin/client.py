@@ -226,7 +226,10 @@ class HakushinAPI:
         """
         endpoint = "weapon"
         data = await self._request(endpoint, Game.GI, use_cache, in_data=True)
-        return [gi.Weapon(id=int(weapon_id), **weapon) for weapon_id, weapon in data.items()]
+        weapons = [gi.Weapon(id=int(weapon_id), **weapon) for weapon_id, weapon in data.items()]
+        for weapon in weapons:
+            weapon.name = weapon.names[GI_LANG_MAP[self.lang]]
+        return weapons
 
     async def fetch_weapon_detail(
         self, weapon_id: int, *, use_cache: bool = True
@@ -255,10 +258,13 @@ class HakushinAPI:
         """
         endpoint = "lightcone"
         data = await self._request(endpoint, Game.HSR, use_cache, in_data=True)
-        return [
+        light_cones = [
             hsr.LightCone(id=int(light_cone_id), **light_cone)
             for light_cone_id, light_cone in data.items()
         ]
+        for light_cone in light_cones:
+            light_cone.name = light_cone.names[HSR_API_LANG_MAP[self.lang]]
+        return light_cones
 
     async def fetch_light_cone_detail(
         self, light_cone_id: int, *, use_cache: bool = True
