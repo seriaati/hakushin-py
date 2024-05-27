@@ -13,6 +13,8 @@ __all__ = (
     "CharacterInfo",
     "CharacterPassive",
     "CharacterSkill",
+    "CharacterStatsModifier",
+    "FightPropGrowthCurve",
     "Namecard",
     "SkillUpgradeInfo",
     "UpgradeMaterial",
@@ -111,11 +113,15 @@ class UpgradeMaterialInfos(APIModel):
 
 
 class FightPropGrowthCurve(APIModel):
+    """Character's stat growth curve data."""
+
     stat_type: str = Field(alias="type")
     growth_type: str = Field(alias="growCurve")
 
 
 class CharacterStatsModifier(APIModel):
+    """Character's stat modifiers."""
+
     hp: dict[str, float] = Field(alias="HP")
     atk: dict[str, float] = Field(alias="ATK")
     def_: dict[str, float] = Field(alias="DEF")
