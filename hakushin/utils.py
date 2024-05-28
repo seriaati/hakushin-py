@@ -1,4 +1,8 @@
 import re
+from typing import Final, Mapping
+
+from .enums import Game
+from .models import gi
 
 __all__ = (
     "cleanup_text",
@@ -110,3 +114,59 @@ def replace_placeholders(text: str, param_list: list[float]) -> str:
         text = text.replace(placeholder, f"{round(value)}{'%' if format_ == '%' else ''}")
 
     return text
+
+
+NOT_ASCENDED_LEVEL_TO_ASCENSION: Final[Mapping[Game, dict[int, int]]] = {
+    Game.GI: {
+        80: 5,
+        70: 4,
+        60: 3,
+        50: 2,
+        40: 1,
+        20: 0,
+    },
+    Game.HSR: {
+        70: 5,
+        60: 4,
+        50: 3,
+        40: 2,
+        30: 1,
+        20: 0,
+    },
+}
+
+ASCENDED_LEVEL_TO_NOT_ASCENDED: Final[Mapping[Game[dict[tuple[int, int], int]]]] = {
+    Game.GI: {
+        (80, 90): 6,
+        (70, 80): 5,
+        (60, 70): 4,
+        (50, 60): 3,
+        (40, 50): 2,
+        (20, 40): 1,
+    }
+}
+
+
+def get_ascension_from_level(level: int, ascended: bool) -> int:
+    if not ascended and level in NOT_ASCENDED_LEVEL_TO_ASCENSION:
+        return NOT_ASCENDED_LEVEL_TO_ASCENSION[level]
+
+    for (start, end), ascension in ASCENDED_LEVEL_TO_NOT_ASCENDED.items():
+        if start <= level < end:
+            return ascension
+
+    return 0
+
+
+def calc_upgrade_stat_values(
+    character: gi.CharacterDetail,
+    level: int,
+    ascended: bool,
+) -> dict[str, float]:
+    result: dict[str, float] = {}
+
+    result["BaseHP"] = character.base_hp * character.stats_modifier.hp[str(level)]
+    result["BaseATK"] = character.base_atk * character.stats_modifier.atk[str(level)]
+    result["BaseDEF"] = character.base_def * character.stats_modifier.def_[str(level)]
+
+    ascension = get_ascension_from_level(level, ascended)
