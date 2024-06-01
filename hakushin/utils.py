@@ -1,12 +1,11 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING, Final
+from typing import Final, TypeVar
 
+from .constants import PERCENTAGE_FIGHT_PROPS
 from .enums import Game
-
-if TYPE_CHECKING:
-    from .models import gi
+from .models import gi, hsr
 
 __all__ = (
     "cleanup_text",
@@ -170,30 +169,40 @@ def get_ascension_from_level(level: int, ascended: bool, game: Game) -> int:
     return 0
 
 
-FIGHT_PROP_TO_STAT: Final[dict[str, str]] = {
-    "FIGHT_PROP_BASE_HP": "BaseHP",
-    "FIGHT_PROP_BASE_DEFENSE": "BaseDEF",
-    "FIGHT_PROP_BASE_ATTACK": "BaseATK",
+STAT_TO_FIGHT_PROP: Final[dict[str, str]] = {
+    "BaseHP": "FIGHT_PROP_BASE_HP",
+    "BaseDEF": "FIGHT_PROP_BASE_DEFENSE",
+    "BaseATK": "FIGHT_PROP_BASE_ATTACK",
 }
 
 
 def calc_upgrade_stat_values(
-    character: gi.CharacterDetail,
+    character: gi.CharacterDetail | hsr.CharacterDetail,
     level: int,
     ascended: bool,
-    game: Game,
 ) -> dict[str, float]:
+    """Calculate the stat values of a character at a certain level and ascension.
+
+    Args:
+        character (gi.CharacterDetail): The character to calculate the stats for.
+        level (int): The level of the character.
+        ascended (bool): Whether the character is ascended.
+    """
     result: dict[str, float] = {}
 
-    if game is Game.GI:
-        result["BaseHP"] = character.base_hp * character.stats_modifier.hp[str(level)]
-        result["BaseATK"] = character.base_atk * character.stats_modifier.atk[str(level)]
-        result["BaseDEF"] = character.base_def * character.stats_modifier.def_[str(level)]
+    if isinstance(character, gi.CharacterDetail):
+        result["FIGHT_PROP_BASE_HP"] = character.base_hp * character.stats_modifier.hp[str(level)]
+        result["FIGHT_PROP_BASE_ATTACK"] = (
+            character.base_atk * character.stats_modifier.atk[str(level)]
+        )
+        result["FIGHT_PROP_BASE_DEFENSE"] = (
+            character.base_def * character.stats_modifier.def_[str(level)]
+        )
 
-        ascension = get_ascension_from_level(level, ascended, game)
+        ascension = get_ascension_from_level(level, ascended, Game.GI)
         ascension = character.stats_modifier.ascension[ascension - 1]
         for fight_prop, value in ascension.items():
-            stat = FIGHT_PROP_TO_STAT.get(fight_prop, fight_prop)
+            stat = STAT_TO_FIGHT_PROP.get(fight_prop, fight_prop)
             if stat not in result:
                 result[stat] = 0
             result[stat] += value
@@ -201,3 +210,42 @@ def calc_upgrade_stat_values(
         raise NotImplementedError
 
     return result
+
+
+def format_stat_values(values: dict[str, float]) -> dict[str, str]:
+    """Format the stat values to a human-readable format.
+
+    Percentage values will be rounded to 1 decimal, while others will be rounded to the nearest integer.
+
+    Args:
+        values (dict[str, float]): A dictionary of fight prop ID and value.
+    """
+    result: dict[str, str] = {}
+
+    for fight_prop, value in values.items():
+        if fight_prop in PERCENTAGE_FIGHT_PROPS:
+            # round to 1 decimal
+            result[fight_prop] = f"{value:.1f}%"
+        else:
+            result[fight_prop] = str(round(value))
+
+    return result
+
+
+T = TypeVar("T")
+
+
+def replace_fight_prop_with_name(
+    values: dict[str, T], manual_weapon: dict[str, str]
+) -> dict[str, T]:
+    """Replace the fight prop with the corresponding name.
+
+    Manual weapon example: https://api.ambr.top/v2/cht/manualWeapon
+
+    Args:
+        values (dict[str, T]): A dictionary of fight prop ID and value.
+        manual_weapon (dict[str, str]): A dictionary from project ambr with fight prop ID and value.
+    """
+    return {
+        manual_weapon.get(fight_prop, fight_prop): value for fight_prop, value in values.items()
+    }
