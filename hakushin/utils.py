@@ -178,7 +178,7 @@ STAT_TO_FIGHT_PROP: Final[dict[str, str]] = {
 }
 
 
-def calc_gi_upgrade_stat_values(
+def calc_gi_chara_upgrade_stat_values(
     character: gi.CharacterDetail,
     level: int,
     ascended: bool,
@@ -205,6 +205,36 @@ def calc_gi_upgrade_stat_values(
         if stat not in result:
             result[stat] = 0
         result[stat] += value
+
+    return result
+
+
+def calc_gi_weapon_upgrade_stat_values(
+    weapon: gi.WeaponDetail,
+    level: int,
+    ascended: bool,
+) -> dict[str, float]:
+    """Calculate the stat values of a GI weapon at a certain level and ascension.
+
+    Args:
+        weapon: The weapon to calculate the stats for.
+        level: The level of the weapon.
+        ascended: Whether the weapon is ascended.
+    """
+    result: dict[str, float] = {}
+
+    result["FIGHT_PROP_BASE_ATK"] = (
+        weapon.stat_modifiers["ATK"].base * weapon.stat_modifiers["ATK"].levels[str(level)]
+    )
+
+    ascension = get_ascension_from_level(level, ascended, Game.GI)
+    if ascension == 0:
+        ascension = 1
+    ascension = weapon.ascension[str(ascension)]
+    for fight_prop, value in ascension.items():
+        if fight_prop not in result:
+            result[fight_prop] = 0
+        result[fight_prop] += value
 
     return result
 
