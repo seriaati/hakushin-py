@@ -249,3 +249,20 @@ def replace_fight_prop_with_name(
     return {
         manual_weapon.get(fight_prop, fight_prop): value for fight_prop, value in values.items()
     }
+
+
+def get_skill_attributes(descriptions: list[str], params: list[int | float]) -> str:
+    """Get the skill attributes from the descriptions.
+
+    Args:
+        descriptions (list[str]): The list of descriptions.
+        params (list[int | float]): The list of parameters.
+    """
+    result = ""
+    for desc in descriptions:
+        try:
+            k, v = replace_params(desc, params)
+        except ValueError:
+            continue
+        result += f"{k}: {v}\n"
+    return result
