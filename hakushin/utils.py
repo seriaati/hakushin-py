@@ -223,7 +223,7 @@ def calc_gi_weapon_upgrade_stat_values(
     """
     result: dict[str, float] = {}
 
-    result["FIGHT_PROP_BASE_ATK"] = (
+    result["FIGHT_PROP_BASE_ATTACK"] = (
         weapon.stat_modifiers["ATK"].base * weapon.stat_modifiers["ATK"].levels[str(level)]
     )
 
