@@ -39,7 +39,11 @@ class Namecard(APIModel):
 class CharacterInfo(APIModel):
     """Character's information."""
 
-    namecard: Namecard = Field(alias="Namecard")
+    namecard: Namecard | None = Field(None, alias="Namecard")
+
+    @field_validator("namecard", mode="before")
+    def _handle_empty_namecard(cls, value: dict[str, Any] | None) -> dict[str, Any] | None:
+        return value or None
 
 
 class SkillUpgradeInfo(APIModel):
