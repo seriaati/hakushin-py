@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import re
-from typing import Final, TypeVar
+from typing import TYPE_CHECKING, Final, TypeVar
 
 from .constants import PERCENTAGE_FIGHT_PROPS
 from .enums import Game
-from .models import gi, hsr
+
+if TYPE_CHECKING:
+    from .models import gi
 
 __all__ = (
     "cleanup_text",
@@ -176,38 +178,33 @@ STAT_TO_FIGHT_PROP: Final[dict[str, str]] = {
 }
 
 
-def calc_upgrade_stat_values(
-    character: gi.CharacterDetail | hsr.CharacterDetail,
+def calc_gi_upgrade_stat_values(
+    character: gi.CharacterDetail,
     level: int,
     ascended: bool,
 ) -> dict[str, float]:
-    """Calculate the stat values of a character at a certain level and ascension.
+    """Calculate the stat values of a GI character at a certain level and ascension.
 
     Args:
-        character (gi.CharacterDetail): The character to calculate the stats for.
-        level (int): The level of the character.
-        ascended (bool): Whether the character is ascended.
+        character: The character to calculate the stats for.
+        level: The level of the character.
+        ascended: Whether the character is ascended.
     """
     result: dict[str, float] = {}
 
-    if isinstance(character, gi.CharacterDetail):
-        result["FIGHT_PROP_BASE_HP"] = character.base_hp * character.stats_modifier.hp[str(level)]
-        result["FIGHT_PROP_BASE_ATTACK"] = (
-            character.base_atk * character.stats_modifier.atk[str(level)]
-        )
-        result["FIGHT_PROP_BASE_DEFENSE"] = (
-            character.base_def * character.stats_modifier.def_[str(level)]
-        )
+    result["FIGHT_PROP_BASE_HP"] = character.base_hp * character.stats_modifier.hp[str(level)]
+    result["FIGHT_PROP_BASE_ATTACK"] = character.base_atk * character.stats_modifier.atk[str(level)]
+    result["FIGHT_PROP_BASE_DEFENSE"] = (
+        character.base_def * character.stats_modifier.def_[str(level)]
+    )
 
-        ascension = get_ascension_from_level(level, ascended, Game.GI)
-        ascension = character.stats_modifier.ascension[ascension - 1]
-        for fight_prop, value in ascension.items():
-            stat = STAT_TO_FIGHT_PROP.get(fight_prop, fight_prop)
-            if stat not in result:
-                result[stat] = 0
-            result[stat] += value
-    else:
-        raise NotImplementedError
+    ascension = get_ascension_from_level(level, ascended, Game.GI)
+    ascension = character.stats_modifier.ascension[ascension - 1]
+    for fight_prop, value in ascension.items():
+        stat = STAT_TO_FIGHT_PROP.get(fight_prop, fight_prop)
+        if stat not in result:
+            result[stat] = 0
+        result[stat] += value
 
     return result
 
