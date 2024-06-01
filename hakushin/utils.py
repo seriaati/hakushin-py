@@ -227,6 +227,11 @@ def calc_gi_weapon_upgrade_stat_values(
         weapon.stat_modifiers["ATK"].base * weapon.stat_modifiers["ATK"].levels[str(level)]
     )
 
+    for fight_prop, value in weapon.stat_modifiers.items():
+        if fight_prop == "ATK":
+            continue
+        result[fight_prop] = value.base * value.levels[str(level)]
+
     ascension = get_ascension_from_level(level, ascended, Game.GI)
     if ascension == 0:
         ascension = 1
