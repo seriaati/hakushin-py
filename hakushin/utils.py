@@ -1,8 +1,12 @@
+from __future__ import annotations
+
 import re
-from typing import Final, Mapping
+from typing import TYPE_CHECKING, Final
 
 from .enums import Game
-from .models import gi
+
+if TYPE_CHECKING:
+    from .models import gi
 
 __all__ = (
     "cleanup_text",
@@ -116,7 +120,7 @@ def replace_placeholders(text: str, param_list: list[float]) -> str:
     return text
 
 
-NOT_ASCENDED_LEVEL_TO_ASCENSION: Final[Mapping[Game, dict[int, int]]] = {
+NOT_ASCENDED_LEVEL_TO_ASCENSION: Final[dict[Game, dict[int, int]]] = {
     Game.GI: {
         80: 5,
         70: 4,
@@ -135,7 +139,7 @@ NOT_ASCENDED_LEVEL_TO_ASCENSION: Final[Mapping[Game, dict[int, int]]] = {
     },
 }
 
-ASCENDED_LEVEL_TO_NOT_ASCENDED: Final[Mapping[Game[dict[tuple[int, int], int]]]] = {
+ASCENDED_LEVEL_TO_ASCENSION: Final[dict[Game, dict[tuple[int, int], int]]] = {
     Game.GI: {
         (80, 90): 6,
         (70, 80): 5,
@@ -143,30 +147,57 @@ ASCENDED_LEVEL_TO_NOT_ASCENDED: Final[Mapping[Game[dict[tuple[int, int], int]]]]
         (50, 60): 3,
         (40, 50): 2,
         (20, 40): 1,
-    }
+    },
+    Game.HSR: {
+        (70, 80): 6,
+        (60, 70): 5,
+        (50, 60): 4,
+        (40, 50): 3,
+        (30, 40): 2,
+        (20, 30): 1,
+    },
 }
 
 
-def get_ascension_from_level(level: int, ascended: bool) -> int:
-    if not ascended and level in NOT_ASCENDED_LEVEL_TO_ASCENSION:
-        return NOT_ASCENDED_LEVEL_TO_ASCENSION[level]
+def get_ascension_from_level(level: int, ascended: bool, game: Game) -> int:
+    if not ascended and level in NOT_ASCENDED_LEVEL_TO_ASCENSION[game]:
+        return NOT_ASCENDED_LEVEL_TO_ASCENSION[game][level]
 
-    for (start, end), ascension in ASCENDED_LEVEL_TO_NOT_ASCENDED.items():
-        if start <= level < end:
+    for (start, end), ascension in ASCENDED_LEVEL_TO_ASCENSION[game].items():
+        if start <= level <= end:
             return ascension
 
     return 0
+
+
+FIGHT_PROP_TO_STAT: Final[dict[str, str]] = {
+    "FIGHT_PROP_BASE_HP": "BaseHP",
+    "FIGHT_PROP_BASE_DEFENSE": "BaseDEF",
+    "FIGHT_PROP_BASE_ATTACK": "BaseATK",
+}
 
 
 def calc_upgrade_stat_values(
     character: gi.CharacterDetail,
     level: int,
     ascended: bool,
+    game: Game,
 ) -> dict[str, float]:
     result: dict[str, float] = {}
 
-    result["BaseHP"] = character.base_hp * character.stats_modifier.hp[str(level)]
-    result["BaseATK"] = character.base_atk * character.stats_modifier.atk[str(level)]
-    result["BaseDEF"] = character.base_def * character.stats_modifier.def_[str(level)]
+    if game is Game.GI:
+        result["BaseHP"] = character.base_hp * character.stats_modifier.hp[str(level)]
+        result["BaseATK"] = character.base_atk * character.stats_modifier.atk[str(level)]
+        result["BaseDEF"] = character.base_def * character.stats_modifier.def_[str(level)]
 
-    ascension = get_ascension_from_level(level, ascended)
+        ascension = get_ascension_from_level(level, ascended, game)
+        ascension = character.stats_modifier.ascension[ascension - 1]
+        for fight_prop, value in ascension.items():
+            stat = FIGHT_PROP_TO_STAT.get(fight_prop, fight_prop)
+            if stat not in result:
+                result[stat] = 0
+            result[stat] += value
+    else:
+        raise NotImplementedError
+
+    return result
