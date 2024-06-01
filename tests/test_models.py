@@ -22,7 +22,7 @@ async def test_character() -> None:
     async with hakushin.HakushinAPI() as client:
         gi_new = await client.fetch_new(hakushin.Game.GI)
         for chara_id in gi_new.character_ids:
-            await client.fetch_character_detail(chara_id, hakushin.Game.GI)
+            await client.fetch_character_detail(str(chara_id), hakushin.Game.GI)
         hsr_new = await client.fetch_new(hakushin.Game.HSR)
         for chara_id in hsr_new.character_ids:
             await client.fetch_character_detail(chara_id, hakushin.Game.HSR)

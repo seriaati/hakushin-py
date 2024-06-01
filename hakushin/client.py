@@ -192,14 +192,14 @@ class HakushinAPI:
 
     @overload
     async def fetch_character_detail(
-        self, character_id: int, game: Literal[Game.GI], *, use_cache: bool = True
+        self, character_id: str, game: Literal[Game.GI], *, use_cache: bool = True
     ) -> gi.CharacterDetail: ...
     @overload
     async def fetch_character_detail(
         self, character_id: int, game: Literal[Game.HSR], *, use_cache: bool = True
     ) -> hsr.CharacterDetail: ...
     async def fetch_character_detail(
-        self, character_id: int, game: Game, *, use_cache: bool = True
+        self, character_id: str | int, game: Game, *, use_cache: bool = True
     ) -> gi.CharacterDetail | hsr.CharacterDetail:
         """Fetches a character with detailed info.
 
