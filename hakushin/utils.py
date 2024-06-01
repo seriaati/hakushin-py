@@ -222,7 +222,7 @@ def format_stat_values(values: dict[str, float]) -> dict[str, str]:
     for fight_prop, value in values.items():
         if fight_prop in PERCENTAGE_FIGHT_PROPS:
             # round to 1 decimal
-            result[fight_prop] = f"{value:.1f}%"
+            result[fight_prop] = f"{value * 100:.1f}%"
         else:
             result[fight_prop] = str(round(value))
 
