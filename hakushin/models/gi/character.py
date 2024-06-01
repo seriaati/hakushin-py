@@ -91,6 +91,11 @@ class CharacterConstellation(APIModel):
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
     parameters: list[float] = Field(alias="ParamList")
+    icon: str = Field(alias="Icon")
+
+    @field_validator("icon", mode="before")
+    def _convert_icon(cls, value: str) -> str:
+        return f"https://api.hakush.in/gi/UI/{value}.webp"
 
 
 class UpgradeMaterial(APIModel):
