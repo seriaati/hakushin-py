@@ -223,9 +223,9 @@ def calc_hsr_chara_upgrade_stat_values(
     result["baseAttack"] = stats["AttackBase"] + stats["AttackAdd"] * (level - 1)
     result["baseDefence"] = stats["DefenceBase"] + stats["DefenceAdd"] * (level - 1)
 
-    result["SpeedBase"] = stats["SpeedBase"]
-    result["CriticalChance"] = stats["CriticalChance"]
-    result["CriticalDamage"] = stats["CriticalDamage"]
+    result["baseSpeed"] = stats["SpeedBase"]
+    result["criticalChanceBase"] = stats["CriticalChance"]
+    result["criticalDamageBase"] = stats["CriticalDamage"]
 
     return result
 
