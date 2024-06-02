@@ -45,6 +45,7 @@ class CharacterDetail(APIModel):
     rarity: Literal[4, 5] = Field(alias="Rarity")
     eidolons: dict[str, Eidolon] = Field(alias="Ranks")
     skills: dict[str, Skill] = Field(alias="Skills")
+    ascension_stats: dict[str, dict[str, Any]] = Field(alias="Stats")
 
     @field_validator("rarity", mode="before")
     def _convert_rarity(cls, value: str) -> Literal[4, 5]:

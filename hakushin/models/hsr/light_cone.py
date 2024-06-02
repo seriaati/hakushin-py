@@ -33,6 +33,7 @@ class LightConeDetail(APIModel):
     description: str = Field(alias="Desc")
     rarity: Literal[3, 4, 5] = Field(alias="Rarity")
     superimpose_info: SuperimposeInfo = Field(alias="Refinements")
+    ascension_stats: list[dict[str, Any]] = Field(alias="Stats")
 
     @field_validator("rarity", mode="before")
     def _convert_rarity(cls, value: str) -> Literal[3, 4, 5]:

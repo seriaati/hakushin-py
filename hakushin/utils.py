@@ -7,15 +7,7 @@ from .constants import PERCENTAGE_FIGHT_PROPS
 from .enums import Game
 
 if TYPE_CHECKING:
-    from .models import gi
-
-__all__ = (
-    "cleanup_text",
-    "format_num",
-    "replace_layout",
-    "replace_params",
-    "replace_placeholders",
-)
+    from .models import gi, hsr
 
 
 def format_num(digits: int, calculation: float) -> str:
@@ -161,6 +153,7 @@ ASCENDED_LEVEL_TO_ASCENSION: Final[dict[Game, dict[tuple[int, int], int]]] = {
 
 
 def get_ascension_from_level(level: int, ascended: bool, game: Game) -> int:
+    """Get the ascension from the level and ascended status."""
     if not ascended and level in NOT_ASCENDED_LEVEL_TO_ASCENSION[game]:
         return NOT_ASCENDED_LEVEL_TO_ASCENSION[game][level]
 
@@ -183,7 +176,7 @@ def calc_gi_chara_upgrade_stat_values(
     level: int,
     ascended: bool,
 ) -> dict[str, float]:
-    """Calculate the stat values of a GI character at a certain level and ascension.
+    """Calculate the stat values of a GI character at a certain level and ascension status.
 
     Args:
         character: The character to calculate the stats for.
@@ -209,7 +202,35 @@ def calc_gi_chara_upgrade_stat_values(
     return result
 
 
-def calc_gi_weapon_upgrade_stat_values(
+def calc_hsr_chara_upgrade_stat_values(
+    character: hsr.CharacterDetail,
+    level: int,
+    ascended: bool,
+) -> dict[str, float]:
+    """Calculate the stat values of a HSR character at a certain level and ascension status.
+
+    Args:
+        character: The character to calculate the stats for.
+        level: The level of the character.
+        ascended: Whether the character is ascended.
+    """
+    result: dict[str, float] = {}
+
+    ascension = get_ascension_from_level(level, ascended, Game.HSR)
+    stats = character.ascension_stats[str(ascension)]
+
+    result["baseHP"] = stats["HPBase"] + stats["HPAdd"] * (level - 1)
+    result["baseAttack"] = stats["AttackBase"] + stats["AttackAdd"] * (level - 1)
+    result["baseDefence"] = stats["DefenceBase"] + stats["DefenceAdd"] * (level - 1)
+
+    result["SpeedBase"] = stats["SpeedBase"]
+    result["CriticalChance"] = stats["CriticalChance"]
+    result["CriticalDamage"] = stats["CriticalDamage"]
+
+    return result
+
+
+def calc_weapon_upgrade_stat_values(
     weapon: gi.WeaponDetail,
     level: int,
     ascended: bool,
@@ -240,6 +261,30 @@ def calc_gi_weapon_upgrade_stat_values(
         if fight_prop not in result:
             result[fight_prop] = 0
         result[fight_prop] += value
+
+    return result
+
+
+def calc_light_cone_upgrade_stat_values(
+    light_cone: hsr.LightConeDetail,
+    level: int,
+    ascended: bool,
+) -> dict[str, float]:
+    """Calculate the stat values of a HSR light cone at a certain level and ascension status.
+
+    Args:
+        light_cone: The light cone to calculate the stats for.
+        level: The level of the light cone.
+        ascended: Whether the light cone is ascended.
+    """
+    result: dict[str, float] = {}
+
+    ascension = get_ascension_from_level(level, ascended, Game.HSR)
+    stats = light_cone.ascension_stats[ascension]
+
+    result["HPBase"] = stats["BaseHP"] + stats["BaseHPAdd"] * (level - 1)
+    result["AttackBase"] = stats["BaseAttack"] + stats["BaseAttackAdd"] * (level - 1)
+    result["DefenceBase"] = stats["BaseDefence"] + stats["BaseDefenceAdd"] * (level - 1)
 
     return result
 
