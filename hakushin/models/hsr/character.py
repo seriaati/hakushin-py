@@ -1,6 +1,6 @@
 from typing import Any, Literal
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, computed_field, field_validator, model_validator
 
 from ...constants import HSR_CHARA_RARITY_MAP
 from ...enums import HSRElement, HSRPath
@@ -25,6 +25,12 @@ class Skill(APIModel):
     tag: str = Field(alias="Tag")
     energy_generation: int | None = Field(None, alias="SPBase")
     level_info: dict[str, SkillLevelInfo] = Field(alias="Level")
+
+    @computed_field
+    @property
+    def max_level(self) -> int:
+        """Skill's max level."""
+        return max(int(level) for level in self.level_info)
 
 
 class Eidolon(APIModel):
