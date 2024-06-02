@@ -41,6 +41,14 @@ class Eidolon(APIModel):
     description: str = Field(alias="Desc")
     parameters: list[float] = Field(alias="ParamList")
 
+    @computed_field
+    @property
+    def image(self) -> str:
+        """Eidolon's image URL."""
+        character_id = str(self.id)[:4]
+        eidolon_index = str(self.id)[-1]
+        return f"https://api.hakush.in/hsr/UI/rank/_dependencies/textures/{character_id}/{character_id}_Rank_{eidolon_index}.webp"
+
 
 class CharacterDetail(APIModel):
     """HSR character detail."""
