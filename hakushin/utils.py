@@ -100,7 +100,7 @@ def replace_placeholders(text: str, param_list: list[float]) -> str:
     Returns:
         str: The text with placeholders replaced by their corresponding values.
     """
-    placeholders: list[str] = re.findall(r"#\d+\[i\]%?", text)
+    placeholders: list[str] = re.findall(r"#\d+\[[^\]]+\]%", text)
 
     for placeholder in placeholders:
         index = int(placeholder[1])
