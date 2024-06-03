@@ -11,7 +11,7 @@ from hakushin.errors import HakushinError, NotFoundError
 
 from .constants import GI_LANG_MAP, HSR_API_LANG_MAP
 from .models import gi, hsr
-from .utils import cleanup_text, replace_placeholders
+from .utils import cleanup_text, remove_ruby_tags, replace_placeholders
 
 if TYPE_CHECKING:
     import aiohttp
@@ -186,7 +186,7 @@ class HakushinAPI:
         else:
             characters = [hsr.Character(id=int(char_id), **char) for char_id, char in data.items()]
             for char in characters:
-                char.name = char.names[HSR_API_LANG_MAP[self.lang]]
+                char.name = remove_ruby_tags(char.names[HSR_API_LANG_MAP[self.lang]])
 
         return characters
 
@@ -263,7 +263,7 @@ class HakushinAPI:
             for light_cone_id, light_cone in data.items()
         ]
         for light_cone in light_cones:
-            light_cone.name = light_cone.names[HSR_API_LANG_MAP[self.lang]]
+            light_cone.name = remove_ruby_tags(light_cone.names[HSR_API_LANG_MAP[self.lang]])
         return light_cones
 
     async def fetch_light_cone_detail(
@@ -339,7 +339,7 @@ class HakushinAPI:
         sets = [hsr.RelicSet(id=int(set_id), **set_) for set_id, set_ in data.items()]
 
         for set_ in sets:
-            set_.name = set_.names[HSR_API_LANG_MAP[self.lang]]
+            set_.name = remove_ruby_tags(set_.names[HSR_API_LANG_MAP[self.lang]])
             two_piece = set_.set_effect.two_piece
             two_piece.description = replace_placeholders(
                 cleanup_text(two_piece.descriptions[HSR_API_LANG_MAP[self.lang]]),
