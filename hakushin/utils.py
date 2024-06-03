@@ -350,5 +350,5 @@ def remove_ruby_tags(text: str) -> str:
     # Remove {RUBY_E#} tags
     text = re.sub(r"\{RUBY_E#\}", "", text)
     # Remove {RUBY_B...} tags
-    text = re.sub(r"\{RUBY_B[^}]*\}", "", text)
+    text = re.sub(r"\{RUBY_B#.*?\}", "", text)
     return text
