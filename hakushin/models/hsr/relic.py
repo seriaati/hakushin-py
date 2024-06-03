@@ -1,6 +1,6 @@
 from typing import Any, Literal, Self
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, computed_field, field_validator, model_validator
 
 from ...utils import replace_placeholders
 from ..base import APIModel
@@ -18,9 +18,18 @@ __all__ = (
 class Relic(APIModel):
     """HSR relic."""
 
+    id: int = Field(None)  # This field is not present in the API response.
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
     story: str = Field(alias="Story")
+
+    @computed_field
+    @property
+    def icon(self) -> str:
+        """Relic's icon URL."""
+        relic_id = str(self.id)[1:4]
+        part_id = str(self.id)[-1]
+        return f"https://api.hakush.in/hsr/UI/relicfigures/IconRelic_{relic_id}_{part_id}.webp"
 
 
 class SetDetailSetEffect(APIModel):
@@ -52,7 +61,8 @@ class RelicSetDetail(APIModel):
 
     @field_validator("icon", mode="before")
     def _convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/hsr/UI/itemfigures/{value}.webp"
+        icon_id = value.split("/")[-1].split(".")[0]
+        return f"https://api.hakush.in/hsr/UI/itemfigures/{icon_id}.webp"
 
     @field_validator("set_effects", mode="before")
     def _assign_set_effects(cls, value: dict[str, Any]) -> dict[str, Any]:
@@ -60,6 +70,10 @@ class RelicSetDetail(APIModel):
             "two_piece": value["2"],
             "four_piece": value.get("4"),
         }
+
+    @field_validator("parts", mode="before")
+    def _convert_parts(cls, value: dict[str, Any]) -> dict[str, Any]:
+        return {key: Relic(id=int(key), **value[key]) for key in value}
 
 
 class RelicSetEffect(APIModel):
@@ -98,7 +112,8 @@ class RelicSet(APIModel):
 
     @field_validator("icon", mode="before")
     def _convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/hsr/UI/itemfigures/{value}.webp"
+        icon_id = value.split("/")[-1].split(".")[0]
+        return f"https://api.hakush.in/hsr/UI/itemfigures/{icon_id}.webp"
 
     @field_validator("set_effect", mode="before")
     def _assign_set_effect(cls, value: dict[str, Any]) -> dict[str, Any]:
