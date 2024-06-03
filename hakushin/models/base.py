@@ -2,7 +2,7 @@ from typing import Any, Self
 
 from pydantic import BaseModel, model_validator
 
-from ..utils import cleanup_text
+from ..utils import cleanup_text, remove_ruby_tags
 
 
 class APIModel(BaseModel):
@@ -20,6 +20,6 @@ class APIModel(BaseModel):
     def _format_fields(self) -> Self:
         for field_name, field_value in self.fields.items():
             if field_name in {"name", "description", "story"} and isinstance(field_value, str):
-                setattr(self, field_name, cleanup_text(field_value))
+                setattr(self, field_name, remove_ruby_tags(cleanup_text(field_value)))
 
         return self

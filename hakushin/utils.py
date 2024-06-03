@@ -343,3 +343,12 @@ def get_skill_attributes(descriptions: list[str], params: list[int | float]) -> 
             continue
         result += f"{k}: {v}\n"
     return result
+
+
+def remove_ruby_tags(text: str) -> str:
+    """Remove ruby tags from a string."""
+    # Remove {RUBY_E#} tags
+    text = re.sub(r"\{RUBY_E#\}", "", text)
+    # Remove {RUBY_B...} tags
+    text = re.sub(r"\{RUBY_B[^}]*\}", "", text)
+    return text
