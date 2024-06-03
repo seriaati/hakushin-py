@@ -282,9 +282,9 @@ def calc_light_cone_upgrade_stat_values(
     ascension = get_ascension_from_level(level, ascended, Game.HSR)
     stats = light_cone.ascension_stats[ascension]
 
-    result["HPBase"] = stats["BaseHP"] + stats["BaseHPAdd"] * (level - 1)
-    result["AttackBase"] = stats["BaseAttack"] + stats["BaseAttackAdd"] * (level - 1)
-    result["DefenceBase"] = stats["BaseDefence"] + stats["BaseDefenceAdd"] * (level - 1)
+    result["BaseHP"] = stats["BaseHP"] + stats["BaseHPAdd"] * (level - 1)
+    result["BaseAttack"] = stats["BaseAttack"] + stats["BaseAttackAdd"] * (level - 1)
+    result["BaseDefence"] = stats["BaseDefence"] + stats["BaseDefenceAdd"] * (level - 1)
 
     return result
 
