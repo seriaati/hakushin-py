@@ -190,7 +190,7 @@ class Character(APIModel):
     icon: str
     rarity: Literal[4, 5] = Field(alias="rank")
     description: str = Field(alias="desc")
-    element: GIElement
+    element: GIElement | None = None
     names: dict[Literal["EN", "CHS", "KR", "JP"], str]
     name: str = Field(None)  # This value of this field is assigned in post processing.
 
@@ -201,6 +201,10 @@ class Character(APIModel):
     @field_validator("rarity", mode="before")
     def _convert_rarity(cls, value: str) -> Literal[4, 5]:
         return GI_CHARA_RARITY_MAP[value]
+
+    @field_validator("element", mode="before")
+    def _convert_element(cls, value: str) -> GIElement | None:
+        return GIElement(value) if value else None
 
     @model_validator(mode="before")
     def _transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
