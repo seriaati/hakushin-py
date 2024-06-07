@@ -1,6 +1,6 @@
 from typing import Final, Literal
 
-from .enums import Language
+from .enums import HSRPath, Language
 
 __all__ = (
     "GI_CHARA_RARITY_MAP",
@@ -108,3 +108,42 @@ PERCENTAGE_FIGHT_PROPS: Final[set[str]] = {
     "imaginaryResistanceDelta",
 }
 """Set of fight props that should be displayed as percentage value."""
+
+HSR_PATH_NAMES: Final[dict[Language, dict[HSRPath, str]]] = {
+    Language.EN: {
+        HSRPath.ABUNDANCE: "Abundance",
+        HSRPath.DESTRUCTION: "Destruction",
+        HSRPath.ERUDITION: "Erudition",
+        HSRPath.HARMONY: "Harmony",
+        HSRPath.NIHILITY: "Nihility",
+        HSRPath.PRESERVATION: "Preservation",
+        HSRPath.THE_HUNT: "The Hunt",
+    },
+    Language.JA: {
+        HSRPath.ABUNDANCE: "豊穣",
+        HSRPath.DESTRUCTION: "壊滅",
+        HSRPath.ERUDITION: "知恵",
+        HSRPath.HARMONY: "調和",
+        HSRPath.NIHILITY: "虚無",
+        HSRPath.PRESERVATION: "存護",
+        HSRPath.THE_HUNT: "巡狩",
+    },
+    Language.ZH: {
+        HSRPath.ABUNDANCE: "豐饒",
+        HSRPath.DESTRUCTION: "毀滅",
+        HSRPath.ERUDITION: "智識",
+        HSRPath.HARMONY: "同諧",
+        HSRPath.NIHILITY: "虚無",
+        HSRPath.PRESERVATION: "存護",
+        HSRPath.THE_HUNT: "巡獵",
+    },
+    Language.KO: {
+        HSRPath.ABUNDANCE: "풍요",
+        HSRPath.DESTRUCTION: "파멸",
+        HSRPath.ERUDITION: "지식",
+        HSRPath.HARMONY: "화합",
+        HSRPath.NIHILITY: "공허",
+        HSRPath.PRESERVATION: "보존",
+        HSRPath.THE_HUNT: "수렵",
+    },
+}
