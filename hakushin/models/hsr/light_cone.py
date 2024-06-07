@@ -31,6 +31,7 @@ class LightConeDetail(APIModel):
     id: int = Field(alias="Id")
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
+    path: HSRPath = Field(alias="BaseType")
     rarity: Literal[3, 4, 5] = Field(alias="Rarity")
     superimpose_info: SuperimposeInfo = Field(alias="Refinements")
     ascension_stats: list[dict[str, Any]] = Field(alias="Stats")
@@ -41,9 +42,9 @@ class LightConeDetail(APIModel):
 
     @model_validator(mode="before")
     def _extract_id(cls, values: dict[str, Any]) -> dict[str, Any]:
-        """Use a hacky way to extract character ID from relic recommendation.
+        """Use a hacky way to extract LC ID from relic recommendation.
 
-        I don't understand why the API doesn't have the character ID in the response.
+        I don't understand why the API doesn't have the LC ID in the response.
         """
         values["Id"] = values["Stats"][0]["EquipmentID"]
         return values
