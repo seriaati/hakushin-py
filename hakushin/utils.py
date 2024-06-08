@@ -1,9 +1,15 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING, Final, TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
-from .constants import PERCENTAGE_FIGHT_PROPS
+from .constants import (
+    ASCENDED_LEVEL_TO_ASCENSION,
+    ASCENSION_TO_MAX_LEVEL,
+    NOT_ASCENDED_LEVEL_TO_ASCENSION,
+    PERCENTAGE_FIGHT_PROPS,
+    STAT_TO_FIGHT_PROP,
+)
 from .enums import Game
 
 if TYPE_CHECKING:
@@ -113,45 +119,6 @@ def replace_placeholders(text: str, param_list: list[float]) -> str:
     return text
 
 
-NOT_ASCENDED_LEVEL_TO_ASCENSION: Final[dict[Game, dict[int, int]]] = {
-    Game.GI: {
-        80: 5,
-        70: 4,
-        60: 3,
-        50: 2,
-        40: 1,
-        20: 0,
-    },
-    Game.HSR: {
-        70: 5,
-        60: 4,
-        50: 3,
-        40: 2,
-        30: 1,
-        20: 0,
-    },
-}
-
-ASCENDED_LEVEL_TO_ASCENSION: Final[dict[Game, dict[tuple[int, int], int]]] = {
-    Game.GI: {
-        (80, 90): 6,
-        (70, 80): 5,
-        (60, 70): 4,
-        (50, 60): 3,
-        (40, 50): 2,
-        (20, 40): 1,
-    },
-    Game.HSR: {
-        (70, 80): 6,
-        (60, 70): 5,
-        (50, 60): 4,
-        (40, 50): 3,
-        (30, 40): 2,
-        (20, 30): 1,
-    },
-}
-
-
 def get_ascension_from_level(level: int, ascended: bool, game: Game) -> int:
     """Get the ascension from the level and ascended status."""
     if not ascended and level in NOT_ASCENDED_LEVEL_TO_ASCENSION[game]:
@@ -164,11 +131,9 @@ def get_ascension_from_level(level: int, ascended: bool, game: Game) -> int:
     return 0
 
 
-STAT_TO_FIGHT_PROP: Final[dict[str, str]] = {
-    "BaseHP": "FIGHT_PROP_BASE_HP",
-    "BaseDEF": "FIGHT_PROP_BASE_DEFENSE",
-    "BaseATK": "FIGHT_PROP_BASE_ATTACK",
-}
+def get_max_level_from_ascension(ascension: int, game: Game) -> int:
+    """Get the max level from the ascension."""
+    return ASCENSION_TO_MAX_LEVEL[game][ascension]
 
 
 def calc_gi_chara_upgrade_stat_values(

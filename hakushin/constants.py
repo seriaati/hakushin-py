@@ -1,6 +1,6 @@
 from typing import Final, Literal
 
-from .enums import HSRPath, Language
+from .enums import Game, HSRPath, Language
 
 __all__ = (
     "GI_CHARA_RARITY_MAP",
@@ -145,5 +145,70 @@ HSR_PATH_NAMES: Final[dict[Language, dict[HSRPath, str]]] = {
         HSRPath.NIHILITY: "공허",
         HSRPath.PRESERVATION: "보존",
         HSRPath.THE_HUNT: "수렵",
+    },
+}
+
+STAT_TO_FIGHT_PROP: Final[dict[str, str]] = {
+    "BaseHP": "FIGHT_PROP_BASE_HP",
+    "BaseDEF": "FIGHT_PROP_BASE_DEFENSE",
+    "BaseATK": "FIGHT_PROP_BASE_ATTACK",
+}
+
+NOT_ASCENDED_LEVEL_TO_ASCENSION: Final[dict[Game, dict[int, int]]] = {
+    Game.GI: {
+        80: 5,
+        70: 4,
+        60: 3,
+        50: 2,
+        40: 1,
+        20: 0,
+    },
+    Game.HSR: {
+        70: 5,
+        60: 4,
+        50: 3,
+        40: 2,
+        30: 1,
+        20: 0,
+    },
+}
+
+ASCENDED_LEVEL_TO_ASCENSION: Final[dict[Game, dict[tuple[int, int], int]]] = {
+    Game.GI: {
+        (80, 90): 6,
+        (70, 80): 5,
+        (60, 70): 4,
+        (50, 60): 3,
+        (40, 50): 2,
+        (20, 40): 1,
+    },
+    Game.HSR: {
+        (70, 80): 6,
+        (60, 70): 5,
+        (50, 60): 4,
+        (40, 50): 3,
+        (30, 40): 2,
+        (20, 30): 1,
+    },
+}
+
+ASCENSION_TO_MAX_LEVEL: Final[dict[Game, dict[int, int]]] = {
+    Game.GI: {
+        0: 20,
+        1: 40,
+        2: 50,
+        3: 60,
+        4: 70,
+        5: 80,
+        6: 90,
+    },
+    Game.HSR: {
+        0: 20,
+        1: 30,
+        2: 40,
+        3: 50,
+        4: 60,
+        5: 70,
+        6: 80,
     },
 }
