@@ -9,7 +9,7 @@ from aiohttp_client_cache.session import CachedSession
 from hakushin.enums import Game, Language
 from hakushin.errors import HakushinError, NotFoundError
 
-from .constants import GI_LANG_MAP, HSR_API_LANG_MAP
+from .constants import GI_LANG_MAP, HSR_API_LANG_MAP, TRAILBLAZER_NAMES
 from .models import gi, hsr
 from .utils import cleanup_text, remove_ruby_tags, replace_placeholders
 
@@ -187,6 +187,8 @@ class HakushinAPI:
             characters = [hsr.Character(id=int(char_id), **char) for char_id, char in data.items()]
             for char in characters:
                 char.name = remove_ruby_tags(char.names[HSR_API_LANG_MAP[self.lang]])
+                if char.name == "{NICKNAME}":
+                    char.name = TRAILBLAZER_NAMES[self.lang]
 
         return characters
 

@@ -148,6 +148,13 @@ HSR_PATH_NAMES: Final[dict[Language, dict[HSRPath, str]]] = {
     },
 }
 
+TRAILBLAZER_NAMES: Final[dict[Language, str]] = {
+    Language.EN: "Trailblazer",
+    Language.JA: "開拓者",
+    Language.ZH: "开拓者",
+    Language.KO: "개척자",
+}
+
 STAT_TO_FIGHT_PROP: Final[dict[str, str]] = {
     "BaseHP": "FIGHT_PROP_BASE_HP",
     "BaseDEF": "FIGHT_PROP_BASE_DEFENSE",
