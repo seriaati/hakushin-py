@@ -93,7 +93,7 @@ def cleanup_text(text: str) -> str:
         str: The cleaned text.
     """
     clean = re.compile(r"<.*?>|\{SPRITE_PRESET#[^\}]+\}")
-    return re.sub(clean, "", text).replace("\\n", "\n")
+    return re.sub(clean, "", text).replace("\\n", "\n").replace("\r\n", "\n")
 
 
 def replace_placeholders(text: str, param_list: list[float]) -> str:
