@@ -91,10 +91,9 @@ class ZZZCharacterInfo(APIModel):
     gender: str = Field(alias="Gender")
     female_impression: str = Field(alias="ImpressionF")
     male_impression: str = Field(alias="ImpressionM")
-    name: str
     outlook_desc: str = Field(alias="OutlookDesc")
     profile_desc: str = Field(alias="ProfileDesc")
-    faction: ZZZCharacterProp = Field(alias="Race")
+    faction: str = Field(alias="Race")
     unlock_conditions: list[str] = Field(alias="UnlockCondition")
 
     @field_validator("female_impression", "male_impression", "outlook_desc", "profile_desc")
@@ -222,7 +221,7 @@ class ZZZCharacterPassive(APIModel):
 
     levels: dict[int, ZZZCharacterPassiveLevel] = Field(alias="Level")
     """Key is the level of the passive skill."""
-    level_up_materials: dict[str, list[ZZZAscensionMaterial]] = Field(alias="Materials")
+    level_up_materials: dict[str, list[ZZZAscensionMaterial]] | None = Field(None, alias="Materials")
 
     @field_validator("level_up_materials", mode="before")
     @classmethod
@@ -247,7 +246,7 @@ class CharacterDetail(APIModel):
     icon: str = Field(alias="Icon")
     name: str = Field(alias="Name")
     code_name: str = Field(alias="CodeName")
-    rarity: Literal["S", "A"] = Field(alias="Rarity")
+    rarity: Literal["S", "A"] | None = Field(alias="Rarity")
     specialty: ZZZCharacterProp = Field(alias="WeaponType")
     element: ZZZCharacterProp = Field(alias="ElementType")
     attack_type: ZZZCharacterProp = Field(alias="HitType")
@@ -295,7 +294,7 @@ class CharacterDetail(APIModel):
     @field_validator("stats", mode="before")
     @classmethod
     def __pop_tags(cls, value: dict[str, Any]) -> dict[str, float]:
-        value.pop("Tags")
+        value.pop("Tags", None)
         return value
 
     @field_validator("gender", mode="before")
@@ -307,8 +306,8 @@ class CharacterDetail(APIModel):
 
     @field_validator("rarity", mode="before")
     @classmethod
-    def __convert_rarity(cls, value: int) -> Literal["S", "A"]:
-        return RARITY_CONVERTER[value]
+    def __convert_rarity(cls, value: int | None) -> Literal["S", "A"] | None:
+        return RARITY_CONVERTER[value] if value is not None else None
 
     @field_validator("icon")
     @classmethod

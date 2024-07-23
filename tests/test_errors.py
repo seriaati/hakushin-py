@@ -4,8 +4,11 @@ import hakushin
 
 
 @pytest.mark.asyncio
-async def test_errors() -> None:
-    async with hakushin.HakushinAPI() as client:
-        with pytest.raises(hakushin.errors.NotFoundError):
-            await client.fetch_character_detail("0", hakushin.Game.GI)
-            await client.fetch_character_detail(0, hakushin.Game.HSR)
+async def test_not_found_error() -> None:
+    with pytest.raises(hakushin.errors.NotFoundError):
+        async with hakushin.HakushinAPI(hakushin.Game.GI) as client:
+            await client.fetch_character_detail("0")
+        async with hakushin.HakushinAPI(hakushin.Game.HSR) as client:
+            await client.fetch_character_detail(0)
+        async with hakushin.HakushinAPI(hakushin.Game.ZZZ) as client:
+            await client.fetch_character_detail(0)

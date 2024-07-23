@@ -20,6 +20,7 @@ aiohttp = "^3.9.5"
 aiohttp-client-cache = {version = "^0.11.0", extras = ["sqlite"]}
 pydantic = "^2.7.1"
 python = "^3.11"
+loguru = "^0.7.2"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.7.0"
