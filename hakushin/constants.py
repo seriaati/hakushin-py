@@ -44,6 +44,13 @@ GI_LANG_MAP: Final[dict[Language, Literal["EN", "JP", "KR", "CHS"]]] = {
 }
 """Map to convert API language enum to GI data language."""
 
+ZZZ_LANG_MAP: Final[dict[Language, Literal["EN", "KO", "CHS", "JA"]]] = {
+    Language.EN: "EN",
+    Language.JA: "JA",
+    Language.KO: "KO",
+    Language.ZH: "CHS",
+}
+
 PERCENTAGE_FIGHT_PROPS: Final[set[str]] = {
     "FIGHT_PROP_HP_PERCENT",
     "FIGHT_PROP_ATTACK_PERCENT",

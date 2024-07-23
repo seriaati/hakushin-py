@@ -9,8 +9,8 @@ from aiohttp_client_cache.session import CachedSession
 from hakushin.enums import Game, Language
 from hakushin.errors import HakushinError, NotFoundError
 
-from .constants import GI_LANG_MAP, HSR_API_LANG_MAP, TRAILBLAZER_NAMES
-from .models import gi, hsr
+from .constants import GI_LANG_MAP, HSR_API_LANG_MAP, TRAILBLAZER_NAMES, ZZZ_LANG_MAP
+from .models import gi, hsr, zzz
 from .utils import cleanup_text, remove_ruby_tags, replace_placeholders
 
 if TYPE_CHECKING:
@@ -142,7 +142,9 @@ class HakushinAPI:
     async def fetch_new(self, game: Literal[Game.GI], *, use_cache: bool = True) -> gi.New: ...
     @overload
     async def fetch_new(self, game: Literal[Game.HSR], *, use_cache: bool = True) -> hsr.New: ...
-    async def fetch_new(self, game: Game, *, use_cache: bool = True) -> gi.New | hsr.New:
+    @overload
+    async def fetch_new(self, game: Literal[Game.ZZZ], *, use_cache: bool = True) -> zzz.New: ...
+    async def fetch_new(self, game: Game, *, use_cache: bool = True) -> gi.New | hsr.New | zzz.New:
         """Fetches the IDs of new stuff in the game.
 
         Args:
@@ -154,7 +156,11 @@ class HakushinAPI:
         """
         endpoint = "new"
         data = await self._request(endpoint, game, use_cache, static=True)
-        return gi.New(**data) if game is Game.GI else hsr.New(**data)
+        if game is Game.ZZZ:
+            return zzz.New(**data)
+        if game is Game.GI:
+            return gi.New(**data)
+        return hsr.New(**data)
 
     @overload
     async def fetch_characters(
@@ -164,9 +170,13 @@ class HakushinAPI:
     async def fetch_characters(
         self, game: Literal[Game.HSR], *, use_cache: bool = True
     ) -> list[hsr.Character]: ...
+    @overload
+    async def fetch_characters(
+        self, game: Literal[Game.ZZZ], *, use_cache: bool = True
+    ) -> list[zzz.Character]: ...
     async def fetch_characters(
         self, game: Game, *, use_cache: bool = True
-    ) -> list[gi.Character] | list[hsr.Character]:
+    ) -> list[gi.Character] | list[hsr.Character] | list[zzz.Character]:
         """Fetches all characters in the game.
 
         Args:
@@ -183,6 +193,14 @@ class HakushinAPI:
             characters = [gi.Character(id=char_id, **char) for char_id, char in data.items()]
             for char in characters:
                 char.name = char.names[GI_LANG_MAP[self.lang]]
+        elif game is Game.ZZZ:
+            characters = [
+                zzz.Character(id=int(char_id), **char)
+                for char_id, char in data.items()
+                if char_id not in {"2011", "2021"}  # Exclude MCs
+            ]
+            for char in characters:
+                char.name = char.names[ZZZ_LANG_MAP[self.lang]]
         else:
             characters = [hsr.Character(id=int(char_id), **char) for char_id, char in data.items()]
             for char in characters:

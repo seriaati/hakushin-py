@@ -10,6 +10,8 @@ class Game(StrEnum):
     """Genshin Impact."""
     HSR = "hsr"
     """Honkai: Star Rail."""
+    ZZZ = "zzz"
+    """Zenless Zone Zero."""
 
 
 class Language(StrEnum):
@@ -87,3 +89,13 @@ class ZZZAttackType(IntEnum):
     SLASH = 101
     STRIKE = 102
     PIERCE = 103
+
+
+class ZZZSkillType(StrEnum):
+    """ZZZ character skill type."""
+
+    BASIC = "Basic"
+    DODGE = "Dodge"
+    SPECIAL = "Special"
+    CHAIN = "Chain"
+    ASSIST = "Assist"
