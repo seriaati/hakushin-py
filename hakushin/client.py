@@ -218,9 +218,13 @@ class HakushinAPI:
     async def fetch_character_detail(
         self, character_id: int, game: Literal[Game.HSR], *, use_cache: bool = True
     ) -> hsr.CharacterDetail: ...
+    @overload
+    async def fetch_character_detail(
+        self, character_id: int, game: Literal[Game.ZZZ], *, use_cache: bool = True
+    ) -> zzz.CharacterDetail: ...
     async def fetch_character_detail(
         self, character_id: str | int, game: Game, *, use_cache: bool = True
-    ) -> gi.CharacterDetail | hsr.CharacterDetail:
+    ) -> gi.CharacterDetail | hsr.CharacterDetail | zzz.CharacterDetail:
         """Fetches a character with detailed info.
 
         Args:
@@ -233,7 +237,11 @@ class HakushinAPI:
         """
         endpoint = f"character/{character_id}"
         data = await self._request(endpoint, game, use_cache)
-        return gi.CharacterDetail(**data) if game is Game.GI else hsr.CharacterDetail(**data)
+        if game is Game.ZZZ:
+            return zzz.CharacterDetail(**data)
+        if game is Game.GI:
+            return gi.CharacterDetail(**data)
+        return hsr.CharacterDetail(**data)
 
     async def fetch_weapons(self, *, use_cache: bool = True) -> list[gi.Weapon]:
         """Fetches all weapons in the game.
