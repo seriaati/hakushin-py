@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import logging
 from typing import TYPE_CHECKING, Any, Literal, overload
 
 from hakushin.enums import Game, Language
@@ -11,8 +10,6 @@ if TYPE_CHECKING:
     from aiohttp import ClientSession
 
 __all__ = ("HakushinAPI",)
-
-LOGGER_ = logging.getLogger(__name__)
 
 
 class HakushinAPI:
