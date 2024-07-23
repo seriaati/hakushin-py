@@ -221,7 +221,9 @@ class ZZZCharacterPassive(APIModel):
 
     levels: dict[int, ZZZCharacterPassiveLevel] = Field(alias="Level")
     """Key is the level of the passive skill."""
-    level_up_materials: dict[str, list[ZZZAscensionMaterial]] | None = Field(None, alias="Materials")
+    level_up_materials: dict[str, list[ZZZAscensionMaterial]] | None = Field(
+        None, alias="Materials"
+    )
 
     @field_validator("level_up_materials", mode="before")
     @classmethod

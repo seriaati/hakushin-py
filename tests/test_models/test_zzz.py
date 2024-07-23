@@ -21,3 +21,17 @@ async def test_character_detail() -> None:
         characters = await client.fetch_characters()
         for ch in characters:
             await client.fetch_character_detail(ch.id)
+
+
+@pytest.mark.asyncio
+async def test_weapons() -> None:
+    async with hakushin.HakushinAPI(hakushin.Game.ZZZ) as client:
+        await client.fetch_weapons()
+
+
+@pytest.mark.asyncio
+async def test_weapon_detail() -> None:
+    async with hakushin.HakushinAPI(hakushin.Game.ZZZ) as client:
+        weapons = await client.fetch_weapons()
+        for weapon in weapons:
+            await client.fetch_weapon_detail(weapon.id)
