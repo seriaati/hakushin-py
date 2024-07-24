@@ -1,4 +1,4 @@
-from enum import StrEnum
+from enum import IntEnum, StrEnum
 
 __all__ = ("Game", "Language")
 
@@ -10,6 +10,8 @@ class Game(StrEnum):
     """Genshin Impact."""
     HSR = "hsr"
     """Honkai: Star Rail."""
+    ZZZ = "zzz"
+    """Zenless Zone Zero."""
 
 
 class Language(StrEnum):
@@ -59,3 +61,41 @@ class HSRPath(StrEnum):
     HARMONY = "Shaman"
     NIHILITY = "Warlock"
     ABUNDANCE = "Priest"
+
+
+class ZZZSpecialty(IntEnum):
+    """ZZZ character specialty."""
+
+    ATTACK = 1
+    STUN = 2
+    ANOMALY = 3
+    SUPPORT = 4
+    DEFENSE = 5
+
+
+class ZZZElement(IntEnum):
+    """ZZZ character element."""
+
+    PHYSICAL = 200
+    FIRE = 201
+    ICE = 202
+    ELECTRIC = 203
+    ETHER = 205
+
+
+class ZZZAttackType(IntEnum):
+    """ZZZ character attack type."""
+
+    SLASH = 101
+    STRIKE = 102
+    PIERCE = 103
+
+
+class ZZZSkillType(StrEnum):
+    """ZZZ character skill type."""
+
+    BASIC = "Basic"
+    DODGE = "Dodge"
+    SPECIAL = "Special"
+    CHAIN = "Chain"
+    ASSIST = "Assist"

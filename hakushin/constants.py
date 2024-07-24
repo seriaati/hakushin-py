@@ -44,6 +44,13 @@ GI_LANG_MAP: Final[dict[Language, Literal["EN", "JP", "KR", "CHS"]]] = {
 }
 """Map to convert API language enum to GI data language."""
 
+ZZZ_LANG_MAP: Final[dict[Language, Literal["EN", "KO", "CHS", "JA"]]] = {
+    Language.EN: "EN",
+    Language.JA: "JA",
+    Language.KO: "KO",
+    Language.ZH: "CHS",
+}
+
 PERCENTAGE_FIGHT_PROPS: Final[set[str]] = {
     "FIGHT_PROP_HP_PERCENT",
     "FIGHT_PROP_ATTACK_PERCENT",
@@ -219,3 +226,6 @@ ASCENSION_TO_MAX_LEVEL: Final[dict[Game, dict[int, int]]] = {
         6: 80,
     },
 }
+
+ZZZ_SAB_RARITY_CONVERTER: Final[dict[int, Literal["B", "A", "S"]]] = {2: "B", 3: "A", 4: "S"}
+ZZZ_SA_RARITY_CONVERTER: Final[dict[int, Literal["A", "S"]]] = {3: "A", 4: "S"}
