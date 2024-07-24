@@ -1,12 +1,11 @@
-from typing import Any, Final, Literal
+from typing import Any, Literal
 
 from pydantic import Field, computed_field, field_validator, model_validator
 
+from ...constants import ZZZ_SAB_RARITY_CONVERTER
 from ...enums import ZZZSpecialty
 from ...utils import cleanup_text
 from ..base import APIModel
-
-RARITY_CONVERTER: Final[dict[int, Literal["B", "A", "S"]]] = {2: "B", 3: "A", 4: "S"}
 
 __all__ = (
     "Weapon",
@@ -32,7 +31,7 @@ class Weapon(APIModel):
     @field_validator("rarity", mode="before")
     @classmethod
     def __convert_rarity(cls, value: int | None) -> Literal["S", "A", "B"] | None:
-        return RARITY_CONVERTER[value] if value is not None else None
+        return ZZZ_SAB_RARITY_CONVERTER[value] if value is not None else None
 
     @field_validator("icon")
     @classmethod
@@ -137,4 +136,4 @@ class WeaponDetail(APIModel):
     @field_validator("rarity", mode="before")
     @classmethod
     def __convert_rarity(cls, value: int | None) -> Literal["S", "A", "B"] | None:
-        return RARITY_CONVERTER[value] if value is not None else None
+        return ZZZ_SAB_RARITY_CONVERTER[value] if value is not None else None

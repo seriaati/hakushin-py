@@ -117,3 +117,82 @@ class ZZZClient(BaseClient):
         endpoint = f"weapon/{weapon_id}"
         data = await self._request(endpoint, use_cache)
         return zzz.WeaponDetail(**data)
+
+    async def fetch_bangboos(self, *, use_cache: bool = True) -> list[zzz.Bangboo]:
+        """Fetch all Zenless Zone Zero bangboos.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of bangboo objects.
+        """
+        data = await self._request("bangboo", use_cache, in_data=True)
+        bangboos = [
+            zzz.Bangboo(id=int(bangboo_id), **bangboo) for bangboo_id, bangboo in data.items()
+        ]
+        for bangboo in bangboos:
+            bangboo.name = bangboo.names[ZZZ_LANG_MAP[self.lang]]
+        return bangboos
+
+    async def fetch_bangboo_detail(
+        self, bangboo_id: int, *, use_cache: bool = True
+    ) -> zzz.BangbooDetail:
+        """Fetch the details of a Zenless Zone Zero bangboo.
+
+        Args:
+            bangboo_id: The bangboo ID.
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            The bangboo details object.
+        """
+        endpoint = f"bangboo/{bangboo_id}"
+        data = await self._request(endpoint, use_cache)
+        return zzz.BangbooDetail(**data)
+
+    async def fetch_drive_discs(self, *, use_cache: bool = True) -> list[zzz.DriveDisc]:
+        """Fetch all Zenless Zone Zero drive discs.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of drive disc objects.
+        """
+        data = await self._request("equipment", use_cache, in_data=True)
+        drive_discs = [
+            zzz.DriveDisc(id=int(drive_disc_id), **drive_disc)
+            for drive_disc_id, drive_disc in data.items()
+        ]
+        for drive_disc in drive_discs:
+            if self.lang is Language.EN:
+                info = drive_disc.en_info
+            elif self.lang is Language.KO:
+                info = drive_disc.ko_info
+            elif self.lang is Language.ZH:
+                info = drive_disc.chs_info
+            else:
+                info = drive_disc.ja_info
+
+            drive_disc.name = info.name
+            drive_disc.two_piece_effect = info.two_piece_effect
+            drive_disc.four_piece_effect = info.four_piece_effect
+
+        return drive_discs
+
+    async def fetch_drive_disc_detail(
+        self, drive_disc_id: int, *, use_cache: bool = True
+    ) -> zzz.DriveDiscDetail:
+        """Fetch the details of a Zenless Zone Zero drive disc.
+
+        Args:
+            drive_disc_id: The drive disc ID.
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            The drive disc details object.
+        """
+        endpoint = f"equipment/{drive_disc_id}"
+        data = await self._request(endpoint, use_cache)
+        return zzz.DriveDiscDetail(**data)

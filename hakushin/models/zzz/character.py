@@ -1,18 +1,17 @@
-from typing import Any, Final, Literal
+from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
 
+from ...constants import ZZZ_SA_RARITY_CONVERTER
 from ...enums import ZZZAttackType, ZZZElement, ZZZSkillType, ZZZSpecialty
 from ...utils import cleanup_text
 from ..base import APIModel
-
-RARITY_CONVERTER: Final[dict[int, Literal["A", "S"]]] = {3: "A", 4: "S"}
+from .common import ZZZExtraProp, ZZZMaterial
 
 __all__ = (
     "Character",
     "CharacterDetail",
     "MindscapeCinema",
-    "ZZZAscensionMaterial",
     "ZZZCharaSkillDesc",
     "ZZZCharaSkillDescParam",
     "ZZZCharaSkillDescParamProp",
@@ -23,7 +22,6 @@ __all__ = (
     "ZZZCharacterPassiveLevel",
     "ZZZCharacterProp",
     "ZZZCharacterSkill",
-    "ZZZExtraAscensionProp",
 )
 
 
@@ -43,7 +41,7 @@ class Character(APIModel):
     @field_validator("rarity", mode="before")
     @classmethod
     def __convert_rarity(cls, value: int | None) -> Literal["S", "A"] | None:
-        return RARITY_CONVERTER[value] if value is not None else None
+        return ZZZ_SA_RARITY_CONVERTER[value] if value is not None else None
 
     @field_validator("attack_type", mode="before")
     @classmethod
@@ -116,13 +114,6 @@ class MindscapeCinema(APIModel):
         return cleanup_text(value)
 
 
-class ZZZAscensionMaterial(APIModel):
-    """ZZZ character ascension material."""
-
-    id: int
-    amount: int
-
-
 class ZZZCharacterAscension(APIModel):
     """A ZZZ character ascension object."""
 
@@ -131,33 +122,24 @@ class ZZZCharacterAscension(APIModel):
     defense: int = Field(alias="Defence")
     max_level: int = Field(alias="LevelMax")
     min_level: int = Field(alias="LevelMin")
-    materials: list[ZZZAscensionMaterial] = Field(alias="Materials")
+    materials: list[ZZZMaterial] = Field(alias="Materials")
 
     @field_validator("materials", mode="before")
     @classmethod
-    def __convert_materials(cls, value: dict[str, int]) -> list[ZZZAscensionMaterial]:
-        return [ZZZAscensionMaterial(id=int(k), amount=v) for k, v in value.items()]
-
-
-class ZZZExtraAscensionProp(APIModel):
-    """ZZZ character extra ascension property."""
-
-    id: int = Field(alias="Prop")
-    name: str = Field(alias="Name")
-    format: str = Field(alias="Format")
-    value: int = Field(alias="Value")
+    def __convert_materials(cls, value: dict[str, int]) -> list[ZZZMaterial]:
+        return [ZZZMaterial(id=int(k), amount=v) for k, v in value.items()]
 
 
 class ZZZCharacterExtraAscension(APIModel):
     """ZZZ character extra ascension object."""
 
     max_level: int = Field(alias="MaxLevel")
-    props: list[ZZZExtraAscensionProp] = Field(alias="Extra")
+    props: list[ZZZExtraProp] = Field(alias="Extra")
 
     @field_validator("props", mode="before")
     @classmethod
-    def __convert_props(cls, value: dict[str, dict[str, Any]]) -> list[ZZZExtraAscensionProp]:
-        return [ZZZExtraAscensionProp(**data) for data in value.values()]
+    def __convert_props(cls, value: dict[str, dict[str, Any]]) -> list[ZZZExtraProp]:
+        return [ZZZExtraProp(**data) for data in value.values()]
 
 
 class ZZZCharaSkillDescParamProp(APIModel):
@@ -188,16 +170,14 @@ class ZZZCharacterSkill(APIModel):
     """ZZZ character skill."""
 
     descriptions: list[ZZZCharaSkillDesc] = Field(alias="Description")
-    materials: dict[str, list[ZZZAscensionMaterial]] = Field(alias="Material")
+    materials: dict[str, list[ZZZMaterial]] = Field(alias="Material")
     type: ZZZSkillType = Field(alias="Type")
 
     @field_validator("materials", mode="before")
     @classmethod
-    def __convert_materials(
-        cls, value: dict[str, dict[str, int]]
-    ) -> dict[str, list[ZZZAscensionMaterial]]:
+    def __convert_materials(cls, value: dict[str, dict[str, int]]) -> dict[str, list[ZZZMaterial]]:
         return {
-            k: [ZZZAscensionMaterial(id=int(k), amount=v) for k, v in data.items()]
+            k: [ZZZMaterial(id=int(k), amount=v) for k, v in data.items()]
             for k, data in value.items()
         }
 
@@ -221,17 +201,13 @@ class ZZZCharacterPassive(APIModel):
 
     levels: dict[int, ZZZCharacterPassiveLevel] = Field(alias="Level")
     """Key is the level of the passive skill."""
-    level_up_materials: dict[str, list[ZZZAscensionMaterial]] | None = Field(
-        None, alias="Materials"
-    )
+    level_up_materials: dict[str, list[ZZZMaterial]] | None = Field(None, alias="Materials")
 
     @field_validator("level_up_materials", mode="before")
     @classmethod
-    def __convert_materials(
-        cls, value: dict[str, dict[str, int]]
-    ) -> dict[str, list[ZZZAscensionMaterial]]:
+    def __convert_materials(cls, value: dict[str, dict[str, int]]) -> dict[str, list[ZZZMaterial]]:
         return {
-            k: [ZZZAscensionMaterial(id=int(k), amount=v) for k, v in data.items()]
+            k: [ZZZMaterial(id=int(k), amount=v) for k, v in data.items()]
             for k, data in value.items()
         }
 
@@ -309,7 +285,7 @@ class CharacterDetail(APIModel):
     @field_validator("rarity", mode="before")
     @classmethod
     def __convert_rarity(cls, value: int | None) -> Literal["S", "A"] | None:
-        return RARITY_CONVERTER[value] if value is not None else None
+        return ZZZ_SA_RARITY_CONVERTER[value] if value is not None else None
 
     @field_validator("icon")
     @classmethod

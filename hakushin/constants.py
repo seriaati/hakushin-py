@@ -226,3 +226,6 @@ ASCENSION_TO_MAX_LEVEL: Final[dict[Game, dict[int, int]]] = {
         6: 80,
     },
 }
+
+ZZZ_SAB_RARITY_CONVERTER: Final[dict[int, Literal["B", "A", "S"]]] = {2: "B", 3: "A", 4: "S"}
+ZZZ_SA_RARITY_CONVERTER: Final[dict[int, Literal["A", "S"]]] = {3: "A", 4: "S"}
