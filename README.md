@@ -27,7 +27,7 @@ Regarding Wuthering Waves support for this wrapper, it is currently not planned.
 ### Features
 
 - Fully typed.
-- Fully asynchronous by using `aiofiles`, `aiohttp`, and `asyncio`, suitable for Discord bots.
+- Fully asynchronous by using `aiohttp`, and `asyncio`, suitable for Discord bots.
 - Provides direct icon URLs.
 - Supports Python 3.11+.
 - Supports all game languages.
