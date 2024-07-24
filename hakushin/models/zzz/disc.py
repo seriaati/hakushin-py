@@ -32,7 +32,7 @@ class DriveDiscDetail(APIModel):
     """ZZZ drive disc detail model."""
 
     id: int = Field(alias="Id")
-    name: str
+    name: str = Field(alias="Name")
     two_piece_effect: str = Field(alias="Desc2")
     four_piece_effect: str = Field(alias="Desc4")
     story: str = Field(alias="Story")
