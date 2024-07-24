@@ -21,7 +21,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install poetry
-        uses: Gr1N/setup-poetry@v8
+        uses: Gr1N/setup-poetry@v9
 
       - name: Install dependencies
         run: poetry install --with test
