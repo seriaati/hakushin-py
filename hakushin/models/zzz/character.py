@@ -245,7 +245,7 @@ class CharacterDetail(APIModel):
 
         Example: https://api.hakush.in/zzz/UI/IconRoleSelect01.webp
         """
-        return self.icon.replace("Role", "RoleSelect")
+        return self.image.replace("Role", "RoleSelect")
 
     @field_validator("info", mode="before")
     @classmethod
