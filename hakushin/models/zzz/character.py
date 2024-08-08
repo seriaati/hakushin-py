@@ -9,19 +9,19 @@ from ..base import APIModel
 from .common import ZZZExtraProp, ZZZMaterial
 
 __all__ = (
+    "CharaCoreSkillLevel",
+    "CharaSkillDescParam",
+    "CharaSkillDescParamProp",
     "Character",
+    "CharacterAscension",
+    "CharacterCoreSkill",
     "CharacterDetail",
+    "CharacterExtraAscension",
+    "CharacterInfo",
+    "CharacterProp",
+    "CharacterSkill",
+    "CharacterSkillDesc",
     "MindscapeCinema",
-    "ZZZCharaSkillDesc",
-    "ZZZCharaSkillDescParam",
-    "ZZZCharaSkillDescParamProp",
-    "ZZZCharacterAscension",
-    "ZZZCharacterExtraAscension",
-    "ZZZCharacterInfo",
-    "ZZZCharacterPassive",
-    "ZZZCharacterPassiveLevel",
-    "ZZZCharacterProp",
-    "ZZZCharacterSkill",
 )
 
 
@@ -68,7 +68,7 @@ class Character(APIModel):
         return values
 
 
-class ZZZCharacterProp(APIModel):
+class CharacterProp(APIModel):
     """ZZZ character property."""
 
     id: int
@@ -81,7 +81,7 @@ class ZZZCharacterProp(APIModel):
         return {"id": first_item[0], "name": first_item[1]}
 
 
-class ZZZCharacterInfo(APIModel):
+class CharacterInfo(APIModel):
     """ZZZ character detail info."""
 
     birthday: str = Field(alias="Birthday")
@@ -114,7 +114,7 @@ class MindscapeCinema(APIModel):
         return cleanup_text(value)
 
 
-class ZZZCharacterAscension(APIModel):
+class CharacterAscension(APIModel):
     """A ZZZ character ascension object."""
 
     max_hp: int = Field(alias="HpMax")
@@ -130,7 +130,7 @@ class ZZZCharacterAscension(APIModel):
         return [ZZZMaterial(id=int(k), amount=v) for k, v in value.items()]
 
 
-class ZZZCharacterExtraAscension(APIModel):
+class CharacterExtraAscension(APIModel):
     """ZZZ character extra ascension object."""
 
     max_level: int = Field(alias="MaxLevel")
@@ -142,7 +142,7 @@ class ZZZCharacterExtraAscension(APIModel):
         return [ZZZExtraProp(**data) for data in value.values()]
 
 
-class ZZZCharaSkillDescParamProp(APIModel):
+class CharaSkillDescParamProp(APIModel):
     """ZZZ character skill description parameter property."""
 
     main: int = Field(alias="Main")
@@ -150,26 +150,26 @@ class ZZZCharaSkillDescParamProp(APIModel):
     format: str = Field(alias="Format")
 
 
-class ZZZCharaSkillDescParam(APIModel):
+class CharaSkillDescParam(APIModel):
     """ZZZ character skill description parameter."""
 
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
-    params: dict[str, ZZZCharaSkillDescParamProp] | None = Field(None, alias="Param")
+    params: dict[str, CharaSkillDescParamProp] | None = Field(None, alias="Param")
 
 
-class ZZZCharaSkillDesc(APIModel):
+class CharacterSkillDesc(APIModel):
     """ZZZ character skill description."""
 
     name: str = Field(alias="Name")
     description: str | None = Field(None, alias="Desc")
-    params: list[ZZZCharaSkillDescParam] | None = Field(None, alias="Param")
+    params: list[CharaSkillDescParam] | None = Field(None, alias="Param")
 
 
-class ZZZCharacterSkill(APIModel):
+class CharacterSkill(APIModel):
     """ZZZ character skill."""
 
-    descriptions: list[ZZZCharaSkillDesc] = Field(alias="Description")
+    descriptions: list[CharacterSkillDesc] = Field(alias="Description")
     materials: dict[str, list[ZZZMaterial]] = Field(alias="Material")
     type: ZZZSkillType = Field(alias="Type")
 
@@ -182,8 +182,8 @@ class ZZZCharacterSkill(APIModel):
         }
 
 
-class ZZZCharacterPassiveLevel(APIModel):
-    """One level of a ZZZ character passive skill."""
+class CharaCoreSkillLevel(APIModel):
+    """One level of a ZZZ character core skill."""
 
     level: int = Field(alias="Level")
     id: int = Field(alias="Id")
@@ -196,11 +196,11 @@ class ZZZCharacterPassiveLevel(APIModel):
         return [cleanup_text(v) for v in value]
 
 
-class ZZZCharacterPassive(APIModel):
-    """ZZZ character passive skill."""
+class CharacterCoreSkill(APIModel):
+    """ZZZ character core skill."""
 
-    levels: dict[int, ZZZCharacterPassiveLevel] = Field(alias="Level")
-    """Key is the level of the passive skill."""
+    levels: dict[int, CharaCoreSkillLevel] = Field(alias="Level")
+    """Key is the level of the core skill."""
     level_up_materials: dict[str, list[ZZZMaterial]] | None = Field(None, alias="Materials")
 
     @field_validator("level_up_materials", mode="before")
@@ -213,8 +213,8 @@ class ZZZCharacterPassive(APIModel):
 
     @field_validator("levels", mode="before")
     @classmethod
-    def __intify_keys(cls, value: dict[str, dict[str, Any]]) -> dict[int, ZZZCharacterPassiveLevel]:
-        return {int(k): ZZZCharacterPassiveLevel(**v) for k, v in value.items()}
+    def __intify_keys(cls, value: dict[str, dict[str, Any]]) -> dict[int, CharaCoreSkillLevel]:
+        return {int(k): CharaCoreSkillLevel(**v) for k, v in value.items()}
 
 
 class CharacterDetail(APIModel):
@@ -225,18 +225,18 @@ class CharacterDetail(APIModel):
     name: str = Field(alias="Name")
     code_name: str = Field(alias="CodeName")
     rarity: Literal["S", "A"] | None = Field(alias="Rarity")
-    specialty: ZZZCharacterProp = Field(alias="WeaponType")
-    element: ZZZCharacterProp = Field(alias="ElementType")
-    attack_type: ZZZCharacterProp = Field(alias="HitType")
-    faction: ZZZCharacterProp = Field(alias="Camp")
+    specialty: CharacterProp = Field(alias="WeaponType")
+    element: CharacterProp = Field(alias="ElementType")
+    attack_type: CharacterProp = Field(alias="HitType")
+    faction: CharacterProp = Field(alias="Camp")
     gender: Literal["M", "F"] = Field(alias="Gender")
-    info: ZZZCharacterInfo | None = Field(alias="PartnerInfo")
+    info: CharacterInfo | None = Field(alias="PartnerInfo")
     stats: dict[str, float] = Field(alias="Stats")
     mindscape_cinemas: list[MindscapeCinema] = Field(alias="Talent")
-    ascension: list[ZZZCharacterAscension] = Field(alias="Level")
-    extra_ascension: list[ZZZCharacterExtraAscension] = Field(alias="ExtraLevel")
-    skills: dict[ZZZSkillType, ZZZCharacterSkill] = Field(alias="Skill")
-    passive: ZZZCharacterPassive = Field(alias="Passive")
+    ascension: list[CharacterAscension] = Field(alias="Level")
+    extra_ascension: list[CharacterExtraAscension] = Field(alias="ExtraLevel")
+    skills: dict[ZZZSkillType, CharacterSkill] = Field(alias="Skill")
+    passive: CharacterCoreSkill = Field(alias="Passive")
 
     @computed_field
     @property
@@ -249,29 +249,29 @@ class CharacterDetail(APIModel):
 
     @field_validator("info", mode="before")
     @classmethod
-    def __convert_info(cls, value: dict[str, Any]) -> ZZZCharacterInfo | None:
-        return None if not value else ZZZCharacterInfo(**value)
+    def __convert_info(cls, value: dict[str, Any]) -> CharacterInfo | None:
+        return None if not value else CharacterInfo(**value)
 
     @field_validator("skills", mode="before")
     @classmethod
     def __convert_skills(
         cls, value: dict[str, dict[str, Any]]
-    ) -> dict[ZZZSkillType, ZZZCharacterSkill]:
+    ) -> dict[ZZZSkillType, CharacterSkill]:
         return {
-            ZZZSkillType(k): ZZZCharacterSkill(Type=ZZZSkillType(k), **v) for k, v in value.items()
+            ZZZSkillType(k): CharacterSkill(Type=ZZZSkillType(k), **v) for k, v in value.items()
         }
 
     @field_validator("extra_ascension", mode="before")
     @classmethod
     def __convert_extra_ascension(
         cls, value: dict[str, dict[str, Any]]
-    ) -> list[ZZZCharacterExtraAscension]:
-        return [ZZZCharacterExtraAscension(**data) for data in value.values()]
+    ) -> list[CharacterExtraAscension]:
+        return [CharacterExtraAscension(**data) for data in value.values()]
 
     @field_validator("ascension", mode="before")
     @classmethod
-    def __convert_ascension(cls, value: dict[str, dict[str, Any]]) -> list[ZZZCharacterAscension]:
-        return [ZZZCharacterAscension(**data) for data in value.values()]
+    def __convert_ascension(cls, value: dict[str, dict[str, Any]]) -> list[CharacterAscension]:
+        return [CharacterAscension(**data) for data in value.values()]
 
     @field_validator("mindscape_cinemas", mode="before")
     @classmethod
