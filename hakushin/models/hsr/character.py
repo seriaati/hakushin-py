@@ -20,7 +20,7 @@ class Skill(APIModel):
     """Character's skill."""
 
     name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
+    description: str | None = Field(None, alias="Desc")
     type: str | None = Field(None, alias="Type")
     tag: str = Field(alias="Tag")
     energy_generation: int | None = Field(None, alias="SPBase")
