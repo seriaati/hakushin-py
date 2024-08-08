@@ -1,6 +1,6 @@
 from typing import Any, Literal
 
-from pydantic import Field, field_validator, model_validator
+from pydantic import Field, computed_field, field_validator, model_validator
 
 from ...constants import ZZZ_SA_RARITY_CONVERTER
 from ...enums import ZZZAttackType, ZZZElement, ZZZSkillType, ZZZSpecialty
@@ -221,7 +221,7 @@ class CharacterDetail(APIModel):
     """ZZZ character detail."""
 
     id: int = Field(alias="Id")
-    icon: str = Field(alias="Icon")
+    image: str = Field(alias="Icon")
     name: str = Field(alias="Name")
     code_name: str = Field(alias="CodeName")
     rarity: Literal["S", "A"] | None = Field(alias="Rarity")
@@ -237,6 +237,15 @@ class CharacterDetail(APIModel):
     extra_ascension: list[ZZZCharacterExtraAscension] = Field(alias="ExtraLevel")
     skills: dict[ZZZSkillType, ZZZCharacterSkill] = Field(alias="Skill")
     passive: ZZZCharacterPassive = Field(alias="Passive")
+
+    @computed_field
+    @property
+    def icon(self) -> str:
+        """Character icon.
+
+        Example: https://api.hakush.in/zzz/UI/IconRoleSelect01.webp
+        """
+        return self.icon.replace("Role", "RoleSelect")
 
     @field_validator("info", mode="before")
     @classmethod
@@ -287,7 +296,7 @@ class CharacterDetail(APIModel):
     def __convert_rarity(cls, value: int | None) -> Literal["S", "A"] | None:
         return ZZZ_SA_RARITY_CONVERTER[value] if value is not None else None
 
-    @field_validator("icon")
+    @field_validator("image")
     @classmethod
-    def __convert_icon(cls, value: str) -> str:
+    def __convert_image(cls, value: str) -> str:
         return f"https://api.hakush.in/zzz/UI/{value}.webp"
