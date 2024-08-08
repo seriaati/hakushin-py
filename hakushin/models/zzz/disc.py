@@ -1,4 +1,4 @@
-from pydantic import Field
+from pydantic import Field, field_validator
 
 from ..base import APIModel
 
@@ -37,4 +37,10 @@ class DriveDiscDetail(APIModel):
     four_piece_effect: str = Field(alias="Desc4")
     story: str = Field(alias="Story")
     icon: str = Field(alias="Icon")
-    icon2: str = Field(alias="Icon2")
+    # icon2: str = Field(alias="Icon2")
+
+    @field_validator("icon")
+    @classmethod
+    def __convert_icon(cls, icon: str) -> str:
+        filename = icon.split("/")[-1].split(".")[0]
+        return f"https://api.hakush.in/zzz/UI/{filename}.webp"
