@@ -12,7 +12,7 @@ description = "Async API wrapper for hakush.in written in Python."
 license = "GPL-3.0"
 name = "hakushin-py"
 readme = "README.md"
-version = "0.4.1"
+version = "0.4.2"
 packages = [{include = "hakushin"}]
 
 [tool.poetry.dependencies]
