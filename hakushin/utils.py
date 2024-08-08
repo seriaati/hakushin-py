@@ -83,6 +83,17 @@ def replace_params(text: str, param_list: list[float]) -> list[str]:
     return text.split("|")
 
 
+def replace_device_params(text: str) -> str:
+    """Replace device parameters in a string with the corresponding values."""
+    # Replace '{LAYOUT_CONSOLECONTROLLER#stick}' with 'stick/'
+    text = re.sub(r"{LAYOUT_CONSOLECONTROLLER#(.*?)}", r"\1/", text)
+
+    # Replace '{LAYOUT_FALLBACK#joystick}' with 'joystick'
+    text = re.sub(r"{LAYOUT_FALLBACK#(.*?)}", r"\1", text)
+
+    return text
+
+
 def cleanup_text(text: str) -> str:
     """Remove HTML tags and sprite presets from a string.
 
