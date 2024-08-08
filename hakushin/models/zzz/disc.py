@@ -27,6 +27,12 @@ class DriveDisc(APIModel):
     chs_info: DriveDiscInfo = Field(alias="CHS")
     ja_info: DriveDiscInfo = Field(alias="JA")
 
+    @field_validator("icon")
+    @classmethod
+    def __convert_icon(cls, icon: str) -> str:
+        filename = icon.split("/")[-1].split(".")[0]
+        return f"https://api.hakush.in/zzz/UI/{filename}.webp"
+
 
 class DriveDiscDetail(APIModel):
     """ZZZ drive disc detail model."""
