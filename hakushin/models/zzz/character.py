@@ -34,7 +34,7 @@ class Character(APIModel):
     specialty: ZZZSpecialty = Field(alias="type")
     element: ZZZElement | None
     attack_type: ZZZAttackType | None = Field(alias="hit")
-    image: str
+    image: str = Field(alias="icon")
     en_description: str = Field(alias="desc")
     names: dict[Literal["EN", "KO", "CHS", "JA"], str]
 
