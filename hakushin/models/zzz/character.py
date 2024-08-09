@@ -34,9 +34,45 @@ class Character(APIModel):
     specialty: ZZZSpecialty = Field(alias="type")
     element: ZZZElement | None
     attack_type: ZZZAttackType | None = Field(alias="hit")
-    icon: str
+    image: str
     en_description: str = Field(alias="desc")
     names: dict[Literal["EN", "KO", "CHS", "JA"], str]
+
+    @computed_field
+    @property
+    def phase_3_cinema_art(self) -> str:
+        """Agent phase 3 mindscape cinema art.
+
+        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_3.webp
+        """
+        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_3.webp"
+
+    @computed_field
+    @property
+    def phase_2_cinema_art(self) -> str:
+        """Agent phase 2 mindscape cinema art.
+
+        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_2.webp
+        """
+        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_2.webp"
+
+    @computed_field
+    @property
+    def phase_1_cinema_art(self) -> str:
+        """Agent phase 1 mindscape cinema art.
+
+        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_1.webp
+        """
+        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_1.webp"
+
+    @computed_field
+    @property
+    def icon(self) -> str:
+        """Agent icon.
+
+        Example: https://api.hakush.in/zzz/UI/IconRoleSelect01.webp
+        """
+        return self.image.replace("Role", "RoleSelect")
 
     @field_validator("rarity", mode="before")
     @classmethod
@@ -51,9 +87,9 @@ class Character(APIModel):
         except ValueError:
             return None
 
-    @field_validator("icon")
+    @field_validator("image")
     @classmethod
-    def __convert_icon(cls, value: str) -> str:
+    def __convert_image(cls, value: str) -> str:
         return f"https://api.hakush.in/zzz/UI/{value}.webp"
 
     @model_validator(mode="before")
@@ -237,6 +273,33 @@ class CharacterDetail(APIModel):
     extra_ascension: list[CharacterExtraAscension] = Field(alias="ExtraLevel")
     skills: dict[ZZZSkillType, CharacterSkill] = Field(alias="Skill")
     passive: CharacterCoreSkill = Field(alias="Passive")
+
+    @computed_field
+    @property
+    def phase_3_cinema_art(self) -> str:
+        """Agent phase 3 mindscape cinema art.
+
+        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_3.webp
+        """
+        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_3.webp"
+
+    @computed_field
+    @property
+    def phase_2_cinema_art(self) -> str:
+        """Agent phase 2 mindscape cinema art.
+
+        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_2.webp
+        """
+        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_2.webp"
+
+    @computed_field
+    @property
+    def phase_1_cinema_art(self) -> str:
+        """Agent phase 1 mindscape cinema art.
+
+        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_1.webp
+        """
+        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_1.webp"
 
     @computed_field
     @property
