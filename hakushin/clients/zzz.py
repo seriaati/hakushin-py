@@ -177,6 +177,9 @@ class ZZZClient(BaseClient):
             else:
                 info = drive_disc.ja_info
 
+            if info is None:
+                continue
+
             drive_disc.name = info.name
             drive_disc.two_piece_effect = info.two_piece_effect
             drive_disc.four_piece_effect = info.four_piece_effect

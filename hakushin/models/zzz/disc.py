@@ -22,10 +22,10 @@ class DriveDisc(APIModel):
     two_piece_effect: str = Field(None)  # Same here
     four_piece_effect: str = Field(None)  # Same here
 
-    en_info: DriveDiscInfo = Field(alias="EN")
-    ko_info: DriveDiscInfo = Field(alias="KO")
+    en_info: DriveDiscInfo | None = Field(None, alias="EN")
+    ko_info: DriveDiscInfo | None = Field(None, alias="KO")
     chs_info: DriveDiscInfo = Field(alias="CHS")
-    ja_info: DriveDiscInfo = Field(alias="JA")
+    ja_info: DriveDiscInfo | None = Field(None, alias="JA")
 
     @field_validator("icon")
     @classmethod
