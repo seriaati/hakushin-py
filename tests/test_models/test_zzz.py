@@ -63,3 +63,9 @@ async def test_drive_disc_detail() -> None:
         drive_discs = await client.fetch_drive_discs()
         for drive_disc in drive_discs:
             await client.fetch_drive_disc_detail(drive_disc.id)
+
+
+@pytest.mark.asyncio
+async def test_items() -> None:
+    async with hakushin.HakushinAPI(hakushin.Game.ZZZ) as client:
+        await client.fetch_items()

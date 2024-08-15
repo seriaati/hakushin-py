@@ -8,6 +8,8 @@ from ..models import zzz
 from .base import BaseClient
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from aiohttp import ClientSession
 
 __all__ = ("ZZZClient",)
@@ -196,3 +198,16 @@ class ZZZClient(BaseClient):
         endpoint = f"equipment/{drive_disc_id}"
         data = await self._request(endpoint, use_cache)
         return zzz.DriveDiscDetail(**data)
+
+    async def fetch_items(self, *, use_cache: bool = True) -> Sequence[zzz.Item]:
+        """Fetch all Zenless Zone Zero items.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of item objects.
+        """
+        data = await self._request("item", use_cache)
+        items = [zzz.Item(id=int(item_id), **item) for item_id, item in data.items()]
+        return items
