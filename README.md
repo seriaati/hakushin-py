@@ -1,18 +1,10 @@
 # hakushin-py
 
-## Quick links
-
-Developing something for Hoyoverse games? Here's a collection of Python async API wrappers for Hoyoverse games made by me:
-
-- [enka.py](https://github.com/seriaati/enka-py) is an Enka Network API wrapper for fetching in-game showcase.
-- [yatta.py](https://github.com/seriaati/yatta) is a Project Yatta API wrapper for fetching Honkai Star Rail game data.
-- [ambr.py](https://github.com/seriaati/ambr) is a Project Ambr API wrapper for fetching Genshin Impact game data.
-- [hakushin.py](https://github.com/seriaati/hakushin-py) is a Hakushin API wrapper for fetching Genshin Impact and Honkai Star Rail beta game data and ZZZ game data.
-
 ## Introduction
 
 hakushin-py is an async API wrapper for [hakush.in](https://hakush.in/) written in Python.  
-hakush.in is a website that displays Genshin Impact, Honkai Star Rail, Zenless Zone Zero, and Wuthering Waves game data.
+hakush.in is a website that displays Genshin Impact, Honkai Star Rail, Zenless Zone Zero, and Wuthering Waves game data.  
+Developing something for Hoyoverse games? You might be interested in [other API wrappers](https://github.com/seriaati#api-wrappers) written by me.
 
 > Note: I am not the developer of hakush.in
 
@@ -65,8 +57,7 @@ asyncio.run(main())
 
 Read the [wiki](https://github.com/seriaati/hakushin-py/wiki) to learn more about on how to use this wrapper.
 
-## Questions, Issues, Contributions
+## Questions, Issues, Feedback, Contributions
 
-For questions, you can contact me on [Discord](https://discord.com/users/410036441129943050) or open an [issue](https://github.com/seriaati/hakushin-py/issues).  
-To report issues with this wrapper, open an [issue](https://github.com/seriaati/hakushin-py/issues).  
-To contribute, fork this repo and submit a [pull request](https://github.com/seriaati/hakushin-py/pulls).
+Whether you want to make any bug reports, feature requests, or contribute to the wrapper, simply open an issue or pull request in this repository.  
+If GitHub is not your type, you can find me on [Discord](https://discord.com/invite/b22kMKuwbS), my username is @seria_ati.
