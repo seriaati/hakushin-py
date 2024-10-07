@@ -61,12 +61,7 @@ class BaseClient:
         await self.close()
 
     async def _request(
-        self,
-        endpoint: str,
-        use_cache: bool,
-        *,
-        static: bool = False,
-        in_data: bool = False,
+        self, endpoint: str, use_cache: bool, *, static: bool = False, in_data: bool = False
     ) -> dict[str, Any]:
         """A helper function to make requests to the API.
 

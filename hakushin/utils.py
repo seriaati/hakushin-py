@@ -148,9 +148,7 @@ def get_max_level_from_ascension(ascension: int, game: Game) -> int:
 
 
 def calc_gi_chara_upgrade_stat_values(
-    character: gi.CharacterDetail,
-    level: int,
-    ascended: bool,
+    character: gi.CharacterDetail, level: int, ascended: bool
 ) -> dict[str, float]:
     """Calculate the stat values of a GI character at a certain level and ascension status.
 
@@ -179,9 +177,7 @@ def calc_gi_chara_upgrade_stat_values(
 
 
 def calc_hsr_chara_upgrade_stat_values(
-    character: hsr.CharacterDetail,
-    level: int,
-    ascended: bool,
+    character: hsr.CharacterDetail, level: int, ascended: bool
 ) -> dict[str, float]:
     """Calculate the stat values of a HSR character at a certain level and ascension status.
 
@@ -207,9 +203,7 @@ def calc_hsr_chara_upgrade_stat_values(
 
 
 def calc_weapon_upgrade_stat_values(
-    weapon: gi.WeaponDetail,
-    level: int,
-    ascended: bool,
+    weapon: gi.WeaponDetail, level: int, ascended: bool
 ) -> dict[str, float]:
     """Calculate the stat values of a GI weapon at a certain level and ascension.
 
@@ -242,9 +236,7 @@ def calc_weapon_upgrade_stat_values(
 
 
 def calc_light_cone_upgrade_stat_values(
-    light_cone: hsr.LightConeDetail,
-    level: int,
-    ascended: bool,
+    light_cone: hsr.LightConeDetail, level: int, ascended: bool
 ) -> dict[str, float]:
     """Calculate the stat values of a HSR light cone at a certain level and ascension status.
 

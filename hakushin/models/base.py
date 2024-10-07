@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Self
 
 from pydantic import BaseModel, model_validator

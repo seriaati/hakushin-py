@@ -1,0 +1,63 @@
+line-length = 100
+target-version = "py311"
+
+[lint]
+ignore = [
+    "E501",
+    "ANN401",
+    "ANN101",
+    "ANN102",
+    "ANN003",
+    "PLR0913",
+    "PLR2004",
+    "PLR0917",
+    "PLR6301",
+    "ANN002",
+]
+preview = true
+select = [
+    "E",
+    "W",
+    "C90",
+    "F",
+    "UP",
+    "B",
+    "SIM",
+    "I",
+    "N",
+    "TCH",
+    "ANN",
+    "ASYNC",
+    "A",
+    "C4",
+    "EM",
+    "FA",
+    "ICN",
+    "G",
+    "PIE",
+    "T20",
+    "ARG",
+    "ERA",
+    "LOG",
+    "PL",
+    "TRY",
+    "RUF022",
+]
+
+[lint.per-file-ignores]
+"**/__init__.py" = ["F401", "F403"]
+"**/client.py" = ["PLR0904", "A002"]
+"**/models/*.py" = ["N805", "TCH"]
+"**/tests/*.py" = ["ANN001"]
+"playground.*.py" = ["ALL"]
+
+[lint.isort]
+required-imports = ["from __future__ import annotations"]
+split-on-trailing-comma = false
+
+[lint.flake8-type-checking]
+quote-annotations = true
+runtime-evaluated-base-classes = ["pydantic.BaseModel"]
+
+[format]
+skip-magic-trailing-comma = true

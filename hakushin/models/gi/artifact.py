@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
@@ -58,10 +60,7 @@ class ArtifactSetDetail(APIModel):
 
     @field_validator("set_effect", mode="before")
     def _assign_set_effect(cls, value: list[dict[str, Any]]) -> dict[str, Any]:
-        return {
-            "two_piece": value[0],
-            "four_piece": value[1] if len(value) > 1 else None,
-        }
+        return {"two_piece": value[0], "four_piece": value[1] if len(value) > 1 else None}
 
 
 class ArtifactSetEffect(APIModel):

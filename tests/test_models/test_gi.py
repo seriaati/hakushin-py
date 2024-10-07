@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 
 import hakushin
@@ -20,9 +22,7 @@ async def test_character() -> None:
     async with hakushin.HakushinAPI(hakushin.Game.GI) as client:
         new = await client.fetch_new()
         for chara_id in new.character_ids:
-            await client.fetch_character_detail(
-                str(chara_id),
-            )
+            await client.fetch_character_detail(str(chara_id))
 
 
 @pytest.mark.asyncio

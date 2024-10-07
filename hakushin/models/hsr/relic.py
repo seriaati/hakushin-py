@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Literal, Self
 
 from pydantic import Field, computed_field, field_validator, model_validator
@@ -66,10 +68,7 @@ class RelicSetDetail(APIModel):
 
     @field_validator("set_effects", mode="before")
     def _assign_set_effects(cls, value: dict[str, Any]) -> dict[str, Any]:
-        return {
-            "two_piece": value["2"],
-            "four_piece": value.get("4"),
-        }
+        return {"two_piece": value["2"], "four_piece": value.get("4")}
 
     @field_validator("parts", mode="before")
     def _convert_parts(cls, value: dict[str, Any]) -> dict[str, Any]:
@@ -117,10 +116,7 @@ class RelicSet(APIModel):
 
     @field_validator("set_effect", mode="before")
     def _assign_set_effect(cls, value: dict[str, Any]) -> dict[str, Any]:
-        return {
-            "two_piece": value["2"],
-            "four_piece": value.get("4"),
-        }
+        return {"two_piece": value["2"], "four_piece": value.get("4")}
 
     @model_validator(mode="before")
     def _assign_names(cls, value: dict[str, Any]) -> dict[str, Any]:

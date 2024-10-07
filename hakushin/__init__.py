@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from . import utils
 from .client import *
 from .constants import *

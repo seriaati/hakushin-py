@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pydantic import Field, field_validator
 
 from ..base import APIModel
@@ -43,7 +45,6 @@ class DriveDiscDetail(APIModel):
     four_piece_effect: str = Field(alias="Desc4")
     story: str = Field(alias="Story")
     icon: str = Field(alias="Icon")
-    # icon2: str = Field(alias="Icon2")
 
     @field_validator("icon")
     @classmethod
