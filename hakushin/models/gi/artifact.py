@@ -67,9 +67,9 @@ class ArtifactSetEffect(APIModel):
     """Artifact set effect."""
 
     names: dict[Literal["EN", "KR", "CHS", "JP"], str]
-    name: str = Field(None)  # The value of this field is assigned in post processing.
+    name: str = Field("")  # The value of this field is assigned in post processing.
     descriptions: dict[Literal["EN", "KR", "CHS", "JP"], str] = Field(alias="desc")
-    description: str = Field(None)  # The value of this field is assigned in post processing.
+    description: str = Field("")  # The value of this field is assigned in post processing.
 
     @model_validator(mode="before")
     def _transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
@@ -92,7 +92,7 @@ class ArtifactSet(APIModel):
     rarities: list[int] = Field(alias="rank")
     set_effect: ArtifactSetEffects = Field(alias="set")
     names: dict[Literal["EN", "KR", "CHS", "JP"], str]
-    name: str = Field(None)  # The value of this field is assigned in post processing.
+    name: str = Field("")  # The value of this field is assigned in post processing.
 
     @field_validator("icon", mode="before")
     def _convert_icon(cls, value: str) -> str:

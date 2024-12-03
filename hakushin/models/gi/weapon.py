@@ -58,7 +58,7 @@ class Weapon(APIModel):
     rarity: Literal[1, 2, 3, 4, 5] = Field(alias="rank")
     description: str = Field(alias="desc")
     names: dict[Literal["EN", "CHS", "KR", "JP"], str]
-    name: str = Field(None)  # This value of this field is assigned in post processing.
+    name: str = Field("")  # This value of this field is assigned in post processing.
 
     @field_validator("icon", mode="before")
     def _convert_icon(cls, value: str) -> str:

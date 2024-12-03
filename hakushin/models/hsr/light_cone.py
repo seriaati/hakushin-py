@@ -72,7 +72,7 @@ class LightCone(APIModel):
     description: str = Field(alias="desc")
     path: HSRPath = Field(alias="baseType")
     names: dict[Literal["en", "cn", "kr", "jp"], str]
-    name: str = Field(None)  # The value of this field is assigned in post processing.
+    name: str = Field("")  # The value of this field is assigned in post processing.
 
     @computed_field
     @property

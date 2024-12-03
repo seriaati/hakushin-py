@@ -25,7 +25,7 @@ class Weapon(APIModel):
 
     id: int
     icon: str
-    name: str = Field(None)  # This field doesn't exist in the API response
+    name: str = Field("")  # This field doesn't exist in the API response
     names: dict[Literal["EN", "JA", "CHS", "KO"], str]
     specialty: ZZZSpecialty = Field(alias="type")
     rarity: Literal["S", "A", "B"] = Field(alias="rank")

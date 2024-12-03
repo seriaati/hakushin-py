@@ -20,7 +20,7 @@ __all__ = (
 class Relic(APIModel):
     """HSR relic."""
 
-    id: int = Field(None)  # This field is not present in the API response.
+    id: int = Field(0)  # This field is not present in the API response.
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
     story: str = Field(alias="Story")
@@ -79,7 +79,7 @@ class RelicSetEffect(APIModel):
     """Relic set effect."""
 
     descriptions: dict[Literal["en", "cn", "kr", "jp"], str]
-    description: str = Field(None)  # The value of this field is assigned in post processing.
+    description: str = Field("")  # The value of this field is assigned in post processing.
     parameters: list[float] = Field(alias="ParamList")
 
     @model_validator(mode="before")
@@ -106,7 +106,7 @@ class RelicSet(APIModel):
     id: int  # This field is not present in the API response.
     icon: str
     names: dict[Literal["en", "cn", "kr", "jp"], str]
-    name: str = Field(None)  # The value of this field is assigned in post processing.
+    name: str = Field("")  # The value of this field is assigned in post processing.
     set_effect: RelicSetEffects = Field(alias="set")
 
     @field_validator("icon", mode="before")

@@ -20,7 +20,7 @@ class Bangboo(APIModel):
     rarity: Literal["S", "A"] | None = Field(alias="rank")
     code_name: str = Field(alias="codename")
     description: str = Field(alias="desc")
-    name: str = Field(None)  # This field doesn't exist in the API response
+    name: str = Field("")  # This field doesn't exist in the API response
     names: dict[Literal["EN", "JA", "CHS", "KO"], str]
 
     @field_validator("icon")

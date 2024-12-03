@@ -97,7 +97,7 @@ class Character(APIModel):
     path: HSRPath = Field(alias="baseType")
     element: HSRElement = Field(alias="damageType")
     names: dict[Literal["en", "cn", "kr", "jp"], str]
-    name: str = Field(None)  # The value of this field is assigned in post processing.
+    name: str = Field("")  # The value of this field is assigned in post processing.
 
     @field_validator("icon", mode="before")
     def _convert_icon(cls, value: str) -> str:

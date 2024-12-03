@@ -20,9 +20,9 @@ class DriveDisc(APIModel):
 
     id: int
     icon: str
-    name: str = Field(None)  # This field doesn't exist in the API response
-    two_piece_effect: str = Field(None)  # Same here
-    four_piece_effect: str = Field(None)  # Same here
+    name: str = Field("")  # This field doesn't exist in the API response
+    two_piece_effect: str = Field("")  # Same here
+    four_piece_effect: str = Field("")  # Same here
 
     en_info: DriveDiscInfo | None = Field(None, alias="EN")
     ko_info: DriveDiscInfo | None = Field(None, alias="KO")
