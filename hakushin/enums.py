@@ -63,6 +63,7 @@ class HSRPath(StrEnum):
     HARMONY = "Shaman"
     NIHILITY = "Warlock"
     ABUNDANCE = "Priest"
+    REMEMBRANCE = "Memory"
 
 
 class ZZZSpecialty(IntEnum):

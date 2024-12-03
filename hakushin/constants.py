@@ -127,6 +127,7 @@ HSR_PATH_NAMES: Final[dict[Language, dict[HSRPath, str]]] = {
         HSRPath.NIHILITY: "Nihility",
         HSRPath.PRESERVATION: "Preservation",
         HSRPath.THE_HUNT: "The Hunt",
+        HSRPath.REMEMBRANCE: "Remembrance",
     },
     Language.JA: {
         HSRPath.ABUNDANCE: "豊穣",
@@ -136,15 +137,17 @@ HSR_PATH_NAMES: Final[dict[Language, dict[HSRPath, str]]] = {
         HSRPath.NIHILITY: "虚無",
         HSRPath.PRESERVATION: "存護",
         HSRPath.THE_HUNT: "巡狩",
+        HSRPath.REMEMBRANCE: "記憶",
     },
     Language.ZH: {
-        HSRPath.ABUNDANCE: "豐饒",
-        HSRPath.DESTRUCTION: "毀滅",
-        HSRPath.ERUDITION: "智識",
-        HSRPath.HARMONY: "同諧",
-        HSRPath.NIHILITY: "虚無",
-        HSRPath.PRESERVATION: "存護",
-        HSRPath.THE_HUNT: "巡獵",
+        HSRPath.ABUNDANCE: "丰饶",
+        HSRPath.DESTRUCTION: "毁灭",
+        HSRPath.ERUDITION: "智识",
+        HSRPath.HARMONY: "同谐",
+        HSRPath.NIHILITY: "虚无",
+        HSRPath.PRESERVATION: "存护",
+        HSRPath.THE_HUNT: "巡猎",
+        HSRPath.REMEMBRANCE: "记忆",
     },
     Language.KO: {
         HSRPath.ABUNDANCE: "풍요",
@@ -154,6 +157,7 @@ HSR_PATH_NAMES: Final[dict[Language, dict[HSRPath, str]]] = {
         HSRPath.NIHILITY: "공허",
         HSRPath.PRESERVATION: "보존",
         HSRPath.THE_HUNT: "수렵",
+        HSRPath.REMEMBRANCE: "기억",
     },
 }
 
