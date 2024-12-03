@@ -199,7 +199,7 @@ wheels = [
 
 [[package]]
 name = "hakushin-py"
-version = "0.4.6"
+version = "0.4.7"
 source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },
@@ -208,7 +208,7 @@ dependencies = [
     { name = "pydantic" },
 ]
 
-[package.dev-dependencies]
+[package.dependency-groups]
 dev = [
     { name = "pytest" },
     { name = "pytest-asyncio" },
@@ -222,7 +222,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.9.2" },
 ]
 
-[package.metadata.requires-dev]
+[package.metadata.dependency-groups]
 dev = [
     { name = "pytest", specifier = ">=8.3.3" },
     { name = "pytest-asyncio", specifier = ">=0.24.0" },
