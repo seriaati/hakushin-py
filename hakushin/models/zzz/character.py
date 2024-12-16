@@ -114,7 +114,9 @@ class CharacterProp(APIModel):
 
     @model_validator(mode="before")
     @classmethod
-    def __transform(cls, values: dict[str, Any]) -> dict[str, Any]:
+    def __transform(cls, values: dict[str, Any] | Literal[0]) -> dict[str, Any]:
+        if values == 0:
+            return {"id": 0, "name": "Unknown"}
         first_item = next(iter(values.items()))
         return {"id": first_item[0], "name": first_item[1]}
 
