@@ -106,7 +106,7 @@ class UpgradeMaterial(APIModel):
     name: str = Field(alias="Name")
     id: int = Field(alias="Id")
     count: int = Field(alias="Count")
-    rarity: Literal[1, 2, 3, 4, 5] = Field(alias="Rank")
+    rarity: Literal[0, 1, 2, 3, 4, 5] = Field(alias="Rank")
 
     @property
     def icon(self) -> str:
