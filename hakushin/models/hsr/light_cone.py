@@ -80,7 +80,7 @@ class LightCone(APIModel):
         """Light cone's icon URL."""
         return f"https://api.hakush.in/hsr/UI/lightconemediumicon/{self.id}.webp"
 
-    @field_validator("desc", mode="before")
+    @field_validator("description", mode="before")
     @classmethod
     def __handle_null_value(cls, value: str | None) -> str:
         return value or "???"
