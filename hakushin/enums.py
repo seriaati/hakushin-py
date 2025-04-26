@@ -74,6 +74,7 @@ class ZZZSpecialty(IntEnum):
     ANOMALY = 3
     SUPPORT = 4
     DEFENSE = 5
+    RUPTURE = 6
 
 
 class ZZZElement(IntEnum):
