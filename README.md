@@ -2,19 +2,21 @@
 
 ## Introduction
 
-hakushin-py is an async API wrapper for [hakush.in](https://hakush.in/) written in Python.  
-hakush.in is a website that displays Genshin Impact, Honkai Star Rail, Zenless Zone Zero, and Wuthering Waves game data.  
+hakushin-py is an async API wrapper for [hakush.in](https://hakush.in/) written in Python.
+
+hakush.in is a website that displays Genshin Impact, Honkai Star Rail, Zenless Zone Zero, and Wuthering Waves game data.
+
 Developing something for Hoyoverse games? You might be interested in [other API wrappers](https://github.com/seriaati#api-wrappers) written by me.
 
 > Note: I am not the developer of hakush.in
 
 ## Important Note
 
-This wrapper does not support all endpoints from hakush.in, it is mainly focused on fetching the beta game data.  
-This means I selectively chose the endpoints and API fields that I personally think are useful for theorycrafting.  
-If you want a more complete wrapper for game data, use [ambry.py](https://github.com/seriaati/ambr) and [yatta.py](https://github.com/seriaati/yatta) instead.  
-However, **there is an exception for ZZZ**, since Project Ambr and Yatta has no equivalent for ZZZ, this wrapper supports all endpoints for the ZZZ Hakushin API.  
-Regarding Wuthering Waves support for this wrapper, it is currently not planned.
+This wrapper does not support all endpoints from hakush.in, it is mainly focused on fetching the beta game data. This means I selectively chose the endpoints and API fields that I personally think are useful for theorycrafting. If you want a more complete wrapper for game data, use [ambry.py](https://github.com/seriaati/ambr) and [yatta.py](https://github.com/seriaati/yatta) instead.
+
+However, **there is an exception for ZZZ**, since Project Ambr and Yatta has no equivalent for ZZZ, this wrapper supports all endpoints for the ZZZ Hakushin API.
+
+Wuthering Waves support is currently not planned.
 
 ### Features
 
@@ -29,12 +31,14 @@ Regarding Wuthering Waves support for this wrapper, it is currently not planned.
 ## Installation
 
 ```bash
-# poetry
-poetry add hakushin-py
-
-# pip
+# pypi
 pip install hakushin-py
+
+# git
+pip install git+https://github.com/seriaati/hakushin-py.git
 ```
+
+Note: This wrapper changes very rapidly since the Hakushin API also changes very rapidly to keep up with the latest game data changes, so I recommend installing the git version, which has more update to date fixes.
 
 ## Quick Example
 
@@ -55,9 +59,10 @@ asyncio.run(main())
 
 ## Getting Started
 
-Read the [wiki](https://github.com/seriaati/hakushin-py/wiki) to learn more about on how to use this wrapper.
+Read the [documentation](https://gh.seria.moe/hakushin-py) to learn more about on how to use this wrapper.
 
 ## Questions, Issues, Feedback, Contributions
 
-Whether you want to make any bug reports, feature requests, or contribute to the wrapper, simply open an issue or pull request in this repository.  
-If GitHub is not your type, you can find me on [Discord](https://discord.com/invite/b22kMKuwbS), my username is @seria_ati.
+Whether you want to make any bug reports, feature requests, or contribute to the project, simply open an issue or pull request in this repository.
+
+If GitHub is not your type, you can find my contact information on [my GitHub profile](https://github.com/seriaati).
