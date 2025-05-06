@@ -8,10 +8,10 @@ from ..utils import cleanup_text, remove_ruby_tags, replace_device_params
 
 
 class APIModel(BaseModel):
-    """Base class for all models in hakushin-py."""
+    """Represent the base class for all models in hakushin-py."""
 
     @model_validator(mode="after")
-    def _format_fields(self) -> Self:
+    def __format_fields(self) -> Self:
         for field_name, field_value in self.model_dump().items():
             if field_name in {"name", "description", "story"} and isinstance(field_value, str):
                 setattr(

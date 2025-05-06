@@ -10,7 +10,13 @@ __all__ = ("Weapon", "WeaponDetail", "WeaponProperty", "WeaponRefinement", "Weap
 
 
 class WeaponProperty(APIModel):
-    """Weapon's property."""
+    """Represent a weapon's property.
+
+    Attributes:
+        type: Type of the property.
+        init_value: Initial value of the property.
+        growth_type: Growth type of the property.
+    """
 
     type: str = Field(alias="propType")
     init_value: float = Field(alias="initValue")
@@ -18,14 +24,25 @@ class WeaponProperty(APIModel):
 
 
 class WeaponStatModifier(APIModel):
-    """Weapon's stat modifier."""
+    """Represent a weapon's stat modifier.
+
+    Attributes:
+        base: Base value of the stat modifier.
+        levels: Dictionary of level-based stat modifiers.
+    """
 
     base: float = Field(alias="Base")
     levels: dict[str, float] = Field(alias="Levels")
 
 
 class WeaponRefinement(APIModel):
-    """Weapon's refinement."""
+    """Represent a weapon's refinement.
+
+    Attributes:
+        name: Name of the refinement.
+        description: Description of the refinement.
+        parameters: List of parameters for the refinement.
+    """
 
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
@@ -33,7 +50,18 @@ class WeaponRefinement(APIModel):
 
 
 class WeaponDetail(APIModel):
-    """Genshin Impact weapon detail."""
+    """Represent a Genshin Impact weapon detail.
+
+    Attributes:
+        name: Name of the weapon.
+        description: Description of the weapon.
+        rarity: Rarity of the weapon.
+        icon: Icon URL of the weapon.
+        stat_modifiers: Dictionary of stat modifiers for the weapon.
+        xp_requirements: Dictionary of XP requirements for the weapon.
+        ascension: Dictionary of ascension data for the weapon.
+        refinments: Dictionary of refinements for the weapon.
+    """
 
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
@@ -46,26 +74,38 @@ class WeaponDetail(APIModel):
     refinments: dict[str, WeaponRefinement] = Field(alias="Refinement")
 
     @field_validator("icon", mode="before")
-    def _convert_icon(cls, value: str) -> str:
+    @classmethod
+    def __convert_icon(cls, value: str) -> str:
         return f"https://api.hakush.in/gi/UI/{value}.webp"
 
 
 class Weapon(APIModel):
-    """Genshin Impact weapon."""
+    """Represent a Genshin Impact weapon.
 
-    id: int  # This field is not present in the API response.
+    Attributes:
+        id: ID of the weapon.
+        icon: Icon URL of the weapon.
+        rarity: Rarity of the weapon.
+        description: Description of the weapon.
+        names: Dictionary of names in different languages.
+        name: Name of the weapon.
+    """
+
+    id: int
     icon: str
     rarity: Literal[1, 2, 3, 4, 5] = Field(alias="rank")
     description: str = Field(alias="desc")
     names: dict[Literal["EN", "CHS", "KR", "JP"], str]
-    name: str = Field("")  # This value of this field is assigned in post processing.
+    name: str = Field("")
 
     @field_validator("icon", mode="before")
-    def _convert_icon(cls, value: str) -> str:
+    @classmethod
+    def __convert_icon(cls, value: str) -> str:
         return f"https://api.hakush.in/gi/UI/{value}.webp"
 
     @model_validator(mode="before")
-    def _transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
+    @classmethod
+    def __transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
         values["names"] = {
             "EN": values.pop("EN"),
             "CHS": values.pop("CHS"),

@@ -13,7 +13,7 @@ __all__ = ("HakushinAPI",)
 
 
 class HakushinAPI:
-    """Client to interact with the Hakushin API."""
+    """Represent a client to interact with the Hakushin API."""
 
     @overload
     def __new__(
@@ -26,7 +26,22 @@ class HakushinAPI:
         headers: dict[str, Any] | None = None,
         debug: bool = False,
         session: ClientSession | None = None,
-    ) -> GIClient: ...
+    ) -> GIClient:
+        """Initialize a new GIClient instance.
+
+        Args:
+            game: The game to initialize the client for.
+            lang: The language to use for API responses.
+            cache_path: The path to the cache database.
+            cache_ttl: The time-to-live for cached responses, in seconds.
+            headers: Optional custom headers to include in API requests.
+            debug: Whether to enable debug mode.
+            session: An optional aiohttp ClientSession to use.
+
+        Returns:
+            An instance of GIClient.
+        """
+
     @overload
     def __new__(
         cls,
@@ -38,7 +53,22 @@ class HakushinAPI:
         headers: dict[str, Any] | None = None,
         debug: bool = False,
         session: ClientSession | None = None,
-    ) -> HSRClient: ...
+    ) -> HSRClient:
+        """Initialize a new HSRClient instance.
+
+        Args:
+            game: The game to initialize the client for.
+            lang: The language to use for API responses.
+            cache_path: The path to the cache database.
+            cache_ttl: The time-to-live for cached responses, in seconds.
+            headers: Optional custom headers to include in API requests.
+            debug: Whether to enable debug mode.
+            session: An optional aiohttp ClientSession to use.
+
+        Returns:
+            An instance of HSRClient.
+        """
+
     @overload
     def __new__(
         cls,
@@ -50,7 +80,22 @@ class HakushinAPI:
         headers: dict[str, Any] | None = None,
         debug: bool = False,
         session: ClientSession | None = None,
-    ) -> ZZZClient: ...
+    ) -> ZZZClient:
+        """Initialize a new ZZZClient instance.
+
+        Args:
+            game: The game to initialize the client for.
+            lang: The language to use for API responses.
+            cache_path: The path to the cache database.
+            cache_ttl: The time-to-live for cached responses, in seconds.
+            headers: Optional custom headers to include in API requests.
+            debug: Whether to enable debug mode.
+            session: An optional aiohttp ClientSession to use.
+
+        Returns:
+            An instance of ZZZClient.
+        """
+
     def __new__(
         cls,
         game: Game,
@@ -62,7 +107,6 @@ class HakushinAPI:
         debug: bool = False,
         session: ClientSession | None = None,
     ) -> GIClient | HSRClient | ZZZClient:
-        """Initializes the Hakushin API client."""
         if game is Game.GI:
             return GIClient(
                 lang,

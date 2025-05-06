@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 
 class BaseClient:
-    """Base client to interact with the Hakushin API."""
+    """Represent the base client to interact with the Hakushin API."""
 
     BASE_URL: Final[str] = "https://api.hakush.in"
 
@@ -31,16 +31,16 @@ class BaseClient:
         debug: bool = False,
         session: aiohttp.ClientSession | None = None,
     ) -> None:
-        """Initializes the Hakushin API client.
+        """Initialize the Hakushin API client.
 
         Args:
-            game (Game): The game to fetch data for.
-            lang (Language): The language to fetch data in.
-            cache_path (str): The path to the cache database.
-            cache_ttl (int): The time-to-live for cache entries.
-            headers (dict): The headers to pass with the request.
-            debug (bool): Whether to enable debug logging.
-            session (aiohttp.ClientSession): The client session to use.
+            game: The game to fetch data for.
+            lang: The language to fetch data in.
+            cache_path: The path to the cache database.
+            cache_ttl: The time-to-live for cache entries.
+            headers: The headers to pass with the request.
+            debug: Whether to enable debug logging.
+            session: The client session to use.
         """
         self.lang = lang
         self.cache_ttl = cache_ttl
@@ -63,17 +63,6 @@ class BaseClient:
     async def _request(
         self, endpoint: str, use_cache: bool, *, static: bool = False, in_data: bool = False
     ) -> dict[str, Any]:
-        """A helper function to make requests to the API.
-
-        Args:
-            endpoint (str): The endpoint to request.
-            use_cache (bool): Whether to use the cache.
-            static (bool): Whether the endpoint is static data (not language specific), defaults to False.
-            in_data (bool): Whether the endpoint is in the data directory, defaults to False.
-
-        Returns:
-            dict: The response data.
-        """
         if self._session is None:
             msg = "Call `start` before making requests."
             raise RuntimeError(msg)
@@ -108,12 +97,6 @@ class BaseClient:
         return data
 
     def _handle_error(self, code: int, url: str) -> None:
-        """Handles API errors based on the status code.
-
-        Args:
-            code (int): The status code.
-            url (str): The URL that caused the error.
-        """
         match code:
             case 404:
                 raise NotFoundError(url)
@@ -121,10 +104,10 @@ class BaseClient:
                 raise HakushinError(code, "An error occurred while fetching data.", url)
 
     async def start(self) -> None:
-        """Starts the client session."""
+        """Start the client session."""
         self._session = self._session or CachedSession(headers=self._headers, cache=self._cache)
 
     async def close(self) -> None:
-        """Closes the client session."""
+        """Close the client session."""
         if self._session is not None:
             await self._session.close()

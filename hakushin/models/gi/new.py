@@ -8,7 +8,16 @@ __all__ = ("New",)
 
 
 class New(APIModel):
-    """Genshin Impact new stuff."""
+    """Represent new Genshin Impact data.
+
+    Attributes:
+        character_ids: A list of character IDs.
+        weapon_ids: A list of weapon IDs.
+        artifact_set_ids: A list of artifact set IDs.
+        monster_ids: A list of monster IDs.
+        item_ids: A list of item IDs.
+        version: The current version.
+    """
 
     character_ids: list[str | int] = Field(alias="character")
     weapon_ids: list[int] = Field(alias="weapon")

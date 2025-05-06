@@ -10,7 +10,15 @@ __all__ = ("Item",)
 
 
 class Item(APIModel):
-    """ZZZ item model."""
+    """Represent a ZZZ item.
+
+    Attributes:
+        icon: Icon URL of the item.
+        rarity: Rarity of the item.
+        class_: Class of the item.
+        name: Name of the item.
+        id: ID of the item.
+    """
 
     icon: str
     rarity: Literal[1, 2, 3, 4, 5] = Field(alias="rank")

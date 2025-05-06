@@ -20,11 +20,11 @@ def format_num(digits: int, calculation: float) -> str:
     """Format a number to a string with a fixed number of digits after the decimal point.
 
     Args:
-        digits (int): Number of digits after the decimal point.
-        calculation (float): Number to format.
+        digits: Number of digits after the decimal point.
+        calculation: Number to format.
 
     Returns:
-        str: The formatted number.
+        The formatted number.
     """
     return f"{calculation:.{digits}f}"
 
@@ -33,10 +33,10 @@ def replace_layout(text: str) -> str:
     """Replace the layout in a string with the corresponding word.
 
     Args:
-        text (str): The text to format.
+        text: The text to format.
 
     Returns:
-        str: The formatted text.
+        The formatted text.
     """
     if "LAYOUT" in text:
         brackets = re.findall(r"{LAYOUT.*?}", text)
@@ -49,11 +49,11 @@ def replace_params(text: str, param_list: list[float]) -> list[str]:
     """Replace parameters in a string with the corresponding values.
 
     Args:
-        text (str): The text to replace the parameters in.
-        param_list (list[float]): The list of parameters to replace the values with.
+        text: The text to replace the parameters in.
+        param_list: The list of parameters to replace the values with.
 
     Returns:
-        list[str]: The list of strings with the replaced parameters.
+        The list of strings with the replaced parameters.
     """
     params: list[str] = re.findall(r"{[^}]*}", text)
 
@@ -98,24 +98,24 @@ def cleanup_text(text: str) -> str:
     """Remove HTML tags and sprite presets from a string.
 
     Args:
-        text (str): The text to clean.
+        text: The text to clean.
 
     Returns:
-        str: The cleaned text.
+        The cleaned text.
     """
     clean = re.compile(r"<.*?>|\{SPRITE_PRESET#[^\}]+\}")
     return re.sub(clean, "", text).replace("\\n", "\n").replace("\r\n", "\n")
 
 
 def replace_placeholders(text: str, param_list: list[float]) -> str:
-    """Replaces placeholders in the given text with values from the parameter list.
+    """Replace placeholders in the given text with values from the parameter list.
 
     Args:
-        text (str): The text containing placeholders to be replaced.
-        param_list (list[float]): The list of parameter values.
+        text: The text containing placeholders to be replaced.
+        param_list: The list of parameter values.
 
     Returns:
-        str: The text with placeholders replaced by their corresponding values.
+        The text with placeholders replaced by their corresponding values.
     """
     placeholders: list[str] = re.findall(r"#\d+\[[^\]]+\]%?", text)
 
@@ -131,7 +131,16 @@ def replace_placeholders(text: str, param_list: list[float]) -> str:
 
 
 def get_ascension_from_level(level: int, ascended: bool, game: Game) -> int:
-    """Get the ascension from the level and ascended status."""
+    """Get the ascension from the level and ascended status.
+
+    Args:
+        level: The level.
+        ascended: Whether the entity is ascended.
+        game: The game.
+
+    Returns:
+        The ascension level.
+    """
     if not ascended and level in NOT_ASCENDED_LEVEL_TO_ASCENSION[game]:
         return NOT_ASCENDED_LEVEL_TO_ASCENSION[game][level]
 
@@ -143,7 +152,15 @@ def get_ascension_from_level(level: int, ascended: bool, game: Game) -> int:
 
 
 def get_max_level_from_ascension(ascension: int, game: Game) -> int:
-    """Get the max level from the ascension."""
+    """Get the max level from the ascension.
+
+    Args:
+        ascension: The ascension level.
+        game: The game.
+
+    Returns:
+        The max level.
+    """
     return ASCENSION_TO_MAX_LEVEL[game][ascension]
 
 
@@ -156,6 +173,9 @@ def calc_gi_chara_upgrade_stat_values(
         character: The character to calculate the stats for.
         level: The level of the character.
         ascended: Whether the character is ascended.
+
+    Returns:
+        A dictionary of stat values.
     """
     result: dict[str, float] = {}
 
@@ -179,12 +199,15 @@ def calc_gi_chara_upgrade_stat_values(
 def calc_hsr_chara_upgrade_stat_values(
     character: hsr.CharacterDetail, level: int, ascended: bool
 ) -> dict[str, float]:
-    """Calculate the stat values of a HSR character at a certain level and ascension status.
+    """Calculate the stat values of an HSR character at a certain level and ascension status.
 
     Args:
         character: The character to calculate the stats for.
         level: The level of the character.
         ascended: Whether the character is ascended.
+
+    Returns:
+        A dictionary of stat values.
     """
     result: dict[str, float] = {}
 
@@ -211,6 +234,9 @@ def calc_weapon_upgrade_stat_values(
         weapon: The weapon to calculate the stats for.
         level: The level of the weapon.
         ascended: Whether the weapon is ascended.
+
+    Returns:
+        A dictionary of stat values.
     """
     result: dict[str, float] = {}
 
@@ -238,12 +264,15 @@ def calc_weapon_upgrade_stat_values(
 def calc_light_cone_upgrade_stat_values(
     light_cone: hsr.LightConeDetail, level: int, ascended: bool
 ) -> dict[str, float]:
-    """Calculate the stat values of a HSR light cone at a certain level and ascension status.
+    """Calculate the stat values of an HSR light cone at a certain level and ascension status.
 
     Args:
         light_cone: The light cone to calculate the stats for.
         level: The level of the light cone.
         ascended: Whether the light cone is ascended.
+
+    Returns:
+        A dictionary of stat values.
     """
     result: dict[str, float] = {}
 
@@ -263,7 +292,10 @@ def format_stat_values(values: dict[str, float]) -> dict[str, str]:
     Percentage values will be rounded to 1 decimal, while others will be rounded to the nearest integer.
 
     Args:
-        values (dict[str, float]): A dictionary of fight prop ID and value.
+        values: A dictionary of fight prop ID and value.
+
+    Returns:
+        A dictionary of formatted stat values.
     """
     result: dict[str, str] = {}
 
@@ -288,8 +320,11 @@ def replace_fight_prop_with_name(
     Manual weapon example: https://api.ambr.top/v2/cht/manualWeapon
 
     Args:
-        values (dict[str, T]): A dictionary of fight prop ID and value.
-        manual_weapon (dict[str, str]): A dictionary from project ambr with fight prop ID and value.
+        values: A dictionary of fight prop ID and value.
+        manual_weapon: A dictionary from project ambr with fight prop ID and value.
+
+    Returns:
+        A dictionary with fight props replaced by names.
     """
     return {
         manual_weapon.get(fight_prop, fight_prop): value for fight_prop, value in values.items()
@@ -300,8 +335,11 @@ def get_skill_attributes(descriptions: list[str], params: list[int | float]) -> 
     """Get the skill attributes from the descriptions.
 
     Args:
-        descriptions (list[str]): The list of descriptions.
-        params (list[int | float]): The list of parameters.
+        descriptions: The list of descriptions.
+        params: The list of parameters.
+
+    Returns:
+        A string containing the skill attributes.
     """
     result = ""
     for desc in descriptions:
@@ -314,7 +352,14 @@ def get_skill_attributes(descriptions: list[str], params: list[int | float]) -> 
 
 
 def remove_ruby_tags(text: str) -> str:
-    """Remove ruby tags from a string."""
+    """Remove ruby tags from a string.
+
+    Args:
+        text: The text to process.
+
+    Returns:
+        The text with ruby tags removed.
+    """
     # Remove {RUBY_E#} tags
     text = re.sub(r"\{RUBY_E#\}", "", text)
     # Remove {RUBY_B...} tags

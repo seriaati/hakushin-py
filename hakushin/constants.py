@@ -5,12 +5,21 @@ from typing import Final, Literal
 from .enums import Game, HSRPath, Language
 
 __all__ = (
+    "ASCENDED_LEVEL_TO_ASCENSION",
+    "ASCENSION_TO_MAX_LEVEL",
     "GI_CHARA_RARITY_MAP",
     "GI_LANG_MAP",
     "HSR_API_LANG_MAP",
     "HSR_CHARA_RARITY_MAP",
     "HSR_LIGHT_CONE_RARITY_MAP",
+    "HSR_PATH_NAMES",
+    "NOT_ASCENDED_LEVEL_TO_ASCENSION",
     "PERCENTAGE_FIGHT_PROPS",
+    "STAT_TO_FIGHT_PROP",
+    "TRAILBLAZER_NAMES",
+    "ZZZ_LANG_MAP",
+    "ZZZ_SAB_RARITY_CONVERTER",
+    "ZZZ_SA_RARITY_CONVERTER",
 )
 
 GI_CHARA_RARITY_MAP: Final[dict[str, Literal[4, 5]]] = {
@@ -18,17 +27,20 @@ GI_CHARA_RARITY_MAP: Final[dict[str, Literal[4, 5]]] = {
     "QUALITY_ORANGE": 5,
     "QUALITY_ORANGE_SP": 5,
 }
+"""Map GI character rarity strings to integer values."""
 
 HSR_CHARA_RARITY_MAP: Final[dict[str, Literal[4, 5]]] = {
     "CombatPowerAvatarRarityType4": 4,
     "CombatPowerAvatarRarityType5": 5,
 }
+"""Map HSR character rarity strings to integer values."""
 
 HSR_LIGHT_CONE_RARITY_MAP: Final[dict[str, Literal[3, 4, 5]]] = {
     "CombatPowerLightconeRarity3": 3,
     "CombatPowerLightconeRarity4": 4,
     "CombatPowerLightconeRarity5": 5,
 }
+"""Map HSR light cone rarity strings to integer values."""
 
 HSR_API_LANG_MAP: Final[dict[Language, Literal["en", "jp", "kr", "cn"]]] = {
     Language.EN: "en",
@@ -36,7 +48,7 @@ HSR_API_LANG_MAP: Final[dict[Language, Literal["en", "jp", "kr", "cn"]]] = {
     Language.KO: "kr",
     Language.ZH: "cn",
 }
-"""Map to convert API language enum to HSR API language."""
+"""Map Language enum to HSR API language strings."""
 
 GI_LANG_MAP: Final[dict[Language, Literal["EN", "JP", "KR", "CHS"]]] = {
     Language.EN: "EN",
@@ -44,7 +56,7 @@ GI_LANG_MAP: Final[dict[Language, Literal["EN", "JP", "KR", "CHS"]]] = {
     Language.KO: "KR",
     Language.ZH: "CHS",
 }
-"""Map to convert API language enum to GI data language."""
+"""Map Language enum to GI data language strings."""
 
 ZZZ_LANG_MAP: Final[dict[Language, Literal["EN", "KO", "CHS", "JA"]]] = {
     Language.EN: "EN",
@@ -52,6 +64,7 @@ ZZZ_LANG_MAP: Final[dict[Language, Literal["EN", "KO", "CHS", "JA"]]] = {
     Language.KO: "KO",
     Language.ZH: "CHS",
 }
+"""Map Language enum to ZZZ API language strings."""
 
 PERCENTAGE_FIGHT_PROPS: Final[set[str]] = {
     "FIGHT_PROP_HP_PERCENT",
@@ -116,7 +129,7 @@ PERCENTAGE_FIGHT_PROPS: Final[set[str]] = {
     "quantumResistanceDelta",
     "imaginaryResistanceDelta",
 }
-"""Set of fight props that should be displayed as percentage value."""
+"""Set of fight prop keys that represent percentage values."""
 
 HSR_PATH_NAMES: Final[dict[Language, dict[HSRPath, str]]] = {
     Language.EN: {
@@ -160,6 +173,7 @@ HSR_PATH_NAMES: Final[dict[Language, dict[HSRPath, str]]] = {
         HSRPath.REMEMBRANCE: "기억",
     },
 }
+"""Map HSRPath enum to localized path names."""
 
 TRAILBLAZER_NAMES: Final[dict[Language, str]] = {
     Language.EN: "Trailblazer",
@@ -167,27 +181,34 @@ TRAILBLAZER_NAMES: Final[dict[Language, str]] = {
     Language.ZH: "开拓者",
     Language.KO: "개척자",
 }
+"""Map Language enum to localized Trailblazer names."""
 
 STAT_TO_FIGHT_PROP: Final[dict[str, str]] = {
     "BaseHP": "FIGHT_PROP_BASE_HP",
     "BaseDEF": "FIGHT_PROP_BASE_DEFENSE",
     "BaseATK": "FIGHT_PROP_BASE_ATTACK",
 }
+"""Map stat keys to fight prop keys."""
 
 NOT_ASCENDED_LEVEL_TO_ASCENSION: Final[dict[Game, dict[int, int]]] = {
     Game.GI: {80: 5, 70: 4, 60: 3, 50: 2, 40: 1, 20: 0},
     Game.HSR: {70: 5, 60: 4, 50: 3, 40: 2, 30: 1, 20: 0},
 }
+"""Map non-ascended levels to ascension numbers for each game."""
 
 ASCENDED_LEVEL_TO_ASCENSION: Final[dict[Game, dict[tuple[int, int], int]]] = {
     Game.GI: {(80, 90): 6, (70, 80): 5, (60, 70): 4, (50, 60): 3, (40, 50): 2, (20, 40): 1},
     Game.HSR: {(70, 80): 6, (60, 70): 5, (50, 60): 4, (40, 50): 3, (30, 40): 2, (20, 30): 1},
 }
+"""Map ascended level ranges to ascension numbers for each game."""
 
 ASCENSION_TO_MAX_LEVEL: Final[dict[Game, dict[int, int]]] = {
     Game.GI: {0: 20, 1: 40, 2: 50, 3: 60, 4: 70, 5: 80, 6: 90},
     Game.HSR: {0: 20, 1: 30, 2: 40, 3: 50, 4: 60, 5: 70, 6: 80},
 }
+"""Map ascension numbers to maximum levels for each game."""
 
 ZZZ_SAB_RARITY_CONVERTER: Final[dict[int, Literal["B", "A", "S"]]] = {2: "B", 3: "A", 4: "S"}
+"""Convert ZZZ S/A/B rarity integer values to string literals."""
 ZZZ_SA_RARITY_CONVERTER: Final[dict[int, Literal["A", "S"]]] = {3: "A", 4: "S"}
+"""Convert ZZZ S/A rarity integer values to string literals."""

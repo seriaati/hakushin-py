@@ -2,11 +2,21 @@ from __future__ import annotations
 
 from enum import IntEnum, StrEnum
 
-__all__ = ("Game", "Language")
+__all__ = (
+    "GIElement",
+    "Game",
+    "HSRElement",
+    "HSRPath",
+    "Language",
+    "ZZZAttackType",
+    "ZZZElement",
+    "ZZZSkillType",
+    "ZZZSpecialty",
+)
 
 
 class Game(StrEnum):
-    """Games supported by the Hakushin API."""
+    """Represent games supported by the Hakushin API."""
 
     GI = "gi"
     """Genshin Impact."""
@@ -17,7 +27,7 @@ class Game(StrEnum):
 
 
 class Language(StrEnum):
-    """Lanauges supported by the Hakushin API."""
+    """Represent languages supported by the Hakushin API."""
 
     EN = "en"
     """English."""
@@ -30,7 +40,7 @@ class Language(StrEnum):
 
 
 class GIElement(StrEnum):
-    """Genshin Impact element."""
+    """Represent a Genshin Impact element."""
 
     HYDRO = "Hydro"
     PYRO = "Pyro"
@@ -42,7 +52,7 @@ class GIElement(StrEnum):
 
 
 class HSRElement(StrEnum):
-    """HSR element."""
+    """Represent an HSR element."""
 
     ICE = "Ice"
     FIRE = "Fire"
@@ -54,7 +64,7 @@ class HSRElement(StrEnum):
 
 
 class HSRPath(StrEnum):
-    """HSR character path."""
+    """Represent an HSR character path."""
 
     PRESERVATION = "Knight"
     THE_HUNT = "Rogue"
@@ -67,7 +77,7 @@ class HSRPath(StrEnum):
 
 
 class ZZZSpecialty(IntEnum):
-    """ZZZ character specialty."""
+    """Represent a ZZZ character specialty."""
 
     ATTACK = 1
     STUN = 2
@@ -78,7 +88,7 @@ class ZZZSpecialty(IntEnum):
 
 
 class ZZZElement(IntEnum):
-    """ZZZ character element."""
+    """Represent a ZZZ character element."""
 
     PHYSICAL = 200
     FIRE = 201
@@ -88,7 +98,7 @@ class ZZZElement(IntEnum):
 
 
 class ZZZAttackType(IntEnum):
-    """ZZZ character attack type."""
+    """Represent a ZZZ character attack type."""
 
     SLASH = 101
     STRIKE = 102
@@ -96,7 +106,7 @@ class ZZZAttackType(IntEnum):
 
 
 class ZZZSkillType(StrEnum):
-    """ZZZ character skill type."""
+    """Represent a ZZZ character skill type."""
 
     BASIC = "Basic"
     DODGE = "Dodge"

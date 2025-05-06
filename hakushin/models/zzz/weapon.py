@@ -21,7 +21,16 @@ __all__ = (
 
 
 class Weapon(APIModel):
-    """ZZZ weapon (w-engine) model."""
+    """Represent a ZZZ weapon (w-engine).
+
+    Attributes:
+        id: ID of the weapon.
+        icon: Icon URL of the weapon.
+        name: Name of the weapon.
+        names: Dictionary of names in different languages.
+        specialty: Specialty of the weapon.
+        rarity: Rarity of the weapon.
+    """
 
     id: int
     icon: str
@@ -33,16 +42,19 @@ class Weapon(APIModel):
     @field_validator("rarity", mode="before")
     @classmethod
     def __convert_rarity(cls, value: int | None) -> Literal["S", "A", "B"] | None:
+        """Convert the rarity value to a string literal."""
         return ZZZ_SAB_RARITY_CONVERTER[value] if value is not None else None
 
     @field_validator("icon")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
+        """Convert the icon path to a full URL."""
         return f"https://api.hakush.in/zzz/UI/{value}.webp"
 
     @model_validator(mode="before")
     @classmethod
     def __pop_names(cls, values: dict[str, Any]) -> dict[str, Any]:
+        """Pop names from the values and assign them to the 'names' field."""
         values["names"] = {
             "EN": values.pop("EN"),
             "KO": values.pop("KO"),
@@ -53,14 +65,14 @@ class Weapon(APIModel):
 
 
 class WeaponType(APIModel):
-    """ZZZ weapon type model."""
+    """Represent a ZZZ weapon type."""
 
     type: ZZZSpecialty
     name: str
 
 
 class WeaponProp(APIModel):
-    """ZZZ weapon property model."""
+    """Represent a ZZZ weapon property."""
 
     name: str = Field(alias="Name")
     name2: str = Field(alias="Name2")
@@ -70,14 +82,14 @@ class WeaponProp(APIModel):
     @computed_field
     @property
     def formatted_value(self) -> str:
-        """Formatted value of this prop."""
+        """Get the formatted value of this property."""
         if "%" in self.format:
             return f"{self.value / 100:.0%}%"
         return str(round(self.value))
 
 
 class WeaponLevel(APIModel):
-    """ZZZ weapon level model."""
+    """Represent a ZZZ weapon level."""
 
     exp: int = Field(alias="Exp")
     rate: int = Field(alias="Rate")
@@ -85,14 +97,14 @@ class WeaponLevel(APIModel):
 
 
 class WeaponStar(APIModel):
-    """ZZZ weapon star model."""
+    """Represent a ZZZ weapon star."""
 
     star_rate: int = Field(alias="StarRate")
     rand_rate: int = Field(alias="RandRate")
 
 
 class WeaponRefinement(APIModel):
-    """ZZZ weapon refinement model."""
+    """Represent a ZZZ weapon refinement."""
 
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
@@ -100,11 +112,30 @@ class WeaponRefinement(APIModel):
     @field_validator("description")
     @classmethod
     def __cleanup_text(cls, value: str) -> str:
+        """Clean up the description text."""
         return cleanup_text(value)
 
 
 class WeaponDetail(APIModel):
-    """ZZZ weapon (w-engine) detail model."""
+    """Represent detailed information about a ZZZ weapon.
+
+    Attributes:
+        id: ID of the weapon.
+        code_name: Code name of the weapon.
+        name: Name of the weapon.
+        description: Description of the weapon.
+        description2: Second description of the weapon.
+        short_description: Short description of the weapon.
+        rarity: Rarity of the weapon.
+        icon: Icon URL of the weapon.
+        type: Type of the weapon.
+        base_property: Base property of the weapon.
+        rand_property: Random property of the weapon.
+        levels: Dictionary of weapon levels.
+        stars: Dictionary of weapon stars.
+        materials: Materials required for the weapon.
+        refinements: Dictionary of weapon refinements.
+    """
 
     id: int = Field(alias="Id")
     code_name: str = Field(alias="CodeName")
@@ -126,16 +157,19 @@ class WeaponDetail(APIModel):
     @field_validator("type", mode="before")
     @classmethod
     def __convert_type(cls, value: dict[str, str]) -> WeaponType:
+        """Convert the weapon type data to a WeaponType object."""
         first_item = next(iter(value.items()))
         return WeaponType(type=ZZZSpecialty(int(first_item[0])), name=first_item[1])
 
     @field_validator("icon")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
+        """Convert the icon path to a full URL."""
         value = value.split("/")[-1].split(".")[0]
         return f"https://api.hakush.in/zzz/UI/{value}.webp"
 
     @field_validator("rarity", mode="before")
     @classmethod
     def __convert_rarity(cls, value: int | None) -> Literal["S", "A", "B"] | None:
+        """Convert the rarity value to a string literal."""
         return ZZZ_SAB_RARITY_CONVERTER[value] if value is not None else None
