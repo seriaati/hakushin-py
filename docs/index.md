@@ -18,7 +18,7 @@ However, **there is an exception for ZZZ**, since Project Ambr and Yatta has no 
 
 Wuthering Waves support is currently not planned.
 
-### Features
+## Features
 
 - Fully typed.
 - Fully asynchronous by using `aiohttp`, and `asyncio`, suitable for Discord bots.
