@@ -99,6 +99,11 @@ class CharacterDetail(APIModel):
     def __convert_rarity(cls, value: str) -> Literal[4, 5]:
         return HSR_CHARA_RARITY_MAP[value]
 
+    @field_validator("description", mode="before")
+    @classmethod
+    def __convert_description(cls, value: str | None) -> str:
+        return value or ""
+
     @model_validator(mode="before")
     @classmethod
     def __extract_id(cls, values: dict[str, Any]) -> dict[str, Any]:
