@@ -26,7 +26,7 @@ class Bangboo(APIModel):
     @field_validator("icon")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        value = value.split("/")[-1].split(".")[0]
+        value = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
         return f"https://api.hakush.in/zzz/UI/{value}.webp"
 
     @field_validator("rarity", mode="before")
@@ -106,7 +106,7 @@ class BangbooDetail(APIModel):
     @field_validator("icon")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        value = value.split("/")[-1].split(".")[0]
+        value = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
         return f"https://api.hakush.in/zzz/UI/{value}.webp"
 
     @field_validator("rarity", mode="before")

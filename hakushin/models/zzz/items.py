@@ -29,5 +29,5 @@ class Item(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        icon = value.split("/")[-1].split(".")[0]
+        icon = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
         return f"https://api.hakush.in/zzz/UI/{icon}.webp"

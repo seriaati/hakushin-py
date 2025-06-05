@@ -89,7 +89,7 @@ class RelicSetDetail(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        icon_id = value.split("/")[-1].split(".")[0]
+        icon_id = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
         return f"https://api.hakush.in/hsr/UI/itemfigures/{icon_id}.webp"
 
     @field_validator("set_effects", mode="before")
@@ -160,7 +160,7 @@ class RelicSet(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        icon_id = value.split("/")[-1].split(".")[0]
+        icon_id = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
         return f"https://api.hakush.in/hsr/UI/itemfigures/{icon_id}.webp"
 
     @field_validator("set_effect", mode="before")

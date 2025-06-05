@@ -32,7 +32,7 @@ class DriveDisc(APIModel):
     @field_validator("icon")
     @classmethod
     def __convert_icon(cls, icon: str) -> str:
-        filename = icon.split("/")[-1].split(".")[0]
+        filename = icon.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
         return f"https://api.hakush.in/zzz/UI/{filename}.webp"
 
 
@@ -49,5 +49,5 @@ class DriveDiscDetail(APIModel):
     @field_validator("icon")
     @classmethod
     def __convert_icon(cls, icon: str) -> str:
-        filename = icon.split("/")[-1].split(".")[0]
+        filename = icon.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
         return f"https://api.hakush.in/zzz/UI/{filename}.webp"
