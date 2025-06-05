@@ -8,7 +8,12 @@ from ..utils import cleanup_text, remove_ruby_tags, replace_device_params
 
 
 class APIModel(BaseModel):
-    """Represent the base class for all models in hakushin-py."""
+    """Provide base functionality for all Hakushin API data models.
+
+    This class extends Pydantic's BaseModel with automatic text cleanup for
+    common fields like name, description, and story. It handles formatting
+    by removing ruby tags, cleaning up text, and replacing device parameters.
+    """
 
     @model_validator(mode="after")
     def __format_fields(self) -> Self:

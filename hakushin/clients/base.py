@@ -16,7 +16,17 @@ if TYPE_CHECKING:
 
 
 class BaseClient:
-    """Represent the base client to interact with the Hakushin API."""
+    """Provide base functionality for interacting with the Hakushin API.
+
+    This class handles HTTP requests, caching, session management, and error handling
+    for all game-specific clients. It implements the async context manager protocol
+    for proper resource management.
+
+    Attributes:
+        BASE_URL: The base URL for the Hakushin API.
+        lang: The language for API responses.
+        cache_ttl: Time-to-live for cached responses in seconds.
+    """
 
     BASE_URL: Final[str] = "https://api.hakush.in"
 
@@ -104,10 +114,18 @@ class BaseClient:
                 raise HakushinError(code, "An error occurred while fetching data.", url)
 
     async def start(self) -> None:
-        """Start the client session."""
+        """Start the client session.
+
+        Initialize the aiohttp session with caching support if not already provided.
+        This method must be called before making any API requests.
+        """
         self._session = self._session or CachedSession(headers=self._headers, cache=self._cache)
 
     async def close(self) -> None:
-        """Close the client session."""
+        """Close the client session.
+
+        Clean up the aiohttp session and release resources. This should be called
+        when done with the client to prevent resource leaks.
+        """
         if self._session is not None:
             await self._session.close()

@@ -28,7 +28,22 @@ __all__ = (
 
 
 class Character(APIModel):
-    """ZZZ character (agent)."""
+    """Represent a Zenless Zone Zero character (agent).
+
+    Contains basic character information including stats, element, specialty,
+    and visual assets. Agents are the playable characters in ZZZ.
+
+    Attributes:
+        id: Unique character identifier.
+        name: Character name/code.
+        rarity: Character rarity rank (S or A).
+        specialty: Character specialty type.
+        element: Elemental attribute of the character.
+        attack_type: Combat attack type.
+        image: Character portrait image URL.
+        en_description: English description text.
+        names: Character names in different languages.
+    """
 
     id: int
     name: str = Field(alias="code")
@@ -107,7 +122,15 @@ class Character(APIModel):
 
 
 class CharacterProp(APIModel):
-    """ZZZ character property."""
+    """Represent a character property in Zenless Zone Zero.
+
+    Properties include elements, weapon types, attack types, and other
+    character attributes that are referenced by ID and name.
+
+    Attributes:
+        id: Unique property identifier.
+        name: Human-readable property name.
+    """
 
     id: int
     name: str
@@ -122,7 +145,22 @@ class CharacterProp(APIModel):
 
 
 class CharacterInfo(APIModel):
-    """ZZZ character detail info."""
+    """Contain detailed character lore and background information.
+
+    Provides extensive character details including personal information,
+    impressions, descriptions, and unlock requirements.
+
+    Attributes:
+        birthday: Character birth date.
+        full_name: Character's complete name.
+        gender: Character gender.
+        female_impression: Female player impression text.
+        male_impression: Male player impression text.
+        outlook_desc: Character outlook description.
+        profile_desc: Character profile description.
+        faction: Character faction or group.
+        unlock_conditions: List of conditions to unlock the character.
+    """
 
     birthday: str = Field(alias="Birthday")
     full_name: str = Field(alias="FullName")
@@ -141,7 +179,17 @@ class CharacterInfo(APIModel):
 
 
 class MindscapeCinema(APIModel):
-    """ZZZ character mindscape cinema (constellation)."""
+    """Represent a character mindscape cinema level (constellation equivalent).
+
+    Mindscape cinemas are upgrades that enhance character abilities
+    and provide new effects when unlocked.
+
+    Attributes:
+        level: Cinema level (1-6).
+        name: Cinema ability name.
+        description: Primary effect description.
+        description2: Secondary effect description.
+    """
 
     level: int = Field(alias="Level")
     name: str = Field(alias="Name")
@@ -155,7 +203,19 @@ class MindscapeCinema(APIModel):
 
 
 class CharacterAscension(APIModel):
-    """A ZZZ character ascension object."""
+    """Represent character ascension phase data.
+
+    Contains stat bonuses and material requirements for each
+    character ascension phase.
+
+    Attributes:
+        max_hp: Maximum HP bonus at this phase.
+        attack: Attack stat bonus.
+        defense: Defense stat bonus.
+        max_level: Maximum level achievable in this phase.
+        min_level: Minimum level for this phase.
+        materials: Required materials for ascension.
+    """
 
     max_hp: int = Field(alias="HpMax")
     attack: int = Field(alias="Attack")
@@ -171,7 +231,15 @@ class CharacterAscension(APIModel):
 
 
 class CharacterExtraAscension(APIModel):
-    """ZZZ character extra ascension object."""
+    """Represent character bonus ascension data.
+
+    Contains additional ascension bonuses and properties that are
+    granted beyond the standard ascension phases.
+
+    Attributes:
+        max_level: Maximum level for this bonus phase.
+        props: Additional properties and bonuses gained.
+    """
 
     max_level: int = Field(alias="MaxLevel")
     props: list[ZZZExtraProp] = Field(alias="Extra")
@@ -183,7 +251,16 @@ class CharacterExtraAscension(APIModel):
 
 
 class CharaSkillDescParamProp(APIModel):
-    """ZZZ character skill description parameter property."""
+    """Represent skill description parameter properties.
+
+    Contains numerical properties for skill parameter calculations
+    including base values, growth rates, and formatting.
+
+    Attributes:
+        main: Base parameter value.
+        growth: Growth rate per level.
+        format: Display formatting specification.
+    """
 
     main: int = Field(alias="Main")
     growth: int = Field(alias="Growth")
@@ -191,7 +268,16 @@ class CharaSkillDescParamProp(APIModel):
 
 
 class CharaSkillDescParam(APIModel):
-    """ZZZ character skill description parameter."""
+    """Represent a skill description parameter.
+
+    Contains parameter information for skill descriptions including
+    names, descriptions, and numerical properties.
+
+    Attributes:
+        name: Parameter name.
+        description: Parameter description.
+        params: Dictionary of parameter properties.
+    """
 
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
@@ -199,7 +285,16 @@ class CharaSkillDescParam(APIModel):
 
 
 class CharacterSkillDesc(APIModel):
-    """ZZZ character skill description."""
+    """Represent a character skill description entry.
+
+    Contains detailed information about specific skill effects
+    including names, descriptions, and parameters.
+
+    Attributes:
+        name: Skill description name.
+        description: Skill effect description.
+        params: List of skill parameters.
+    """
 
     name: str = Field(alias="Name")
     description: str | None = Field(None, alias="Desc")
@@ -207,7 +302,16 @@ class CharacterSkillDesc(APIModel):
 
 
 class CharacterSkill(APIModel):
-    """ZZZ character skill."""
+    """Represent a character skill with upgrade information.
+
+    Contains complete skill data including descriptions, upgrade materials,
+    and skill type classification.
+
+    Attributes:
+        descriptions: List of skill effect descriptions.
+        materials: Required materials for skill upgrades by level.
+        type: Skill type classification.
+    """
 
     descriptions: list[CharacterSkillDesc] = Field(alias="Description")
     materials: dict[str, list[ZZZMaterial]] = Field(alias="Material")
@@ -223,7 +327,17 @@ class CharacterSkill(APIModel):
 
 
 class CharaCoreSkillLevel(APIModel):
-    """One level of a ZZZ character core skill."""
+    """Represent a single level of a character core skill.
+
+    Core skills are passive abilities that can be upgraded to provide
+    enhanced effects and bonuses.
+
+    Attributes:
+        level: Core skill level.
+        id: Unique core skill identifier.
+        names: Skill names in different contexts.
+        descriptions: Skill effect descriptions.
+    """
 
     level: int = Field(alias="Level")
     id: int = Field(alias="Id")
@@ -237,10 +351,17 @@ class CharaCoreSkillLevel(APIModel):
 
 
 class CharacterCoreSkill(APIModel):
-    """ZZZ character core skill."""
+    """Represent a character's core skill progression system.
+
+    Core skills are passive abilities that provide ongoing benefits
+    and can be upgraded through multiple levels.
+
+    Attributes:
+        levels: Core skill levels mapped by level number.
+        level_up_materials: Materials required for each upgrade level.
+    """
 
     levels: dict[int, CharaCoreSkillLevel] = Field(alias="Level")
-    """Key is the level of the core skill."""
     level_up_materials: dict[str, list[ZZZMaterial]] | None = Field(None, alias="Materials")
 
     @field_validator("level_up_materials", mode="before")
@@ -258,7 +379,30 @@ class CharacterCoreSkill(APIModel):
 
 
 class CharacterDetail(APIModel):
-    """ZZZ character detail."""
+    """Provide comprehensive character information and progression data.
+
+    Contains complete character details including stats, skills, ascension data,
+    mindscape cinemas, and all progression information for a ZZZ agent.
+
+    Attributes:
+        id: Unique character identifier.
+        image: Character portrait image URL.
+        name: Character display name.
+        code_name: Character code designation.
+        rarity: Character rarity rank (S or A).
+        specialty: Character weapon specialty.
+        element: Character elemental attribute.
+        attack_type: Character combat attack type.
+        faction: Character faction or camp.
+        gender: Character gender (M or F).
+        info: Detailed character background information.
+        stats: Base character statistics.
+        mindscape_cinemas: Character mindscape cinema upgrades.
+        ascension: Character ascension phase data.
+        extra_ascension: Additional ascension bonuses.
+        skills: Character skills by type.
+        passive: Character core passive skill.
+    """
 
     id: int = Field(alias="Id")
     image: str = Field(alias="Icon")

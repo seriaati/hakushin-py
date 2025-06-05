@@ -13,7 +13,20 @@ __all__ = ("Bangboo", "BangbooAscension", "BangbooDetail", "BangbooSkill")
 
 
 class Bangboo(APIModel):
-    """ZZZ bangboo model."""
+    """Represent a Zenless Zone Zero bangboo companion.
+
+    Bangboos are AI companions that assist agents in combat and exploration.
+    They have different rarities, skills, and can be leveled up.
+
+    Attributes:
+        id: Unique bangboo identifier.
+        icon: Bangboo icon image URL.
+        rarity: Bangboo rarity rank (S or A).
+        code_name: Bangboo code designation.
+        description: Bangboo description text.
+        name: Bangboo display name (may be empty).
+        names: Bangboo names in different languages.
+    """
 
     id: int
     icon: str
@@ -47,7 +60,20 @@ class Bangboo(APIModel):
 
 
 class BangbooAscension(APIModel):
-    """ZZZ bangboo ascension model."""
+    """Represent bangboo ascension phase data.
+
+    Contains stat bonuses, level requirements, and materials needed
+    for each bangboo ascension phase.
+
+    Attributes:
+        max_hp: Maximum HP bonus at this phase.
+        attack: Attack stat bonus.
+        defense: Defense stat bonus.
+        max_level: Maximum level achievable in this phase.
+        min_level: Minimum level for this phase.
+        materials: Required materials for ascension.
+        extra_props: Additional properties gained.
+    """
 
     max_hp: int = Field(alias="HpMax")
     attack: int = Field(alias="Attack")
@@ -69,7 +95,17 @@ class BangbooAscension(APIModel):
 
 
 class BangbooSkill(APIModel):
-    """ZZZ bangboo skill model."""
+    """Represent a bangboo skill or ability.
+
+    Each bangboo has multiple skills that provide different effects
+    and bonuses during gameplay.
+
+    Attributes:
+        name: Skill name.
+        description: Skill effect description.
+        properties: List of skill properties.
+        parameter: Skill parameter values.
+    """
 
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
@@ -83,7 +119,22 @@ class BangbooSkill(APIModel):
 
 
 class BangbooDetail(APIModel):
-    """ZZZ bangboo detail model."""
+    """Provide comprehensive bangboo information and progression data.
+
+    Contains complete bangboo details including stats, ascension data,
+    skills, and all progression information.
+
+    Attributes:
+        id: Unique bangboo identifier.
+        code_name: Bangboo code designation.
+        name: Bangboo display name.
+        description: Bangboo description text.
+        rarity: Bangboo rarity rank (S or A).
+        icon: Bangboo icon image URL.
+        stats: Base stats dictionary.
+        ascensions: Ascension data by level (key starts from 1).
+        skills: Skills organized by type (A, B, C).
+    """
 
     id: int = Field(alias="Id")
     code_name: str = Field(alias="CodeName")
@@ -93,7 +144,6 @@ class BangbooDetail(APIModel):
     icon: str = Field(alias="Icon")
     stats: dict[str, float] = Field(alias="Stats")
     ascensions: dict[str, BangbooAscension] = Field(alias="Level")
-    """Dictionary of ascension objects, key starts from 1."""
     skills: dict[Literal["A", "B", "C"], dict[str, BangbooSkill]] = Field(alias="Skill")
 
     @field_validator("skills", mode="before")

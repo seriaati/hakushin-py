@@ -8,7 +8,16 @@ __all__ = ("DriveDisc", "DriveDiscDetail", "DriveDiscInfo")
 
 
 class DriveDiscInfo(APIModel):
-    """ZZZ drive disc info model."""
+    """Represent drive disc information in a specific language.
+
+    Contains localized drive disc name and set bonus descriptions
+    for 2-piece and 4-piece effects.
+
+    Attributes:
+        name: Drive disc set name.
+        two_piece_effect: Effect when 2 pieces are equipped.
+        four_piece_effect: Effect when 4 pieces are equipped.
+    """
 
     name: str
     two_piece_effect: str = Field(alias="desc2")
@@ -16,7 +25,22 @@ class DriveDiscInfo(APIModel):
 
 
 class DriveDisc(APIModel):
-    """ZZZ drive disc model."""
+    """Represent a Zenless Zone Zero drive disc set.
+
+    Drive discs are equipment sets that provide bonuses when multiple
+    pieces are equipped. Contains basic info and localized descriptions.
+
+    Attributes:
+        id: Unique drive disc set identifier.
+        icon: Drive disc icon image URL.
+        name: Set name (may be empty if not in API response).
+        two_piece_effect: 2-piece effect description (may be empty).
+        four_piece_effect: 4-piece effect description (may be empty).
+        en_info: English localization data.
+        ko_info: Korean localization data.
+        chs_info: Chinese Simplified localization data.
+        ja_info: Japanese localization data.
+    """
 
     id: int
     icon: str
@@ -37,7 +61,19 @@ class DriveDisc(APIModel):
 
 
 class DriveDiscDetail(APIModel):
-    """ZZZ drive disc detail model."""
+    """Provide comprehensive drive disc set information.
+
+    Contains complete drive disc data including set bonuses, lore,
+    and visual assets for a specific drive disc set.
+
+    Attributes:
+        id: Unique drive disc set identifier.
+        name: Drive disc set name.
+        two_piece_effect: Effect when 2 pieces are equipped.
+        four_piece_effect: Effect when 4 pieces are equipped.
+        story: Background lore and story text.
+        icon: Drive disc icon image URL.
+    """
 
     id: int = Field(alias="Id")
     name: str = Field(alias="Name")

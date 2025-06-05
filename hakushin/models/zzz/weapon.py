@@ -65,14 +65,32 @@ class Weapon(APIModel):
 
 
 class WeaponType(APIModel):
-    """Represent a ZZZ weapon type."""
+    """Represent a weapon type classification.
+
+    Defines the specialty and name of weapon types that characters
+    can use in Zenless Zone Zero.
+
+    Attributes:
+        type: Weapon specialty classification.
+        name: Human-readable weapon type name.
+    """
 
     type: ZZZSpecialty
     name: str
 
 
 class WeaponProp(APIModel):
-    """Represent a ZZZ weapon property."""
+    """Represent a weapon stat property.
+
+    Contains stat information including names, formatting, and values
+    for weapon statistics like attack, crit rate, etc.
+
+    Attributes:
+        name: Primary property name.
+        name2: Secondary property name.
+        format: Value formatting specification.
+        value: Numerical property value.
+    """
 
     name: str = Field(alias="Name")
     name2: str = Field(alias="Name2")
@@ -89,7 +107,16 @@ class WeaponProp(APIModel):
 
 
 class WeaponLevel(APIModel):
-    """Represent a ZZZ weapon level."""
+    """Represent weapon leveling information.
+
+    Contains experience requirements and stat scaling rates
+    for weapon level progression.
+
+    Attributes:
+        exp: Experience points required.
+        rate: Primary stat scaling rate.
+        rate2: Secondary stat scaling rate.
+    """
 
     exp: int = Field(alias="Exp")
     rate: int = Field(alias="Rate")
@@ -97,14 +124,29 @@ class WeaponLevel(APIModel):
 
 
 class WeaponStar(APIModel):
-    """Represent a ZZZ weapon star."""
+    """Represent weapon star ranking information.
+
+    Contains star rating data and randomization rates
+    for weapon rarity and quality assessment.
+
+    Attributes:
+        star_rate: Star rating value.
+        rand_rate: Randomization rate factor.
+    """
 
     star_rate: int = Field(alias="StarRate")
     rand_rate: int = Field(alias="RandRate")
 
 
 class WeaponRefinement(APIModel):
-    """Represent a ZZZ weapon refinement."""
+    """Represent weapon refinement level data.
+
+    Contains information about weapon refinement stages
+    and their associated names or effects.
+
+    Attributes:
+        name: Refinement level name or description.
+    """
 
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
