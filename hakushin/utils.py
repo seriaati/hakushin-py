@@ -317,7 +317,7 @@ def replace_fight_prop_with_name(
 ) -> dict[str, T]:
     """Replace the fight prop with the corresponding name.
 
-    Manual weapon example: https://api.ambr.top/v2/cht/manualWeapon
+    Manual weapon example: https://gi.yatta.moe/api/v2/en/manualWeapon
 
     Args:
         values: A dictionary of fight prop ID and value.

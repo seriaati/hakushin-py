@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-pip install ambr-py
+pip install hakushin-py
 ```
 
 ## Usage
