@@ -120,9 +120,13 @@ def replace_placeholders(text: str, param_list: list[float]) -> str:
     placeholders: list[str] = re.findall(r"#\d+\[[^\]]+\]%?", text)
 
     for placeholder in placeholders:
-        index = int(placeholder[1])
-        format_ = placeholder[-1]
-        value = param_list[index - 1]
+        try:
+            index = int(placeholder[1])
+            format_ = placeholder[-1]
+            value = param_list[index - 1]
+        except (ValueError, IndexError):
+            continue
+
         if format_ == "%":
             value *= 100
         text = text.replace(placeholder, f"{round(value)}{'%' if format_ == '%' else ''}")
