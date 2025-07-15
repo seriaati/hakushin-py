@@ -378,6 +378,30 @@ class CharacterCoreSkill(APIModel):
         return {v["Level"]: CharaCoreSkillLevel(**v) for v in value.values()}
 
 
+class CharacterSkin(APIModel):
+    """Represent a character skin in Zenless Zone Zero.
+
+    Contains information about character skins including IDs, names,
+    and image URLs.
+
+    Attributes:
+        id: Unique skin identifier.
+        name: Skin name.
+        description: Skin description.
+        image: Skin image URL.
+    """
+
+    id: int = Field(alias="Id")
+    name: str = Field(alias="Name")
+    description: str = Field(alias="Desc")
+    image: str = Field(alias="Image")
+
+    @field_validator("image")
+    @classmethod
+    def __convert_image(cls, value: str) -> str:
+        return f"https://api.hakush.in/zzz/UI/{value}.webp"
+
+
 class CharacterDetail(APIModel):
     """Provide comprehensive character information and progression data.
 
@@ -421,6 +445,7 @@ class CharacterDetail(APIModel):
     extra_ascension: list[CharacterExtraAscension] = Field(alias="ExtraLevel")
     skills: dict[ZZZSkillType, CharacterSkill] = Field(alias="Skill")
     passive: CharacterCoreSkill = Field(alias="Passive")
+    skins: list[CharacterSkin] = Field(alias="Skin", default_factory=list)
 
     @computed_field
     @property
@@ -511,3 +536,8 @@ class CharacterDetail(APIModel):
     @classmethod
     def __convert_image(cls, value: str) -> str:
         return f"https://api.hakush.in/zzz/UI/{value}.webp"
+
+    @field_validator("skins", mode="before")
+    @classmethod
+    def __convert_skins(cls, value: dict[str, dict[str, Any]]) -> list[CharacterSkin]:
+        return [CharacterSkin(Id=int(k), **v) for k, v in value.items()]
