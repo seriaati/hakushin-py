@@ -27,6 +27,30 @@ __all__ = (
 )
 
 
+class CharacterSkin(APIModel):
+    """Represent a character skin in Zenless Zone Zero.
+
+    Contains information about character skins including IDs, names,
+    and image URLs.
+
+    Attributes:
+        id: Unique skin identifier.
+        name: Skin name.
+        description: Skin description.
+        image: Skin image URL.
+    """
+
+    id: int = Field(alias="Id")
+    name: str = Field(alias="Name")
+    description: str = Field(alias="Desc")
+    image: str = Field(alias="Image")
+
+    @field_validator("image")
+    @classmethod
+    def __convert_image(cls, value: str) -> str:
+        return f"https://api.hakush.in/zzz/UI/{value}.webp"
+
+
 class Character(APIModel):
     """Represent a Zenless Zone Zero character (agent).
 
@@ -54,6 +78,7 @@ class Character(APIModel):
     image: str = Field(alias="icon")
     en_description: str = Field(alias="desc")
     names: dict[Literal["EN", "KO", "CHS", "JA"], str]
+    skins: list[CharacterSkin] = Field(alias="skin", default_factory=list)
 
     @computed_field
     @property
@@ -119,6 +144,11 @@ class Character(APIModel):
             "JA": values.pop("JA"),
         }
         return values
+
+    @field_validator("skins", mode="before")
+    @classmethod
+    def __convert_skins(cls, value: dict[str, dict[str, Any]]) -> list[CharacterSkin]:
+        return [CharacterSkin(Id=int(k), **v) for k, v in value.items()]
 
 
 class CharacterProp(APIModel):
@@ -376,30 +406,6 @@ class CharacterCoreSkill(APIModel):
     @classmethod
     def __intify_keys(cls, value: dict[str, dict[str, Any]]) -> dict[int, CharaCoreSkillLevel]:
         return {v["Level"]: CharaCoreSkillLevel(**v) for v in value.values()}
-
-
-class CharacterSkin(APIModel):
-    """Represent a character skin in Zenless Zone Zero.
-
-    Contains information about character skins including IDs, names,
-    and image URLs.
-
-    Attributes:
-        id: Unique skin identifier.
-        name: Skin name.
-        description: Skin description.
-        image: Skin image URL.
-    """
-
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    image: str = Field(alias="Image")
-
-    @field_validator("image")
-    @classmethod
-    def __convert_image(cls, value: str) -> str:
-        return f"https://api.hakush.in/zzz/UI/{value}.webp"
 
 
 class CharacterDetail(APIModel):
