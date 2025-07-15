@@ -1,0 +1,5785 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Async API wrapper for hakush.in written in Python">
+      
+      
+        <meta name="author" content="Seria Ati">
+      
+      
+        <link rel="canonical" href="https://gh.seria.moe/hakushin-py/api_reference/models/zzz/">
+      
+      
+        <link rel="prev" href="../hsr/">
+      
+      
+        <link rel="next" href="../../errors/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Zenless Zone Zero - hakushin-py</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Zenless Zone Zero - hakushin-py" >
+      
+        <meta  property="og:description"  content="Async API wrapper for hakush.in written in Python" >
+      
+        <meta  property="og:image"  content="https://gh.seria.moe/hakushin-py/assets/images/social/api_reference/models/zzz.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://gh.seria.moe/hakushin-py/api_reference/models/zzz/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Zenless Zone Zero - hakushin-py" >
+      
+        <meta  name="twitter:description"  content="Async API wrapper for hakush.in written in Python" >
+      
+        <meta  name="twitter:image"  content="https://gh.seria.moe/hakushin-py/assets/images/social/api_reference/models/zzz.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="hakushin-py" class="md-header__button md-logo" aria-label="hakushin-py" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            hakushin-py
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Zenless Zone Zero
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/seriaati/hakushin-py" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    seriaati/hakushin-py
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../getting_started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../clients/client/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="hakushin-py" class="md-nav__button md-logo" aria-label="hakushin-py" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    hakushin-py
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/seriaati/hakushin-py" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    seriaati/hakushin-py
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Clients
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Genshin Impact
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/hsr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Honkai Star Rail
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/zzz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Zenless Zone Zero
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Models
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Genshin Impact
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hsr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Honkai Star Rail
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Zenless Zone Zero
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Zenless Zone Zero
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Bangboo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bangboo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.BangbooAscension" class="md-nav__link">
+    <span class="md-ellipsis">
+      BangbooAscension
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.BangbooDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      BangbooDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.BangbooSkill" class="md-nav__link">
+    <span class="md-ellipsis">
+      BangbooSkill
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharaCoreSkillLevel" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharaCoreSkillLevel
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharaSkillDescParam" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharaSkillDescParam
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharaSkillDescParamProp" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharaSkillDescParamProp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Character" class="md-nav__link">
+    <span class="md-ellipsis">
+      Character
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Character">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Character.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Character.phase_1_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_1_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Character.phase_2_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_2_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Character.phase_3_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_3_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterAscension" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterAscension
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterCoreSkill" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterCoreSkill
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterDetail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CharacterDetail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterDetail.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterDetail.phase_1_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_1_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterDetail.phase_2_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_2_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterDetail.phase_3_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_3_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterExtraAscension" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterExtraAscension
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterInfo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterProp" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterProp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterSkill" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterSkill
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterSkillDesc" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterSkillDesc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.DriveDisc" class="md-nav__link">
+    <span class="md-ellipsis">
+      DriveDisc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.DriveDiscDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      DriveDiscDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.DriveDiscInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      DriveDiscInfo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Item" class="md-nav__link">
+    <span class="md-ellipsis">
+      Item
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.MindscapeCinema" class="md-nav__link">
+    <span class="md-ellipsis">
+      MindscapeCinema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.New" class="md-nav__link">
+    <span class="md-ellipsis">
+      New
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Weapon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weapon
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Weapon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Weapon.__convert_icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      __convert_icon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Weapon.__convert_rarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      __convert_rarity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Weapon.__pop_names" class="md-nav__link">
+    <span class="md-ellipsis">
+      __pop_names
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponDetail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WeaponDetail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponDetail.refinements" class="md-nav__link">
+    <span class="md-ellipsis">
+      refinements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponDetail.__convert_icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      __convert_icon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponDetail.__convert_rarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      __convert_rarity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponDetail.__convert_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      __convert_type
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponLevel" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponLevel
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponProp" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponProp
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WeaponProp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponProp.formatted_value" class="md-nav__link">
+    <span class="md-ellipsis">
+      formatted_value
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponRefinement" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponRefinement
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WeaponRefinement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponRefinement.__cleanup_text" class="md-nav__link">
+    <span class="md-ellipsis">
+      __cleanup_text
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponStar" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponStar
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponType" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponType
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Enums
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Utils
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Bangboo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bangboo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.BangbooAscension" class="md-nav__link">
+    <span class="md-ellipsis">
+      BangbooAscension
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.BangbooDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      BangbooDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.BangbooSkill" class="md-nav__link">
+    <span class="md-ellipsis">
+      BangbooSkill
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharaCoreSkillLevel" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharaCoreSkillLevel
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharaSkillDescParam" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharaSkillDescParam
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharaSkillDescParamProp" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharaSkillDescParamProp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Character" class="md-nav__link">
+    <span class="md-ellipsis">
+      Character
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Character">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Character.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Character.phase_1_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_1_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Character.phase_2_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_2_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Character.phase_3_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_3_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterAscension" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterAscension
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterCoreSkill" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterCoreSkill
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterDetail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CharacterDetail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterDetail.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterDetail.phase_1_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_1_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterDetail.phase_2_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_2_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterDetail.phase_3_cinema_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      phase_3_cinema_art
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterExtraAscension" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterExtraAscension
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterInfo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterProp" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterProp
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterSkill" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterSkill
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.CharacterSkillDesc" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterSkillDesc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.DriveDisc" class="md-nav__link">
+    <span class="md-ellipsis">
+      DriveDisc
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.DriveDiscDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      DriveDiscDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.DriveDiscInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      DriveDiscInfo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Item" class="md-nav__link">
+    <span class="md-ellipsis">
+      Item
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.MindscapeCinema" class="md-nav__link">
+    <span class="md-ellipsis">
+      MindscapeCinema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.New" class="md-nav__link">
+    <span class="md-ellipsis">
+      New
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Weapon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Weapon
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Weapon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Weapon.__convert_icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      __convert_icon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Weapon.__convert_rarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      __convert_rarity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.Weapon.__pop_names" class="md-nav__link">
+    <span class="md-ellipsis">
+      __pop_names
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponDetail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WeaponDetail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponDetail.refinements" class="md-nav__link">
+    <span class="md-ellipsis">
+      refinements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponDetail.__convert_icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      __convert_icon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponDetail.__convert_rarity" class="md-nav__link">
+    <span class="md-ellipsis">
+      __convert_rarity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponDetail.__convert_type" class="md-nav__link">
+    <span class="md-ellipsis">
+      __convert_type
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponLevel" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponLevel
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponProp" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponProp
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WeaponProp">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponProp.formatted_value" class="md-nav__link">
+    <span class="md-ellipsis">
+      formatted_value
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponRefinement" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponRefinement
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WeaponRefinement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponRefinement.__cleanup_text" class="md-nav__link">
+    <span class="md-ellipsis">
+      __cleanup_text
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponStar" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponStar
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.zzz.WeaponType" class="md-nav__link">
+    <span class="md-ellipsis">
+      WeaponType
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="api-reference">API Reference</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.Bangboo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>Bangboo</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a Zenless Zone Zero bangboo companion.</p>
+<p>Bangboos are AI companions that assist agents in combat and exploration.
+They have different rarities, skills, and can be leveled up.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Bangboo.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique bangboo identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Bangboo.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo icon image URL.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Bangboo.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;S&#39;, &#39;A&#39;] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo rarity rank (S or A).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Bangboo.code_name">code_name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo code designation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Bangboo.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo description text.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Bangboo.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo display name (may be empty).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Bangboo.names">names</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;EN&#39;, &#39;JA&#39;, &#39;CHS&#39;, &#39;KO&#39;], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo names in different languages.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.BangbooAscension" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>BangbooAscension</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent bangboo ascension phase data.</p>
+<p>Contains stat bonuses, level requirements, and materials needed
+for each bangboo ascension phase.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooAscension.max_hp">max_hp</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum HP bonus at this phase.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooAscension.attack">attack</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Attack stat bonus.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooAscension.defense">defense</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Defense stat bonus.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooAscension.max_level">max_level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum level achievable in this phase.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooAscension.min_level">min_level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Minimum level for this phase.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooAscension.materials">materials</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="hakushin.models.zzz.common.ZZZMaterial">ZZZMaterial</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required materials for ascension.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooAscension.extra_props">extra_props</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="hakushin.models.zzz.common.ZZZExtraProp">ZZZExtraProp</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Additional properties gained.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.BangbooDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>BangbooDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Provide comprehensive bangboo information and progression data.</p>
+<p>Contains complete bangboo details including stats, ascension data,
+skills, and all progression information.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooDetail.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique bangboo identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooDetail.code_name">code_name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo code designation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooDetail.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo display name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooDetail.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo description text.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooDetail.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;S&#39;, &#39;A&#39;]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo rarity rank (S or A).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooDetail.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Bangboo icon image URL.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooDetail.stats">stats</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Base stats dictionary.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooDetail.ascensions">ascensions</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <a class="autorefs autorefs-internal" title="            BangbooAscension (hakushin.models.zzz.bangboo.BangbooAscension)" href="#hakushin.models.zzz.BangbooAscension">BangbooAscension</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Ascension data by level (key starts from 1).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooDetail.skills">skills</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;A&#39;, &#39;B&#39;, &#39;C&#39;], <span title="dict">dict</span>[<span title="str">str</span>, <a class="autorefs autorefs-internal" title="            BangbooSkill (hakushin.models.zzz.bangboo.BangbooSkill)" href="#hakushin.models.zzz.BangbooSkill">BangbooSkill</a>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skills organized by type (A, B, C).</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.BangbooSkill" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>BangbooSkill</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a bangboo skill or ability.</p>
+<p>Each bangboo has multiple skills that provide different effects
+and bonuses during gameplay.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooSkill.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skill name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooSkill.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skill effect description.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooSkill.properties">properties</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of skill properties.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.BangbooSkill.parameter">parameter</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skill parameter values.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharaCoreSkillLevel" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharaCoreSkillLevel</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a single level of a character core skill.</p>
+<p>Core skills are passive abilities that can be upgraded to provide
+enhanced effects and bonuses.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharaCoreSkillLevel.level">level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Core skill level.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharaCoreSkillLevel.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique core skill identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharaCoreSkillLevel.names">names</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skill names in different contexts.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharaCoreSkillLevel.descriptions">descriptions</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skill effect descriptions.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharaSkillDescParam" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharaSkillDescParam</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a skill description parameter.</p>
+<p>Contains parameter information for skill descriptions including
+names, descriptions, and numerical properties.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharaSkillDescParam.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Parameter name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharaSkillDescParam.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Parameter description.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharaSkillDescParam.params">params</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <a class="autorefs autorefs-internal" title="            CharaSkillDescParamProp (hakushin.models.zzz.character.CharaSkillDescParamProp)" href="#hakushin.models.zzz.CharaSkillDescParamProp">CharaSkillDescParamProp</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary of parameter properties.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharaSkillDescParamProp" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharaSkillDescParamProp</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent skill description parameter properties.</p>
+<p>Contains numerical properties for skill parameter calculations
+including base values, growth rates, and formatting.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharaSkillDescParamProp.main">main</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Base parameter value.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharaSkillDescParamProp.growth">growth</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Growth rate per level.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharaSkillDescParamProp.format">format</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Display formatting specification.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.Character" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>Character</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a Zenless Zone Zero character (agent).</p>
+<p>Contains basic character information including stats, element, specialty,
+and visual assets. Agents are the playable characters in ZZZ.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Character.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique character identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Character.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character name/code.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Character.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;S&#39;, &#39;A&#39;] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character rarity rank (S or A).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Character.specialty">specialty</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ZZZSpecialty (hakushin.enums.ZZZSpecialty)" href="../../enums/#hakushin.enums.ZZZSpecialty">ZZZSpecialty</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character specialty type.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Character.element">element</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ZZZElement (hakushin.enums.ZZZElement)" href="../../enums/#hakushin.enums.ZZZElement">ZZZElement</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Elemental attribute of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Character.attack_type">attack_type</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ZZZAttackType (hakushin.enums.ZZZAttackType)" href="../../enums/#hakushin.enums.ZZZAttackType">ZZZAttackType</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Combat attack type.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Character.image">image</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character portrait image URL.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Character.en_description">en_description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>English description text.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Character.names">names</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;EN&#39;, &#39;KO&#39;, &#39;CHS&#39;, &#39;JA&#39;], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character names in different languages.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.zzz.Character.icon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">icon</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Agent icon.</p>
+<p>Example: https://api.hakush.in/zzz/UI/IconRoleSelect01.webp</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.zzz.Character.phase_1_cinema_art" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">phase_1_cinema_art</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Agent phase 1 mindscape cinema art.</p>
+<p>Example: https://api.hakush.in/zzz/UI/Mindscape_1041_1.webp</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.zzz.Character.phase_2_cinema_art" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">phase_2_cinema_art</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Agent phase 2 mindscape cinema art.</p>
+<p>Example: https://api.hakush.in/zzz/UI/Mindscape_1041_2.webp</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.zzz.Character.phase_3_cinema_art" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">phase_3_cinema_art</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Agent phase 3 mindscape cinema art.</p>
+<p>Example: https://api.hakush.in/zzz/UI/Mindscape_1041_3.webp</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharacterAscension" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharacterAscension</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent character ascension phase data.</p>
+<p>Contains stat bonuses and material requirements for each
+character ascension phase.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterAscension.max_hp">max_hp</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum HP bonus at this phase.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterAscension.attack">attack</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Attack stat bonus.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterAscension.defense">defense</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Defense stat bonus.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterAscension.max_level">max_level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum level achievable in this phase.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterAscension.min_level">min_level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Minimum level for this phase.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterAscension.materials">materials</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="hakushin.models.zzz.common.ZZZMaterial">ZZZMaterial</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required materials for ascension.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharacterCoreSkill" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharacterCoreSkill</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a character's core skill progression system.</p>
+<p>Core skills are passive abilities that provide ongoing benefits
+and can be upgraded through multiple levels.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterCoreSkill.levels">levels</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="int">int</span>, <a class="autorefs autorefs-internal" title="            CharaCoreSkillLevel (hakushin.models.zzz.character.CharaCoreSkillLevel)" href="#hakushin.models.zzz.CharaCoreSkillLevel">CharaCoreSkillLevel</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Core skill levels mapped by level number.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterCoreSkill.level_up_materials">level_up_materials</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="list">list</span>[<span title="hakushin.models.zzz.common.ZZZMaterial">ZZZMaterial</span>]] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Materials required for each upgrade level.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharacterDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharacterDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Provide comprehensive character information and progression data.</p>
+<p>Contains complete character details including stats, skills, ascension data,
+mindscape cinemas, and all progression information for a ZZZ agent.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique character identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.image">image</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character portrait image URL.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character display name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.code_name">code_name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character code designation.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;S&#39;, &#39;A&#39;] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character rarity rank (S or A).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.specialty">specialty</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            CharacterProp (hakushin.models.zzz.character.CharacterProp)" href="#hakushin.models.zzz.CharacterProp">CharacterProp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character weapon specialty.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.element">element</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            CharacterProp (hakushin.models.zzz.character.CharacterProp)" href="#hakushin.models.zzz.CharacterProp">CharacterProp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character elemental attribute.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.attack_type">attack_type</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            CharacterProp (hakushin.models.zzz.character.CharacterProp)" href="#hakushin.models.zzz.CharacterProp">CharacterProp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character combat attack type.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.faction">faction</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            CharacterProp (hakushin.models.zzz.character.CharacterProp)" href="#hakushin.models.zzz.CharacterProp">CharacterProp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character faction or camp.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.gender">gender</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;M&#39;, &#39;F&#39;]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character gender (M or F).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.info">info</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            CharacterInfo (hakushin.models.zzz.character.CharacterInfo)" href="#hakushin.models.zzz.CharacterInfo">CharacterInfo</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Detailed character background information.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.stats">stats</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Base character statistics.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.mindscape_cinemas">mindscape_cinemas</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            MindscapeCinema (hakushin.models.zzz.character.MindscapeCinema)" href="#hakushin.models.zzz.MindscapeCinema">MindscapeCinema</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character mindscape cinema upgrades.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.ascension">ascension</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            CharacterAscension (hakushin.models.zzz.character.CharacterAscension)" href="#hakushin.models.zzz.CharacterAscension">CharacterAscension</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character ascension phase data.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.extra_ascension">extra_ascension</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            CharacterExtraAscension (hakushin.models.zzz.character.CharacterExtraAscension)" href="#hakushin.models.zzz.CharacterExtraAscension">CharacterExtraAscension</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Additional ascension bonuses.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.skills">skills</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<a class="autorefs autorefs-internal" title="            ZZZSkillType (hakushin.enums.ZZZSkillType)" href="../../enums/#hakushin.enums.ZZZSkillType">ZZZSkillType</a>, <a class="autorefs autorefs-internal" title="            CharacterSkill (hakushin.models.zzz.character.CharacterSkill)" href="#hakushin.models.zzz.CharacterSkill">CharacterSkill</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character skills by type.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterDetail.passive">passive</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            CharacterCoreSkill (hakushin.models.zzz.character.CharacterCoreSkill)" href="#hakushin.models.zzz.CharacterCoreSkill">CharacterCoreSkill</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character core passive skill.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.zzz.CharacterDetail.icon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">icon</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Character icon.</p>
+<p>Example: https://api.hakush.in/zzz/UI/IconRoleSelect01.webp</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.zzz.CharacterDetail.phase_1_cinema_art" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">phase_1_cinema_art</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Agent phase 1 mindscape cinema art.</p>
+<p>Example: https://api.hakush.in/zzz/UI/Mindscape_1041_1.webp</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.zzz.CharacterDetail.phase_2_cinema_art" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">phase_2_cinema_art</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Agent phase 2 mindscape cinema art.</p>
+<p>Example: https://api.hakush.in/zzz/UI/Mindscape_1041_2.webp</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.zzz.CharacterDetail.phase_3_cinema_art" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">phase_3_cinema_art</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Agent phase 3 mindscape cinema art.</p>
+<p>Example: https://api.hakush.in/zzz/UI/Mindscape_1041_3.webp</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharacterExtraAscension" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharacterExtraAscension</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent character bonus ascension data.</p>
+<p>Contains additional ascension bonuses and properties that are
+granted beyond the standard ascension phases.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterExtraAscension.max_level">max_level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Maximum level for this bonus phase.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterExtraAscension.props">props</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="hakushin.models.zzz.common.ZZZExtraProp">ZZZExtraProp</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Additional properties and bonuses gained.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharacterInfo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharacterInfo</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Contain detailed character lore and background information.</p>
+<p>Provides extensive character details including personal information,
+impressions, descriptions, and unlock requirements.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterInfo.birthday">birthday</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character birth date.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterInfo.full_name">full_name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character's complete name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterInfo.gender">gender</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character gender.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterInfo.female_impression">female_impression</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Female player impression text.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterInfo.male_impression">male_impression</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Male player impression text.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterInfo.outlook_desc">outlook_desc</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character outlook description.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterInfo.profile_desc">profile_desc</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character profile description.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterInfo.faction">faction</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Character faction or group.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterInfo.unlock_conditions">unlock_conditions</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of conditions to unlock the character.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharacterProp" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharacterProp</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a character property in Zenless Zone Zero.</p>
+<p>Properties include elements, weapon types, attack types, and other
+character attributes that are referenced by ID and name.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterProp.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique property identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterProp.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Human-readable property name.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharacterSkill" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharacterSkill</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a character skill with upgrade information.</p>
+<p>Contains complete skill data including descriptions, upgrade materials,
+and skill type classification.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterSkill.descriptions">descriptions</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            CharacterSkillDesc (hakushin.models.zzz.character.CharacterSkillDesc)" href="#hakushin.models.zzz.CharacterSkillDesc">CharacterSkillDesc</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of skill effect descriptions.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterSkill.materials">materials</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="list">list</span>[<span title="hakushin.models.zzz.common.ZZZMaterial">ZZZMaterial</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Required materials for skill upgrades by level.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterSkill.type">type</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ZZZSkillType (hakushin.enums.ZZZSkillType)" href="../../enums/#hakushin.enums.ZZZSkillType">ZZZSkillType</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skill type classification.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.CharacterSkillDesc" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharacterSkillDesc</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a character skill description entry.</p>
+<p>Contains detailed information about specific skill effects
+including names, descriptions, and parameters.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterSkillDesc.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skill description name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterSkillDesc.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Skill effect description.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.CharacterSkillDesc.params">params</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            CharaSkillDescParam (hakushin.models.zzz.character.CharaSkillDescParam)" href="#hakushin.models.zzz.CharaSkillDescParam">CharaSkillDescParam</a>] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of skill parameters.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.DriveDisc" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>DriveDisc</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a Zenless Zone Zero drive disc set.</p>
+<p>Drive discs are equipment sets that provide bonuses when multiple
+pieces are equipped. Contains basic info and localized descriptions.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDisc.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique drive disc set identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDisc.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Drive disc icon image URL.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDisc.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Set name (may be empty if not in API response).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDisc.two_piece_effect">two_piece_effect</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>2-piece effect description (may be empty).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDisc.four_piece_effect">four_piece_effect</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>4-piece effect description (may be empty).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDisc.en_info">en_info</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            DriveDiscInfo (hakushin.models.zzz.disc.DriveDiscInfo)" href="#hakushin.models.zzz.DriveDiscInfo">DriveDiscInfo</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>English localization data.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDisc.ko_info">ko_info</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            DriveDiscInfo (hakushin.models.zzz.disc.DriveDiscInfo)" href="#hakushin.models.zzz.DriveDiscInfo">DriveDiscInfo</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Korean localization data.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDisc.chs_info">chs_info</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            DriveDiscInfo (hakushin.models.zzz.disc.DriveDiscInfo)" href="#hakushin.models.zzz.DriveDiscInfo">DriveDiscInfo</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Chinese Simplified localization data.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDisc.ja_info">ja_info</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            DriveDiscInfo (hakushin.models.zzz.disc.DriveDiscInfo)" href="#hakushin.models.zzz.DriveDiscInfo">DriveDiscInfo</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Japanese localization data.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.DriveDiscDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>DriveDiscDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Provide comprehensive drive disc set information.</p>
+<p>Contains complete drive disc data including set bonuses, lore,
+and visual assets for a specific drive disc set.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDiscDetail.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique drive disc set identifier.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDiscDetail.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Drive disc set name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDiscDetail.two_piece_effect">two_piece_effect</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Effect when 2 pieces are equipped.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDiscDetail.four_piece_effect">four_piece_effect</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Effect when 4 pieces are equipped.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDiscDetail.story">story</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Background lore and story text.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDiscDetail.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Drive disc icon image URL.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.DriveDiscInfo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>DriveDiscInfo</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent drive disc information in a specific language.</p>
+<p>Contains localized drive disc name and set bonus descriptions
+for 2-piece and 4-piece effects.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDiscInfo.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Drive disc set name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDiscInfo.two_piece_effect">two_piece_effect</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Effect when 2 pieces are equipped.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.DriveDiscInfo.four_piece_effect">four_piece_effect</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Effect when 4 pieces are equipped.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.Item" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>Item</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a ZZZ item.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Item.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Icon URL of the item.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Item.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[1, 2, 3, 4, 5]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Rarity of the item.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Item.class_">class_</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Class of the item.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Item.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the item.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Item.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ID of the item.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.MindscapeCinema" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>MindscapeCinema</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a character mindscape cinema level (constellation equivalent).</p>
+<p>Mindscape cinemas are upgrades that enhance character abilities
+and provide new effects when unlocked.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.MindscapeCinema.level">level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Cinema level (1-6).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.MindscapeCinema.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Cinema ability name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.MindscapeCinema.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Primary effect description.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.MindscapeCinema.description2">description2</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Secondary effect description.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.New" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>New</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent new Zenless Zone Zero data.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.New.character_ids">character_ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of character IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.New.bangboo_ids">bangboo_ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of Bangboo IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.New.weapon_ids">weapon_ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of weapon IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.New.equipment_ids">equipment_ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of equipment IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.New.item_ids">item_ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of item IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.New.current_version">current_version</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The current version.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.New.previous_versions">previous_versions</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of previous versions.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.Weapon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>Weapon</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a ZZZ weapon (w-engine).</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Weapon.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ID of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Weapon.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Icon URL of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Weapon.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Weapon.names">names</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;EN&#39;, &#39;JA&#39;, &#39;CHS&#39;, &#39;KO&#39;], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary of names in different languages.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Weapon.specialty">specialty</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ZZZSpecialty (hakushin.enums.ZZZSpecialty)" href="../../enums/#hakushin.enums.ZZZSpecialty">ZZZSpecialty</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Specialty of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.Weapon.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;S&#39;, &#39;A&#39;, &#39;B&#39;]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Rarity of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="hakushin.models.zzz.Weapon.__convert_icon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">__convert_icon</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert the icon path to a full URL.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="hakushin.models.zzz.Weapon.__convert_rarity" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">__convert_rarity</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert the rarity value to a string literal.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="hakushin.models.zzz.Weapon.__pop_names" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">__pop_names</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Pop names from the values and assign them to the 'names' field.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.WeaponDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>WeaponDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent detailed information about a ZZZ weapon.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ID of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.code_name">code_name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Code name of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Description of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.description2">description2</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Second description of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.short_description">short_description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Short description of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[&#39;S&#39;, &#39;A&#39;, &#39;B&#39;] | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Rarity of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Icon URL of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.type">type</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            WeaponType (hakushin.models.zzz.weapon.WeaponType)" href="#hakushin.models.zzz.WeaponType">WeaponType</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Type of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.base_property">base_property</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            WeaponProp (hakushin.models.zzz.weapon.WeaponProp)" href="#hakushin.models.zzz.WeaponProp">WeaponProp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Base property of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.rand_property">rand_property</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            WeaponProp (hakushin.models.zzz.weapon.WeaponProp)" href="#hakushin.models.zzz.WeaponProp">WeaponProp</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Random property of the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.levels">levels</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <a class="autorefs autorefs-internal" title="            WeaponLevel (hakushin.models.zzz.weapon.WeaponLevel)" href="#hakushin.models.zzz.WeaponLevel">WeaponLevel</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary of weapon levels.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.stars">stars</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <a class="autorefs autorefs-internal" title="            WeaponStar (hakushin.models.zzz.weapon.WeaponStar)" href="#hakushin.models.zzz.WeaponStar">WeaponStar</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary of weapon stars.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponDetail.materials">materials</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Materials required for the weapon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><a class="autorefs autorefs-internal" title="            refinements = Field(alias='Talents')
+
+  
+      class-attribute
+      instance-attribute
+   (hakushin.models.zzz.WeaponDetail.refinements)" href="#hakushin.models.zzz.WeaponDetail.refinements">refinements</a></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <a class="autorefs autorefs-internal" title="            WeaponRefinement (hakushin.models.zzz.weapon.WeaponRefinement)" href="#hakushin.models.zzz.WeaponRefinement">WeaponRefinement</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary of weapon refinements.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.zzz.WeaponDetail.refinements" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">refinements</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">alias</span><span class="o">=</span><span class="s1">&#39;Talents&#39;</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-class-attribute"><code>class-attribute</code></small>
+      <small class="doc doc-label doc-label-instance-attribute"><code>instance-attribute</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Dictionary of refinements, key starts from 1.</p>
+
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="hakushin.models.zzz.WeaponDetail.__convert_icon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">__convert_icon</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert the icon path to a full URL.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="hakushin.models.zzz.WeaponDetail.__convert_rarity" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">__convert_rarity</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert the rarity value to a string literal.</p>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="hakushin.models.zzz.WeaponDetail.__convert_type" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">__convert_type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Convert the weapon type data to a WeaponType object.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.WeaponLevel" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>WeaponLevel</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent weapon leveling information.</p>
+<p>Contains experience requirements and stat scaling rates
+for weapon level progression.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponLevel.exp">exp</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Experience points required.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponLevel.rate">rate</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Primary stat scaling rate.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponLevel.rate2">rate2</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Secondary stat scaling rate.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.WeaponProp" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>WeaponProp</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a weapon stat property.</p>
+<p>Contains stat information including names, formatting, and values
+for weapon statistics like attack, crit rate, etc.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponProp.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Primary property name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponProp.name2">name2</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Secondary property name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponProp.format">format</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Value formatting specification.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponProp.value">value</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Numerical property value.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.zzz.WeaponProp.formatted_value" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">formatted_value</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the formatted value of this property.</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.WeaponRefinement" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>WeaponRefinement</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent weapon refinement level data.</p>
+<p>Contains information about weapon refinement stages
+and their associated names or effects.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponRefinement.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Refinement level name or description.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="hakushin.models.zzz.WeaponRefinement.__cleanup_text" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">__cleanup_text</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Clean up the description text.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.WeaponStar" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>WeaponStar</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent weapon star ranking information.</p>
+<p>Contains star rating data and randomization rates
+for weapon rarity and quality assessment.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponStar.star_rate">star_rate</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Star rating value.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponStar.rand_rate">rand_rate</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Randomization rate factor.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.zzz.WeaponType" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>WeaponType</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a weapon type classification.</p>
+<p>Defines the specialty and name of weapon types that characters
+can use in Zenless Zone Zero.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponType.type">type</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ZZZSpecialty (hakushin.enums.ZZZSpecialty)" href="../../enums/#hakushin.enums.ZZZSpecialty">ZZZSpecialty</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Weapon specialty classification.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.zzz.WeaponType.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Human-readable weapon type name.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 - 2025 Seria Ati
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>
