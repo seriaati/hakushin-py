@@ -1,11 +1,7 @@
 from __future__ import annotations
 
-from typing import Any, Literal
+from pydantic import Field, field_validator
 
-from pydantic import Field, computed_field, field_validator, model_validator
-
-from ...constants import HSR_CHARA_RARITY_MAP
-from ...enums import HSRElement, HSRPath
 from ..base import APIModel
 
 __all__ = ("EliteGroup", "HardLevelGroup")
