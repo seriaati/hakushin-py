@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import json
 from typing import TYPE_CHECKING, Any, Final, Self
 
 from aiohttp_client_cache.backends.sqlite import SQLiteBackend
@@ -69,6 +70,31 @@ class BaseClient:
 
     async def __aexit__(self, exc_type, exc, tb) -> None:  # noqa: ANN001
         await self.close()
+
+    async def _download_gitlab_json(self, url: str, use_cache: bool) -> list[dict[str, Any]]:
+        """
+        Download a JSON file from GitLab and cache it locally.
+
+        Returns the raw JSON list.
+        """
+        if self._session is None:
+            msg = "Call `start` before making requests."
+            raise RuntimeError(msg)
+
+        if not use_cache and isinstance(self._session, CachedSession):
+            async with self._session.disabled(), self._session.get(url) as resp:
+                if resp.status != 200:
+                    self._handle_error(resp.status, url)
+                text = await resp.text()
+                return json.loads(text)
+        else:
+            async with self._session.get(url) as resp:
+                if resp.status != 200:
+                    self._handle_error(resp.status, url)
+                text = await resp.text()
+                data = json.loads(text)
+
+        return data
 
     async def _request(
         self, endpoint: str, use_cache: bool, *, static: bool = False, in_data: bool = False

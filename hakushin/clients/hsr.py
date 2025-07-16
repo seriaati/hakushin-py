@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
+import re
+import json
 
 from ..constants import HSR_API_LANG_MAP, TRAILBLAZER_NAMES
 from ..enums import Game, Language
@@ -37,6 +39,32 @@ class HSRClient(BaseClient):
             session=session,
         )
 
+    async def fetch_elite_groups(self, use_cache: bool = True) -> dict[int, hsr.EliteGroup]:
+        """
+        Download and structure EliteGroup.json into a dict keyed by EliteGroup ID.
+        """
+        url = (
+            "https://gitlab.com/Dimbreath/turnbasedgamedata/-/raw/main/ExcelOutput/EliteGroup.json"
+        )
+        raw = await self._download_gitlab_json(url, use_cache)
+
+        return {item["EliteGroup"]: hsr.EliteGroup(**item) for item in raw if "EliteGroup" in item}
+
+    async def fetch_hard_level_groups(
+        self, use_cache: bool = True
+    ) -> dict[tuple[int, int], hsr.HardLevelGroup]:
+        """
+        Download and structure HardLevelGroup.json into a dict keyed by (HardLevelGroup, Level).
+        """
+        url = "https://gitlab.com/Dimbreath/turnbasedgamedata/-/raw/main/ExcelOutput/HardLevelGroup.json"
+        raw = await self._download_gitlab_json(url, use_cache)
+
+        return {
+            (item["HardLevelGroup"], item["Level"]): hsr.HardLevelGroup(**item)
+            for item in raw
+            if "HardLevelGroup" in item and "Level" in item
+        }
+
     async def fetch_new(self, *, use_cache: bool = True) -> hsr.New:
         """Fetch the ID of beta items in Honkai Star Rail.
 
@@ -48,6 +76,15 @@ class HSRClient(BaseClient):
         """
         data = await self._request("new", use_cache, static=True)
         return hsr.New(**data)
+
+    async def fetch_monsters(self, *, use_cache: bool = True):
+        data = await self._request("monster", use_cache, in_data=True)
+        return data
+
+    async def fetch_monsters_detail(self, monster_id: int, *, use_cache: bool = True):
+        endpoint = f"monster/{monster_id}"
+        data = await self._request(endpoint, use_cache)
+        return data
 
     async def fetch_characters(self, *, use_cache: bool = True) -> list[hsr.Character]:
         """Fetch all Honkai Star Rail characters.
