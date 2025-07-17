@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from ..constants import HSR_API_LANG_MAP, TRAILBLAZER_NAMES
-from ..enums import Game, Language
+from ..enums import Game, Language, HSRElement
 from ..models import hsr
 from ..utils import cleanup_text, remove_ruby_tags, replace_placeholders
 from .base import BaseClient
@@ -100,6 +100,14 @@ class HSRClient(BaseClient):
         endpoint = f"monster/{monster_id}"
         data = await self._request(endpoint, use_cache)
         return hsr.MonsterDetail(**data)
+
+    async def fetch_moc(self, moc_id: int, *, use_cache: bool = True):
+        endpoint = f"maze/{moc_id}"
+        data: list[dict[str, Any]] = await self._request(endpoint, use_cache)
+
+        stages = [hsr.MemoryOfChaosStage(**item) for item in data]
+
+        return hsr.MemoryOfChaos(id=moc_id, stages=stages)
 
     async def fetch_characters(self, *, use_cache: bool = True) -> list[hsr.Character]:
         """Fetch all Honkai Star Rail characters.

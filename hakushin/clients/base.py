@@ -98,7 +98,7 @@ class BaseClient:
 
     async def _request(
         self, endpoint: str, use_cache: bool, *, static: bool = False, in_data: bool = False
-    ) -> dict[str, Any]:
+    ) -> Any:
         if self._session is None:
             msg = "Call `start` before making requests."
             raise RuntimeError(msg)
