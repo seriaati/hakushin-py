@@ -8,10 +8,10 @@ __all__ = ("EliteGroup", "HardLevelGroup")
 
 
 class EliteGroup(APIModel):
-    """Represent an EliteGroup enemy in HSR.
+    """Represent an EliteGroup in HSR.
 
-    All elite enemies in HSR follow the following formula for ATK, DEF, HP, and SPD:
-    Base x BaseModifyRatio x EliteGroup Ratio
+    All enemies in HSR follow the following formula for ATK, DEF, HP, and SPD:
+    Base x BaseModifyRatio x EliteGroup Ratio x HardLevelGroup(Level) Ratio
 
     Attributes:
         id: The ID of the group.
@@ -47,14 +47,14 @@ class EliteGroup(APIModel):
 
 
 class HardLevelGroup(APIModel):
-    """Represent a HardLevelGroup enemy in HSR.
+    """Represent a HardLevelGroup in HSR.
 
-    All boss enemies in HSR follow the following formula for ATK, DEF, HP, and SPD:
-    Base x BaseModifyRatio x HardLevelGroup(id, level) Ratio
+    All enemies in HSR follow the following formula for ATK, DEF, HP, and SPD:
+    Base x BaseModifyRatio x EliteGroup Ratio x HardLevelGroup(Level) Ratio
 
     Attributes:
         id: The ID of the group.
-        level: The level of the boss enemy.
+        level: The level of the enemy.
         attack_ratio: The ratio to multiply to get final attack.
         defence_ratio: The ratio to multiply to get final defence.
         hp_ratio: The ratio to multiply to get final HP.
@@ -68,6 +68,7 @@ class HardLevelGroup(APIModel):
     hp_ratio: float = Field(alias="HPRatio", default=1)
     spd_ratio: float = Field(alias="SpeedRatio", default=1)
     stance_ratio: float = Field(alias="StanceRatio", default=1)
+    status_resistance: float = Field(alias="StatusResistance", default=0)
 
     @field_validator(
         "attack_ratio",
@@ -75,6 +76,7 @@ class HardLevelGroup(APIModel):
         "hp_ratio",
         "spd_ratio",
         "stance_ratio",
+        "status_resistance",
         mode="before",
         check_fields=False,
     )

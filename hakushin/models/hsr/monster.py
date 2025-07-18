@@ -21,9 +21,14 @@ class HSREnemySkill(APIModel):
     """
 
     id: int = Field(alias="Id")
-    name: str | None = Field(alias="SkillName", default=None)
-    desc: str | None = Field(alias="SkillDesc", default=None)
+    name: str = Field(alias="SkillName", default="")
+    desc: str = Field(alias="SkillDesc", default="")
     damage_type: HSRElement | None = Field(alias="DamageType", default=None)
+
+    @field_validator("name", "desc", mode="before")
+    @classmethod
+    def default_empty_string(cls, value: str | None) -> str:
+        return value if isinstance(value, str) else ""
 
     @field_validator("damage_type", mode="before")
     @classmethod
@@ -91,16 +96,30 @@ class MonsterDetail(APIModel):
     """
 
     id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    attack_base: float = Field(alias="AttackBase", default=1)
+    rank: str = Field(alias="Rank")
+    name: str = Field(alias="Name", default="")
+    description: str = Field(alias="Desc", default="")
+    attack_base: float = Field(alias="AttackBase", default=0)
     defence_base: float = Field(alias="DefenceBase", default=1)
-    hp_base: float = Field(alias="HPBase", default=1)
-    spd_base: float = Field(alias="SpeedBase", default=1)
-    stance_base: float = Field(alias="StanceBase", default=1)
-    status_resistance_base: float = Field(alias="StatusResistanceBase", default=1)
+    hp_base: float = Field(alias="HPBase", default=0)
+    spd_base: float = Field(alias="SpeedBase", default=0)
+    stance_base: float = Field(alias="StanceBase", default=0)
+    status_resistance_base: float = Field(alias="StatusResistanceBase", default=0)
 
     monster_types: list[ChildMonster] = Field(alias="Child")
+
+    @field_validator(
+        "attack_base",
+        "defence_base",
+        "hp_base",
+        "spd_base",
+        "stance_base",
+        "status_resistance_base",
+        mode="before",
+    )
+    @classmethod
+    def default_zero_if_none(cls, value: int | float | None) -> int | float:
+        return value if isinstance(value, (int, float)) else 0
 
     @property
     def icon(self) -> str:
