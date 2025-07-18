@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from ..constants import HSR_API_LANG_MAP, TRAILBLAZER_NAMES
-from ..enums import Game, Language
+from ..enums import Game, HSREndgameType, Language
 from ..models import hsr
 from ..utils import cleanup_text, remove_ruby_tags, replace_placeholders
 from .base import BaseClient
@@ -119,17 +119,24 @@ class HSRClient(BaseClient):
         self, moc_id: int, *, use_cache: bool = True
     ) -> hsr.MemoryOfChaosDetail:
         endpoint = f"maze/{moc_id}"
-        data: list[dict[str, Any]] = await self._request(endpoint, use_cache)
+        data: dict[str, Any] = await self._request(endpoint, use_cache)
+        data["Id"] = moc_id
 
-        stages = [hsr.EndgameStage(**item) for item in data]
-
-        return hsr.MemoryOfChaosDetail(id=moc_id, stages=stages)
+        return hsr.MemoryOfChaosDetail(**data)
 
     async def fetch_pf_detail(self, pf_id: int, *, use_cache: bool = True) -> hsr.PureFictionDetail:
         endpoint = f"story/{pf_id}"
         data: dict[str, Any] = await self._request(endpoint, use_cache)
 
         return hsr.PureFictionDetail(**data)
+
+    async def fetch_apoc_detail(
+        self, apoc_id: int, *, use_cache: bool = True
+    ) -> hsr.ApocalypticShadowDetail:
+        endpoint = f"boss/{apoc_id}"
+        data: dict[str, Any] = await self._request(endpoint, use_cache)
+
+        return hsr.ApocalypticShadowDetail(**data)
 
     async def fetch_characters(self, *, use_cache: bool = True) -> list[hsr.Character]:
         """Fetch all Honkai Star Rail characters.
@@ -251,6 +258,7 @@ class HSRClient(BaseClient):
         enemy_info: hsr.MonsterDetail,
         eg: hsr.EliteGroup,
         hlg: hsr.HardLevelGroup,
+        hp_multiplier: float = 0,
     ) -> hsr.HSREnemy | None:
         """
         Calculate the combat stats for a specific enemy instance in Memory of Chaos.
@@ -272,7 +280,13 @@ class HSRClient(BaseClient):
         child = next((m for m in enemy_info.monster_types if m.id == enemy_id), None)
 
         if child:
-            base_hp = round(enemy_info.hp_base * child.hp_modify_ratio * eg.hp_ratio * hlg.hp_ratio)
+            base_hp = round(
+                enemy_info.hp_base
+                * child.hp_modify_ratio
+                * eg.hp_ratio
+                * hlg.hp_ratio
+                * (1 + hp_multiplier)
+            )
             if enemy_info.spd_base:
                 speed = round(
                     enemy_info.spd_base * child.spd_modify_ratio * eg.spd_ratio * hlg.spd_ratio
@@ -301,21 +315,21 @@ class HSRClient(BaseClient):
             effect_res=effect_res,
         )
 
-    async def calculate_hsr_moc_enemy_stats(
-        self, moc_id: int, stage_num: int = 12
+    async def calculate_hsr_enemy_stats(
+        self, endgame_type: HSREndgameType, endgame_id: int, stage_num: int = 1
     ) -> list[list[list[hsr.HSREnemy]]]:
         """
-        Fetch and calculate enemy stats for both halves of a Memory of Chaos stage.
+        Fetch and calculate enemy stats for both halves of an Endgame stage.
 
-        This function retrieves Memory of Chaos stage data using the provided client,
+        This function retrieves Endgame stage data,
         extracts the relevant EliteGroup and HardLevelGroup multipliers, and computes
         full enemy stats (including HP, speed, toughness, and effect resistance) for
         each wave of both halves of the specified stage.
 
         Args:
-            client: An initialized HSRClient instance used to fetch MoC and monster data.
-            moc_id: The ID of the Memory of Chaos event to analyze.
-            stage_num: The 1-indexed stage number within the MoC (defaults to 12).
+            endgame_type: The type of endgame to be retrieved.
+            endgame_id: The ID of the endgame to analyze.
+            stage_num: The 1-indexed stage number within the endgame (defaults to 1).
 
         Returns:
             A list containing two elements—one for each half of the stage.
@@ -333,12 +347,23 @@ class HSRClient(BaseClient):
                     ]
                 ]
         """
-        if not (1 <= stage_num <= 12):
+        if endgame_type is HSREndgameType.MEMORY_OF_CHAOS and not (1 <= stage_num <= 12):
             msg = "stage_num must be between 1 and 12 (inclusive)."
             raise ValueError(msg)
+        elif endgame_type is (
+            HSREndgameType.PURE_FICTION or HSREndgameType.APOCALYPTIC_SHADOW
+        ) and not (1 <= stage_num <= 4):
+            msg = "stage_num must be between 1 and 4 (inclusive)."
+            raise ValueError(msg)
 
-        moc: hsr.MemoryOfChaosDetail = await self.fetch_moc_detail(moc_id)
-        stage: hsr.EndgameStage = moc.stages[stage_num - 1]
+        if endgame_type is HSREndgameType.MEMORY_OF_CHAOS:
+            endgame_data: hsr.HSREndgameBase = await self.fetch_moc_detail(endgame_id)
+        elif endgame_type is HSREndgameType.PURE_FICTION:
+            endgame_data: hsr.HSREndgameBase = await self.fetch_pf_detail(endgame_id)
+        else:
+            endgame_data: hsr.HSREndgameBase = await self.fetch_apoc_detail(endgame_id)
+
+        stage: hsr.EndgameStage = endgame_data.stages[stage_num - 1]
 
         egs: dict[int, hsr.EliteGroup] = await self.fetch_elite_groups()
         hlgs: dict[tuple[int, int], hsr.HardLevelGroup] = await self.fetch_hard_level_groups()
@@ -357,7 +382,11 @@ class HSRClient(BaseClient):
                     fetch_id = int(str(enemy_id)[:7]) if enemy_id > 9999999 else enemy_id
                     enemy_info = await self.fetch_monsters_detail(fetch_id)
                     enemy_stats = self._calculate_hsr_enemy_stats(
-                        enemy_id=enemy_id, enemy_info=enemy_info, eg=specific_eg, hlg=specific_hlg
+                        enemy_id=enemy_id,
+                        enemy_info=enemy_info,
+                        eg=specific_eg,
+                        hlg=specific_hlg,
+                        hp_multiplier=wave.hp_multiplier,
                     )
                     if enemy_stats:
                         wave_enemies.append(enemy_stats)

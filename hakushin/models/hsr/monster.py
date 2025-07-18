@@ -100,7 +100,7 @@ class MonsterDetail(APIModel):
     name: str = Field(alias="Name", default="")
     description: str = Field(alias="Desc", default="")
     attack_base: float = Field(alias="AttackBase", default=0)
-    defence_base: float = Field(alias="DefenceBase", default=1)
+    defence_base: float = Field(alias="DefenceBase", default=0)
     hp_base: float = Field(alias="HPBase", default=0)
     spd_base: float = Field(alias="SpeedBase", default=0)
     stance_base: float = Field(alias="StanceBase", default=0)

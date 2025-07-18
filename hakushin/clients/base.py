@@ -98,7 +98,7 @@ class BaseClient:
 
     async def _request(
         self, endpoint: str, use_cache: bool, *, static: bool = False, in_data: bool = False
-    ) -> Any:
+    ) -> dict[str, Any]:
         if self._session is None:
             msg = "Call `start` before making requests."
             raise RuntimeError(msg)
@@ -129,6 +129,10 @@ class BaseClient:
                 if resp.status != 200:
                     self._handle_error(resp.status, url)
                 data = await resp.json()
+
+        # for HSR Memory of Chaos, returns a list
+        if isinstance(data, list):
+            data = {"Level": data}
 
         return data
 
