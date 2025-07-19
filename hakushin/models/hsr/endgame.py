@@ -161,6 +161,18 @@ class EndgameBaseModel(APIModel, ABC):
 
 
 class EndgameSummary(APIModel):
+    """
+    Summary metadata for an HSR endgame event.
+
+    Attributes:
+        id: ID of the endgame.
+        type: The type/category of the endgame.
+        names: Dictionary containing localized names in English (en), Chinese (cn), Korean (kr), and Japanese (jp).
+        name: The selected name to display (populated during post-processing).
+        begin: Event start timestamp.
+        end: Event end timestamp.
+    """
+
     id: int
     type: HSREndgameType
     names: dict[Literal["en", "cn", "kr", "jp"], str]
