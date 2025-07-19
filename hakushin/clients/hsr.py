@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from ..constants import HSR_API_LANG_MAP, TRAILBLAZER_NAMES
-from ..enums import Game, Language
+from ..enums import Game, HSREndgameType, Language
 from ..models import hsr
 from ..utils import cleanup_text, remove_ruby_tags, replace_placeholders
 from .base import BaseClient
@@ -36,6 +36,41 @@ class HSRClient(BaseClient):
             debug=debug,
             session=session,
         )
+        self._elite_groups_cache: dict[int, hsr.EliteGroup] | None = None
+        self._hard_level_groups_cache: dict[tuple[int, int], hsr.HardLevelGroup] | None = None
+
+    async def fetch_elite_and_hard_level_groups(
+        self, use_cache: bool = True
+    ) -> tuple[dict[int, hsr.EliteGroup], dict[tuple[int, int], hsr.HardLevelGroup]]:
+        """
+        Download and structure EliteGroup and HardLevelGroup data from a JavaScript module.
+
+        Returns:
+            A tuple of:
+                - dict[int, EliteGroup]: keyed by EliteGroup ID
+                - dict[tuple[int, int], HardLevelGroup]: keyed by (HardLevelGroup, Level)
+        """
+        if (
+            self._elite_groups_cache is not None
+            and self._hard_level_groups_cache is not None
+            and use_cache
+        ):
+            return self._elite_groups_cache, self._hard_level_groups_cache
+
+        url = "https://hsr20.hakush.in/_app/immutable/chunks/HardLevelGroup.242ec034.js"
+        elite_raw, hlg_raw = await self._download_groups(url)
+
+        self._elite_groups_cache = {
+            item["EliteGroup"]: hsr.EliteGroup(**item) for item in elite_raw if "EliteGroup" in item
+        }
+
+        self._hard_level_groups_cache = {
+            (item["HardLevelGroup"], item["Level"]): hsr.HardLevelGroup(**item)
+            for item in hlg_raw
+            if "HardLevelGroup" in item and "Level" in item
+        }
+
+        return self._elite_groups_cache, self._hard_level_groups_cache
 
     async def fetch_new(self, *, use_cache: bool = True) -> hsr.New:
         """Fetch the ID of beta items in Honkai Star Rail.
@@ -48,6 +83,88 @@ class HSRClient(BaseClient):
         """
         data = await self._request("new", use_cache, static=True)
         return hsr.New(**data)
+
+    async def fetch_monsters(self, *, use_cache: bool = True) -> list[hsr.Monster]:
+        """Fetch all Honkai Star Rail monsters.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of monster objects.
+        """
+        data = await self._request("monster", use_cache, in_data=True)
+
+        monsters = [
+            hsr.Monster(id=int(monster_id), **monster) for monster_id, monster in data.items()
+        ]
+        for monster in monsters:
+            monster.name = remove_ruby_tags(monster.names[HSR_API_LANG_MAP[self.lang]])
+
+        return monsters
+
+    async def fetch_monsters_detail(
+        self, monster_id: int, *, use_cache: bool = True
+    ) -> hsr.MonsterDetail:
+        endpoint = f"monster/{monster_id}"
+        data = await self._request(endpoint, use_cache)
+        return hsr.MonsterDetail(**data)
+
+    async def fetch_moc(self, *, use_cache: bool = True) -> list[hsr.EndgameSummary]:
+        data = await self._request("maze", use_cache, in_data=True)
+
+        mocs = [
+            hsr.EndgameSummary(type=HSREndgameType.MEMORY_OF_CHAOS, **moc)
+            for _, moc in data.items()
+        ]
+        for moc in mocs:
+            moc.name = remove_ruby_tags(moc.names[HSR_API_LANG_MAP[self.lang]])
+
+        return mocs
+
+    async def fetch_moc_detail(
+        self, moc_id: int, *, use_cache: bool = True
+    ) -> hsr.MemoryOfChaosDetail:
+        endpoint = f"maze/{moc_id}"
+        data: dict[str, Any] = await self._request(endpoint, use_cache)
+        data["Id"] = moc_id
+
+        return hsr.MemoryOfChaosDetail(**data)
+
+    async def fetch_pf(self, *, use_cache: bool = True) -> list[hsr.EndgameSummary]:
+        data = await self._request("maze_extra", use_cache, in_data=True)
+
+        pfs = [hsr.EndgameSummary(type=HSREndgameType.PURE_FICTION, **pf) for _, pf in data.items()]
+        for pf in pfs:
+            pf.name = remove_ruby_tags(pf.names[HSR_API_LANG_MAP[self.lang]])
+
+        return pfs
+
+    async def fetch_pf_detail(self, pf_id: int, *, use_cache: bool = True) -> hsr.PureFictionDetail:
+        endpoint = f"story/{pf_id}"
+        data: dict[str, Any] = await self._request(endpoint, use_cache)
+
+        return hsr.PureFictionDetail(**data)
+
+    async def fetch_apoc(self, *, use_cache: bool = True) -> list[hsr.EndgameSummary]:
+        data = await self._request("maze_boss", use_cache, in_data=True)
+
+        apocs = [
+            hsr.EndgameSummary(type=HSREndgameType.APOCALYPTIC_SHADOW, **apoc)
+            for _, apoc in data.items()
+        ]
+        for apoc in apocs:
+            apoc.name = remove_ruby_tags(apoc.names[HSR_API_LANG_MAP[self.lang]])
+
+        return apocs
+
+    async def fetch_apoc_detail(
+        self, apoc_id: int, *, use_cache: bool = True
+    ) -> hsr.ApocalypticShadowDetail:
+        endpoint = f"boss/{apoc_id}"
+        data: dict[str, Any] = await self._request(endpoint, use_cache)
+
+        return hsr.ApocalypticShadowDetail(**data)
 
     async def fetch_characters(self, *, use_cache: bool = True) -> list[hsr.Character]:
         """Fetch all Honkai Star Rail characters.
@@ -162,3 +279,146 @@ class HSRClient(BaseClient):
         endpoint = f"relicset/{set_id}"
         data = await self._request(endpoint, use_cache)
         return hsr.RelicSetDetail(**data)
+
+    def _calculate_hsr_enemy_stats(
+        self,
+        enemy_id: int,
+        enemy_info: hsr.MonsterDetail,
+        eg: hsr.EliteGroup,
+        hlg: hsr.HardLevelGroup,
+        hp_multiplier: float = 0,
+    ) -> hsr.ProcessedEnemy | None:
+        """
+        Calculate the combat stats for a specific enemy instance in Memory of Chaos.
+
+        Formula used:
+        Base x BaseModifyRatio x EliteGroup Ratio x HardLevelGroup(Level) Ratio x (1 + HPMultiplier if HP)
+
+        Args:
+            enemy_id: The unique ID of the enemy (can include phase/variant identifiers).
+            enemy_info: The base monster details fetched from the monster database.
+            eg: The elite group data used to scale the monster's stats.
+            hlg: The hard level group data used to scale the monster's stats.
+
+        Returns:
+            An `HSREnemy` object containing the enemy's calculated stats, or None if no matching variant is found.
+        """
+        base_hp = 0
+        speed = None
+        toughness = None
+        effect_res = None
+
+        child = next((m for m in enemy_info.monster_types if m.id == enemy_id), None)
+
+        if child:
+            base_hp = round(
+                enemy_info.hp_base
+                * child.hp_modify_ratio
+                * eg.hp_ratio
+                * hlg.hp_ratio
+                * (1 + hp_multiplier)
+            )
+            if enemy_info.spd_base:
+                speed = round(
+                    enemy_info.spd_base * child.spd_modify_ratio * eg.spd_ratio * hlg.spd_ratio
+                )
+            if enemy_info.stance_base:
+                toughness = round(
+                    enemy_info.stance_base
+                    * child.stance_modify_value
+                    * eg.stance_ratio
+                    * hlg.stance_ratio
+                    / 3
+                )
+            if enemy_info.status_resistance_base:
+                effect_res = enemy_info.status_resistance_base + hlg.status_resistance
+        else:
+            return None
+
+        return hsr.ProcessedEnemy(
+            id=enemy_id,
+            name=enemy_info.name,
+            weaknesses=child.stance_weak_list,
+            level=hlg.level,
+            base_hp=base_hp,
+            speed=speed,
+            toughness=toughness,
+            effect_res=effect_res,
+        )
+
+    async def calculate_hsr_enemy_stats(
+        self, endgame_type: HSREndgameType, endgame_id: int, stage_num: int = 0
+    ) -> list[list[list[hsr.ProcessedEnemy]]]:
+        """
+        Fetch and calculate enemy stats for both halves of an Endgame stage.
+
+        This function retrieves Endgame stage data,
+        extracts the relevant EliteGroup and HardLevelGroup multipliers, and computes
+        full enemy stats (including HP, speed, toughness, and effect resistance) for
+        each wave of both halves of the specified stage.
+
+        Args:
+            endgame_type: The type of endgame to be retrieved.
+            endgame_id: The ID of the endgame to analyze.
+            stage_num: The 0-indexed stage number within the endgame (defaults to 0).
+
+        Returns:
+            A list containing two elements—one for each half of the stage.
+            Each half is a list of waves, and each wave is a list of `HSREnemy` objects
+            (or None if a matching child monster variant cannot be found).
+
+            The structure is:
+                [
+                    [  # First half
+                        [HSREnemy, HSREnemy, ...],  # Wave 1
+                        [HSREnemy, HSREnemy, ...],  # Wave 2
+                    ],
+                    [  # Second half
+                        ...
+                    ]
+                ]
+        """
+        if endgame_type is HSREndgameType.MEMORY_OF_CHAOS:
+            endgame_data: hsr.EndgameBaseModel = await self.fetch_moc_detail(endgame_id)
+        elif endgame_type is HSREndgameType.PURE_FICTION:
+            endgame_data: hsr.EndgameBaseModel = await self.fetch_pf_detail(endgame_id)
+        else:
+            endgame_data: hsr.EndgameBaseModel = await self.fetch_apoc_detail(endgame_id)
+
+        if not (0 <= stage_num < len(endgame_data.stages)):
+            msg = f"stage_num {stage_num} is out of bounds. Must be between 0 and {len(endgame_data.stages) - 1}."
+            raise IndexError(msg)
+
+        stage: hsr.EndgameStage = endgame_data.stages[stage_num]
+
+        egs, hlgs = await self.fetch_elite_and_hard_level_groups()
+
+        result = []
+
+        for half in (stage.first_half, stage.second_half):
+            if half is None:
+                continue
+            specific_eg: hsr.EliteGroup = egs[half.eg_id]
+            specific_hlg: hsr.HardLevelGroup = hlgs[(half.hlg_id, half.hlg_level)]
+
+            half_enemies: list[list[hsr.ProcessedEnemy]] = []
+
+            for wave in half.waves:
+                wave_enemies: list[hsr.ProcessedEnemy] = []
+                for enemy_id in wave.enemies:
+                    fetch_id = int(str(enemy_id)[:7]) if enemy_id > 9999999 else enemy_id
+                    enemy_info = await self.fetch_monsters_detail(fetch_id)
+                    enemy_stats = self._calculate_hsr_enemy_stats(
+                        enemy_id=enemy_id,
+                        enemy_info=enemy_info,
+                        eg=specific_eg,
+                        hlg=specific_hlg,
+                        hp_multiplier=wave.hp_multiplier,
+                    )
+                    if enemy_stats:
+                        wave_enemies.append(enemy_stats)
+                half_enemies.append(wave_enemies)
+
+            result.append(half_enemies)
+
+        return result
