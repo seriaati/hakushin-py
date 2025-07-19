@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import json
 import logging
 from typing import TYPE_CHECKING, Any, Final, Self
 
+import js2py
 from aiohttp_client_cache.backends.sqlite import SQLiteBackend
 from aiohttp_client_cache.session import CachedSession
 from loguru import logger
@@ -71,30 +71,26 @@ class BaseClient:
     async def __aexit__(self, exc_type, exc, tb) -> None:  # noqa: ANN001
         await self.close()
 
-    async def _download_gitlab_json(self, url: str, use_cache: bool) -> list[dict[str, Any]]:
-        """
-        Download a JSON file from GitLab and cache it locally.
-
-        Returns the raw JSON list.
-        """
+    async def _download_groups(self, url: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         if self._session is None:
             msg = "Call `start` before making requests."
             raise RuntimeError(msg)
 
-        if not use_cache and isinstance(self._session, CachedSession):
-            async with self._session.disabled(), self._session.get(url) as resp:
-                if resp.status != 200:
-                    self._handle_error(resp.status, url)
-                text = await resp.text()
-                return json.loads(text)
-        else:
-            async with self._session.get(url) as resp:
-                if resp.status != 200:
-                    self._handle_error(resp.status, url)
-                text = await resp.text()
-                data = json.loads(text)
+        async with self._session.get(url) as resp:
+            if resp.status != 200:
+                self._handle_error(resp.status, url)
+            js_text = await resp.text()
 
-        return data
+        statements = js_text.split(";")
+        filtered_statement = statements[0]
+
+        context = js2py.EvalJs()
+        context.execute(filtered_statement)
+
+        elite_list = context.t.to_list()
+        hlg_list = context.e.to_list()
+
+        return elite_list, hlg_list
 
     async def _request(
         self, endpoint: str, use_cache: bool, *, static: bool = False, in_data: bool = False

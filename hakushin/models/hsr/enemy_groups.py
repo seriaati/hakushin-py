@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from pydantic import Field, field_validator
 
 from ..base import APIModel
@@ -11,7 +13,7 @@ class EliteGroup(APIModel):
     """Represent an EliteGroup in HSR.
 
     All enemies in HSR follow the following formula for ATK, DEF, HP, and SPD:
-    Base x BaseModifyRatio x EliteGroup Ratio x HardLevelGroup(Level) Ratio
+    Base x BaseModifyRatio x EliteGroup Ratio x HardLevelGroup(Level) Ratio x (1 + HPMultiplier)
 
     Attributes:
         id: The ID of the group.
@@ -22,35 +24,25 @@ class EliteGroup(APIModel):
     """
 
     id: int = Field(alias="EliteGroup")
-    attack_ratio: float = Field(alias="AttackRatio", default=1)
-    defence_ratio: float = Field(alias="DefenceRatio", default=1)
-    hp_ratio: float = Field(alias="HPRatio", default=1)
-    spd_ratio: float = Field(alias="SpeedRatio", default=1)
-    stance_ratio: float = Field(alias="StanceRatio", default=1)
+    attack_ratio: float = Field(alias="AttackRatio", default=0)
+    defence_ratio: float = Field(alias="DefenceRatio", default=0)
+    hp_ratio: float = Field(alias="HPRatio", default=0)
+    spd_ratio: float = Field(alias="SpeedRatio", default=0)
+    stance_ratio: float = Field(alias="StanceRatio", default=0)
 
     @field_validator(
-        "attack_ratio",
-        "defence_ratio",
-        "hp_ratio",
-        "spd_ratio",
-        "stance_ratio",
-        mode="before",
-        check_fields=False,
+        "attack_ratio", "defence_ratio", "hp_ratio", "spd_ratio", "stance_ratio", mode="before"
     )
     @classmethod
-    def extract_value(cls, v: dict[str, float]) -> float:
-        # Expecting something like {"Value": 2.32}
-        if isinstance(v, dict) and "Value" in v:
-            return v["Value"]
-        msg = "Expected a dict with 'Value' key."
-        raise ValueError(msg)
+    def handle_missing_fields(cls, value: Any) -> float:
+        return 0 if value is None else value
 
 
 class HardLevelGroup(APIModel):
     """Represent a HardLevelGroup in HSR.
 
     All enemies in HSR follow the following formula for ATK, DEF, HP, and SPD:
-    Base x BaseModifyRatio x EliteGroup Ratio x HardLevelGroup(Level) Ratio
+    Base x BaseModifyRatio x EliteGroup Ratio x HardLevelGroup(Level) Ratio x (1 + HPMultiplier)
 
     Attributes:
         id: The ID of the group.
@@ -63,11 +55,11 @@ class HardLevelGroup(APIModel):
 
     id: int = Field(alias="HardLevelGroup")
     level: int = Field(alias="Level")
-    attack_ratio: float = Field(alias="AttackRatio", default=1)
-    defence_ratio: float = Field(alias="DefenceRatio", default=1)
-    hp_ratio: float = Field(alias="HPRatio", default=1)
-    spd_ratio: float = Field(alias="SpeedRatio", default=1)
-    stance_ratio: float = Field(alias="StanceRatio", default=1)
+    attack_ratio: float = Field(alias="AttackRatio", default=0)
+    defence_ratio: float = Field(alias="DefenceRatio", default=0)
+    hp_ratio: float = Field(alias="HPRatio", default=0)
+    spd_ratio: float = Field(alias="SpeedRatio", default=0)
+    stance_ratio: float = Field(alias="StanceRatio", default=0)
     status_resistance: float = Field(alias="StatusResistance", default=0)
 
     @field_validator(
@@ -78,12 +70,7 @@ class HardLevelGroup(APIModel):
         "stance_ratio",
         "status_resistance",
         mode="before",
-        check_fields=False,
     )
     @classmethod
-    def extract_value(cls, v: dict[str, float]) -> float:
-        # Expecting something like {"Value": 2.32}
-        if isinstance(v, dict) and "Value" in v:
-            return v["Value"]
-        msg = "Expected a dict with 'Value' key."
-        raise ValueError(msg)
+    def handle_missing_fields(cls, value: Any) -> float:
+        return 0 if value is None else value

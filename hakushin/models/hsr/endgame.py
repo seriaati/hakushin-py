@@ -1,30 +1,31 @@
 from __future__ import annotations
 
 from abc import ABC
-from typing import Any
+from typing import Any, Literal
 
 from attr import dataclass
 from pydantic import Field, field_validator, model_validator
 
-from ...enums import HSRElement
+from ...enums import HSRElement, HSREndgameType
 from ..base import APIModel
 
 __all__ = (
     "ApocalypticShadowBuff",
     "ApocalypticShadowDetail",
+    "EndgameBaseModel",
     "EndgameBuffOptions",
     "EndgameHalf",
     "EndgameStage",
+    "EndgameSummary",
     "EndgameWave",
-    "HSREndgameBase",
-    "HSREnemy",
     "MemoryOfChaosDetail",
+    "ProcessedEnemy",
     "PureFictionDetail",
 )
 
 
 @dataclass(kw_only=True)
-class HSREnemy:
+class ProcessedEnemy:
     """
     Represents a processed enemy instance in a HSR endgame stage.
 
@@ -90,9 +91,9 @@ class EndgameHalf(APIModel):
         waves: List of enemy waves in this half.
     """
 
-    hlg_id: int = Field(alias="HardLevelGroup")
-    hlg_level: int = Field(alias="Level")
-    eg_id: int = Field(alias="EliteGroup")
+    hlg_id: int = Field(alias="HardLevelGroup", default=1)
+    hlg_level: int = Field(alias="Level", default=1)
+    eg_id: int = Field(alias="EliteGroup", default=1)
     waves: list[EndgameWave] = Field(alias="MonsterList")
 
 
@@ -116,19 +117,26 @@ class EndgameStage(APIModel):
     second_half_weaknesses: list[HSRElement] = Field(alias="DamageType2")
 
     first_half: EndgameHalf = Field(alias="EventIDList1")
-    second_half: EndgameHalf = Field(alias="EventIDList2")
+    second_half: EndgameHalf | None = Field(alias="EventIDList2")
 
     @model_validator(mode="before")
     @classmethod
     def _unwrap_event_lists(cls, values: dict[str, Any]) -> dict[str, Any]:
         if "EventIDList1" in values and isinstance(values["EventIDList1"], list):
             values["EventIDList1"] = values["EventIDList1"][0]
-        if "EventIDList2" in values and isinstance(values["EventIDList2"], list):
-            values["EventIDList2"] = values["EventIDList2"][0]
+
+        if "EventIDList2" in values:
+            if isinstance(values["EventIDList2"], list) and values["EventIDList2"]:
+                values["EventIDList2"] = values["EventIDList2"][0]
+            elif not values["EventIDList2"]:
+                values["EventIDList2"] = None  # Let Pydantic handle it as optional
+        else:
+            values["EventIDList2"] = None
+
         return values
 
 
-class HSREndgameBase(APIModel, ABC):
+class EndgameBaseModel(APIModel, ABC):
     """
     Abstract base class for all HSR endgame modes.
 
@@ -141,13 +149,39 @@ class HSREndgameBase(APIModel, ABC):
     """
 
     id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    begin_time: str = Field(alias="BeginTime")
-    end_time: str = Field(alias="EndTime")
+    name: str = Field(alias="Name", default="")
+    begin_time: str = Field(alias="BeginTime", default="")
+    end_time: str = Field(alias="EndTime", default="")
     stages: list[EndgameStage] = Field(alias="Level")
 
+    @field_validator("name", "begin_time", "end_time", mode="before")
+    @classmethod
+    def handle_missing_fields(cls, value: Any) -> str:
+        return "" if value is None else value
 
-class MemoryOfChaosDetail(HSREndgameBase):
+
+class EndgameSummary(APIModel):
+    id: int
+    type: HSREndgameType
+    names: dict[Literal["en", "cn", "kr", "jp"], str]
+    name: str = Field("")  # The value of this field is assigned in post processing.
+    begin: str = Field(alias="live_begin", default="")
+    end: str = Field(alias="live_end", default="")
+
+    @model_validator(mode="before")
+    @classmethod
+    def __transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
+        # This is probably the most questionable API design decision I've ever seen.
+        values["names"] = {
+            "en": values.pop("en", "") or "",
+            "cn": values.pop("cn", "") or "",
+            "kr": values.pop("kr", "") or "",
+            "jp": values.pop("jp", "") or "",
+        }
+        return values
+
+
+class MemoryOfChaosDetail(EndgameBaseModel):
     """
     Memory of Chaos event details.
 
@@ -160,7 +194,7 @@ class MemoryOfChaosDetail(HSREndgameBase):
     @model_validator(mode="before")
     @classmethod
     def transform_data(cls, data: dict[str, Any]) -> dict[str, Any]:
-        first_level = data["Level"][1]
+        first_level = data["Level"][0]
         data["Name"] = first_level["GroupName"]
         data["MemoryTurbulence"] = first_level["Desc"]
         data["BeginTime"] = first_level["BeginTime"]
@@ -192,11 +226,16 @@ class ApocalypticShadowBuff(APIModel):
         desc: Description of the effect.
     """
 
-    name: str = Field(alias="Name")
-    desc: str = Field(alias="Desc")
+    name: str = Field(alias="Name", default="")
+    desc: str = Field(alias="Desc", default="")
+
+    @field_validator("name", "desc", mode="before")
+    @classmethod
+    def handle_missing_fields(cls, value: Any) -> str:
+        return "" if value is None else value
 
 
-class ApocalypticShadowDetail(HSREndgameBase):
+class ApocalypticShadowDetail(EndgameBaseModel):
     """
     Apocalyptic Shadow event details.
 
@@ -212,7 +251,7 @@ class ApocalypticShadowDetail(HSREndgameBase):
     buff_list_2: list[EndgameBuffOptions] = Field(alias="BuffList2")
 
 
-class PureFictionDetail(HSREndgameBase):
+class PureFictionDetail(EndgameBaseModel):
     """
     Pure Fiction event details.
 
@@ -241,7 +280,8 @@ class PureFictionDetail(HSREndgameBase):
             for wave in infinite_list_stage_1:
                 unique_wave_enemies = list(set(wave["MonsterGroupIDList"]))
                 enemies_dict = {f"Monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)}
-                enemies_dict["HPMultiplier"] = wave["ParamList"][1]
+                param_list = wave.get("ParamList", [])
+                enemies_dict["HPMultiplier"] = param_list[1] if len(param_list) > 1 else 0.0
                 raw_stage["EventIDList1"][0]["MonsterList"].append(enemies_dict)
 
             raw_stage["EventIDList2"][0]["MonsterList"] = []
@@ -249,7 +289,8 @@ class PureFictionDetail(HSREndgameBase):
             for wave in infinite_list_stage_2:
                 unique_wave_enemies = list(set(wave["MonsterGroupIDList"]))
                 enemies_dict = {f"Monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)}
-                enemies_dict["HPMultiplier"] = wave["ParamList"][1]
+                param_list = wave.get("ParamList", [])
+                enemies_dict["HPMultiplier"] = param_list[1] if len(param_list) > 1 else 0.0
                 raw_stage["EventIDList2"][0]["MonsterList"].append(enemies_dict)
             transformed_stages.append(raw_stage)
 
