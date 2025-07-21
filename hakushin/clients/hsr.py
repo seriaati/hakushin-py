@@ -401,12 +401,13 @@ class HSRClient(BaseClient):
         """
         for stage_num, stage in enumerate(detail.stages):
             enemies = await self.calculate_hsr_enemy_stats(detail, stage_num=stage_num)
-            first_half_enemies, second_half_enemies = enemies[0], enemies[1]
+            first_half_enemies = enemies[0]
             for wave_num, wave_enemies in enumerate(first_half_enemies):
                 wave = stage.first_half.waves[wave_num]
                 wave.enemies = wave_enemies
 
             if stage.second_half:
+                second_half_enemies = enemies[1]
                 for wave_num, wave_enemies in enumerate(second_half_enemies):
                     wave = stage.second_half.waves[wave_num]
                     wave.enemies = wave_enemies
