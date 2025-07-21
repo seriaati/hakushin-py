@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from hakushin.enums import HSREndgameType
-
 if TYPE_CHECKING:
     from hakushin.clients.hsr import HSRClient
 
