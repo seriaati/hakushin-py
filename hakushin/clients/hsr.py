@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from ..constants import HSR_API_LANG_MAP, TRAILBLAZER_NAMES
 from ..enums import Game, HSREndgameType, Language
@@ -10,6 +10,8 @@ from .base import BaseClient
 
 if TYPE_CHECKING:
     from aiohttp import ClientSession
+
+T = TypeVar("T", bound=hsr.EndgameBaseModel)
 
 __all__ = ("HSRClient",)
 
@@ -106,11 +108,30 @@ class HSRClient(BaseClient):
     async def fetch_monsters_detail(
         self, monster_id: int, *, use_cache: bool = True
     ) -> hsr.MonsterDetail:
+        """
+        Fetch the full detail of a specific monster.
+
+        Args:
+            monster_id: The ID of the monster to retrieve.
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A `MonsterDetail` object containing the full monster stats and metadata.
+        """
         endpoint = f"monster/{monster_id}"
         data = await self._request(endpoint, use_cache)
         return hsr.MonsterDetail(**data)
 
     async def fetch_moc(self, *, use_cache: bool = True) -> list[hsr.EndgameSummary]:
+        """
+        Fetch a list of Memory of Chaos (MoC) event summaries.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of `EndgameSummary` objects for each MoC event.
+        """
         data = await self._request("maze", use_cache, in_data=True)
 
         mocs = [
@@ -123,15 +144,47 @@ class HSRClient(BaseClient):
         return mocs
 
     async def fetch_moc_detail(
-        self, moc_id: int, *, use_cache: bool = True
+        self, moc_id: int, *, use_cache: bool = True, partial: bool = False
     ) -> hsr.MemoryOfChaosDetail:
+        """
+        Fetch detailed stage and wave data for a specific Memory of Chaos event.
+
+        Args:
+            moc_id: The ID of the Memory of Chaos event to retrieve.
+            use_cache: If True, use a cached response if available.
+            partial: If True, automatically resolve and attach `ProcessedEnemy` stats
+                     to each wave in the stage data. If False, return raw model data.
+
+        Returns:
+            - If `partial=False`: A `MemoryOfChaosDetail` instance with raw enemy ID data.
+            - If `partial=True`: The same `MemoryOfChaosDetail` instance, but with
+              `ProcessedEnemy` objects injected into each wave.
+
+        Note:
+            When `partial=True`, this method performs additional stat
+            calculation using `calculate_hsr_enemy_stats()` and replaces enemy ID lists
+            with `ProcessedEnemy` models directly on the wave objects.
+        """
         endpoint = f"maze/{moc_id}"
         data: dict[str, Any] = await self._request(endpoint, use_cache)
         data["Id"] = moc_id
 
-        return hsr.MemoryOfChaosDetail(**data)
+        detail = hsr.MemoryOfChaosDetail(**data)
+        if partial:
+            return await self._replace_enemy_ids_with_enemies(detail)
+
+        return detail
 
     async def fetch_pf(self, *, use_cache: bool = True) -> list[hsr.EndgameSummary]:
+        """
+        Fetch a list of Pure Fiction (PF) event summaries.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of `EndgameSummary` objects for each Pure Fiction event.
+        """
         data = await self._request("maze_extra", use_cache, in_data=True)
 
         pfs = [hsr.EndgameSummary(type=HSREndgameType.PURE_FICTION, **pf) for _, pf in data.items()]
@@ -140,13 +193,46 @@ class HSRClient(BaseClient):
 
         return pfs
 
-    async def fetch_pf_detail(self, pf_id: int, *, use_cache: bool = True) -> hsr.PureFictionDetail:
+    async def fetch_pf_detail(
+        self, pf_id: int, *, use_cache: bool = True, partial: bool = True
+    ) -> hsr.PureFictionDetail | list[list[list[list[hsr.ProcessedEnemy]]]]:
+        """
+        Fetch detailed stage and wave data for a specific Pure Fiction event.
+
+        Args:
+            pf_id: The ID of the Pure Fiction event.
+            use_cache: Whether to use the response cache.
+            partial: If True, return calculated `ProcessedEnemy` stats instead of the raw model.
+
+        Returns:
+            - If `partial=False`: A `PureFictionDetail` instance with raw enemy ID data.
+            - If `partial=True`: The same `PureFictionDetail` instance, but with
+              `ProcessedEnemy` objects injected into each wave.
+
+        Note:
+            When `partial=True`, this method performs additional stat
+            calculation using `calculate_hsr_enemy_stats()` and replaces enemy ID lists
+            with `ProcessedEnemy` models directly on the wave objects.
+        """
         endpoint = f"story/{pf_id}"
         data: dict[str, Any] = await self._request(endpoint, use_cache)
 
-        return hsr.PureFictionDetail(**data)
+        detail = hsr.PureFictionDetail(**data)
+        if partial:
+            return await self._replace_enemy_ids_with_enemies(detail)
+
+        return detail
 
     async def fetch_apoc(self, *, use_cache: bool = True) -> list[hsr.EndgameSummary]:
+        """
+        Fetch a list of Apocalyptic Shadow (Apoc) event summaries.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of `EndgameSummary` objects for each Apocalyptic Shadow event.
+        """
         data = await self._request("maze_boss", use_cache, in_data=True)
 
         apocs = [
@@ -159,12 +245,34 @@ class HSRClient(BaseClient):
         return apocs
 
     async def fetch_apoc_detail(
-        self, apoc_id: int, *, use_cache: bool = True
+        self, apoc_id: int, *, use_cache: bool = True, partial: bool = True
     ) -> hsr.ApocalypticShadowDetail:
+        """
+        Fetch detailed stage and wave data for a specific Apocalyptic Shadow event.
+
+        Args:
+            pf_id: The ID of the Apocalyptic Shadow event.
+            use_cache: Whether to use the response cache.
+            partial: If True, return calculated `ProcessedEnemy` stats instead of the raw model.
+
+        Returns:
+            - If `partial=False`: A `ApocalypticShadowDetail` instance with raw enemy ID data.
+            - If `partial=True`: The same `ApocalypticShadowDetail` instance, but with
+              `ProcessedEnemy` objects injected into each wave.
+
+        Note:
+            When `partial=True`, this method performs additional stat
+            calculation using `calculate_hsr_enemy_stats()` and replaces enemy ID lists
+            with `ProcessedEnemy` models directly on the wave objects.
+        """
         endpoint = f"boss/{apoc_id}"
         data: dict[str, Any] = await self._request(endpoint, use_cache)
 
-        return hsr.ApocalypticShadowDetail(**data)
+        detail = hsr.ApocalypticShadowDetail(**data)
+        if partial:
+            return await self._replace_enemy_ids_with_enemies(detail)
+
+        return detail
 
     async def fetch_characters(self, *, use_cache: bool = True) -> list[hsr.Character]:
         """Fetch all Honkai Star Rail characters.
@@ -280,6 +388,31 @@ class HSRClient(BaseClient):
         data = await self._request(endpoint, use_cache)
         return hsr.RelicSetDetail(**data)
 
+    async def _replace_enemy_ids_with_enemies(self, detail: T) -> T:
+        """
+        Replaces enemy ID lists with `ProcessedEnemy` objects for all waves
+        in the given endgame detail model.
+
+        Args:
+            detail: An endgame detail instance (e.g., MemoryOfChaosDetail).
+
+        Returns:
+            The same model with enriched enemy data per wave.
+        """
+        for stage_num, stage in enumerate(detail.stages):
+            enemies = await self.calculate_hsr_enemy_stats(detail, stage_num=stage_num)
+            first_half_enemies, second_half_enemies = enemies[0], enemies[1]
+            for wave_num, wave_enemies in enumerate(first_half_enemies):
+                wave = stage.first_half.waves[wave_num]
+                wave.enemies = wave_enemies
+
+            if stage.second_half:
+                for wave_num, wave_enemies in enumerate(second_half_enemies):
+                    wave = stage.second_half.waves[wave_num]
+                    wave.enemies = wave_enemies
+
+        return detail
+
     def _calculate_hsr_enemy_stats(
         self,
         enemy_id: int,
@@ -347,19 +480,13 @@ class HSRClient(BaseClient):
         )
 
     async def calculate_hsr_enemy_stats(
-        self, endgame_type: HSREndgameType, endgame_id: int, stage_num: int = 0
+        self, endgame_data: hsr.EndgameBaseModel, stage_num: int = 0
     ) -> list[list[list[hsr.ProcessedEnemy]]]:
         """
-        Fetch and calculate enemy stats for both halves of an Endgame stage.
-
-        This function retrieves Endgame stage data,
-        extracts the relevant EliteGroup and HardLevelGroup multipliers, and computes
-        full enemy stats (including HP, speed, toughness, and effect resistance) for
-        each wave of both halves of the specified stage.
+        Calculate enemy stats for both halves of an Endgame stage from already fetched endgame detail.
 
         Args:
-            endgame_type: The type of endgame to be retrieved.
-            endgame_id: The ID of the endgame to analyze.
+            endgame_data: The already fetched Endgame detail object (e.g., MemoryOfChaosDetail).
             stage_num: The 0-indexed stage number within the endgame (defaults to 0).
 
         Returns:
@@ -378,12 +505,6 @@ class HSRClient(BaseClient):
                     ]
                 ]
         """
-        if endgame_type is HSREndgameType.MEMORY_OF_CHAOS:
-            endgame_data: hsr.EndgameBaseModel = await self.fetch_moc_detail(endgame_id)
-        elif endgame_type is HSREndgameType.PURE_FICTION:
-            endgame_data: hsr.EndgameBaseModel = await self.fetch_pf_detail(endgame_id)
-        else:
-            endgame_data: hsr.EndgameBaseModel = await self.fetch_apoc_detail(endgame_id)
 
         if not (0 <= stage_num < len(endgame_data.stages)):
             msg = f"stage_num {stage_num} is out of bounds. Must be between 0 and {len(endgame_data.stages) - 1}."
@@ -406,6 +527,8 @@ class HSRClient(BaseClient):
             for wave in half.waves:
                 wave_enemies: list[hsr.ProcessedEnemy] = []
                 for enemy_id in wave.enemies:
+                    if not isinstance(enemy_id, int):
+                        continue
                     fetch_id = int(str(enemy_id)[:7]) if enemy_id > 9999999 else enemy_id
                     enemy_info = await self.fetch_monsters_detail(fetch_id)
                     enemy_stats = self._calculate_hsr_enemy_stats(

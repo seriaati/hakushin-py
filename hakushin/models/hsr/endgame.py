@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 from abc import ABC
+from collections.abc import Sequence
 from typing import Any, Literal
 
-from attr import dataclass
 from pydantic import Field, field_validator, model_validator
 
 from ...enums import HSRElement, HSREndgameType
@@ -24,8 +24,7 @@ __all__ = (
 )
 
 
-@dataclass(kw_only=True)
-class ProcessedEnemy:
+class ProcessedEnemy(APIModel):
     """
     Represents a processed enemy instance in a HSR endgame stage.
 
@@ -55,11 +54,11 @@ class EndgameWave(APIModel):
     Represents a wave of enemies in an endgame half.
 
     Attributes:
-        enemies: A list of enemy IDs in the wave.
+        enemies: A list of either enemy IDs (int) or fully processed enemies (ProcessedEnemy).
         hp_multiplier: Multiplier applied to enemy HP in this wave.
     """
 
-    enemies: list[int] = Field(default_factory=list)
+    enemies: Sequence[int | ProcessedEnemy] = Field(default_factory=list)
     hp_multiplier: float = Field(alias="HPMultiplier", default=0)
 
     @field_validator("hp_multiplier", mode="before")
@@ -70,13 +69,16 @@ class EndgameWave(APIModel):
     @model_validator(mode="before")
     @classmethod
     def extract_monster_ids(cls, values: dict[str, Any]) -> dict[str, Any]:
-        enemies = []
-
-        for key, val in values.items():
-            if key.startswith("Monster") and isinstance(val, int):
-                enemies.append(val)
-
-        values["enemies"] = enemies
+        """
+        If this model is being parsed from a raw dictionary with Monster1, Monster2... keys,
+        extract them into the 'enemies' list. Otherwise, assume enemies is already provided.
+        """
+        if "enemies" not in values:
+            enemies = []
+            for key, val in values.items():
+                if key.startswith("Monster") and isinstance(val, int):
+                    enemies.append(val)
+            values["enemies"] = enemies
         return values
 
 

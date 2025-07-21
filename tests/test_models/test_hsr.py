@@ -65,24 +65,12 @@ async def test_apoc(hsr_client: HSRClient) -> None:
 async def test_enemy_stat_calculations(hsr_client: HSRClient) -> None:
     mocs = await hsr_client.fetch_moc()
     for moc in mocs:
-        full_moc = await hsr_client.fetch_moc_detail(moc.id)
-        for stage_num, _ in enumerate(full_moc.stages):
-            await hsr_client.calculate_hsr_enemy_stats(
-                HSREndgameType.MEMORY_OF_CHAOS, moc.id, stage_num
-            )
+        await hsr_client.fetch_moc_detail(moc.id, partial=True)
 
     pfs = await hsr_client.fetch_pf()
     for pf in pfs:
-        full_pf = await hsr_client.fetch_pf_detail(pf.id)
-        for stage_num, _ in enumerate(full_pf.stages):
-            await hsr_client.calculate_hsr_enemy_stats(
-                HSREndgameType.PURE_FICTION, pf.id, stage_num
-            )
+        await hsr_client.fetch_pf_detail(pf.id, partial=True)
 
     apocs = await hsr_client.fetch_apoc()
     for apoc in apocs:
-        full_apoc = await hsr_client.fetch_apoc_detail(apoc.id)
-        for stage_num, _ in enumerate(full_apoc.stages):
-            await hsr_client.calculate_hsr_enemy_stats(
-                HSREndgameType.APOCALYPTIC_SHADOW, apoc.id, stage_num
-            )
+        await hsr_client.fetch_apoc_detail(apoc.id, partial=True)
