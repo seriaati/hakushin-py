@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from abc import ABC
-from collections.abc import Sequence
 from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
@@ -58,7 +57,7 @@ class EndgameWave(APIModel):
         hp_multiplier: Multiplier applied to enemy HP in this wave.
     """
 
-    enemies: Sequence[int | ProcessedEnemy] = Field(default_factory=list)
+    enemies: list[int | ProcessedEnemy] = Field(default_factory=list)
     hp_multiplier: float = Field(alias="HPMultiplier", default=0)
 
     @field_validator("hp_multiplier", mode="before")
