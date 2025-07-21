@@ -62,12 +62,12 @@ class EndgameWave(APIModel):
 
     @field_validator("hp_multiplier", mode="before")
     @classmethod
-    def handle_missing_hp(cls, value: Any) -> float:
+    def __handle_missing_hp(cls, value: Any) -> float:
         return 0 if value is None else value
 
     @model_validator(mode="before")
     @classmethod
-    def extract_monster_ids(cls, values: dict[str, Any]) -> dict[str, Any]:
+    def __extract_monster_ids(cls, values: dict[str, Any]) -> dict[str, Any]:
         """
         If this model is being parsed from a raw dictionary with Monster1, Monster2... keys,
         extract them into the 'enemies' list. Otherwise, assume enemies is already provided.
@@ -122,7 +122,7 @@ class EndgameStage(APIModel):
 
     @model_validator(mode="before")
     @classmethod
-    def _unwrap_event_lists(cls, values: dict[str, Any]) -> dict[str, Any]:
+    def __unwrap_event_lists(cls, values: dict[str, Any]) -> dict[str, Any]:
         if "EventIDList1" in values and isinstance(values["EventIDList1"], list):
             values["EventIDList1"] = values["EventIDList1"][0]
 
@@ -157,7 +157,7 @@ class EndgameBaseModel(APIModel, ABC):
 
     @field_validator("name", "begin_time", "end_time", mode="before")
     @classmethod
-    def handle_missing_fields(cls, value: Any) -> str:
+    def __handle_missing_fields(cls, value: Any) -> str:
         return "" if value is None else value
 
 
@@ -206,7 +206,7 @@ class MemoryOfChaosDetail(EndgameBaseModel):
 
     @model_validator(mode="before")
     @classmethod
-    def transform_data(cls, data: dict[str, Any]) -> dict[str, Any]:
+    def __transform_data(cls, data: dict[str, Any]) -> dict[str, Any]:
         first_level = data["Level"][0]
         data["Name"] = first_level["GroupName"]
         data["MemoryTurbulence"] = first_level["Desc"]
@@ -244,7 +244,7 @@ class ApocalypticShadowBuff(APIModel):
 
     @field_validator("name", "desc", mode="before")
     @classmethod
-    def handle_missing_fields(cls, value: Any) -> str:
+    def __handle_missing_fields(cls, value: Any) -> str:
         return "" if value is None else value
 
 
@@ -278,7 +278,7 @@ class PureFictionDetail(EndgameBaseModel):
 
     @model_validator(mode="before")
     @classmethod
-    def transform_level_data(cls, data: dict[str, Any]) -> dict[str, Any]:
+    def __transform_level_data(cls, data: dict[str, Any]) -> dict[str, Any]:
         levels = data.get("Level", [])
         transformed_stages = []
 
