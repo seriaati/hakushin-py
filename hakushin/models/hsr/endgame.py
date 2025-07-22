@@ -17,6 +17,13 @@ __all__ = (
     "EndgameStage",
     "EndgameSummary",
     "EndgameWave",
+    "FullApocalypticShadowDetail",
+    "FullEndgameBaseModel",
+    "FullEndgameHalf",
+    "FullEndgameStage",
+    "FullEndgameWave",
+    "FullMemoryOfChaosDetail",
+    "FullPureFictionDetail",
     "MemoryOfChaosDetail",
     "ProcessedEnemy",
     "PureFictionDetail",
@@ -57,7 +64,7 @@ class EndgameWave(APIModel):
         hp_multiplier: Multiplier applied to enemy HP in this wave.
     """
 
-    enemies: list[int | ProcessedEnemy] = Field(default_factory=list)
+    enemies: list[int] = Field(default_factory=list)
     hp_multiplier: float = Field(alias="HPMultiplier", default=0)
 
     @field_validator("hp_multiplier", mode="before")
@@ -81,6 +88,18 @@ class EndgameWave(APIModel):
         return values
 
 
+class FullEndgameWave(EndgameWave):
+    """
+    Represents a wave of enemies in an endgame half.
+
+    Attributes:
+        enemies: A list of either enemy IDs (int) or fully processed enemies (ProcessedEnemy).
+        hp_multiplier: Multiplier applied to enemy HP in this wave.
+    """
+
+    enemies: list[ProcessedEnemy] = Field(default_factory=list)  # type: ignore
+
+
 class EndgameHalf(APIModel):
     """
     Represents one half of an endgame stage (first or second).
@@ -96,6 +115,20 @@ class EndgameHalf(APIModel):
     hlg_level: int = Field(alias="Level", default=1)
     eg_id: int = Field(alias="EliteGroup", default=1)
     waves: list[EndgameWave] = Field(alias="MonsterList")
+
+
+class FullEndgameHalf(EndgameHalf):
+    """
+    Represents one half of an endgame stage (first or second) with fully processed enemies.
+
+    Attributes:
+        hlg_id: ID of the HardLevelGroup used to determine difficulty scaling.
+        hlg_level: Level of the HardLevelGroup (affects enemy stats).
+        eg_id: ID of the EliteGroup (affects enemy traits).
+        waves: List of enemy waves in this half with fully processed enemies.
+    """
+
+    waves: list[FullEndgameWave] = Field(alias="MonsterList")
 
 
 class EndgameStage(APIModel):
@@ -137,6 +170,23 @@ class EndgameStage(APIModel):
         return values
 
 
+class FullEndgameStage(EndgameStage):
+    """
+    Represents a complete stage in an endgame mode with fully processed enemies.
+
+    Attributes:
+        id: Unique ID of the stage.
+        name: Stage name.
+        first_half_weaknesses: Elements that enemies in the first half are weak to.
+        second_half_weaknesses: Elements that enemies in the second half are weak to.
+        first_half: The first half of the stage with fully processed enemies.
+        second_half: The second half of the stage with fully processed enemies.
+    """
+
+    first_half: FullEndgameHalf = Field(alias="EventIDList1")
+    second_half: FullEndgameHalf | None = Field(alias="EventIDList2")
+
+
 class EndgameBaseModel(APIModel, ABC):
     """
     Abstract base class for all HSR endgame modes.
@@ -159,6 +209,21 @@ class EndgameBaseModel(APIModel, ABC):
     @classmethod
     def __handle_missing_fields(cls, value: Any) -> str:
         return "" if value is None else value
+
+
+class FullEndgameBaseModel(EndgameBaseModel):
+    """
+    Abstract base class for all HSR endgame modes with fully processed enemies.
+
+    Attributes:
+        id: Unique ID of the endgame event.
+        name: Display name of the event.
+        begin_time: Event start timestamp.
+        end_time: Event end timestamp.
+        stages: List of stages in this endgame mode with fully processed enemies.
+    """
+
+    stages: list[FullEndgameStage] = Field(alias="Level")
 
 
 class EndgameSummary(APIModel):
@@ -197,6 +262,27 @@ class EndgameSummary(APIModel):
 class MemoryOfChaosDetail(EndgameBaseModel):
     """
     Memory of Chaos event details.
+
+    Attributes:
+        memory_turbulence: Global modifier for the current MoC rotation.
+    """
+
+    memory_turbulence: str = Field(alias="MemoryTurbulence")
+
+    @model_validator(mode="before")
+    @classmethod
+    def __transform_data(cls, data: dict[str, Any]) -> dict[str, Any]:
+        first_level = data["Level"][0]
+        data["Name"] = first_level["GroupName"]
+        data["MemoryTurbulence"] = first_level["Desc"]
+        data["BeginTime"] = first_level["BeginTime"]
+        data["EndTime"] = first_level["EndTime"]
+        return data
+
+
+class FullMemoryOfChaosDetail(FullEndgameBaseModel):
+    """
+    Memory of Chaos event details with fully processed enemies.
 
     Attributes:
         memory_turbulence: Global modifier for the current MoC rotation.
@@ -264,7 +350,36 @@ class ApocalypticShadowDetail(EndgameBaseModel):
     buff_list_2: list[EndgameBuffOptions] = Field(alias="BuffList2")
 
 
+class FullApocalypticShadowDetail(FullEndgameBaseModel):
+    """
+    Apocalyptic Shadow event details with fully processed enemies.
+
+    Attributes:
+        buff: The static global buff applied in all stages.
+        buff_list_1: Selectable buffs for first half.
+        buff_list_2: Selectable buffs for second half.
+    """
+
+    buff: ApocalypticShadowBuff = Field(alias="Buff")
+
+    buff_list_1: list[EndgameBuffOptions] = Field(alias="BuffList1")
+    buff_list_2: list[EndgameBuffOptions] = Field(alias="BuffList2")
+
+
 class PureFictionDetail(EndgameBaseModel):
+    """
+    Pure Fiction event details.
+
+    Attributes:
+        buff_options: First tier of optional buffs.
+        buff_suboptions: Second tier of optional buffs.
+    """
+
+    buff_options: list[EndgameBuffOptions] = Field(alias="Option")
+    buff_suboptions: list[EndgameBuffOptions] = Field(alias="SubOption")
+
+
+class FullPureFictionDetail(FullEndgameBaseModel):
     """
     Pure Fiction event details.
 

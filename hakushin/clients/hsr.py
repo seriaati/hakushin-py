@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, Literal, TypeVar, overload
 
 from ..constants import HSR_API_LANG_MAP, TRAILBLAZER_NAMES
 from ..enums import Game, HSREndgameType, Language
@@ -143,9 +143,17 @@ class HSRClient(BaseClient):
 
         return mocs
 
+    @overload
     async def fetch_moc_detail(
-        self, moc_id: int, *, use_cache: bool = True, partial: bool = False
-    ) -> hsr.MemoryOfChaosDetail:
+        self, moc_id: int, *, partial: Literal[True] = ..., use_cache: bool = ...
+    ) -> hsr.MemoryOfChaosDetail: ...
+    @overload
+    async def fetch_moc_detail(
+        self, moc_id: int, *, partial: Literal[False] = ..., use_cache: bool = ...
+    ) -> hsr.FullMemoryOfChaosDetail: ...
+    async def fetch_moc_detail(
+        self, moc_id: int, *, partial: bool = True, use_cache: bool = True
+    ) -> hsr.MemoryOfChaosDetail | hsr.FullMemoryOfChaosDetail:
         """
         Fetch detailed stage and wave data for a specific Memory of Chaos event.
 
@@ -170,7 +178,7 @@ class HSRClient(BaseClient):
         data["Id"] = moc_id
 
         detail = hsr.MemoryOfChaosDetail(**data)
-        if partial:
+        if not partial:
             return await self._replace_enemy_ids_with_enemies(detail)
 
         return detail
@@ -193,9 +201,17 @@ class HSRClient(BaseClient):
 
         return pfs
 
+    @overload
     async def fetch_pf_detail(
-        self, pf_id: int, *, use_cache: bool = True, partial: bool = True
-    ) -> hsr.PureFictionDetail | list[list[list[list[hsr.ProcessedEnemy]]]]:
+        self, pf_id: int, *, partial: Literal[True] = ..., use_cache: bool = ...
+    ) -> hsr.PureFictionDetail: ...
+    @overload
+    async def fetch_pf_detail(
+        self, pf_id: int, *, partial: Literal[False] = ..., use_cache: bool = ...
+    ) -> hsr.FullPureFictionDetail: ...
+    async def fetch_pf_detail(
+        self, pf_id: int, *, partial: bool = True, use_cache: bool = True
+    ) -> hsr.PureFictionDetail | hsr.FullPureFictionDetail:
         """
         Fetch detailed stage and wave data for a specific Pure Fiction event.
 
@@ -218,7 +234,7 @@ class HSRClient(BaseClient):
         data: dict[str, Any] = await self._request(endpoint, use_cache)
 
         detail = hsr.PureFictionDetail(**data)
-        if partial:
+        if not partial:
             return await self._replace_enemy_ids_with_enemies(detail)
 
         return detail
@@ -244,9 +260,17 @@ class HSRClient(BaseClient):
 
         return apocs
 
+    @overload
     async def fetch_apoc_detail(
-        self, apoc_id: int, *, use_cache: bool = True, partial: bool = True
-    ) -> hsr.ApocalypticShadowDetail:
+        self, apoc_id: int, *, partial: Literal[True] = ..., use_cache: bool = ...
+    ) -> hsr.ApocalypticShadowDetail: ...
+    @overload
+    async def fetch_apoc_detail(
+        self, apoc_id: int, *, partial: Literal[False] = ..., use_cache: bool = ...
+    ) -> hsr.FullApocalypticShadowDetail: ...
+    async def fetch_apoc_detail(
+        self, apoc_id: int, *, partial: bool = True, use_cache: bool = True
+    ) -> hsr.ApocalypticShadowDetail | hsr.FullApocalypticShadowDetail:
         """
         Fetch detailed stage and wave data for a specific Apocalyptic Shadow event.
 
@@ -269,7 +293,7 @@ class HSRClient(BaseClient):
         data: dict[str, Any] = await self._request(endpoint, use_cache)
 
         detail = hsr.ApocalypticShadowDetail(**data)
-        if partial:
+        if not partial:
             return await self._replace_enemy_ids_with_enemies(detail)
 
         return detail
@@ -404,13 +428,13 @@ class HSRClient(BaseClient):
             first_half_enemies = enemies[0]
             for wave_num, wave_enemies in enumerate(first_half_enemies):
                 wave = stage.first_half.waves[wave_num]
-                wave.enemies = wave_enemies
+                wave.enemies = wave_enemies  # pyright: ignore[reportAttributeAccessIssue]
 
             if stage.second_half:
                 second_half_enemies = enemies[1]
                 for wave_num, wave_enemies in enumerate(second_half_enemies):
                     wave = stage.second_half.waves[wave_num]
-                    wave.enemies = wave_enemies
+                    wave.enemies = wave_enemies  # pyright: ignore[reportAttributeAccessIssue]
 
         return detail
 
@@ -528,8 +552,6 @@ class HSRClient(BaseClient):
             for wave in half.waves:
                 wave_enemies: list[hsr.ProcessedEnemy] = []
                 for enemy_id in wave.enemies:
-                    if not isinstance(enemy_id, int):
-                        continue
                     fetch_id = int(str(enemy_id)[:7]) if enemy_id > 9999999 else enemy_id
                     enemy_info = await self.fetch_monsters_detail(fetch_id)
                     enemy_stats = self._calculate_hsr_enemy_stats(
