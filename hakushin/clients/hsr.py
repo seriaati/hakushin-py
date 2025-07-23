@@ -165,7 +165,7 @@ class HSRClient(BaseClient):
 
         Note:
             When `full=True`, this method performs additional stat
-            calculation using `calculate_hsr_enemy_stats()` and replaces enemy ID lists
+            calculation using [calculate_hsr_enemy_stats][hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats] and replaces enemy ID lists
             with `ProcessedEnemy` models directly on the wave objects.
         """
         endpoint = f"maze/{moc_id}"
@@ -218,7 +218,7 @@ class HSRClient(BaseClient):
 
         Note:
             When `full=True`, this method performs additional stat
-            calculation using `calculate_hsr_enemy_stats()` and replaces enemy ID lists
+            calculation using [calculate_hsr_enemy_stats][hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats] and replaces enemy ID lists
             with `ProcessedEnemy` models directly on the wave objects.
         """
         endpoint = f"story/{pf_id}"
@@ -273,7 +273,7 @@ class HSRClient(BaseClient):
 
         Note:
             When `full=True`, this method performs additional stat
-            calculation using `calculate_hsr_enemy_stats()` and replaces enemy ID lists
+            calculation using [calculate_hsr_enemy_stats][hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats] and replaces enemy ID lists
             with `ProcessedEnemy` models directly on the wave objects.
         """
         endpoint = f"boss/{apoc_id}"
