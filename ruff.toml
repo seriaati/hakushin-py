@@ -47,7 +47,7 @@ select = [
 "**/client.py" = ["PLR0904", "A002"]
 "**/models/*.py" = ["N805", "TCH"]
 "**/tests/*.py" = ["ANN001"]
-"playground.*.py" = ["ALL"]
+"test.py" = ["ALL"]
 
 [lint.isort]
 required-imports = ["from __future__ import annotations"]
