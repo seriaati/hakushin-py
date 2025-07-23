@@ -44,8 +44,7 @@ class HSRClient(BaseClient):
     async def fetch_elite_and_hard_level_groups(
         self, use_cache: bool = True
     ) -> tuple[dict[int, hsr.EliteGroup], dict[tuple[int, int], hsr.HardLevelGroup]]:
-        """
-        Download and structure EliteGroup and HardLevelGroup data from a JavaScript module.
+        """Download and structure EliteGroup and HardLevelGroup data from a JavaScript module.
 
         Returns:
             A tuple of:
@@ -108,8 +107,7 @@ class HSRClient(BaseClient):
     async def fetch_monsters_detail(
         self, monster_id: int, *, use_cache: bool = True
     ) -> hsr.MonsterDetail:
-        """
-        Fetch the full detail of a specific monster.
+        """Fetch the full detail of a specific monster.
 
         Args:
             monster_id: The ID of the monster to retrieve.
@@ -123,8 +121,7 @@ class HSRClient(BaseClient):
         return hsr.MonsterDetail(**data)
 
     async def fetch_moc(self, *, use_cache: bool = True) -> list[hsr.EndgameSummary]:
-        """
-        Fetch a list of Memory of Chaos (MoC) event summaries.
+        """Fetch a list of Memory of Chaos (MoC) event summaries.
 
         Args:
             use_cache: Whether to use the response cache.
@@ -154,8 +151,7 @@ class HSRClient(BaseClient):
     async def fetch_moc_detail(
         self, moc_id: int, *, full: bool = False, use_cache: bool = True
     ) -> hsr.MOCDetail | hsr.FullMOCDetail:
-        """
-        Fetch detailed stage and wave data for a specific Memory of Chaos event.
+        """Fetch detailed stage and wave data for a specific Memory of Chaos event.
 
         Args:
             moc_id: The ID of the Memory of Chaos event to retrieve.
@@ -164,9 +160,7 @@ class HSRClient(BaseClient):
                      to each wave in the stage data. If False, return raw model data.
 
         Returns:
-            - If `full=False`: A `MemoryOfChaosDetail` instance with raw enemy ID data.
-            - If `full=True`: The same `MemoryOfChaosDetail` instance, but with
-              `ProcessedEnemy` objects injected into each wave.
+            `FullMOCDetail` if `full=True`, otherwise `MOCDetail`.
 
         Note:
             When `full=True`, this method performs additional stat
@@ -184,8 +178,7 @@ class HSRClient(BaseClient):
         return detail
 
     async def fetch_pf(self, *, use_cache: bool = True) -> list[hsr.EndgameSummary]:
-        """
-        Fetch a list of Pure Fiction (PF) event summaries.
+        """Fetch a list of Pure Fiction (PF) event summaries.
 
         Args:
             use_cache: Whether to use the response cache.
@@ -212,8 +205,7 @@ class HSRClient(BaseClient):
     async def fetch_pf_detail(
         self, pf_id: int, *, full: bool = False, use_cache: bool = True
     ) -> hsr.PFDetail | hsr.FullPFDetail:
-        """
-        Fetch detailed stage and wave data for a specific Pure Fiction event.
+        """Fetch detailed stage and wave data for a specific Pure Fiction event.
 
         Args:
             pf_id: The ID of the Pure Fiction event.
@@ -221,9 +213,7 @@ class HSRClient(BaseClient):
             full: If True, return calculated `ProcessedEnemy` stats instead of the raw model.
 
         Returns:
-            - If `full=False`: A `PureFictionDetail` instance with raw enemy ID data.
-            - If `full=True`: The same `PureFictionDetail` instance, but with
-              `ProcessedEnemy` objects injected into each wave.
+            `FullPFDetail` if `full=True`, otherwise `PFDetail`.
 
         Note:
             When `full=True`, this method performs additional stat
@@ -240,8 +230,7 @@ class HSRClient(BaseClient):
         return detail
 
     async def fetch_apoc(self, *, use_cache: bool = True) -> list[hsr.EndgameSummary]:
-        """
-        Fetch a list of Apocalyptic Shadow (Apoc) event summaries.
+        """Fetch a list of Apocalyptic Shadow (Apoc) event summaries.
 
         Args:
             use_cache: Whether to use the response cache.
@@ -271,18 +260,15 @@ class HSRClient(BaseClient):
     async def fetch_apoc_detail(
         self, apoc_id: int, *, full: bool = False, use_cache: bool = True
     ) -> hsr.ApocDetail | hsr.FullApocDetail:
-        """
-        Fetch detailed stage and wave data for a specific Apocalyptic Shadow event.
+        """Fetch detailed stage and wave data for a specific Apocalyptic Shadow event.
 
         Args:
-            pf_id: The ID of the Apocalyptic Shadow event.
+            apoc_id: The ID of the Apocalyptic Shadow event.
             use_cache: Whether to use the response cache.
             full: If True, return calculated `ProcessedEnemy` stats instead of the raw model.
 
         Returns:
-            - If `full=False`: A `ApocalypticShadowDetail` instance with raw enemy ID data.
-            - If `full=True`: The same `ApocalypticShadowDetail` instance, but with
-              `ProcessedEnemy` objects injected into each wave.
+            `FullApocDetail` if `full=True`, otherwise `ApocDetail`.
 
         Note:
             When `full=True`, this method performs additional stat
