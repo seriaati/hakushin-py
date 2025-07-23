@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from abc import ABC
 from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
@@ -172,7 +171,7 @@ class FullEndgameStage(EndgameStage):
     second_half: FullEndgameHalf | None = Field(alias="EventIDList2")
 
 
-class EndgameBaseModel(APIModel, ABC):
+class EndgameBaseModel(APIModel):
     """Abstract base class for all HSR endgame modes.
 
     Attributes:
