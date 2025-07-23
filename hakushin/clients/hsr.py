@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from typing import TYPE_CHECKING, Any, Literal, TypeVar, overload
 
 from ..constants import HSR_API_LANG_MAP, TRAILBLAZER_NAMES
@@ -409,8 +410,13 @@ class HSRClient(BaseClient):
         Returns:
             The same model with enriched enemy data per wave.
         """
+        egs, hlgs = await self.fetch_elite_and_hard_level_groups()
+
         for stage_num, stage in enumerate(detail.stages):
-            enemies = await self.calculate_hsr_enemy_stats(detail, stage_num=stage_num)
+            enemies = await self.calculate_hsr_enemy_stats(
+                detail, egs=egs, hlgs=hlgs, stage_num=stage_num
+            )
+
             first_half_enemies = enemies[0]
             for wave_num, wave_enemies in enumerate(first_half_enemies):
                 wave = stage.first_half.waves[wave_num]
@@ -433,7 +439,7 @@ class HSRClient(BaseClient):
         hp_multiplier: float = 0,
     ) -> hsr.ProcessedEnemy | None:
         """
-        Calculate the combat stats for a specific enemy instance in Memory of Chaos.
+        Calculate the combat stats for a specific enemy instance in and endgame mode.
 
         Formula used:
         Base x BaseModifyRatio x EliteGroup Ratio x HardLevelGroup(Level) Ratio x (1 + HPMultiplier if HP)
@@ -490,14 +496,21 @@ class HSRClient(BaseClient):
             effect_res=effect_res,
         )
 
-    async def calculate_hsr_enemy_stats(
-        self, endgame_data: hsr.EndgameBaseModel, stage_num: int = 0
+    async def calculate_hsr_enemy_stats(  # noqa: C901
+        self,
+        endgame_data: hsr.EndgameBaseModel,
+        *,
+        egs: dict[int, hsr.EliteGroup],
+        hlgs: dict[tuple[int, int], hsr.HardLevelGroup],
+        stage_num: int = 0,
     ) -> list[list[list[hsr.ProcessedEnemy]]]:
         """
         Calculate enemy stats for both halves of an Endgame stage from already fetched endgame detail.
 
         Args:
             endgame_data: The already fetched Endgame detail object (e.g., MemoryOfChaosDetail).
+            egs: A dictionary of elite groups keyed by their IDs, get it from [fetch_elite_and_hard_level_groups][hakushin.clients.hsr.HSRClient.fetch_elite_and_hard_level_groups].
+            hlgs: A dictionary of hard level groups keyed by (HardLevelGroup ID, Level), get it from [fetch_elite_and_hard_level_groups][hakushin.clients.hsr.HSRClient.fetch_elite_and_hard_level_groups].
             stage_num: The 0-indexed stage number within the endgame (defaults to 0).
 
         Returns:
@@ -523,13 +536,25 @@ class HSRClient(BaseClient):
 
         stage: hsr.EndgameStage = endgame_data.stages[stage_num]
 
-        egs, hlgs = await self.fetch_elite_and_hard_level_groups()
+        # Fetch all the monster details first
+        monster_details: dict[int, asyncio.Task[hsr.MonsterDetail]] = {}
+        async with asyncio.TaskGroup() as tg:
+            for half in (stage.first_half, stage.second_half):
+                if half is None:
+                    continue
+                for wave in half.waves:
+                    for enemy_id in wave.enemies:
+                        fetch_id = int(str(enemy_id)[:7]) if enemy_id > 9999999 else enemy_id
+                        monster_details[fetch_id] = tg.create_task(
+                            self.fetch_monsters_detail(fetch_id)
+                        )
 
-        result = []
+        result: list[list[list[hsr.ProcessedEnemy]]] = []
 
         for half in (stage.first_half, stage.second_half):
             if half is None:
                 continue
+
             specific_eg: hsr.EliteGroup = egs[half.eg_id]
             specific_hlg: hsr.HardLevelGroup = hlgs[(half.hlg_id, half.hlg_level)]
 
@@ -539,7 +564,7 @@ class HSRClient(BaseClient):
                 wave_enemies: list[hsr.ProcessedEnemy] = []
                 for enemy_id in wave.enemies:
                     fetch_id = int(str(enemy_id)[:7]) if enemy_id > 9999999 else enemy_id
-                    enemy_info = await self.fetch_monsters_detail(fetch_id)
+                    enemy_info = monster_details[fetch_id].result()
                     enemy_stats = self._calculate_hsr_enemy_stats(
                         enemy_id=enemy_id,
                         enemy_info=enemy_info,
