@@ -31,8 +31,7 @@ __all__ = (
 
 
 class ProcessedEnemy(APIModel):
-    """
-    Represents a processed enemy instance in a HSR endgame stage.
+    """Represents a processed enemy instance in a HSR endgame stage.
 
     Attributes:
         id: The unique monster ID.
@@ -56,11 +55,10 @@ class ProcessedEnemy(APIModel):
 
 
 class EndgameWave(APIModel):
-    """
-    Represents a wave of enemies in an endgame half.
+    """Represents a wave of enemies in an endgame half.
 
     Attributes:
-        enemies: A list of either enemy IDs (int) or fully processed enemies (ProcessedEnemy).
+        enemies: A list of enemy IDs.
         hp_multiplier: Multiplier applied to enemy HP in this wave.
     """
 
@@ -89,20 +87,17 @@ class EndgameWave(APIModel):
 
 
 class FullEndgameWave(EndgameWave):
-    """
-    Represents a wave of enemies in an endgame half.
+    """Represents a wave of processed enemies in an endgame half.
 
     Attributes:
-        enemies: A list of either enemy IDs (int) or fully processed enemies (ProcessedEnemy).
-        hp_multiplier: Multiplier applied to enemy HP in this wave.
+        enemies: A list of fully processed enemy instances.
     """
 
     enemies: list[ProcessedEnemy] = Field(default_factory=list)  # type: ignore
 
 
 class EndgameHalf(APIModel):
-    """
-    Represents one half of an endgame stage (first or second).
+    """Represents one half of an endgame stage (first or second).
 
     Attributes:
         hlg_id: ID of the HardLevelGroup used to determine difficulty scaling.
@@ -118,22 +113,17 @@ class EndgameHalf(APIModel):
 
 
 class FullEndgameHalf(EndgameHalf):
-    """
-    Represents one half of an endgame stage (first or second) with fully processed enemies.
+    """Represents one half of an endgame stage (first or second) with processed enemies.
 
     Attributes:
-        hlg_id: ID of the HardLevelGroup used to determine difficulty scaling.
-        hlg_level: Level of the HardLevelGroup (affects enemy stats).
-        eg_id: ID of the EliteGroup (affects enemy traits).
-        waves: List of enemy waves in this half with fully processed enemies.
+        waves: List of enemy waves in this half with processed enemies.
     """
 
     waves: list[FullEndgameWave] = Field(alias="MonsterList")
 
 
 class EndgameStage(APIModel):
-    """
-    Represents a complete stage in an endgame mode.
+    """Represents a stage in an endgame mode.
 
     Attributes:
         id: Unique ID of the stage.
@@ -171,16 +161,11 @@ class EndgameStage(APIModel):
 
 
 class FullEndgameStage(EndgameStage):
-    """
-    Represents a complete stage in an endgame mode with fully processed enemies.
+    """Represents a stage in an endgame mode with processed enemies.
 
     Attributes:
-        id: Unique ID of the stage.
-        name: Stage name.
-        first_half_weaknesses: Elements that enemies in the first half are weak to.
-        second_half_weaknesses: Elements that enemies in the second half are weak to.
-        first_half: The first half of the stage with fully processed enemies.
-        second_half: The second half of the stage with fully processed enemies.
+        first_half: The first half of the stage with processed enemies.
+        second_half: The second half of the stage with processed enemies.
     """
 
     first_half: FullEndgameHalf = Field(alias="EventIDList1")
@@ -188,8 +173,7 @@ class FullEndgameStage(EndgameStage):
 
 
 class EndgameBaseModel(APIModel, ABC):
-    """
-    Abstract base class for all HSR endgame modes.
+    """Abstract base class for all HSR endgame modes.
 
     Attributes:
         id: Unique ID of the endgame event.
@@ -212,23 +196,17 @@ class EndgameBaseModel(APIModel, ABC):
 
 
 class FullEndgameBaseModel(EndgameBaseModel):
-    """
-    Abstract base class for all HSR endgame modes with fully processed enemies.
+    """Endgame base model with fully processed enemies.
 
     Attributes:
-        id: Unique ID of the endgame event.
-        name: Display name of the event.
-        begin_time: Event start timestamp.
-        end_time: Event end timestamp.
-        stages: List of stages in this endgame mode with fully processed enemies.
+        stages: List of stages in this endgame mode with processed enemies.
     """
 
     stages: list[FullEndgameStage] = Field(alias="Level")
 
 
 class EndgameSummary(APIModel):
-    """
-    Summary metadata for an HSR endgame event.
+    """Summary metadata for an HSR endgame event.
 
     Attributes:
         id: ID of the endgame.
@@ -249,7 +227,6 @@ class EndgameSummary(APIModel):
     @model_validator(mode="before")
     @classmethod
     def __transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
-        # This is probably the most questionable API design decision I've ever seen.
         values["names"] = {
             "en": values.pop("en", "") or "",
             "cn": values.pop("cn", "") or "",
@@ -259,16 +236,7 @@ class EndgameSummary(APIModel):
         return values
 
 
-class MemoryOfChaosDetail(EndgameBaseModel):
-    """
-    Memory of Chaos event details.
-
-    Attributes:
-        memory_turbulence: Global modifier for the current MoC rotation.
-    """
-
-    memory_turbulence: str = Field(alias="MemoryTurbulence")
-
+class MOCMixin:
     @model_validator(mode="before")
     @classmethod
     def __transform_data(cls, data: dict[str, Any]) -> dict[str, Any]:
@@ -280,9 +248,8 @@ class MemoryOfChaosDetail(EndgameBaseModel):
         return data
 
 
-class FullMemoryOfChaosDetail(FullEndgameBaseModel):
-    """
-    Memory of Chaos event details with fully processed enemies.
+class MemoryOfChaosDetail(EndgameBaseModel, MOCMixin):
+    """Memory of Chaos event details.
 
     Attributes:
         memory_turbulence: Global modifier for the current MoC rotation.
@@ -290,20 +257,19 @@ class FullMemoryOfChaosDetail(FullEndgameBaseModel):
 
     memory_turbulence: str = Field(alias="MemoryTurbulence")
 
-    @model_validator(mode="before")
-    @classmethod
-    def __transform_data(cls, data: dict[str, Any]) -> dict[str, Any]:
-        first_level = data["Level"][0]
-        data["Name"] = first_level["GroupName"]
-        data["MemoryTurbulence"] = first_level["Desc"]
-        data["BeginTime"] = first_level["BeginTime"]
-        data["EndTime"] = first_level["EndTime"]
-        return data
+
+class FullMemoryOfChaosDetail(FullEndgameBaseModel, MOCMixin):
+    """Memory of Chaos event details with processed enemies.
+
+    Attributes:
+        memory_turbulence: Global modifier for the current MoC rotation.
+    """
+
+    memory_turbulence: str = Field(alias="MemoryTurbulence")
 
 
 class EndgameBuffOptions(APIModel):
-    """
-    Represents a selectable buff modifier in endgame.
+    """Represents a selectable buff modifier in endgame.
 
     Attributes:
         name: Name of the buff.
@@ -317,8 +283,7 @@ class EndgameBuffOptions(APIModel):
 
 
 class ApocalypticShadowBuff(APIModel):
-    """
-    Represents the fixed global buff in Apocalyptic Shadow.
+    """Represents the fixed global buff in Apocalyptic Shadow.
 
     Attributes:
         name: Name of the buff.
@@ -335,8 +300,7 @@ class ApocalypticShadowBuff(APIModel):
 
 
 class ApocalypticShadowDetail(EndgameBaseModel):
-    """
-    Apocalyptic Shadow event details.
+    """Apocalyptic Shadow event details.
 
     Attributes:
         buff: The static global buff applied in all stages.
@@ -351,8 +315,7 @@ class ApocalypticShadowDetail(EndgameBaseModel):
 
 
 class FullApocalypticShadowDetail(FullEndgameBaseModel):
-    """
-    Apocalyptic Shadow event details with fully processed enemies.
+    """Apocalyptic Shadow event details with processed enemies.
 
     Attributes:
         buff: The static global buff applied in all stages.
@@ -367,8 +330,7 @@ class FullApocalypticShadowDetail(FullEndgameBaseModel):
 
 
 class PureFictionDetail(EndgameBaseModel):
-    """
-    Pure Fiction event details.
+    """Pure Fiction event details.
 
     Attributes:
         buff_options: First tier of optional buffs.
@@ -380,8 +342,7 @@ class PureFictionDetail(EndgameBaseModel):
 
 
 class FullPureFictionDetail(FullEndgameBaseModel):
-    """
-    Pure Fiction event details.
+    """Pure Fiction event details with processed enemies.
 
     Attributes:
         buff_options: First tier of optional buffs.
