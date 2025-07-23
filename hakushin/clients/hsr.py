@@ -59,16 +59,18 @@ class HSRClient(BaseClient):
         ):
             return self._elite_groups_cache, self._hard_level_groups_cache
 
-        url = "https://hsr20.hakush.in/_app/immutable/chunks/HardLevelGroup.085b3477.js"
-        elite_raw, hlg_raw = await self._download_groups(url)
+        elite_raw = await self._request("EliteGroup", use_cache, in_data=True)
+        hlg_raw = await self._request("HardLevelGroup", use_cache, in_data=True)
 
         self._elite_groups_cache = {
-            item["EliteGroup"]: hsr.EliteGroup(**item) for item in elite_raw if "EliteGroup" in item
+            item["EliteGroup"]: hsr.EliteGroup(**item)
+            for item in elite_raw["Level"]
+            if "EliteGroup" in item
         }
 
         self._hard_level_groups_cache = {
             (item["HardLevelGroup"], item["Level"]): hsr.HardLevelGroup(**item)
-            for item in hlg_raw
+            for item in hlg_raw["Level"]
             if "HardLevelGroup" in item and "Level" in item
         }
 

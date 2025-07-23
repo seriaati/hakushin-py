@@ -3,7 +3,6 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING, Any, Final, Self
 
-import chompjs
 from aiohttp_client_cache.backends.sqlite import SQLiteBackend
 from aiohttp_client_cache.session import CachedSession
 from loguru import logger
@@ -70,31 +69,6 @@ class BaseClient:
 
     async def __aexit__(self, exc_type, exc, tb) -> None:  # noqa: ANN001
         await self.close()
-
-    async def _download_groups(self, url: str) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
-        if self._session is None:
-            msg = "Call `start` before making requests."
-            raise RuntimeError(msg)
-
-        async with self._session.get(url) as resp:
-            if resp.status != 200:
-                self._handle_error(resp.status, url)
-            js_text = await resp.text()
-
-        statements = js_text.split(";")
-        filtered_statement = statements[0]
-
-        if not js_text.startswith("const t=") or ",e=" not in js_text:
-            msg = "Unexpected JS structure"
-            raise ValueError(msg)
-
-        content = filtered_statement.removeprefix("const t=")
-        t_raw, e_raw = content.split(",e=")
-
-        elite_list = chompjs.parse_js_object(t_raw)
-        hlg_list = chompjs.parse_js_object(e_raw)
-
-        return elite_list, hlg_list
 
     async def _request(
         self, endpoint: str, use_cache: bool, *, static: bool = False, in_data: bool = False
