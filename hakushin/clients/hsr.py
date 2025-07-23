@@ -146,14 +146,14 @@ class HSRClient(BaseClient):
     @overload
     async def fetch_moc_detail(
         self, moc_id: int, *, full: Literal[False] = ..., use_cache: bool = ...
-    ) -> hsr.FullMemoryOfChaosDetail: ...
+    ) -> hsr.FullMOCDetail: ...
     @overload
     async def fetch_moc_detail(
         self, moc_id: int, *, full: Literal[True] = ..., use_cache: bool = ...
-    ) -> hsr.MemoryOfChaosDetail: ...
+    ) -> hsr.MOCDetail: ...
     async def fetch_moc_detail(
         self, moc_id: int, *, full: bool = False, use_cache: bool = True
-    ) -> hsr.MemoryOfChaosDetail | hsr.FullMemoryOfChaosDetail:
+    ) -> hsr.MOCDetail | hsr.FullMOCDetail:
         """
         Fetch detailed stage and wave data for a specific Memory of Chaos event.
 
@@ -177,7 +177,7 @@ class HSRClient(BaseClient):
         data: dict[str, Any] = await self._request(endpoint, use_cache)
         data["Id"] = moc_id
 
-        detail = hsr.MemoryOfChaosDetail(**data)
+        detail = hsr.MOCDetail(**data)
         if full:
             return await self._replace_enemy_ids_with_enemies(detail)
 
@@ -204,14 +204,14 @@ class HSRClient(BaseClient):
     @overload
     async def fetch_pf_detail(
         self, pf_id: int, *, full: Literal[False] = ..., use_cache: bool = ...
-    ) -> hsr.FullPureFictionDetail: ...
+    ) -> hsr.FullPFDetail: ...
     @overload
     async def fetch_pf_detail(
         self, pf_id: int, *, full: Literal[True] = ..., use_cache: bool = ...
-    ) -> hsr.PureFictionDetail: ...
+    ) -> hsr.PFDetail: ...
     async def fetch_pf_detail(
         self, pf_id: int, *, full: bool = False, use_cache: bool = True
-    ) -> hsr.PureFictionDetail | hsr.FullPureFictionDetail:
+    ) -> hsr.PFDetail | hsr.FullPFDetail:
         """
         Fetch detailed stage and wave data for a specific Pure Fiction event.
 
@@ -233,7 +233,7 @@ class HSRClient(BaseClient):
         endpoint = f"story/{pf_id}"
         data: dict[str, Any] = await self._request(endpoint, use_cache)
 
-        detail = hsr.PureFictionDetail(**data)
+        detail = hsr.PFDetail(**data)
         if full:
             return await self._replace_enemy_ids_with_enemies(detail)
 
@@ -263,14 +263,14 @@ class HSRClient(BaseClient):
     @overload
     async def fetch_apoc_detail(
         self, apoc_id: int, *, full: Literal[False] = ..., use_cache: bool = ...
-    ) -> hsr.FullApocalypticShadowDetail: ...
+    ) -> hsr.FullApocDetail: ...
     @overload
     async def fetch_apoc_detail(
         self, apoc_id: int, *, full: Literal[True] = ..., use_cache: bool = ...
-    ) -> hsr.ApocalypticShadowDetail: ...
+    ) -> hsr.ApocDetail: ...
     async def fetch_apoc_detail(
         self, apoc_id: int, *, full: bool = False, use_cache: bool = True
-    ) -> hsr.ApocalypticShadowDetail | hsr.FullApocalypticShadowDetail:
+    ) -> hsr.ApocDetail | hsr.FullApocDetail:
         """
         Fetch detailed stage and wave data for a specific Apocalyptic Shadow event.
 
@@ -292,7 +292,7 @@ class HSRClient(BaseClient):
         endpoint = f"boss/{apoc_id}"
         data: dict[str, Any] = await self._request(endpoint, use_cache)
 
-        detail = hsr.ApocalypticShadowDetail(**data)
+        detail = hsr.ApocDetail(**data)
         if full:
             return await self._replace_enemy_ids_with_enemies(detail)
 

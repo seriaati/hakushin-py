@@ -8,24 +8,24 @@ from ...enums import HSRElement, HSREndgameType
 from ..base import APIModel
 
 __all__ = (
-    "ApocalypticShadowBuff",
-    "ApocalypticShadowDetail",
+    "ApocBuff",
+    "ApocDetail",
     "EndgameBaseModel",
     "EndgameBuffOptions",
     "EndgameHalf",
     "EndgameStage",
     "EndgameSummary",
     "EndgameWave",
-    "FullApocalypticShadowDetail",
+    "FullApocDetail",
     "FullEndgameBaseModel",
     "FullEndgameHalf",
     "FullEndgameStage",
     "FullEndgameWave",
-    "FullMemoryOfChaosDetail",
-    "FullPureFictionDetail",
-    "MemoryOfChaosDetail",
+    "FullMOCDetail",
+    "FullPFDetail",
+    "MOCDetail",
     "ProcessedEnemy",
-    "PureFictionDetail",
+    "PFDetail",
 )
 
 
@@ -247,7 +247,7 @@ class MOCMixin:
         return data
 
 
-class MemoryOfChaosDetail(EndgameBaseModel, MOCMixin):
+class MOCDetail(EndgameBaseModel, MOCMixin):
     """Memory of Chaos event details.
 
     Attributes:
@@ -257,7 +257,7 @@ class MemoryOfChaosDetail(EndgameBaseModel, MOCMixin):
     memory_turbulence: str = Field(alias="MemoryTurbulence")
 
 
-class FullMemoryOfChaosDetail(FullEndgameBaseModel, MOCMixin):
+class FullMOCDetail(FullEndgameBaseModel, MOCMixin):
     """Memory of Chaos event details with processed enemies.
 
     Attributes:
@@ -281,7 +281,7 @@ class EndgameBuffOptions(APIModel):
     params: list[float] = Field(alias="Param")
 
 
-class ApocalypticShadowBuff(APIModel):
+class ApocBuff(APIModel):
     """Represents the fixed global buff in Apocalyptic Shadow.
 
     Attributes:
@@ -298,7 +298,7 @@ class ApocalypticShadowBuff(APIModel):
         return "" if value is None else value
 
 
-class ApocalypticShadowDetail(EndgameBaseModel):
+class ApocDetail(EndgameBaseModel):
     """Apocalyptic Shadow event details.
 
     Attributes:
@@ -307,13 +307,13 @@ class ApocalypticShadowDetail(EndgameBaseModel):
         buff_list_2: Selectable buffs for second half.
     """
 
-    buff: ApocalypticShadowBuff = Field(alias="Buff")
+    buff: ApocBuff = Field(alias="Buff")
 
     buff_list_1: list[EndgameBuffOptions] = Field(alias="BuffList1")
     buff_list_2: list[EndgameBuffOptions] = Field(alias="BuffList2")
 
 
-class FullApocalypticShadowDetail(FullEndgameBaseModel):
+class FullApocDetail(FullEndgameBaseModel):
     """Apocalyptic Shadow event details with processed enemies.
 
     Attributes:
@@ -322,13 +322,13 @@ class FullApocalypticShadowDetail(FullEndgameBaseModel):
         buff_list_2: Selectable buffs for second half.
     """
 
-    buff: ApocalypticShadowBuff = Field(alias="Buff")
+    buff: ApocBuff = Field(alias="Buff")
 
     buff_list_1: list[EndgameBuffOptions] = Field(alias="BuffList1")
     buff_list_2: list[EndgameBuffOptions] = Field(alias="BuffList2")
 
 
-class PureFictionDetail(EndgameBaseModel):
+class PFDetail(EndgameBaseModel):
     """Pure Fiction event details.
 
     Attributes:
@@ -340,7 +340,7 @@ class PureFictionDetail(EndgameBaseModel):
     buff_suboptions: list[EndgameBuffOptions] = Field(alias="SubOption")
 
 
-class FullPureFictionDetail(FullEndgameBaseModel):
+class FullPFDetail(FullEndgameBaseModel):
     """Pure Fiction event details with processed enemies.
 
     Attributes:
