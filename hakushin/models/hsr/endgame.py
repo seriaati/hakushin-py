@@ -24,8 +24,8 @@ __all__ = (
     "FullMOCDetail",
     "FullPFDetail",
     "MOCDetail",
-    "ProcessedEnemy",
     "PFDetail",
+    "ProcessedEnemy",
 )
 
 
@@ -89,7 +89,8 @@ class FullEndgameWave(EndgameWave):
     """Represents a wave of processed enemies in an endgame half.
 
     Attributes:
-        enemies: A list of fully processed enemy instances.
+        enemies: A list of processed enemy instances.
+        hp_multiplier: Multiplier applied to enemy HP in this wave.
     """
 
     enemies: list[ProcessedEnemy] = Field(default_factory=list)  # type: ignore
@@ -115,6 +116,9 @@ class FullEndgameHalf(EndgameHalf):
     """Represents one half of an endgame stage (first or second) with processed enemies.
 
     Attributes:
+        hlg_id: ID of the HardLevelGroup used to determine difficulty scaling.
+        hlg_level: Level of the HardLevelGroup (affects enemy stats).
+        eg_id: ID of the EliteGroup (affects enemy traits).
         waves: List of enemy waves in this half with processed enemies.
     """
 
@@ -195,9 +199,13 @@ class EndgameBaseModel(APIModel):
 
 
 class FullEndgameBaseModel(EndgameBaseModel):
-    """Endgame base model with fully processed enemies.
+    """Endgame base model with processed enemies.
 
     Attributes:
+        id: Unique ID of the endgame event.
+        name: Display name of the event.
+        begin_time: Event start timestamp.
+        end_time: Event end timestamp.
         stages: List of stages in this endgame mode with processed enemies.
     """
 
@@ -235,7 +243,9 @@ class EndgameSummary(APIModel):
         return values
 
 
-class MOCMixin:
+class MOCBase(APIModel):
+    memory_turbulence: str = Field(alias="MemoryTurbulence")
+
     @model_validator(mode="before")
     @classmethod
     def __transform_data(cls, data: dict[str, Any]) -> dict[str, Any]:
@@ -247,24 +257,20 @@ class MOCMixin:
         return data
 
 
-class MOCDetail(EndgameBaseModel, MOCMixin):
+class MOCDetail(EndgameBaseModel, MOCBase):
     """Memory of Chaos event details.
 
     Attributes:
         memory_turbulence: Global modifier for the current MoC rotation.
     """
 
-    memory_turbulence: str = Field(alias="MemoryTurbulence")
 
-
-class FullMOCDetail(FullEndgameBaseModel, MOCMixin):
+class FullMOCDetail(FullEndgameBaseModel, MOCBase):
     """Memory of Chaos event details with processed enemies.
 
     Attributes:
         memory_turbulence: Global modifier for the current MoC rotation.
     """
-
-    memory_turbulence: str = Field(alias="MemoryTurbulence")
 
 
 class EndgameBuffOptions(APIModel):
@@ -298,7 +304,14 @@ class ApocBuff(APIModel):
         return "" if value is None else value
 
 
-class ApocDetail(EndgameBaseModel):
+class ApocBase(APIModel):
+    buff: ApocBuff = Field(alias="Buff")
+
+    buff_list_1: list[EndgameBuffOptions] = Field(alias="BuffList1")
+    buff_list_2: list[EndgameBuffOptions] = Field(alias="BuffList2")
+
+
+class ApocDetail(EndgameBaseModel, ApocBase):
     """Apocalyptic Shadow event details.
 
     Attributes:
@@ -307,13 +320,8 @@ class ApocDetail(EndgameBaseModel):
         buff_list_2: Selectable buffs for second half.
     """
 
-    buff: ApocBuff = Field(alias="Buff")
 
-    buff_list_1: list[EndgameBuffOptions] = Field(alias="BuffList1")
-    buff_list_2: list[EndgameBuffOptions] = Field(alias="BuffList2")
-
-
-class FullApocDetail(FullEndgameBaseModel):
+class FullApocDetail(FullEndgameBaseModel, ApocBase):
     """Apocalyptic Shadow event details with processed enemies.
 
     Attributes:
@@ -322,13 +330,13 @@ class FullApocDetail(FullEndgameBaseModel):
         buff_list_2: Selectable buffs for second half.
     """
 
-    buff: ApocBuff = Field(alias="Buff")
 
-    buff_list_1: list[EndgameBuffOptions] = Field(alias="BuffList1")
-    buff_list_2: list[EndgameBuffOptions] = Field(alias="BuffList2")
+class PFBase(APIModel):
+    buff_options: list[EndgameBuffOptions] = Field(alias="Option")
+    buff_suboptions: list[EndgameBuffOptions] = Field(alias="SubOption")
 
 
-class PFDetail(EndgameBaseModel):
+class PFDetail(EndgameBaseModel, PFBase):
     """Pure Fiction event details.
 
     Attributes:
@@ -336,20 +344,14 @@ class PFDetail(EndgameBaseModel):
         buff_suboptions: Second tier of optional buffs.
     """
 
-    buff_options: list[EndgameBuffOptions] = Field(alias="Option")
-    buff_suboptions: list[EndgameBuffOptions] = Field(alias="SubOption")
 
-
-class FullPFDetail(FullEndgameBaseModel):
+class FullPFDetail(FullEndgameBaseModel, PFBase):
     """Pure Fiction event details with processed enemies.
 
     Attributes:
         buff_options: First tier of optional buffs.
         buff_suboptions: Second tier of optional buffs.
     """
-
-    buff_options: list[EndgameBuffOptions] = Field(alias="Option")
-    buff_suboptions: list[EndgameBuffOptions] = Field(alias="SubOption")
 
     @model_validator(mode="before")
     @classmethod
