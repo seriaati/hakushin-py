@@ -145,14 +145,14 @@ class HSRClient(BaseClient):
 
     @overload
     async def fetch_moc_detail(
-        self, moc_id: int, *, partial: Literal[True] = ..., use_cache: bool = ...
-    ) -> hsr.MemoryOfChaosDetail: ...
+        self, moc_id: int, *, full: Literal[False] = ..., use_cache: bool = ...
+    ) -> hsr.FullMemoryOfChaosDetail: ...
     @overload
     async def fetch_moc_detail(
-        self, moc_id: int, *, partial: Literal[False] = ..., use_cache: bool = ...
-    ) -> hsr.FullMemoryOfChaosDetail: ...
+        self, moc_id: int, *, full: Literal[True] = ..., use_cache: bool = ...
+    ) -> hsr.MemoryOfChaosDetail: ...
     async def fetch_moc_detail(
-        self, moc_id: int, *, partial: bool = True, use_cache: bool = True
+        self, moc_id: int, *, full: bool = False, use_cache: bool = True
     ) -> hsr.MemoryOfChaosDetail | hsr.FullMemoryOfChaosDetail:
         """
         Fetch detailed stage and wave data for a specific Memory of Chaos event.
@@ -160,16 +160,16 @@ class HSRClient(BaseClient):
         Args:
             moc_id: The ID of the Memory of Chaos event to retrieve.
             use_cache: If True, use a cached response if available.
-            partial: If True, automatically resolve and attach `ProcessedEnemy` stats
+            full: If True, automatically resolve and attach `ProcessedEnemy` stats
                      to each wave in the stage data. If False, return raw model data.
 
         Returns:
-            - If `partial=False`: A `MemoryOfChaosDetail` instance with raw enemy ID data.
-            - If `partial=True`: The same `MemoryOfChaosDetail` instance, but with
+            - If `full=False`: A `MemoryOfChaosDetail` instance with raw enemy ID data.
+            - If `full=True`: The same `MemoryOfChaosDetail` instance, but with
               `ProcessedEnemy` objects injected into each wave.
 
         Note:
-            When `partial=True`, this method performs additional stat
+            When `full=True`, this method performs additional stat
             calculation using `calculate_hsr_enemy_stats()` and replaces enemy ID lists
             with `ProcessedEnemy` models directly on the wave objects.
         """
@@ -178,7 +178,7 @@ class HSRClient(BaseClient):
         data["Id"] = moc_id
 
         detail = hsr.MemoryOfChaosDetail(**data)
-        if not partial:
+        if full:
             return await self._replace_enemy_ids_with_enemies(detail)
 
         return detail
@@ -203,14 +203,14 @@ class HSRClient(BaseClient):
 
     @overload
     async def fetch_pf_detail(
-        self, pf_id: int, *, partial: Literal[True] = ..., use_cache: bool = ...
-    ) -> hsr.PureFictionDetail: ...
+        self, pf_id: int, *, full: Literal[False] = ..., use_cache: bool = ...
+    ) -> hsr.FullPureFictionDetail: ...
     @overload
     async def fetch_pf_detail(
-        self, pf_id: int, *, partial: Literal[False] = ..., use_cache: bool = ...
-    ) -> hsr.FullPureFictionDetail: ...
+        self, pf_id: int, *, full: Literal[True] = ..., use_cache: bool = ...
+    ) -> hsr.PureFictionDetail: ...
     async def fetch_pf_detail(
-        self, pf_id: int, *, partial: bool = True, use_cache: bool = True
+        self, pf_id: int, *, full: bool = False, use_cache: bool = True
     ) -> hsr.PureFictionDetail | hsr.FullPureFictionDetail:
         """
         Fetch detailed stage and wave data for a specific Pure Fiction event.
@@ -218,15 +218,15 @@ class HSRClient(BaseClient):
         Args:
             pf_id: The ID of the Pure Fiction event.
             use_cache: Whether to use the response cache.
-            partial: If True, return calculated `ProcessedEnemy` stats instead of the raw model.
+            full: If True, return calculated `ProcessedEnemy` stats instead of the raw model.
 
         Returns:
-            - If `partial=False`: A `PureFictionDetail` instance with raw enemy ID data.
-            - If `partial=True`: The same `PureFictionDetail` instance, but with
+            - If `full=False`: A `PureFictionDetail` instance with raw enemy ID data.
+            - If `full=True`: The same `PureFictionDetail` instance, but with
               `ProcessedEnemy` objects injected into each wave.
 
         Note:
-            When `partial=True`, this method performs additional stat
+            When `full=True`, this method performs additional stat
             calculation using `calculate_hsr_enemy_stats()` and replaces enemy ID lists
             with `ProcessedEnemy` models directly on the wave objects.
         """
@@ -234,7 +234,7 @@ class HSRClient(BaseClient):
         data: dict[str, Any] = await self._request(endpoint, use_cache)
 
         detail = hsr.PureFictionDetail(**data)
-        if not partial:
+        if full:
             return await self._replace_enemy_ids_with_enemies(detail)
 
         return detail
@@ -262,14 +262,14 @@ class HSRClient(BaseClient):
 
     @overload
     async def fetch_apoc_detail(
-        self, apoc_id: int, *, partial: Literal[True] = ..., use_cache: bool = ...
-    ) -> hsr.ApocalypticShadowDetail: ...
+        self, apoc_id: int, *, full: Literal[False] = ..., use_cache: bool = ...
+    ) -> hsr.FullApocalypticShadowDetail: ...
     @overload
     async def fetch_apoc_detail(
-        self, apoc_id: int, *, partial: Literal[False] = ..., use_cache: bool = ...
-    ) -> hsr.FullApocalypticShadowDetail: ...
+        self, apoc_id: int, *, full: Literal[True] = ..., use_cache: bool = ...
+    ) -> hsr.ApocalypticShadowDetail: ...
     async def fetch_apoc_detail(
-        self, apoc_id: int, *, partial: bool = True, use_cache: bool = True
+        self, apoc_id: int, *, full: bool = False, use_cache: bool = True
     ) -> hsr.ApocalypticShadowDetail | hsr.FullApocalypticShadowDetail:
         """
         Fetch detailed stage and wave data for a specific Apocalyptic Shadow event.
@@ -277,15 +277,15 @@ class HSRClient(BaseClient):
         Args:
             pf_id: The ID of the Apocalyptic Shadow event.
             use_cache: Whether to use the response cache.
-            partial: If True, return calculated `ProcessedEnemy` stats instead of the raw model.
+            full: If True, return calculated `ProcessedEnemy` stats instead of the raw model.
 
         Returns:
-            - If `partial=False`: A `ApocalypticShadowDetail` instance with raw enemy ID data.
-            - If `partial=True`: The same `ApocalypticShadowDetail` instance, but with
+            - If `full=False`: A `ApocalypticShadowDetail` instance with raw enemy ID data.
+            - If `full=True`: The same `ApocalypticShadowDetail` instance, but with
               `ProcessedEnemy` objects injected into each wave.
 
         Note:
-            When `partial=True`, this method performs additional stat
+            When `full=True`, this method performs additional stat
             calculation using `calculate_hsr_enemy_stats()` and replaces enemy ID lists
             with `ProcessedEnemy` models directly on the wave objects.
         """
@@ -293,7 +293,7 @@ class HSRClient(BaseClient):
         data: dict[str, Any] = await self._request(endpoint, use_cache)
 
         detail = hsr.ApocalypticShadowDetail(**data)
-        if not partial:
+        if full:
             return await self._replace_enemy_ids_with_enemies(detail)
 
         return detail

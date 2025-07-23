@@ -63,12 +63,12 @@ async def test_apoc(hsr_client: HSRClient) -> None:
 async def test_enemy_stat_calculations(hsr_client: HSRClient) -> None:
     mocs = await hsr_client.fetch_moc()
     for moc in mocs:
-        await hsr_client.fetch_moc_detail(moc.id, partial=True)
+        await hsr_client.fetch_moc_detail(moc.id, full=True)
 
     pfs = await hsr_client.fetch_pf()
     for pf in pfs:
-        await hsr_client.fetch_pf_detail(pf.id, partial=True)
+        await hsr_client.fetch_pf_detail(pf.id, full=True)
 
     apocs = await hsr_client.fetch_apoc()
     for apoc in apocs:
-        await hsr_client.fetch_apoc_detail(apoc.id, partial=True)
+        await hsr_client.fetch_apoc_detail(apoc.id, full=True)
