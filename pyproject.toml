@@ -9,7 +9,6 @@ dependencies = [
     "aiohttp>=3.10.9",
     "loguru>=0.7.2",
     "pydantic>=2.9.2",
-    "chompjs",
 ]
 authors = [{ "name" = "seriaati", "email" = "seria.ati@gmail.com" }]
 license = { file = "LICENSE" }
