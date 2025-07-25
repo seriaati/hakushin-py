@@ -6,6 +6,7 @@ __all__ = (
     "GIElement",
     "Game",
     "HSRElement",
+    "HSREndgameType",
     "HSRPath",
     "Language",
     "ZZZAttackType",
@@ -74,6 +75,14 @@ class HSRPath(StrEnum):
     NIHILITY = "Warlock"
     ABUNDANCE = "Priest"
     REMEMBRANCE = "Memory"
+
+
+class HSREndgameType(StrEnum):
+    """Represent an HSR endgame."""
+
+    MEMORY_OF_CHAOS = "maze"
+    PURE_FICTION = "story"
+    APOCALYPTIC_SHADOW = "boss"
 
 
 class ZZZSpecialty(IntEnum):

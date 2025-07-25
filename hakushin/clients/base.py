@@ -104,6 +104,10 @@ class BaseClient:
                     self._handle_error(resp.status, url)
                 data = await resp.json()
 
+        # for HSR Memory of Chaos, returns a list
+        if isinstance(data, list):
+            data = {"Level": data}
+
         return data
 
     def _handle_error(self, code: int, url: str) -> None:
