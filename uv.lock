@@ -450,14 +450,12 @@ dependencies = [
     { name = "pydantic" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 docs = [
     { name = "mkdocs-material", extra = ["imaging"] },
     { name = "mkdocstrings", extra = ["python"] },
 ]
-
-[package.dev-dependencies]
-dev = [
+test = [
     { name = "pytest" },
     { name = "pytest-asyncio" },
 ]
@@ -467,16 +465,17 @@ requires-dist = [
     { name = "aiohttp", specifier = ">=3.10.9" },
     { name = "aiohttp-client-cache", extras = ["sqlite"], specifier = ">=0.12.3" },
     { name = "loguru", specifier = ">=0.7.2" },
-    { name = "mkdocs-material", extras = ["imaging"], marker = "extra == 'docs'", specifier = ">=9.6.11" },
-    { name = "mkdocstrings", extras = ["python"], marker = "extra == 'docs'", specifier = ">=0.29.1" },
     { name = "pydantic", specifier = ">=2.9.2" },
 ]
-provides-extras = ["docs"]
 
 [package.metadata.requires-dev]
-dev = [
-    { name = "pytest", specifier = ">=8.3.3" },
-    { name = "pytest-asyncio", specifier = ">=0.24.0" },
+docs = [
+    { name = "mkdocs-material", extras = ["imaging"], specifier = ">=9.6.15" },
+    { name = "mkdocstrings", extras = ["python"], specifier = ">=0.29.1" },
+]
+test = [
+    { name = "pytest", specifier = ">=8.4.1" },
+    { name = "pytest-asyncio", specifier = ">=1.1.0" },
 ]
 
 [[package]]
