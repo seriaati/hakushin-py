@@ -1,0 +1,6687 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Async API wrapper for hakush.in written in Python">
+      
+      
+        <meta name="author" content="Seria Ati">
+      
+      
+        <link rel="canonical" href="https://gh.seria.moe/hakushin-py/api_reference/models/hsr/">
+      
+      
+        <link rel="prev" href="../gi/">
+      
+      
+        <link rel="next" href="../zzz/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Honkai Star Rail - hakushin-py</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+      
+        <meta  property="og:type"  content="website" >
+      
+        <meta  property="og:title"  content="Honkai Star Rail - hakushin-py" >
+      
+        <meta  property="og:description"  content="Async API wrapper for hakush.in written in Python" >
+      
+        <meta  property="og:image"  content="https://gh.seria.moe/hakushin-py/assets/images/social/api_reference/models/hsr.png" >
+      
+        <meta  property="og:image:type"  content="image/png" >
+      
+        <meta  property="og:image:width"  content="1200" >
+      
+        <meta  property="og:image:height"  content="630" >
+      
+        <meta  property="og:url"  content="https://gh.seria.moe/hakushin-py/api_reference/models/hsr/" >
+      
+        <meta  name="twitter:card"  content="summary_large_image" >
+      
+        <meta  name="twitter:title"  content="Honkai Star Rail - hakushin-py" >
+      
+        <meta  name="twitter:description"  content="Async API wrapper for hakush.in written in Python" >
+      
+        <meta  name="twitter:image"  content="https://gh.seria.moe/hakushin-py/assets/images/social/api_reference/models/hsr.png" >
+      
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="hakushin-py" class="md-header__button md-logo" aria-label="hakushin-py" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            hakushin-py
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Honkai Star Rail
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/seriaati/hakushin-py" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    seriaati/hakushin-py
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../getting_started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../clients/client/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="hakushin-py" class="md-nav__button md-logo" aria-label="hakushin-py" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    hakushin-py
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/seriaati/hakushin-py" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    seriaati/hakushin-py
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    API Reference
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            API Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Clients
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Clients
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Client
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Genshin Impact
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/hsr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Honkai Star Rail
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/zzz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Zenless Zone Zero
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Models
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Models
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Genshin Impact
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Honkai Star Rail
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Honkai Star Rail
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.ApocBuff" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApocBuff
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.ApocDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApocDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Character" class="md-nav__link">
+    <span class="md-ellipsis">
+      Character
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.CharacterDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterDetail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CharacterDetail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.CharacterDetail.gacha_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      gacha_art
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.CharacterDetail.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.ChildMonster" class="md-nav__link">
+    <span class="md-ellipsis">
+      ChildMonster
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.DamageTypeResistance" class="md-nav__link">
+    <span class="md-ellipsis">
+      DamageTypeResistance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Eidolon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Eidolon
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Eidolon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Eidolon.image" class="md-nav__link">
+    <span class="md-ellipsis">
+      image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EliteGroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      EliteGroup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameBaseModel" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameBaseModel
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameBuffOptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameBuffOptions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameHalf" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameHalf
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameStage" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameStage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameSummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameSummary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameWave" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameWave
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EndgameWave">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameWave.__extract_monster_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      __extract_monster_ids
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullApocDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullApocDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullEndgameBaseModel" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullEndgameBaseModel
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullEndgameHalf" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullEndgameHalf
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullEndgameStage" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullEndgameStage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullEndgameWave" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullEndgameWave
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullMOCDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullMOCDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullPFDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullPFDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.HSREnemySkill" class="md-nav__link">
+    <span class="md-ellipsis">
+      HSREnemySkill
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.HardLevelGroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      HardLevelGroup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.LightCone" class="md-nav__link">
+    <span class="md-ellipsis">
+      LightCone
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LightCone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.LightCone.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.LightConeDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      LightConeDetail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LightConeDetail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.LightConeDetail.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.LightConeDetail.image" class="md-nav__link">
+    <span class="md-ellipsis">
+      image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.MOCDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      MOCDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Monster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monster
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.MonsterDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      MonsterDetail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MonsterDetail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.MonsterDetail.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.New" class="md-nav__link">
+    <span class="md-ellipsis">
+      New
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.PFDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      PFDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.ProcessedEnemy" class="md-nav__link">
+    <span class="md-ellipsis">
+      ProcessedEnemy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Relic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Relic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Relic.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.RelicSet" class="md-nav__link">
+    <span class="md-ellipsis">
+      RelicSet
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.RelicSetDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      RelicSetDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.RelicSetEffect" class="md-nav__link">
+    <span class="md-ellipsis">
+      RelicSetEffect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.RelicSetEffects" class="md-nav__link">
+    <span class="md-ellipsis">
+      RelicSetEffects
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.SetDetailSetEffect" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetDetailSetEffect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.SetDetailSetEffects" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetDetailSetEffects
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Skill.max_level" class="md-nav__link">
+    <span class="md-ellipsis">
+      max_level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.SkillLevelInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      SkillLevelInfo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.SuperimposeInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      SuperimposeInfo
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zzz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Zenless Zone Zero
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Errors
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Enums
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Utils
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.ApocBuff" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApocBuff
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.ApocDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      ApocDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Character" class="md-nav__link">
+    <span class="md-ellipsis">
+      Character
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.CharacterDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      CharacterDetail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CharacterDetail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.CharacterDetail.gacha_art" class="md-nav__link">
+    <span class="md-ellipsis">
+      gacha_art
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.CharacterDetail.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.ChildMonster" class="md-nav__link">
+    <span class="md-ellipsis">
+      ChildMonster
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.DamageTypeResistance" class="md-nav__link">
+    <span class="md-ellipsis">
+      DamageTypeResistance
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Eidolon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Eidolon
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Eidolon">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Eidolon.image" class="md-nav__link">
+    <span class="md-ellipsis">
+      image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EliteGroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      EliteGroup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameBaseModel" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameBaseModel
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameBuffOptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameBuffOptions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameHalf" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameHalf
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameStage" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameStage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameSummary" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameSummary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameWave" class="md-nav__link">
+    <span class="md-ellipsis">
+      EndgameWave
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="EndgameWave">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.EndgameWave.__extract_monster_ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      __extract_monster_ids
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullApocDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullApocDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullEndgameBaseModel" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullEndgameBaseModel
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullEndgameHalf" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullEndgameHalf
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullEndgameStage" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullEndgameStage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullEndgameWave" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullEndgameWave
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullMOCDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullMOCDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.FullPFDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      FullPFDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.HSREnemySkill" class="md-nav__link">
+    <span class="md-ellipsis">
+      HSREnemySkill
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.HardLevelGroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      HardLevelGroup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.LightCone" class="md-nav__link">
+    <span class="md-ellipsis">
+      LightCone
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LightCone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.LightCone.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.LightConeDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      LightConeDetail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LightConeDetail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.LightConeDetail.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.LightConeDetail.image" class="md-nav__link">
+    <span class="md-ellipsis">
+      image
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.MOCDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      MOCDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Monster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monster
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.MonsterDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      MonsterDetail
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MonsterDetail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.MonsterDetail.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.New" class="md-nav__link">
+    <span class="md-ellipsis">
+      New
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.PFDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      PFDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.ProcessedEnemy" class="md-nav__link">
+    <span class="md-ellipsis">
+      ProcessedEnemy
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Relic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Relic
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Relic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Relic.icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      icon
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.RelicSet" class="md-nav__link">
+    <span class="md-ellipsis">
+      RelicSet
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.RelicSetDetail" class="md-nav__link">
+    <span class="md-ellipsis">
+      RelicSetDetail
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.RelicSetEffect" class="md-nav__link">
+    <span class="md-ellipsis">
+      RelicSetEffect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.RelicSetEffects" class="md-nav__link">
+    <span class="md-ellipsis">
+      RelicSetEffects
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.SetDetailSetEffect" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetDetailSetEffect
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.SetDetailSetEffects" class="md-nav__link">
+    <span class="md-ellipsis">
+      SetDetailSetEffects
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Skill" class="md-nav__link">
+    <span class="md-ellipsis">
+      Skill
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skill">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.Skill.max_level" class="md-nav__link">
+    <span class="md-ellipsis">
+      max_level
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.SkillLevelInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      SkillLevelInfo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.models.hsr.SuperimposeInfo" class="md-nav__link">
+    <span class="md-ellipsis">
+      SuperimposeInfo
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="api-reference">API Reference</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+
+    <div class="doc doc-contents first">
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.ApocBuff" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>ApocBuff</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represents the fixed global buff in Apocalyptic Shadow.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ApocBuff.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the buff.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ApocBuff.desc">desc</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Description of the effect.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.ApocDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>ApocDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            EndgameBaseModel (hakushin.models.hsr.endgame.EndgameBaseModel)" href="#hakushin.models.hsr.EndgameBaseModel">EndgameBaseModel</a></code>, <code><span title="hakushin.models.hsr.endgame.ApocBase">ApocBase</span></code></p>
+
+
+        <p>Apocalyptic Shadow event details.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ApocDetail.buff">buff</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ApocBuff (hakushin.models.hsr.endgame.ApocBuff)" href="#hakushin.models.hsr.ApocBuff">ApocBuff</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The static global buff applied in all stages.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ApocDetail.buff_list_1">buff_list_1</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            EndgameBuffOptions (hakushin.models.hsr.endgame.EndgameBuffOptions)" href="#hakushin.models.hsr.EndgameBuffOptions">EndgameBuffOptions</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Selectable buffs for first half.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ApocDetail.buff_list_2">buff_list_2</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            EndgameBuffOptions (hakushin.models.hsr.endgame.EndgameBuffOptions)" href="#hakushin.models.hsr.EndgameBuffOptions">EndgameBuffOptions</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Selectable buffs for second half.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.Character" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>Character</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent an HSR character.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Character.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Character.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The icon URL of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Character.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[4, 5]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The rarity of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Character.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Character.path">path</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            HSRPath (hakushin.enums.HSRPath)" href="../../enums/#hakushin.enums.HSRPath">HSRPath</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The path of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Character.element">element</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            HSRElement (hakushin.enums.HSRElement)" href="../../enums/#hakushin.enums.HSRElement">HSRElement</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The element of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Character.names">names</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;en&#39;, &#39;cn&#39;, &#39;kr&#39;, &#39;jp&#39;], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of names in different languages.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Character.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the character.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.CharacterDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>CharacterDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent an HSR character detail.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.CharacterDetail.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.CharacterDetail.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.CharacterDetail.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.CharacterDetail.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[4, 5]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The rarity of the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.CharacterDetail.eidolons">eidolons</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <a class="autorefs autorefs-internal" title="            Eidolon (hakushin.models.hsr.character.Eidolon)" href="#hakushin.models.hsr.Eidolon">Eidolon</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of eidolons for the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.CharacterDetail.skills">skills</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <a class="autorefs autorefs-internal" title="            Skill (hakushin.models.hsr.character.Skill)" href="#hakushin.models.hsr.Skill">Skill</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of skills for the character.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.CharacterDetail.ascension_stats">ascension_stats</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="dict">dict</span>[<span title="str">str</span>, <span title="typing.Any">Any</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of ascension stats for the character.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.hsr.CharacterDetail.gacha_art" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">gacha_art</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the character's gacha art URL.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.hsr.CharacterDetail.icon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">icon</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the character's icon URL.</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.ChildMonster" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>ChildMonster</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent the specific details of a monster type.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ChildMonster.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of this instance of the monster.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ChildMonster.attack_modify_ratio">attack_modify_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Multiplier applied to the monster's base attack.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ChildMonster.defence_modify_ratio">defence_modify_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Multiplier applied to the monster's base defense.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ChildMonster.hp_modify_ratio">hp_modify_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Multiplier applied to the monster's base HP.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ChildMonster.spd_modify_ratio">spd_modify_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Multiplier applied to the monster's base speed.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ChildMonster.spd_modify_value">spd_modify_value</span></code></td>
+            <td>
+                  <code><span title="float">float</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>An optional fixed value added to the monster's speed (can override base speed).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ChildMonster.stance_modify_value">stance_modify_value</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Multiplier applied to the monster's base toughness.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ChildMonster.stance_weak_list">stance_weak_list</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            HSRElement (hakushin.enums.HSRElement)" href="../../enums/#hakushin.enums.HSRElement">HSRElement</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of elemental types that this monster is weak to (for toughness damage).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ChildMonster.damage_type_resistances">damage_type_resistances</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            DamageTypeResistance (hakushin.models.hsr.monster.DamageTypeResistance)" href="#hakushin.models.hsr.DamageTypeResistance">DamageTypeResistance</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of resistances the monster has against specific elements.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ChildMonster.skills">skills</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            HSREnemySkill (hakushin.models.hsr.monster.HSREnemySkill)" href="#hakushin.models.hsr.HSREnemySkill">HSREnemySkill</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of skills this monster instance can use in combat.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.DamageTypeResistance" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>DamageTypeResistance</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent the damage resistance of an enemy in HSR.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.DamageTypeResistance.element">element</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            HSRElement (hakushin.enums.HSRElement)" href="../../enums/#hakushin.enums.HSRElement">HSRElement</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The element of the resistance.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.DamageTypeResistance.value">value</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The value of the resistance.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.Eidolon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>Eidolon</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a character's eidolon.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Eidolon.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the eidolon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Eidolon.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the eidolon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Eidolon.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the eidolon.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Eidolon.parameters">parameters</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of parameters for the eidolon.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.hsr.Eidolon.image" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">image</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the eidolon's image URL.</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.EliteGroup" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>EliteGroup</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent an EliteGroup in HSR.</p>
+<p>All enemies in HSR follow the following formula for ATK, DEF, HP, and SPD:
+Base x BaseModifyRatio x EliteGroup Ratio x HardLevelGroup(Level) Ratio x (1 + HPMultiplier)</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EliteGroup.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the group.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EliteGroup.attack_ratio">attack_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ratio to multiply to get final attack.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EliteGroup.defence_ratio">defence_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ratio to multiply to get final defence.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EliteGroup.hp_ratio">hp_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ratio to multiply to get final HP.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EliteGroup.spd_ratio">spd_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ratio to multiply to get final speed.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.EndgameBaseModel" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>EndgameBaseModel</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Abstract base class for all HSR endgame modes.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameBaseModel.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique ID of the endgame event.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameBaseModel.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Display name of the event.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameBaseModel.begin_time">begin_time</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Event start timestamp.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameBaseModel.end_time">end_time</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Event end timestamp.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameBaseModel.stages">stages</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            EndgameStage (hakushin.models.hsr.endgame.EndgameStage)" href="#hakushin.models.hsr.EndgameStage">EndgameStage</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of stages in this endgame mode.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.EndgameBuffOptions" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>EndgameBuffOptions</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represents a selectable buff modifier in endgame.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameBuffOptions.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the buff.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameBuffOptions.desc">desc</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Description of the buff effect.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameBuffOptions.params">params</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of parameters applied by the buff.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.EndgameHalf" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>EndgameHalf</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represents one half of an endgame stage (first or second).</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameHalf.hlg_id">hlg_id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ID of the HardLevelGroup used to determine difficulty scaling.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameHalf.hlg_level">hlg_level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Level of the HardLevelGroup (affects enemy stats).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameHalf.eg_id">eg_id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ID of the EliteGroup (affects enemy traits).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameHalf.waves">waves</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            EndgameWave (hakushin.models.hsr.endgame.EndgameWave)" href="#hakushin.models.hsr.EndgameWave">EndgameWave</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of enemy waves in this half.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.EndgameStage" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>EndgameStage</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represents a stage in an endgame mode.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameStage.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique ID of the stage.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameStage.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Stage name.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameStage.first_half_weaknesses">first_half_weaknesses</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            HSRElement (hakushin.enums.HSRElement)" href="../../enums/#hakushin.enums.HSRElement">HSRElement</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Elements that enemies in the first half are weak to.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameStage.second_half_weaknesses">second_half_weaknesses</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            HSRElement (hakushin.enums.HSRElement)" href="../../enums/#hakushin.enums.HSRElement">HSRElement</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Elements that enemies in the second half are weak to.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameStage.first_half">first_half</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            EndgameHalf (hakushin.models.hsr.endgame.EndgameHalf)" href="#hakushin.models.hsr.EndgameHalf">EndgameHalf</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The first half of the stage.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameStage.second_half">second_half</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            EndgameHalf (hakushin.models.hsr.endgame.EndgameHalf)" href="#hakushin.models.hsr.EndgameHalf">EndgameHalf</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The second half of the stage.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.EndgameSummary" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>EndgameSummary</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Summary metadata for an HSR endgame event.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameSummary.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ID of the endgame.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameSummary.type">type</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            HSREndgameType (hakushin.enums.HSREndgameType)" href="../../enums/#hakushin.enums.HSREndgameType">HSREndgameType</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The type/category of the endgame.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameSummary.names">names</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;en&#39;, &#39;cn&#39;, &#39;kr&#39;, &#39;jp&#39;], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Dictionary containing localized names in English (en), Chinese (cn), Korean (kr), and Japanese (jp).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameSummary.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The selected name to display (populated during post-processing).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameSummary.begin">begin</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Event start timestamp.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameSummary.end">end</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Event end timestamp.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.EndgameWave" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>EndgameWave</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represents a wave of enemies in an endgame half.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameWave.enemies">enemies</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of enemy IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.EndgameWave.hp_multiplier">hp_multiplier</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Multiplier applied to enemy HP in this wave.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="hakushin.models.hsr.EndgameWave.__extract_monster_ids" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <code class="highlight language-python"><span class="n">__extract_monster_ids</span><span class="p">(</span><span class="n">values</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>If this model is being parsed from a raw dictionary with Monster1, Monster2... keys,
+extract them into the 'enemies' list. Otherwise, assume enemies is already provided.</p>
+
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.FullApocDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>FullApocDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            FullEndgameBaseModel (hakushin.models.hsr.endgame.FullEndgameBaseModel)" href="#hakushin.models.hsr.FullEndgameBaseModel">FullEndgameBaseModel</a></code>, <code><span title="hakushin.models.hsr.endgame.ApocBase">ApocBase</span></code></p>
+
+
+        <p>Apocalyptic Shadow event details with processed enemies.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullApocDetail.buff">buff</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            ApocBuff (hakushin.models.hsr.endgame.ApocBuff)" href="#hakushin.models.hsr.ApocBuff">ApocBuff</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The static global buff applied in all stages.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullApocDetail.buff_list_1">buff_list_1</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            EndgameBuffOptions (hakushin.models.hsr.endgame.EndgameBuffOptions)" href="#hakushin.models.hsr.EndgameBuffOptions">EndgameBuffOptions</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Selectable buffs for first half.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullApocDetail.buff_list_2">buff_list_2</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            EndgameBuffOptions (hakushin.models.hsr.endgame.EndgameBuffOptions)" href="#hakushin.models.hsr.EndgameBuffOptions">EndgameBuffOptions</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Selectable buffs for second half.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.FullEndgameBaseModel" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>FullEndgameBaseModel</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            EndgameBaseModel (hakushin.models.hsr.endgame.EndgameBaseModel)" href="#hakushin.models.hsr.EndgameBaseModel">EndgameBaseModel</a></code></p>
+
+
+        <p>Endgame base model with processed enemies.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameBaseModel.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique ID of the endgame event.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameBaseModel.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Display name of the event.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameBaseModel.begin_time">begin_time</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Event start timestamp.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameBaseModel.end_time">end_time</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Event end timestamp.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameBaseModel.stages">stages</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            FullEndgameStage (hakushin.models.hsr.endgame.FullEndgameStage)" href="#hakushin.models.hsr.FullEndgameStage">FullEndgameStage</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of stages in this endgame mode with processed enemies.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.FullEndgameHalf" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>FullEndgameHalf</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            EndgameHalf (hakushin.models.hsr.endgame.EndgameHalf)" href="#hakushin.models.hsr.EndgameHalf">EndgameHalf</a></code></p>
+
+
+        <p>Represents one half of an endgame stage (first or second) with processed enemies.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameHalf.hlg_id">hlg_id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ID of the HardLevelGroup used to determine difficulty scaling.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameHalf.hlg_level">hlg_level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Level of the HardLevelGroup (affects enemy stats).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameHalf.eg_id">eg_id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ID of the EliteGroup (affects enemy traits).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameHalf.waves">waves</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            FullEndgameWave (hakushin.models.hsr.endgame.FullEndgameWave)" href="#hakushin.models.hsr.FullEndgameWave">FullEndgameWave</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of enemy waves in this half with processed enemies.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.FullEndgameStage" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>FullEndgameStage</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            EndgameStage (hakushin.models.hsr.endgame.EndgameStage)" href="#hakushin.models.hsr.EndgameStage">EndgameStage</a></code></p>
+
+
+        <p>Represents a stage in an endgame mode with processed enemies.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameStage.first_half">first_half</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            FullEndgameHalf (hakushin.models.hsr.endgame.FullEndgameHalf)" href="#hakushin.models.hsr.FullEndgameHalf">FullEndgameHalf</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The first half of the stage with processed enemies.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameStage.second_half">second_half</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            FullEndgameHalf (hakushin.models.hsr.endgame.FullEndgameHalf)" href="#hakushin.models.hsr.FullEndgameHalf">FullEndgameHalf</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The second half of the stage with processed enemies.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.FullEndgameWave" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>FullEndgameWave</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            EndgameWave (hakushin.models.hsr.endgame.EndgameWave)" href="#hakushin.models.hsr.EndgameWave">EndgameWave</a></code></p>
+
+
+        <p>Represents a wave of processed enemies in an endgame half.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameWave.enemies">enemies</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            ProcessedEnemy (hakushin.models.hsr.endgame.ProcessedEnemy)" href="#hakushin.models.hsr.ProcessedEnemy">ProcessedEnemy</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of processed enemy instances.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullEndgameWave.hp_multiplier">hp_multiplier</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Multiplier applied to enemy HP in this wave.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.FullMOCDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>FullMOCDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            FullEndgameBaseModel (hakushin.models.hsr.endgame.FullEndgameBaseModel)" href="#hakushin.models.hsr.FullEndgameBaseModel">FullEndgameBaseModel</a></code>, <code><span title="hakushin.models.hsr.endgame.MOCBase">MOCBase</span></code></p>
+
+
+        <p>Memory of Chaos event details with processed enemies.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullMOCDetail.memory_turbulence">memory_turbulence</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Global modifier for the current MoC rotation.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.FullPFDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>FullPFDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            FullEndgameBaseModel (hakushin.models.hsr.endgame.FullEndgameBaseModel)" href="#hakushin.models.hsr.FullEndgameBaseModel">FullEndgameBaseModel</a></code>, <code><span title="hakushin.models.hsr.endgame.PFBase">PFBase</span></code></p>
+
+
+        <p>Pure Fiction event details with processed enemies.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullPFDetail.buff_options">buff_options</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            EndgameBuffOptions (hakushin.models.hsr.endgame.EndgameBuffOptions)" href="#hakushin.models.hsr.EndgameBuffOptions">EndgameBuffOptions</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>First tier of optional buffs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.FullPFDetail.buff_suboptions">buff_suboptions</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            EndgameBuffOptions (hakushin.models.hsr.endgame.EndgameBuffOptions)" href="#hakushin.models.hsr.EndgameBuffOptions">EndgameBuffOptions</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Second tier of optional buffs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.HSREnemySkill" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>HSREnemySkill</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represents an enemy skill's information.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.HSREnemySkill.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The id of the skill.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.HSREnemySkill.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the skill</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.HSREnemySkill.desc">desc</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of what the skill does</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.HSREnemySkill.damage_type">damage_type</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            HSRElement (hakushin.enums.HSRElement)" href="../../enums/#hakushin.enums.HSRElement">HSRElement</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The type of damage the skill does (out of the HSRElements or None)</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.HardLevelGroup" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>HardLevelGroup</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a HardLevelGroup in HSR.</p>
+<p>All enemies in HSR follow the following formula for ATK, DEF, HP, and SPD:
+Base x BaseModifyRatio x EliteGroup Ratio x HardLevelGroup(Level) Ratio x (1 + HPMultiplier)</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.HardLevelGroup.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the group.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.HardLevelGroup.level">level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The level of the enemy.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.HardLevelGroup.attack_ratio">attack_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ratio to multiply to get final attack.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.HardLevelGroup.defence_ratio">defence_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ratio to multiply to get final defence.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.HardLevelGroup.hp_ratio">hp_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ratio to multiply to get final HP.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.HardLevelGroup.spd_ratio">spd_ratio</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ratio to multiply to get final speed.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.LightCone" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>LightCone</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent an HSR light cone.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightCone.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the light cone.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightCone.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[3, 4, 5]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The rarity of the light cone.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightCone.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the light cone.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightCone.path">path</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            HSRPath (hakushin.enums.HSRPath)" href="../../enums/#hakushin.enums.HSRPath">HSRPath</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The path of the light cone.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightCone.names">names</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;en&#39;, &#39;cn&#39;, &#39;kr&#39;, &#39;jp&#39;], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of names in different languages.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightCone.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the light cone.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.hsr.LightCone.icon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">icon</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the light cone's icon URL.</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.LightConeDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>LightConeDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent an HSR light cone detail.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightConeDetail.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the light cone.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightConeDetail.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the light cone.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightConeDetail.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the light cone.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightConeDetail.path">path</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            HSRPath (hakushin.enums.HSRPath)" href="../../enums/#hakushin.enums.HSRPath">HSRPath</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The path of the light cone.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightConeDetail.rarity">rarity</span></code></td>
+            <td>
+                  <code><span title="typing.Literal">Literal</span>[3, 4, 5]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The rarity of the light cone.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightConeDetail.superimpose_info">superimpose_info</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            SuperimposeInfo (hakushin.models.hsr.light_cone.SuperimposeInfo)" href="#hakushin.models.hsr.SuperimposeInfo">SuperimposeInfo</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Superimpose information for the light cone.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.LightConeDetail.ascension_stats">ascension_stats</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="dict">dict</span>[<span title="str">str</span>, <span title="typing.Any">Any</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of ascension stats for the light cone.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.hsr.LightConeDetail.icon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">icon</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the light cone's icon URL.</p>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.hsr.LightConeDetail.image" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">image</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the light cone's image URL.</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.MOCDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>MOCDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            EndgameBaseModel (hakushin.models.hsr.endgame.EndgameBaseModel)" href="#hakushin.models.hsr.EndgameBaseModel">EndgameBaseModel</a></code>, <code><span title="hakushin.models.hsr.endgame.MOCBase">MOCBase</span></code></p>
+
+
+        <p>Memory of Chaos event details.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MOCDetail.memory_turbulence">memory_turbulence</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Global modifier for the current MoC rotation.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.Monster" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>Monster</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent an enemy monster in HSR.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Monster.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the monster.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Monster.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The icon URL of the monster.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Monster.children">children</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of child monster IDs associated with this monster.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Monster.weaknesses">weaknesses</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            HSRElement (hakushin.enums.HSRElement)" href="../../enums/#hakushin.enums.HSRElement">HSRElement</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of elements that this monster is weak to (used for breaking toughness).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Monster.names">names</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;en&#39;, &#39;cn&#39;, &#39;kr&#39;, &#39;jp&#39;], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of names in different languages.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Monster.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The English description of the monster.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Monster.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The English name of the monster.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.MonsterDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>MonsterDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent an enemy monster with details in HSR.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MonsterDetail.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Unique identifier for the monster.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MonsterDetail.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Name of the monster.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MonsterDetail.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the monster.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MonsterDetail.attack_base">attack_base</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The base attack stat for this monster.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MonsterDetail.defence_base">defence_base</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The base defense stat.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MonsterDetail.hp_base">hp_base</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The base HP value.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MonsterDetail.spd_base">spd_base</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The base speed stat.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MonsterDetail.stance_base">stance_base</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The base toughness value.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MonsterDetail.status_resistance_base">status_resistance_base</span></code></td>
+            <td>
+                  <code><span title="float">float</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The base status resistance (used for debuff resist chance).</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.MonsterDetail.monster_types">monster_types</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            ChildMonster (hakushin.models.hsr.monster.ChildMonster)" href="#hakushin.models.hsr.ChildMonster">ChildMonster</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of <code>ChildMonster</code> variants derived from this monster.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.hsr.MonsterDetail.icon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">icon</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the monster's icon URL.</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.New" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>New</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent new Honkai Star Rail data.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.New.character_ids">character_ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of character IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.New.light_cone_ids">light_cone_ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of light cone IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.New.relic_set_ids">relic_set_ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of relic set IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.New.monster_ids">monster_ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of monster IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.New.item_ids">item_ids</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of item IDs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.New.version">version</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The current version.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.PFDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>PFDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><a class="autorefs autorefs-internal" title="            EndgameBaseModel (hakushin.models.hsr.endgame.EndgameBaseModel)" href="#hakushin.models.hsr.EndgameBaseModel">EndgameBaseModel</a></code>, <code><span title="hakushin.models.hsr.endgame.PFBase">PFBase</span></code></p>
+
+
+        <p>Pure Fiction event details.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.PFDetail.buff_options">buff_options</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            EndgameBuffOptions (hakushin.models.hsr.endgame.EndgameBuffOptions)" href="#hakushin.models.hsr.EndgameBuffOptions">EndgameBuffOptions</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>First tier of optional buffs.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.PFDetail.buff_suboptions">buff_suboptions</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            EndgameBuffOptions (hakushin.models.hsr.endgame.EndgameBuffOptions)" href="#hakushin.models.hsr.EndgameBuffOptions">EndgameBuffOptions</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Second tier of optional buffs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.ProcessedEnemy" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>ProcessedEnemy</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represents a processed enemy instance in a HSR endgame stage.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ProcessedEnemy.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The unique monster ID.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ProcessedEnemy.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the enemy.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ProcessedEnemy.weaknesses">weaknesses</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<a class="autorefs autorefs-internal" title="            HSRElement (hakushin.enums.HSRElement)" href="../../enums/#hakushin.enums.HSRElement">HSRElement</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of elements this enemy is weak to.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ProcessedEnemy.level">level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The level of the enemy.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ProcessedEnemy.base_hp">base_hp</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The calculated HP of the enemy after all multipliers.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ProcessedEnemy.speed">speed</span></code></td>
+            <td>
+                  <code><span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The calculated speed value.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ProcessedEnemy.toughness">toughness</span></code></td>
+            <td>
+                  <code><span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The calculated toughness value.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.ProcessedEnemy.effect_res">effect_res</span></code></td>
+            <td>
+                  <code><span title="float">float</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Total status effect resistance value.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.Relic" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>Relic</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent an HSR relic.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Relic.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the relic.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Relic.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the relic.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Relic.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the relic.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Relic.story">story</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The story of the relic.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.hsr.Relic.icon" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">icon</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the relic's icon URL.</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.RelicSet" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>RelicSet</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent an HSR relic set.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSet.id">id</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The ID of the relic set.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSet.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The icon URL of the relic set.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSet.names">names</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;en&#39;, &#39;cn&#39;, &#39;kr&#39;, &#39;jp&#39;], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of names in different languages.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSet.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the relic set.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSet.set_effect">set_effect</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            RelicSetEffects (hakushin.models.hsr.relic.RelicSetEffects)" href="#hakushin.models.hsr.RelicSetEffects">RelicSetEffects</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The set effects of the relic set.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.RelicSetDetail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>RelicSetDetail</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent an HSR relic set detail.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSetDetail.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the relic set.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSetDetail.icon">icon</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The icon URL of the relic set.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSetDetail.parts">parts</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <a class="autorefs autorefs-internal" title="            Relic (hakushin.models.hsr.relic.Relic)" href="#hakushin.models.hsr.Relic">Relic</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of relic parts.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSetDetail.set_effects">set_effects</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            SetDetailSetEffects (hakushin.models.hsr.relic.SetDetailSetEffects)" href="#hakushin.models.hsr.SetDetailSetEffects">SetDetailSetEffects</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The set effects of the relic set.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.RelicSetEffect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>RelicSetEffect</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a relic set effect.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSetEffect.descriptions">descriptions</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="typing.Literal">Literal</span>[&#39;en&#39;, &#39;cn&#39;, &#39;kr&#39;, &#39;jp&#39;], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of descriptions in different languages.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSetEffect.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the relic set effect.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSetEffect.parameters">parameters</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of parameters for the relic set effect.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.RelicSetEffects" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>RelicSetEffects</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a relic set's set effects.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSetEffects.two_piece">two_piece</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            RelicSetEffect (hakushin.models.hsr.relic.RelicSetEffect)" href="#hakushin.models.hsr.RelicSetEffect">RelicSetEffect</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The two-piece set effect.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.RelicSetEffects.four_piece">four_piece</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            RelicSetEffect (hakushin.models.hsr.relic.RelicSetEffect)" href="#hakushin.models.hsr.RelicSetEffect">RelicSetEffect</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The four-piece set effect, if available.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.SetDetailSetEffect" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>SetDetailSetEffect</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a relic set detail's set effect.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.SetDetailSetEffect.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the set effect.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.SetDetailSetEffect.parameters">parameters</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of parameters for the set effect.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.SetDetailSetEffects" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>SetDetailSetEffects</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent relic set detail's set effects.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.SetDetailSetEffects.two_piece">two_piece</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            SetDetailSetEffect (hakushin.models.hsr.relic.SetDetailSetEffect)" href="#hakushin.models.hsr.SetDetailSetEffect">SetDetailSetEffect</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The two-piece set effect.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.SetDetailSetEffects.four_piece">four_piece</span></code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="            SetDetailSetEffect (hakushin.models.hsr.relic.SetDetailSetEffect)" href="#hakushin.models.hsr.SetDetailSetEffect">SetDetailSetEffect</a> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The four-piece set effect, if available.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.Skill" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>Skill</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a character's skill.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Skill.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the skill.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Skill.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the skill, if available.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Skill.type">type</span></code></td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The type of the skill, if available.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Skill.tag">tag</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The tag of the skill.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Skill.energy_generation">energy_generation</span></code></td>
+            <td>
+                  <code><span title="int">int</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The energy generation of the skill, if available.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.Skill.level_info">level_info</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <a class="autorefs autorefs-internal" title="            SkillLevelInfo (hakushin.models.hsr.character.SkillLevelInfo)" href="#hakushin.models.hsr.SkillLevelInfo">SkillLevelInfo</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of skill level information.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.models.hsr.Skill.max_level" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <code class="highlight language-python"><span class="n">max_level</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-property"><code>property</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get the skill's maximum level.</p>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.SkillLevelInfo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>SkillLevelInfo</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a skill's level information.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.SkillLevelInfo.level">level</span></code></td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The level of the skill.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.SkillLevelInfo.parameters">parameters</span></code></td>
+            <td>
+                  <code><span title="list">list</span>[<span title="float">float</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of parameters for the skill level.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="hakushin.models.hsr.SuperimposeInfo" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <code>SuperimposeInfo</code>
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+            <p class="doc doc-class-bases">
+              Bases: <code><span title="hakushin.models.base.APIModel">APIModel</span></code></p>
+
+
+        <p>Represent a light cone's superimpose information.</p>
+
+
+<p><span class="doc-section-title">Attributes:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.SuperimposeInfo.name">name</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the superimpose information.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.SuperimposeInfo.description">description</span></code></td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The description of the superimpose information.</p>
+              </div>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code><span title="hakushin.models.hsr.SuperimposeInfo.parameters">parameters</span></code></td>
+            <td>
+                  <code><span title="dict">dict</span>[<span title="str">str</span>, <span title="list">list</span>[<span title="float">float</span>]]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary of parameters for the superimpose information.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 - 2025 Seria Ati
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
