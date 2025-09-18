@@ -1,6 +1,6 @@
 [project]
 name = "hakushin-py"
-version = "0.4.12"
+version = "0.5.0"
 description = "Async API wrapper for hakush.in written in Python"
 readme = "README.md"
 requires-python = ">=3.11"
