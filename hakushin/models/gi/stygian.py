@@ -125,6 +125,16 @@ class StygianLevel(APIModel):
 
 
 class StygianDetail(APIModel):
+    """Details of a Stygian Onslaught entry.
+
+    Attributes:
+        id: The Stygian ID.
+        name: The name of the Stygian.
+        start_at: The start datetime of the Stygian event.
+        end_at: The end datetime of the Stygian event.
+        levels: A mapping of level IDs to StygianLevel objects.
+    """
+
     id: int = Field(alias="Id")
     name: str = Field(alias="Name")
     start_at: datetime.datetime = Field(alias="BeginTime")
