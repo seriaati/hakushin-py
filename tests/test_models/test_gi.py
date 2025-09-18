@@ -38,3 +38,9 @@ async def test_artifact_set(gi_client: GIClient) -> None:
     gi_new = await gi_client.fetch_new()
     for artifact_set_id in gi_new.artifact_set_ids:
         await gi_client.fetch_artifact_set_detail(artifact_set_id)
+
+
+async def test_stygians(gi_client: GIClient) -> None:
+    stygians = await gi_client.fetch_stygians()
+    for entry in stygians:
+        await gi_client.fetch_stygian_detail(entry.id)

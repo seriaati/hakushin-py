@@ -156,3 +156,38 @@ class GIClient(BaseClient):
         endpoint = f"artifact/{set_id}"
         data = await self._request(endpoint, use_cache)
         return gi.ArtifactSetDetail(**data)
+
+    async def fetch_stygians(self, *, use_cache: bool = True) -> list[gi.Stygian]:
+        """Fetch all Genshin Impact Stygian Onslaught entries.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of Stygian objects.
+        """
+        data = await self._request("leyline", use_cache, in_data=True)
+
+        stygian_entries = [
+            gi.Stygian(id=int(stygian_id), **stygian) for stygian_id, stygian in data.items()
+        ]
+        for entry in stygian_entries:
+            entry.name = entry.names[GI_LANG_MAP[self.lang]]
+
+        return stygian_entries
+
+    async def fetch_stygian_detail(
+        self, stygian_id: int, *, use_cache: bool = True
+    ) -> gi.StygianDetail:
+        """Fetch the details of a Stygian Onslaught entry.
+
+        Args:
+            stygian_id: The Stygian ID.
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            The Stygian details object.
+        """
+        endpoint = f"leyline/{stygian_id}"
+        data = await self._request(endpoint, use_cache)
+        return gi.StygianDetail(**data)
