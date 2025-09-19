@@ -379,7 +379,7 @@ def extract_sprite_presets(text: str) -> list[tuple[str, str]]:
         text: The text to process.
 
     Returns:
-        A list of sprite preset IDs.
+        A list of tuples containing the SPRITE_PRESET keyword and icon URL.
     """
     result: list[tuple[str, str]] = []
 
