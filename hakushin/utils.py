@@ -384,7 +384,9 @@ def extract_sprite_presets(text: str) -> list[tuple[str, str]]:
     result: list[tuple[str, str]] = []
 
     for keyword, icon_url in GI_SPRITE_PRESET_MAP.items():
-        if keyword in text:
+        # keyword example: SPRITE_PRESET#21002
+        match = re.search(rf"\{{{keyword}\}}", text)
+        if match:
             result.append((keyword, icon_url))
 
     return result
