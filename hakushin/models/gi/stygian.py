@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import datetime
+import re
 from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
@@ -53,7 +54,16 @@ class StygianEnemyRecommendation(APIModel):
     """
 
     recommend: str
-    dont_recommend: str
+    dont_recommend: str | None = None
+
+    @field_validator("recommend", "dont_recommend", mode="after")
+    @classmethod
+    def __remove_color_tags(cls, v: str | None) -> str | None:
+        # Remove <Color=#FFFFFF40> and </Color> tags
+        if v is not None:
+            v = re.sub(r"<Color=#[0-9A-Fa-f]{8}>", "", v)
+            v = re.sub(r"</Color>", "", v)
+        return v
 
 
 class StygianEnemy(APIModel):
@@ -93,10 +103,9 @@ class StygianEnemy(APIModel):
             ]
         if "RecommendList" in v:
             recs = v.pop("RecommendList", [])
-            if len(recs) >= 2:
-                v["recommendation"] = StygianEnemyRecommendation(
-                    recommend=recs[0], dont_recommend=recs[1]
-                )
+            v["recommendation"] = StygianEnemyRecommendation(
+                recommend=recs[0], dont_recommend=recs[1] if len(recs) > 1 else None
+            )
         return v
 
 
