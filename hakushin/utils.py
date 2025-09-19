@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, TypeVar
 from .constants import (
     ASCENDED_LEVEL_TO_ASCENSION,
     ASCENSION_TO_MAX_LEVEL,
+    GI_SPRITE_PRESET_MAP,
     NOT_ASCENDED_LEVEL_TO_ASCENSION,
     PERCENTAGE_FIGHT_PROPS,
     STAT_TO_FIGHT_PROP,
@@ -369,3 +370,21 @@ def remove_ruby_tags(text: str) -> str:
     # Remove {RUBY_B...} tags
     text = re.sub(r"\{RUBY_B#.*?\}", "", text)
     return text
+
+
+def extract_sprite_presets(text: str) -> list[tuple[str, str]]:
+    """Extract sprite presets from a string.
+
+    Args:
+        text: The text to process.
+
+    Returns:
+        A list of sprite preset IDs.
+    """
+    result: list[tuple[str, str]] = []
+
+    for keyword, icon_url in GI_SPRITE_PRESET_MAP.items():
+        if keyword in text:
+            result.append((keyword, icon_url))
+
+    return result
