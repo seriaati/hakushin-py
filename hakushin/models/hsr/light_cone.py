@@ -49,7 +49,7 @@ class LightConeDetail(APIModel):
 
     id: int = Field(alias="Id")
     name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
+    description: str | None = Field(alias="Desc", default=None)
     path: HSRPath = Field(alias="BaseType")
     rarity: Literal[3, 4, 5] = Field(alias="Rarity")
     superimpose_info: SuperimposeInfo = Field(alias="Refinements")
