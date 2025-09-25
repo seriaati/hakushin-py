@@ -30,8 +30,8 @@ class Relic(APIModel):
 
     id: int = Field(0)  # This field is not present in the API response.
     name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    story: str = Field(alias="Story")
+    description: str | None = Field(alias="Desc", default=None)
+    story: str | None = Field(alias="Story", default=None)
 
     @computed_field
     @property
