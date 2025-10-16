@@ -55,6 +55,7 @@ class BaseClient:
         self.cache_ttl = cache_ttl
 
         self._game = game
+        self._using_custom_session = session is not None
         self._session = session
         self._cache = SQLiteBackend(cache_path, expire_after=cache_ttl)
         self._headers = headers or {"User-Agent": "hakuashin-py"}
@@ -136,5 +137,5 @@ class BaseClient:
         Clean up the aiohttp session and release resources. This should be called
         when done with the client to prevent resource leaks.
         """
-        if self._session is not None:
+        if self._session is not None and not self._using_custom_session:
             await self._session.close()
