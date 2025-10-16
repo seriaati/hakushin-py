@@ -88,14 +88,15 @@ class BaseClient:
         game = self._game
         lang = HSR_API_LANG_MAP[self.lang] if game is Game.HSR else self.lang.value
 
-        if version:
-            url = f"{self.BASE_URL}/{game.value}/{version}/{lang}/{endpoint}.json"
-        elif static:
+        if static:
             url = f"{self.BASE_URL}/{game.value}/{endpoint}.json"
         elif in_data:
             url = f"{self.BASE_URL}/{game.value}/data/{endpoint}.json"
         else:
             url = f"{self.BASE_URL}/{game.value}/data/{lang}/{endpoint}.json"
+
+        if version:
+            url = url.replace("/data/", f"/{version}/")
 
         logger.debug(f"Requesting {url}")
 
