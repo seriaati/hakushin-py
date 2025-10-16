@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import logging
 from typing import TYPE_CHECKING, Any, Final, Self
 
 from aiohttp_client_cache.backends.sqlite import SQLiteBackend
@@ -60,8 +59,6 @@ class BaseClient:
         self._cache = SQLiteBackend(cache_path, expire_after=cache_ttl)
         self._headers = headers or {"User-Agent": "hakuashin-py"}
         self._debug = debug
-        if self._debug:
-            logging.basicConfig(level=logging.DEBUG)
 
     async def __aenter__(self) -> Self:
         await self.start()
@@ -71,7 +68,13 @@ class BaseClient:
         await self.close()
 
     async def _request(
-        self, endpoint: str, use_cache: bool, *, static: bool = False, in_data: bool = False
+        self,
+        endpoint: str,
+        use_cache: bool,
+        *,
+        static: bool = False,
+        in_data: bool = False,
+        version: str | None = None,
     ) -> dict[str, Any]:
         if self._session is None:
             msg = "Call `start` before making requests."
@@ -84,7 +87,9 @@ class BaseClient:
         game = self._game
         lang = HSR_API_LANG_MAP[self.lang] if game is Game.HSR else self.lang.value
 
-        if static:
+        if version:
+            url = f"{self.BASE_URL}/{game.value}/{version}/{lang}/{endpoint}.json"
+        elif static:
             url = f"{self.BASE_URL}/{game.value}/{endpoint}.json"
         elif in_data:
             url = f"{self.BASE_URL}/{game.value}/data/{endpoint}.json"

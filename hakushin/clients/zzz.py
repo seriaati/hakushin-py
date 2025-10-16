@@ -72,19 +72,20 @@ class ZZZClient(BaseClient):
         return characters
 
     async def fetch_character_detail(
-        self, character_id: int, *, use_cache: bool = True
+        self, character_id: int, *, version: str | None = None, use_cache: bool = True
     ) -> zzz.CharacterDetail:
         """Fetch the details of a Zenless Zone Zero character.
 
         Args:
             character_id: The character ID.
+            version: The game version to fetch data for.
             use_cache: Whether to use the response cache.
 
         Returns:
             The character details object.
         """
         endpoint = f"character/{character_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache, version=version)
         return zzz.CharacterDetail(**data)
 
     async def fetch_weapons(self, *, use_cache: bool = True) -> list[zzz.Weapon]:
