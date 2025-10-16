@@ -50,7 +50,9 @@ class ZZZClient(BaseClient):
         data = await self._request("new", use_cache, static=True)
         return zzz.New(**data)
 
-    async def fetch_characters(self, *, use_cache: bool = True) -> list[zzz.Character]:
+    async def fetch_characters(
+        self, *, version: str | None = None, use_cache: bool = True
+    ) -> list[zzz.Character]:
         """Fetch all Zenless Zone Zero characters.
 
         Args:
@@ -59,7 +61,7 @@ class ZZZClient(BaseClient):
         Returns:
             A list of character objects.
         """
-        data = await self._request("character", use_cache, in_data=True)
+        data = await self._request("character", use_cache, in_data=True, version=version)
 
         characters = [
             zzz.Character(id=int(char_id), **char)
