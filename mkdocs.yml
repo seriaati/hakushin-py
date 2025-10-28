@@ -2,7 +2,7 @@
 site_name: hakushin-py
 site_url: https://gh.seria.moe/hakushin-py
 site_author: Seria Ati
-site_description: Async API wrapper for hakush.in written in Python 
+site_description: Async API wrapper for hakush.in written in Python
 
 # Repository
 repo_name: seriaati/hakushin-py
@@ -46,14 +46,43 @@ theme:
 
 plugins:
   - search
-  - social
   - mkdocstrings:
       handlers:
         python:
+          paths: ["hakushin"]
+          inventories:
+            - https://docs.python.org/3/objects.inv
+            - https://mkdocstrings.github.io/griffe/objects.inv
+            - https://docs.pydantic.dev/latest/objects.inv
           options:
+            backlinks: tree
             docstring_style: google
+            docstring_options:
+              ignore_init_summary: true
+            docstring_section_style: list
+            parameter_headings: true
+            relative_crossrefs: true
+            scoped_crossrefs: true
+            type_parameter_headings: true
+            show_root_heading: true
+            show_root_full_path: false
             show_root_toc_entry: false
             show_symbol_type_heading: true
+            show_if_no_docstring: true
+            show_source: false
+            show_bases: false
+            separate_signature: true
+            signature_crossrefs: true
+            show_symbol_type_toc: true
+            show_signature_annotations: true
+            show_signature_type_parameters: true
+            summary: true
+            filters:
+              - "!^_"
+            unwrap_annotated: true
+            extensions:
+              - griffe_pydantic:
+                  schema: false
 
 markdown_extensions:
   - admonition

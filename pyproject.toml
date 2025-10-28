@@ -19,7 +19,7 @@ Repository = "https://github.com/seriaati/hakushin-py.git"
 Issues = "https://github.com/seriaati/hakushin-py/issues"
 
 [dependency-groups]
-docs = ["mkdocs-material[imaging]>=9.6.15", "mkdocstrings[python]>=0.29.1"]
+docs = ["mkdocs-material>=9.6.15", "mkdocstrings[python]>=0.29.1", "griffe-pydantic>=1.1.7"]
 test = ["pytest>=8.4.1", "pytest-asyncio>=1.1.0"]
 
 [build-system]
