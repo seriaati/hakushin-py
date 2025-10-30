@@ -191,3 +191,45 @@ class GIClient(BaseClient):
         endpoint = f"leyline/{stygian_id}"
         data = await self._request(endpoint, use_cache)
         return gi.StygianDetail(**data)
+
+    async def fetch_mw_costumes(self, *, use_cache: bool = True) -> list[gi.MWCostume]:
+        """Fetch all Miliastra Wonderland costumes and costume sets.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of Miliastra Wonderland costumes and costume sets.
+        """
+        endpoint = "beyond/costume_all"
+        data = await self._request(endpoint, use_cache)
+
+        return [gi.MWCostume(**costume) for costume in data.values()]
+
+    async def fetch_mw_costume_sets(self, *, use_cache: bool = True) -> list[gi.MWCostumeSet]:
+        """Fetch all Miliastra Wonderland costume sets.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of Miliastra Wonderland costume sets.
+        """
+        endpoint = "beyond/costume_suit_all"
+        data = await self._request(endpoint, use_cache)
+
+        return [gi.MWCostumeSet(**costume_set) for costume_set in data.values()]
+
+    async def fetch_mw_items(self, *, use_cache: bool = True) -> list[gi.MWItem]:
+        """Fetch all Miliastra Wonderland items.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of Miliastra Wonderland items.
+        """
+        endpoint = "beyond/item_all"
+        data = await self._request(endpoint, use_cache)
+
+        return [gi.MWItem(id=int(item_id), **item) for item_id, item in data.items()]

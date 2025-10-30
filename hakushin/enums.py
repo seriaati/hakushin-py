@@ -9,6 +9,7 @@ __all__ = (
     "HSREndgameType",
     "HSRPath",
     "Language",
+    "MWCostumeBodyType",
     "ZZZAttackType",
     "ZZZElement",
     "ZZZSkillType",
@@ -122,3 +123,10 @@ class ZZZSkillType(StrEnum):
     SPECIAL = "Special"
     CHAIN = "Chain"
     ASSIST = "Assist"
+
+
+class MWCostumeBodyType(StrEnum):
+    """Miliastra Wonderland costume body types"""
+
+    GIRL = "BODY_GIRL"
+    BOY = "BODY_BOY"

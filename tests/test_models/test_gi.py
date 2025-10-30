@@ -44,3 +44,15 @@ async def test_stygians(gi_client: GIClient) -> None:
     stygians = await gi_client.fetch_stygians()
     for entry in stygians:
         await gi_client.fetch_stygian_detail(entry.id)
+
+
+async def test_mw_costumes(gi_client: GIClient) -> None:
+    await gi_client.fetch_mw_costumes()
+
+
+async def test_mw_costume_sets(gi_client: GIClient) -> None:
+    await gi_client.fetch_mw_costume_sets()
+
+
+async def test_mw_items(gi_client: GIClient) -> None:
+    await gi_client.fetch_mw_items()
