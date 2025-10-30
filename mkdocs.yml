@@ -100,12 +100,11 @@ nav:
   - Getting Started: getting_started.md
   - API Reference:
       - Clients:
-          - Client: api_reference/clients/client.md
+          - Usage: api_reference/clients/client.md
           - Genshin Impact: api_reference/clients/gi.md
           - Honkai Star Rail: api_reference/clients/hsr.md
           - Zenless Zone Zero: api_reference/clients/zzz.md
       - Models:
-          - Models: api_reference/models/models.md
           - Genshin Impact: api_reference/models/gi.md
           - Honkai Star Rail: api_reference/models/hsr.md
           - Zenless Zone Zero: api_reference/models/zzz.md
