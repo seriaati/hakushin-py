@@ -46,7 +46,7 @@ class GIClient(BaseClient):
         Returns:
             A model representing the new items.
         """
-        data = await self._request("new", use_cache, static=True)
+        data = await self._request("new", use_cache=use_cache, static=True)
         return gi.New(**data)
 
     async def fetch_characters(self, *, use_cache: bool = True) -> list[gi.Character]:
@@ -58,7 +58,7 @@ class GIClient(BaseClient):
         Returns:
             A list of character objects.
         """
-        data = await self._request("character", use_cache, in_data=True)
+        data = await self._request("character", use_cache=use_cache, in_data=True)
 
         characters = [gi.Character(id=char_id, **char) for char_id, char in data.items()]
         for char in characters:
@@ -79,7 +79,7 @@ class GIClient(BaseClient):
             The character details object.
         """
         endpoint = f"character/{character_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return gi.CharacterDetail(**data)
 
     async def fetch_weapons(self, *, use_cache: bool = True) -> list[gi.Weapon]:
@@ -92,7 +92,7 @@ class GIClient(BaseClient):
             A list of weapon objects.
         """
         endpoint = "weapon"
-        data = await self._request(endpoint, use_cache, in_data=True)
+        data = await self._request(endpoint, use_cache=use_cache, in_data=True)
         weapons = [gi.Weapon(id=int(weapon_id), **weapon) for weapon_id, weapon in data.items()]
         for weapon in weapons:
             weapon.name = weapon.names[GI_LANG_MAP[self.lang]]
@@ -111,7 +111,7 @@ class GIClient(BaseClient):
             The weapon details object.
         """
         endpoint = f"weapon/{weapon_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return gi.WeaponDetail(**data)
 
     async def fetch_artifact_sets(self, *, use_cache: bool = True) -> list[gi.ArtifactSet]:
@@ -124,7 +124,7 @@ class GIClient(BaseClient):
             A list of artifact set objects.
         """
         endpoint = "artifact"
-        data = await self._request(endpoint, use_cache, in_data=True)
+        data = await self._request(endpoint, use_cache=use_cache, in_data=True)
         sets = [gi.ArtifactSet(**set_) for set_ in data.values()]
         for set_ in sets:
             set_.name = set_.names[GI_LANG_MAP[self.lang]]
@@ -154,7 +154,7 @@ class GIClient(BaseClient):
             The artifact set details object.
         """
         endpoint = f"artifact/{set_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return gi.ArtifactSetDetail(**data)
 
     async def fetch_stygians(self, *, use_cache: bool = True) -> list[gi.Stygian]:
@@ -166,7 +166,7 @@ class GIClient(BaseClient):
         Returns:
             A list of Stygian objects.
         """
-        data = await self._request("leyline", use_cache, in_data=True)
+        data = await self._request("leyline", use_cache=use_cache, in_data=True)
 
         stygian_entries = [
             gi.Stygian(id=int(stygian_id), **stygian) for stygian_id, stygian in data.items()
@@ -189,7 +189,7 @@ class GIClient(BaseClient):
             The Stygian details object.
         """
         endpoint = f"leyline/{stygian_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return gi.StygianDetail(**data)
 
     async def fetch_mw_costumes(self, *, use_cache: bool = True) -> list[gi.MWCostume]:
@@ -202,7 +202,7 @@ class GIClient(BaseClient):
             A list of Miliastra Wonderland costumes and costume sets.
         """
         endpoint = "beyond/costume_all"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
 
         return [gi.MWCostume(**costume) for costume in data.values()]
 
@@ -216,7 +216,7 @@ class GIClient(BaseClient):
             A list of Miliastra Wonderland costume sets.
         """
         endpoint = "beyond/costume_suit_all"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
 
         return [gi.MWCostumeSet(**costume_set) for costume_set in data.values()]
 
@@ -230,6 +230,6 @@ class GIClient(BaseClient):
             A list of Miliastra Wonderland items.
         """
         endpoint = "beyond/item_all"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
 
         return [gi.MWItem(id=int(item_id), **item) for item_id, item in data.items()]

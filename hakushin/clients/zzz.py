@@ -47,7 +47,7 @@ class ZZZClient(BaseClient):
         Returns:
             A model representing the new items.
         """
-        data = await self._request("new", use_cache, static=True)
+        data = await self._request("new", use_cache=use_cache, static=True)
         return zzz.New(**data)
 
     async def fetch_characters(
@@ -61,7 +61,7 @@ class ZZZClient(BaseClient):
         Returns:
             A list of character objects.
         """
-        data = await self._request("character", use_cache, in_data=True, version=version)
+        data = await self._request("character", use_cache=use_cache, in_data=True, version=version)
 
         characters = [
             zzz.Character(id=int(char_id), **char)
@@ -87,7 +87,7 @@ class ZZZClient(BaseClient):
             The character details object.
         """
         endpoint = f"character/{character_id}"
-        data = await self._request(endpoint, use_cache, version=version)
+        data = await self._request(endpoint, use_cache=use_cache, version=version)
         return zzz.CharacterDetail(**data)
 
     async def fetch_weapons(self, *, use_cache: bool = True) -> list[zzz.Weapon]:
@@ -99,7 +99,7 @@ class ZZZClient(BaseClient):
         Returns:
             A list of weapon objects.
         """
-        data = await self._request("weapon", use_cache, in_data=True)
+        data = await self._request("weapon", use_cache=use_cache, in_data=True)
 
         weapons = [zzz.Weapon(id=int(weapon_id), **weapon) for weapon_id, weapon in data.items()]
         for weapon in weapons:
@@ -120,7 +120,7 @@ class ZZZClient(BaseClient):
             The weapon details object.
         """
         endpoint = f"weapon/{weapon_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return zzz.WeaponDetail(**data)
 
     async def fetch_bangboos(self, *, use_cache: bool = True) -> list[zzz.Bangboo]:
@@ -132,7 +132,7 @@ class ZZZClient(BaseClient):
         Returns:
             A list of bangboo objects.
         """
-        data = await self._request("bangboo", use_cache, in_data=True)
+        data = await self._request("bangboo", use_cache=use_cache, in_data=True)
         bangboos = [
             zzz.Bangboo(id=int(bangboo_id), **bangboo) for bangboo_id, bangboo in data.items()
         ]
@@ -153,7 +153,7 @@ class ZZZClient(BaseClient):
             The bangboo details object.
         """
         endpoint = f"bangboo/{bangboo_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return zzz.BangbooDetail(**data)
 
     async def fetch_drive_discs(self, *, use_cache: bool = True) -> list[zzz.DriveDisc]:
@@ -165,7 +165,7 @@ class ZZZClient(BaseClient):
         Returns:
             A list of drive disc objects.
         """
-        data = await self._request("equipment", use_cache, in_data=True)
+        data = await self._request("equipment", use_cache=use_cache, in_data=True)
         drive_discs = [
             zzz.DriveDisc(id=int(drive_disc_id), **drive_disc)
             for drive_disc_id, drive_disc in data.items()
@@ -202,7 +202,7 @@ class ZZZClient(BaseClient):
             The drive disc details object.
         """
         endpoint = f"equipment/{drive_disc_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return zzz.DriveDiscDetail(**data)
 
     async def fetch_items(self, *, use_cache: bool = True) -> Sequence[zzz.Item]:
@@ -214,6 +214,6 @@ class ZZZClient(BaseClient):
         Returns:
             A list of item objects.
         """
-        data = await self._request("item", use_cache)
+        data = await self._request("item", use_cache=use_cache)
         items = [zzz.Item(id=int(item_id), **item) for item_id, item in data.items()]
         return items

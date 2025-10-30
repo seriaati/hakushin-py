@@ -71,8 +71,8 @@ class BaseClient:
     async def _request(
         self,
         endpoint: str,
-        use_cache: bool,
         *,
+        use_cache: bool,
         static: bool = False,
         in_data: bool = False,
         version: str | None = None,

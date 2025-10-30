@@ -59,8 +59,8 @@ class HSRClient(BaseClient):
         ):
             return self._elite_groups_cache, self._hard_level_groups_cache
 
-        elite_raw = await self._request("EliteGroup", use_cache, in_data=True)
-        hlg_raw = await self._request("HardLevelGroup", use_cache, in_data=True)
+        elite_raw = await self._request("EliteGroup", use_cache=use_cache, in_data=True)
+        hlg_raw = await self._request("HardLevelGroup", use_cache=use_cache, in_data=True)
 
         self._elite_groups_cache = {
             item["EliteGroup"]: hsr.EliteGroup(**item)
@@ -85,7 +85,7 @@ class HSRClient(BaseClient):
         Returns:
             A model representing the new items.
         """
-        data = await self._request("new", use_cache, static=True)
+        data = await self._request("new", use_cache=use_cache, static=True)
         return hsr.New(**data)
 
     async def fetch_monsters(self, *, use_cache: bool = True) -> list[hsr.Monster]:
@@ -97,7 +97,7 @@ class HSRClient(BaseClient):
         Returns:
             A list of monster objects.
         """
-        data = await self._request("monster", use_cache, in_data=True)
+        data = await self._request("monster", use_cache=use_cache, in_data=True)
 
         monsters = [
             hsr.Monster(id=int(monster_id), **monster) for monster_id, monster in data.items()
@@ -120,7 +120,7 @@ class HSRClient(BaseClient):
             A `MonsterDetail` object containing the full monster stats and metadata.
         """
         endpoint = f"monster/{monster_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return hsr.MonsterDetail(**data)
 
     async def fetch_moc(self, *, use_cache: bool = True) -> list[hsr.EndgameSummary]:
@@ -132,7 +132,7 @@ class HSRClient(BaseClient):
         Returns:
             A list of `EndgameSummary` objects for each MoC event.
         """
-        data = await self._request("maze", use_cache, in_data=True)
+        data = await self._request("maze", use_cache=use_cache, in_data=True)
 
         mocs = [
             hsr.EndgameSummary(type=HSREndgameType.MEMORY_OF_CHAOS, **moc)
@@ -171,7 +171,7 @@ class HSRClient(BaseClient):
             with `ProcessedEnemy` models directly on the wave objects.
         """
         endpoint = f"maze/{moc_id}"
-        data: dict[str, Any] = await self._request(endpoint, use_cache)
+        data: dict[str, Any] = await self._request(endpoint, use_cache=use_cache)
         data["Id"] = moc_id
 
         detail = hsr.MOCDetail(**data)
@@ -189,7 +189,7 @@ class HSRClient(BaseClient):
         Returns:
             A list of `EndgameSummary` objects for each Pure Fiction event.
         """
-        data = await self._request("maze_extra", use_cache, in_data=True)
+        data = await self._request("maze_extra", use_cache=use_cache, in_data=True)
 
         pfs = [hsr.EndgameSummary(type=HSREndgameType.PURE_FICTION, **pf) for _, pf in data.items()]
         for pf in pfs:
@@ -224,7 +224,7 @@ class HSRClient(BaseClient):
             with `ProcessedEnemy` models directly on the wave objects.
         """
         endpoint = f"story/{pf_id}"
-        data: dict[str, Any] = await self._request(endpoint, use_cache)
+        data: dict[str, Any] = await self._request(endpoint, use_cache=use_cache)
 
         detail = hsr.PFDetail(**data)
         if full:
@@ -241,7 +241,7 @@ class HSRClient(BaseClient):
         Returns:
             A list of `EndgameSummary` objects for each Apocalyptic Shadow event.
         """
-        data = await self._request("maze_boss", use_cache, in_data=True)
+        data = await self._request("maze_boss", use_cache=use_cache, in_data=True)
 
         apocs = [
             hsr.EndgameSummary(type=HSREndgameType.APOCALYPTIC_SHADOW, **apoc)
@@ -279,7 +279,7 @@ class HSRClient(BaseClient):
             with `ProcessedEnemy` models directly on the wave objects.
         """
         endpoint = f"boss/{apoc_id}"
-        data: dict[str, Any] = await self._request(endpoint, use_cache)
+        data: dict[str, Any] = await self._request(endpoint, use_cache=use_cache)
 
         detail = hsr.ApocDetail(**data)
         if full:
@@ -296,7 +296,7 @@ class HSRClient(BaseClient):
         Returns:
             A list of character objects.
         """
-        data = await self._request("character", use_cache, in_data=True)
+        data = await self._request("character", use_cache=use_cache, in_data=True)
 
         characters = [hsr.Character(id=int(char_id), **char) for char_id, char in data.items()]
         for char in characters:
@@ -319,7 +319,7 @@ class HSRClient(BaseClient):
             The character details object.
         """
         endpoint = f"character/{character_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return hsr.CharacterDetail(**data)
 
     async def fetch_light_cones(self, *, use_cache: bool = True) -> list[hsr.LightCone]:
@@ -332,7 +332,7 @@ class HSRClient(BaseClient):
             A list of light cone objects.
         """
         endpoint = "lightcone"
-        data = await self._request(endpoint, use_cache, in_data=True)
+        data = await self._request(endpoint, use_cache=use_cache, in_data=True)
         light_cones = [
             hsr.LightCone(id=int(light_cone_id), **light_cone)
             for light_cone_id, light_cone in data.items()
@@ -354,7 +354,7 @@ class HSRClient(BaseClient):
             The light cone details object.
         """
         endpoint = f"lightcone/{light_cone_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return hsr.LightConeDetail(**data)
 
     async def fetch_relic_sets(self, *, use_cache: bool = True) -> list[hsr.RelicSet]:
@@ -367,7 +367,7 @@ class HSRClient(BaseClient):
             A list of relic set objects.
         """
         endpoint = "relicset"
-        data = await self._request(endpoint, use_cache, in_data=True)
+        data = await self._request(endpoint, use_cache=use_cache, in_data=True)
         sets = [hsr.RelicSet(id=int(set_id), **set_) for set_id, set_ in data.items()]
 
         for set_ in sets:
@@ -398,7 +398,7 @@ class HSRClient(BaseClient):
             The relic set details object.
         """
         endpoint = f"relicset/{set_id}"
-        data = await self._request(endpoint, use_cache)
+        data = await self._request(endpoint, use_cache=use_cache)
         return hsr.RelicSetDetail(**data)
 
     async def _replace_enemy_ids_with_enemies(self, detail: T) -> T:
