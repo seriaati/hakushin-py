@@ -1,4 +1,5 @@
 """Miliastra Wonderland costume and item models."""
+
 from __future__ import annotations
 
 from typing import Literal
@@ -52,6 +53,13 @@ class MWItem(APIModel):
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
     rarity: Literal[5, 4, 3, 2, 1] | None = Field(alias="Rank")
-    icon: str = Field(alias="Icon")
+    icon: str | None = Field(alias="Icon")
     type: str = Field(alias="ItemType")
     sources: list[str] = Field(alias="SourceList")
+
+    @field_validator("icon", mode="before")
+    @classmethod
+    def __icon_url(cls, v: str) -> str | None:
+        if not v:
+            return None
+        return f"https://api.hakush.in/gi/UI/{v}.webp"
