@@ -108,14 +108,13 @@ class CharacterPassive(APIModel):
     Attributes:
         name: Name of the passive talent.
         description: Description of the passive talent.
-        unlock: Unlock requirement for the passive talent.
         parameters: List of parameters for the passive talent.
         icon: Icon URL of the passive talent.
     """
 
     name: str = Field(alias="Name")
     description: str = Field(alias="Desc")
-    unlock: int = Field(alias="Unlock")
+    unlock: int | list[int] = Field(alias="Unlock")
     parameters: list[float] = Field(alias="ParamList")
     icon: str = Field(alias="Icon")
 
