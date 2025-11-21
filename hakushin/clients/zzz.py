@@ -90,16 +90,18 @@ class ZZZClient(BaseClient):
         data = await self._request(endpoint, use_cache=use_cache, version=version)
         return zzz.CharacterDetail(**data)
 
-    async def fetch_weapons(self, *, use_cache: bool = True) -> list[zzz.Weapon]:
+    async def fetch_weapons(
+        self, *, use_cache: bool = True, version: str | None = None
+    ) -> list[zzz.Weapon]:
         """Fetch all Zenless Zone Zero weapons (w-engines).
 
         Args:
             use_cache: Whether to use the response cache.
-
+            version: The game version to fetch data for.
         Returns:
             A list of weapon objects.
         """
-        data = await self._request("weapon", use_cache=use_cache, in_data=True)
+        data = await self._request("weapon", use_cache=use_cache, in_data=True, version=version)
 
         weapons = [zzz.Weapon(id=int(weapon_id), **weapon) for weapon_id, weapon in data.items()]
         for weapon in weapons:
