@@ -123,16 +123,18 @@ class ZZZClient(BaseClient):
         data = await self._request(endpoint, use_cache=use_cache)
         return zzz.WeaponDetail(**data)
 
-    async def fetch_bangboos(self, *, use_cache: bool = True) -> list[zzz.Bangboo]:
+    async def fetch_bangboos(
+        self, *, use_cache: bool = True, version: str | None = None
+    ) -> list[zzz.Bangboo]:
         """Fetch all Zenless Zone Zero bangboos.
 
         Args:
             use_cache: Whether to use the response cache.
-
+            version: The game version to fetch data for.
         Returns:
             A list of bangboo objects.
         """
-        data = await self._request("bangboo", use_cache=use_cache, in_data=True)
+        data = await self._request("bangboo", use_cache=use_cache, in_data=True, version=version)
         bangboos = [
             zzz.Bangboo(id=int(bangboo_id), **bangboo) for bangboo_id, bangboo in data.items()
         ]
@@ -156,16 +158,18 @@ class ZZZClient(BaseClient):
         data = await self._request(endpoint, use_cache=use_cache)
         return zzz.BangbooDetail(**data)
 
-    async def fetch_drive_discs(self, *, use_cache: bool = True) -> list[zzz.DriveDisc]:
+    async def fetch_drive_discs(
+        self, *, use_cache: bool = True, version: str | None = None
+    ) -> list[zzz.DriveDisc]:
         """Fetch all Zenless Zone Zero drive discs.
 
         Args:
             use_cache: Whether to use the response cache.
-
+            version: The game version to fetch data for.
         Returns:
             A list of drive disc objects.
         """
-        data = await self._request("equipment", use_cache=use_cache, in_data=True)
+        data = await self._request("equipment", use_cache=use_cache, in_data=True, version=version)
         drive_discs = [
             zzz.DriveDisc(id=int(drive_disc_id), **drive_disc)
             for drive_disc_id, drive_disc in data.items()
