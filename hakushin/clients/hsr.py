@@ -287,16 +287,19 @@ class HSRClient(BaseClient):
 
         return detail
 
-    async def fetch_characters(self, *, use_cache: bool = True) -> list[hsr.Character]:
+    async def fetch_characters(
+        self, *, use_cache: bool = True, version: str | None = None
+    ) -> list[hsr.Character]:
         """Fetch all Honkai Star Rail characters.
 
         Args:
             use_cache: Whether to use the response cache.
+            version: The version of the characters to fetch.
 
         Returns:
             A list of character objects.
         """
-        data = await self._request("character", use_cache=use_cache, in_data=True)
+        data = await self._request("character", use_cache=use_cache, in_data=True, version=version)
 
         characters = [hsr.Character(id=int(char_id), **char) for char_id, char in data.items()]
         for char in characters:
@@ -322,17 +325,19 @@ class HSRClient(BaseClient):
         data = await self._request(endpoint, use_cache=use_cache)
         return hsr.CharacterDetail(**data)
 
-    async def fetch_light_cones(self, *, use_cache: bool = True) -> list[hsr.LightCone]:
+    async def fetch_light_cones(
+        self, *, use_cache: bool = True, version: str | None = None
+    ) -> list[hsr.LightCone]:
         """Fetch all Honkai Star Rail light cones.
 
         Args:
             use_cache: Whether to use the response cache.
-
+            version: The version of the light cones to fetch.
         Returns:
             A list of light cone objects.
         """
         endpoint = "lightcone"
-        data = await self._request(endpoint, use_cache=use_cache, in_data=True)
+        data = await self._request(endpoint, use_cache=use_cache, in_data=True, version=version)
         light_cones = [
             hsr.LightCone(id=int(light_cone_id), **light_cone)
             for light_cone_id, light_cone in data.items()
@@ -357,17 +362,19 @@ class HSRClient(BaseClient):
         data = await self._request(endpoint, use_cache=use_cache)
         return hsr.LightConeDetail(**data)
 
-    async def fetch_relic_sets(self, *, use_cache: bool = True) -> list[hsr.RelicSet]:
+    async def fetch_relic_sets(
+        self, *, use_cache: bool = True, version: str | None = None
+    ) -> list[hsr.RelicSet]:
         """Fetch all Honkai Star Rail relic sets.
 
         Args:
             use_cache: Whether to use the response cache.
-
+            version: The version of the relic sets to fetch.
         Returns:
             A list of relic set objects.
         """
         endpoint = "relicset"
-        data = await self._request(endpoint, use_cache=use_cache, in_data=True)
+        data = await self._request(endpoint, use_cache=use_cache, in_data=True, version=version)
         sets = [hsr.RelicSet(id=int(set_id), **set_) for set_id, set_ in data.items()]
 
         for set_ in sets:

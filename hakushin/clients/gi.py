@@ -49,16 +49,19 @@ class GIClient(BaseClient):
         data = await self._request("new", use_cache=use_cache, static=True)
         return gi.New(**data)
 
-    async def fetch_characters(self, *, use_cache: bool = True) -> list[gi.Character]:
+    async def fetch_characters(
+        self, *, use_cache: bool = True, version: str | None = None
+    ) -> list[gi.Character]:
         """Fetch all Genshin Impact characters.
 
         Args:
             use_cache: Whether to use the response cache.
+            version: The version of the characters to fetch.
 
         Returns:
             A list of character objects.
         """
-        data = await self._request("character", use_cache=use_cache, in_data=True)
+        data = await self._request("character", use_cache=use_cache, in_data=True, version=version)
 
         characters = [gi.Character(id=char_id, **char) for char_id, char in data.items()]
         for char in characters:
@@ -82,17 +85,20 @@ class GIClient(BaseClient):
         data = await self._request(endpoint, use_cache=use_cache)
         return gi.CharacterDetail(**data)
 
-    async def fetch_weapons(self, *, use_cache: bool = True) -> list[gi.Weapon]:
+    async def fetch_weapons(
+        self, *, use_cache: bool = True, version: str | None = None
+    ) -> list[gi.Weapon]:
         """Fetch all Genshin Impact weapons.
 
         Args:
             use_cache: Whether to use the response cache.
+            version: The version of the weapons to fetch.
 
         Returns:
             A list of weapon objects.
         """
         endpoint = "weapon"
-        data = await self._request(endpoint, use_cache=use_cache, in_data=True)
+        data = await self._request(endpoint, use_cache=use_cache, in_data=True, version=version)
         weapons = [gi.Weapon(id=int(weapon_id), **weapon) for weapon_id, weapon in data.items()]
         for weapon in weapons:
             weapon.name = weapon.names[GI_LANG_MAP[self.lang]]
@@ -114,17 +120,19 @@ class GIClient(BaseClient):
         data = await self._request(endpoint, use_cache=use_cache)
         return gi.WeaponDetail(**data)
 
-    async def fetch_artifact_sets(self, *, use_cache: bool = True) -> list[gi.ArtifactSet]:
+    async def fetch_artifact_sets(
+        self, *, use_cache: bool = True, version: str | None = None
+    ) -> list[gi.ArtifactSet]:
         """Fetch all Genshin Impact artifact sets.
 
         Args:
             use_cache: Whether to use the response cache.
-
+            version: The version of the artifact sets to fetch.
         Returns:
             A list of artifact set objects.
         """
         endpoint = "artifact"
-        data = await self._request(endpoint, use_cache=use_cache, in_data=True)
+        data = await self._request(endpoint, use_cache=use_cache, in_data=True, version=version)
         sets = [gi.ArtifactSet(**set_) for set_ in data.values()]
         for set_ in sets:
             set_.name = set_.names[GI_LANG_MAP[self.lang]]
