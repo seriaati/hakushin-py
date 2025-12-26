@@ -116,6 +116,15 @@ class Character(APIModel):
         """
         return self.image.replace("Role", "RoleSelect")
 
+    @computed_field
+    @property
+    def cropped_icon(self) -> str:
+        """Agent cropped icon.
+
+        Example: https://api.hakush.in/zzz/UI/IconRoleCrop01.webp
+        """
+        return self.image.replace("Role", "RoleCrop")
+
     @field_validator("rarity", mode="before")
     @classmethod
     def __convert_rarity(cls, value: int | None) -> Literal["S", "A"] | None:
