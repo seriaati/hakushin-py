@@ -21,7 +21,7 @@ class Item(APIModel):
     """
 
     icon: str
-    rarity: Literal[1, 2, 3, 4, 5] = Field(alias="rank")
+    rarity: Literal[0, 1, 2, 3, 4, 5] = Field(alias="rank")
     class_: int = Field(alias="class")
     name: str
     id: int
