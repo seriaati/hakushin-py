@@ -146,6 +146,11 @@ class EndgameStage(APIModel):
     first_half: EndgameHalf = Field(alias="EventIDList1")
     second_half: EndgameHalf | None = Field(alias="EventIDList2")
 
+    @field_validator("name", mode="before")
+    @classmethod
+    def __handle_missing_name(cls, value: str | None) -> str:
+        return "" if value is None else value
+
     @model_validator(mode="before")
     @classmethod
     def __unwrap_event_lists(cls, values: dict[str, Any]) -> dict[str, Any]:
