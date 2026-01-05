@@ -27,6 +27,47 @@ __all__ = (
 )
 
 
+class PotentialMaterial(APIModel):
+    """Represent a material required for character potential upgrades.
+
+    Attributes:
+        id: ID of the material.
+        number: Quantity of the material needed? Or maybe it's just a number...
+    """
+
+    id: int = Field(alias="ItemId")
+    number: int = Field(alias="Number")
+
+
+class CharacterPotential(APIModel):
+    """Represent a character potential upgrade in Zenless Zone Zero.
+
+    Attributes:
+        id: Unique potential identifier.
+        name: Potential upgrade name.
+        short_name: Short display name for the potential.
+        description: Description of the potential's effect.
+        image: Image URL representing the potential.
+        level: Level of the potential upgrade.
+        affected_skills: List of skill IDs affected by this potential.
+        materials: List of materials required to unlock or upgrade this potential.
+    """
+
+    id: int = Field(alias="Id")
+    name: str = Field(alias="Name")
+    short_name: str = Field(alias="LevelShowName")
+    description: str = Field(alias="Desc")
+    image: str = Field(alias="Image")
+    level: int = Field(alias="Level")
+    affected_skills: list[int] = Field(alias="AbilityList")
+    materials: list[PotentialMaterial] = Field(alias="PotentialMaterials")
+
+    @field_validator("image", mode="after")
+    @classmethod
+    def __convert_image(cls, value: str) -> str:
+        return f"https://api.hakush.in/zzz/UI/AvatarSpecialAwakenBg_{value}.webp"
+
+
 class CharacterSkin(APIModel):
     """Represent a character skin in Zenless Zone Zero.
 
@@ -461,6 +502,7 @@ class CharacterDetail(APIModel):
     skills: dict[ZZZSkillType, CharacterSkill] = Field(alias="Skill")
     passive: CharacterCoreSkill = Field(alias="Passive")
     skins: list[CharacterSkin] = Field(alias="Skin", default_factory=list)
+    potentials: list[CharacterPotential] = Field(alias="PotentialDetail", default_factory=list)
 
     @computed_field
     @property
@@ -556,3 +598,8 @@ class CharacterDetail(APIModel):
     @classmethod
     def __convert_skins(cls, value: dict[str, dict[str, Any]]) -> list[CharacterSkin]:
         return [CharacterSkin(Id=int(k), **v) for k, v in value.items()]
+
+    @field_validator("potentials", mode="before")
+    @classmethod
+    def __flatten_potentials(cls, value: dict[str, dict[str, Any]]) -> list[CharacterPotential]:
+        return [CharacterPotential(**data) for data in value.values()]
