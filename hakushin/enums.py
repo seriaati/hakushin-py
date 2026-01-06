@@ -76,6 +76,7 @@ class HSRPath(StrEnum):
     NIHILITY = "Warlock"
     ABUNDANCE = "Priest"
     REMEMBRANCE = "Memory"
+    ELATION = "Elation"
 
 
 class HSREndgameType(StrEnum):
