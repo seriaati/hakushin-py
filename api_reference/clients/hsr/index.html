@@ -1,0 +1,4082 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Async API wrapper for hakush.in written in Python">
+      
+      
+        <meta name="author" content="Seria Ati">
+      
+      
+        <link rel="canonical" href="https://gh.seria.moe/hakushin-py/api_reference/clients/hsr/">
+      
+      
+        <link rel="prev" href="../gi/">
+      
+      
+        <link rel="next" href="../zzz/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Honkai Star Rail - hakushin-py</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="hakushin-py" class="md-header__button md-logo" aria-label="hakushin-py" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            hakushin-py
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Honkai Star Rail
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="black"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/seriaati/hakushin-py" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    seriaati/hakushin-py
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../getting_started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../client/" class="md-tabs__link">
+          
+  
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="hakushin-py" class="md-nav__button md-logo" aria-label="hakushin-py" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    hakushin-py
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/seriaati/hakushin-py" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    seriaati/hakushin-py
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clients
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Clients
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../client/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genshin Impact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Honkai Star Rail
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Honkai Star Rail
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;hsr
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" hsr">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.T" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;T
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;HSRClient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" HSRClient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;calculate_hsr_enemy_stats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" calculate_hsr_enemy_stats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(endgame_data)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;endgame_data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(egs)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;egs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(hlgs)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;hlgs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(stage_num)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;stage_num
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_apoc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_apoc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_apoc_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_apoc_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(apoc_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;apoc_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(full)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;full
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_character_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_character_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_character_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_character_detail(character_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;character_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_character_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_characters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_characters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_characters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_characters(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_characters(version)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_elite_and_hard_level_groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_elite_and_hard_level_groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cone_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_light_cone_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_light_cone_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cone_detail(light_cone_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;light_cone_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cone_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_light_cones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_light_cones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cones(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cones(version)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_moc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_moc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_moc_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_moc_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(moc_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;moc_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(full)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;full
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_monsters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_monsters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_monsters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_monsters(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_monsters_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_monsters_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_monsters_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_monsters_detail(monster_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;monster_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_monsters_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_new
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_new">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_new(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_pf
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_pf">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_pf_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_pf_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(pf_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;pf_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(full)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;full
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_set_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_relic_set_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_relic_set_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_set_detail(set_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;set_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_set_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_relic_sets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_relic_sets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_sets(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_sets(version)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zzz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zenless Zone Zero
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Models
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/gi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Genshin Impact
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/hsr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Honkai Star Rail
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/zzz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zenless Zone Zero
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Errors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utils
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-module"></code>&nbsp;hsr
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" hsr">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.T" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;T
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-class"></code>&nbsp;HSRClient
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" HSRClient">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;calculate_hsr_enemy_stats
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" calculate_hsr_enemy_stats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(endgame_data)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;endgame_data
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(egs)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;egs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(hlgs)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;hlgs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(stage_num)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;stage_num
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_apoc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_apoc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_apoc_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_apoc_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(apoc_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;apoc_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(full)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;full
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_character_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_character_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_character_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_character_detail(character_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;character_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_character_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_characters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_characters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_characters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_characters(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_characters(version)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_elite_and_hard_level_groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_elite_and_hard_level_groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cone_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_light_cone_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_light_cone_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cone_detail(light_cone_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;light_cone_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cone_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_light_cones
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_light_cones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cones(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_light_cones(version)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_moc
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_moc">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_moc_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_moc_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(moc_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;moc_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(full)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;full
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_monsters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_monsters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_monsters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_monsters(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_monsters_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_monsters_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_monsters_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_monsters_detail(monster_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;monster_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_monsters_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_new" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_new
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_new">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_new(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_pf
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_pf">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_pf_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_pf_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(pf_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;pf_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(full)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;full
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_set_detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_relic_set_detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_relic_set_detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_set_detail(set_id)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;set_id
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_set_detail(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_sets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;fetch_relic_sets
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=" fetch_relic_sets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_sets(use_cache)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;use_cache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hakushin.clients.hsr.HSRClient.fetch_relic_sets(version)" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        <code class="doc-symbol doc-symbol-toc doc-symbol-parameter"></code>&nbsp;version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="api-reference">API Reference</h1>
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="hakushin.clients.hsr" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-module"></code>            <span class="doc doc-object-name doc-module-name">hsr</span>
+
+
+</h2>
+
+    <div class="doc doc-contents first">
+
+          
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Classes:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+          <b><code><a class="autorefs autorefs-internal" title="            HSRClient (hakushin.clients.hsr.HSRClient)" href="#hakushin.clients.hsr.HSRClient">HSRClient</a></code></b>
+          –
+          <div class="doc-md-description">
+            <p>Client to interact with the Hakushin Honkai Star Rail API.</p>
+          </div>
+        </li>
+    </ul>
+
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+<div class="doc doc-object doc-attribute">
+
+
+
+<h3 id="hakushin.clients.hsr.T" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">T</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-module-attribute"><code>module-attribute</code></small>
+  </span>
+
+</h3>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">T</span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" title="typing.TypeVar" href="https://docs.python.org/3/library/typing.html#typing.TypeVar">TypeVar</a></span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n"><span title="typing.TypeVar(bound)">bound</span></span><span class="o">=</span><span class="n"><a class="autorefs autorefs-internal" title="            EndgameBaseModel
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EndgameBaseModel)" href="../../models/hsr/#hakushin.models.hsr.EndgameBaseModel">EndgameBaseModel</a></span><span class="p">)</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+          
+    </div>
+
+</div>
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="hakushin.clients.hsr.HSRClient" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-class"></code>            <span class="doc doc-object-name doc-class-name">HSRClient</span>
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>Client to interact with the Hakushin Honkai Star Rail API.</p>
+
+          
+
+
+
+
+
+
+
+
+
+
+
+<p><span class="doc-section-title">Methods:</span></p>
+    <ul>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            calculate_hsr_enemy_stats
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats)" href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats">calculate_hsr_enemy_stats</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Calculate enemy stats for both halves of an Endgame stage from already fetched endgame detail.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_apoc
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_apoc)" href="#hakushin.clients.hsr.HSRClient.fetch_apoc">fetch_apoc</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch a list of Apocalyptic Shadow (Apoc) event summaries.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_apoc_detail
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_apoc_detail)" href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail">fetch_apoc_detail</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch detailed stage and wave data for a specific Apocalyptic Shadow event.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_character_detail
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_character_detail)" href="#hakushin.clients.hsr.HSRClient.fetch_character_detail">fetch_character_detail</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch the details of a Honkai Star Rail character.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_characters
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_characters)" href="#hakushin.clients.hsr.HSRClient.fetch_characters">fetch_characters</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch all Honkai Star Rail characters.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_elite_and_hard_level_groups
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_elite_and_hard_level_groups)" href="#hakushin.clients.hsr.HSRClient.fetch_elite_and_hard_level_groups">fetch_elite_and_hard_level_groups</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Download and structure EliteGroup and HardLevelGroup data from a JavaScript module.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_light_cone_detail
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_light_cone_detail)" href="#hakushin.clients.hsr.HSRClient.fetch_light_cone_detail">fetch_light_cone_detail</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch the details of a Honkai Star Rail light cone.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_light_cones
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_light_cones)" href="#hakushin.clients.hsr.HSRClient.fetch_light_cones">fetch_light_cones</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch all Honkai Star Rail light cones.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_moc
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_moc)" href="#hakushin.clients.hsr.HSRClient.fetch_moc">fetch_moc</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch a list of Memory of Chaos (MoC) event summaries.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_moc_detail
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_moc_detail)" href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail">fetch_moc_detail</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch detailed stage and wave data for a specific Memory of Chaos event.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_monsters
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_monsters)" href="#hakushin.clients.hsr.HSRClient.fetch_monsters">fetch_monsters</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch all Honkai Star Rail monsters.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_monsters_detail
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_monsters_detail)" href="#hakushin.clients.hsr.HSRClient.fetch_monsters_detail">fetch_monsters_detail</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch the full detail of a specific monster.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_new
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_new)" href="#hakushin.clients.hsr.HSRClient.fetch_new">fetch_new</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch the ID of beta items in Honkai Star Rail.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_pf
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_pf)" href="#hakushin.clients.hsr.HSRClient.fetch_pf">fetch_pf</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch a list of Pure Fiction (PF) event summaries.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_pf_detail
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_pf_detail)" href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail">fetch_pf_detail</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch detailed stage and wave data for a specific Pure Fiction event.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_relic_set_detail
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_relic_set_detail)" href="#hakushin.clients.hsr.HSRClient.fetch_relic_set_detail">fetch_relic_set_detail</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch the details of a Honkai Star Rail relic set.</p>
+            </div>
+          </li>
+          <li class="doc-section-item field-body">
+            <b><code><a class="autorefs autorefs-internal" title="            fetch_relic_sets
+
+
+  
+      async
+   (hakushin.clients.hsr.HSRClient.fetch_relic_sets)" href="#hakushin.clients.hsr.HSRClient.fetch_relic_sets">fetch_relic_sets</a></code></b>
+            –
+            <div class="doc-md-description">
+              <p>Fetch all Honkai Star Rail relic sets.</p>
+            </div>
+          </li>
+    </ul>
+
+
+
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">calculate_hsr_enemy_stats</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">calculate_hsr_enemy_stats</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="endgame_data (hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(endgame_data))" href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(endgame_data)">endgame_data</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            EndgameBaseModel
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EndgameBaseModel)" href="../../models/hsr/#hakushin.models.hsr.EndgameBaseModel">EndgameBaseModel</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="egs (hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(egs))" href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(egs)">egs</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="            EliteGroup
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EliteGroup)" href="../../models/hsr/#hakushin.models.hsr.EliteGroup">EliteGroup</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="hlgs (hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(hlgs))" href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(hlgs)">hlgs</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="            HardLevelGroup
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.HardLevelGroup)" href="../../models/hsr/#hakushin.models.hsr.HardLevelGroup">HardLevelGroup</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="stage_num (hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(stage_num))" href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(stage_num)">stage_num</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            ProcessedEnemy
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.ProcessedEnemy)" href="../../models/hsr/#hakushin.models.hsr.ProcessedEnemy">ProcessedEnemy</a></span><span class="p">]]]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Calculate enemy stats for both halves of an Endgame stage from already fetched endgame detail.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(endgame_data)" class="doc doc-heading doc-heading-parameter">              <b><code>endgame_data</code></b>
+</h5>              (<code><a class="autorefs autorefs-internal" title="            EndgameBaseModel
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EndgameBaseModel)" href="../../models/hsr/#hakushin.models.hsr.EndgameBaseModel">EndgameBaseModel</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The already fetched Endgame detail object (e.g., MemoryOfChaosDetail).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(egs)" class="doc doc-heading doc-heading-parameter">              <b><code>egs</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-internal" title="            EliteGroup
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EliteGroup)" href="../../models/hsr/#hakushin.models.hsr.EliteGroup">EliteGroup</a>]</code>)
+          –
+          <div class="doc-md-description">
+            <p>A dictionary of elite groups keyed by their IDs, get it from <a class="autorefs autorefs-internal" title="            fetch_elite_and_hard_level_groups
+
+
+  
+      async
+  " href="#hakushin.clients.hsr.HSRClient.fetch_elite_and_hard_level_groups">fetch_elite_and_hard_level_groups</a>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(hlgs)" class="doc doc-heading doc-heading-parameter">              <b><code>hlgs</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>], <a class="autorefs autorefs-internal" title="            HardLevelGroup
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.HardLevelGroup)" href="../../models/hsr/#hakushin.models.hsr.HardLevelGroup">HardLevelGroup</a>]</code>)
+          –
+          <div class="doc-md-description">
+            <p>A dictionary of hard level groups keyed by (HardLevelGroup ID, Level), get it from <a class="autorefs autorefs-internal" title="            fetch_elite_and_hard_level_groups
+
+
+  
+      async
+  " href="#hakushin.clients.hsr.HSRClient.fetch_elite_and_hard_level_groups">fetch_elite_and_hard_level_groups</a>.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats(stage_num)" class="doc doc-heading doc-heading-parameter">              <b><code>stage_num</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>, default:
+                  <code>0</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The 0-indexed stage number within the endgame (defaults to 0).</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-internal" title="            ProcessedEnemy
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.ProcessedEnemy)" href="../../models/hsr/#hakushin.models.hsr.ProcessedEnemy">ProcessedEnemy</a>]]]</code>
+          –
+          <div class="doc-md-description">
+            <p>A list containing two elements—one for each half of the stage.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-internal" title="            ProcessedEnemy
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.ProcessedEnemy)" href="../../models/hsr/#hakushin.models.hsr.ProcessedEnemy">ProcessedEnemy</a>]]]</code>
+          –
+          <div class="doc-md-description">
+            <p>Each half is a list of waves, and each wave is a list of <code>HSREnemy</code> objects</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-internal" title="            ProcessedEnemy
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.ProcessedEnemy)" href="../../models/hsr/#hakushin.models.hsr.ProcessedEnemy">ProcessedEnemy</a>]]]</code>
+          –
+          <div class="doc-md-description">
+            <p>(or None if a matching child monster variant cannot be found).</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-internal" title="            ProcessedEnemy
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.ProcessedEnemy)" href="../../models/hsr/#hakushin.models.hsr.ProcessedEnemy">ProcessedEnemy</a>]]]</code>
+          –
+          <div class="doc-md-description">
+            <p>The structure is:
+[
+    [  # First half
+        [HSREnemy, HSREnemy, ...],  # Wave 1
+        [HSREnemy, HSREnemy, ...],  # Wave 2
+    ],
+    [  # Second half
+        ...
+    ]
+]</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_apoc" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_apoc</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_apoc</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_apoc(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_apoc(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            EndgameSummary
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EndgameSummary)" href="../../models/hsr/#hakushin.models.hsr.EndgameSummary">EndgameSummary</a></span><span class="p">]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch a list of Apocalyptic Shadow (Apoc) event summaries.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_apoc(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-internal" title="            EndgameSummary
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EndgameSummary)" href="../../models/hsr/#hakushin.models.hsr.EndgameSummary">EndgameSummary</a>]</code>
+          –
+          <div class="doc-md-description">
+            <p>A list of <code>EndgameSummary</code> objects for each Apocalyptic Shadow event.</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_apoc_detail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_apoc_detail</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+          <div class="doc-overloads">
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_apoc_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="apoc_id (hakushin.clients.hsr.HSRClient.fetch_apoc_detail(apoc_id))" href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(apoc_id)">apoc_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="full (hakushin.clients.hsr.HSRClient.fetch_apoc_detail(full))" href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(full)">full</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Literal" href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a></span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_apoc_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            ApocDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.ApocDetail)" href="../../models/hsr/#hakushin.models.hsr.ApocDetail">ApocDetail</a></span>
+</span></code></pre></div><div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_apoc_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="apoc_id (hakushin.clients.hsr.HSRClient.fetch_apoc_detail(apoc_id))" href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(apoc_id)">apoc_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="full (hakushin.clients.hsr.HSRClient.fetch_apoc_detail(full))" href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(full)">full</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Literal" href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a></span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_apoc_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            FullApocDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.FullApocDetail)" href="../../models/hsr/#hakushin.models.hsr.FullApocDetail">FullApocDetail</a></span>
+</span></code></pre></div>          </div>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_apoc_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="apoc_id (hakushin.clients.hsr.HSRClient.fetch_apoc_detail(apoc_id))" href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(apoc_id)">apoc_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="full (hakushin.clients.hsr.HSRClient.fetch_apoc_detail(full))" href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(full)">full</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_apoc_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_apoc_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            ApocDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.ApocDetail)" href="../../models/hsr/#hakushin.models.hsr.ApocDetail">ApocDetail</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-internal" title="            FullApocDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.FullApocDetail)" href="../../models/hsr/#hakushin.models.hsr.FullApocDetail">FullApocDetail</a></span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch detailed stage and wave data for a specific Apocalyptic Shadow event.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_apoc_detail(apoc_id)" class="doc doc-heading doc-heading-parameter">              <b><code>apoc_id</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The ID of the Apocalyptic Shadow event.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_apoc_detail(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_apoc_detail(full)" class="doc doc-heading doc-heading-parameter">              <b><code>full</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>False</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>If True, return calculated <code>ProcessedEnemy</code> stats instead of the raw model.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            ApocDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.ApocDetail)" href="../../models/hsr/#hakushin.models.hsr.ApocDetail">ApocDetail</a> | <a class="autorefs autorefs-internal" title="            FullApocDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.FullApocDetail)" href="../../models/hsr/#hakushin.models.hsr.FullApocDetail">FullApocDetail</a></code>
+          –
+          <div class="doc-md-description">
+            <p><code>FullApocDetail</code> if <code>full=True</code>, otherwise <code>ApocDetail</code>.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>When <code>full=True</code>, this method performs additional stat
+calculation using <a class="autorefs autorefs-internal" title="            calculate_hsr_enemy_stats
+
+
+  
+      async
+  " href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats">calculate_hsr_enemy_stats</a> and replaces enemy ID lists
+with <code>ProcessedEnemy</code> models directly on the wave objects.</p>
+</details>
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_character_detail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_character_detail</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_character_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="character_id (hakushin.clients.hsr.HSRClient.fetch_character_detail(character_id))" href="#hakushin.clients.hsr.HSRClient.fetch_character_detail(character_id)">character_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_character_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_character_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            CharacterDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.CharacterDetail)" href="../../models/hsr/#hakushin.models.hsr.CharacterDetail">CharacterDetail</a></span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the details of a Honkai Star Rail character.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_character_detail(character_id)" class="doc doc-heading doc-heading-parameter">              <b><code>character_id</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The character ID.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_character_detail(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            CharacterDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.CharacterDetail)" href="../../models/hsr/#hakushin.models.hsr.CharacterDetail">CharacterDetail</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The character details object.</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_characters" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_characters</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_characters</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_characters(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_characters(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="version (hakushin.clients.hsr.HSRClient.fetch_characters(version))" href="#hakushin.clients.hsr.HSRClient.fetch_characters(version)">version</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            Character
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.Character)" href="../../models/hsr/#hakushin.models.hsr.Character">Character</a></span><span class="p">]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch all Honkai Star Rail characters.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_characters(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_characters(version)" class="doc doc-heading doc-heading-parameter">              <b><code>version</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The version of the characters to fetch.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-internal" title="            Character
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.Character)" href="../../models/hsr/#hakushin.models.hsr.Character">Character</a>]</code>
+          –
+          <div class="doc-md-description">
+            <p>A list of character objects.</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_elite_and_hard_level_groups" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_elite_and_hard_level_groups</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_elite_and_hard_level_groups</span><span class="p">(</span><span class="n"><span title="hakushin.clients.hsr.HSRClient.fetch_elite_and_hard_level_groups(use_cache)">use_cache</span></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="            EliteGroup
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EliteGroup)" href="../../models/hsr/#hakushin.models.hsr.EliteGroup">EliteGroup</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">],</span> <span class="n"><a class="autorefs autorefs-internal" title="            HardLevelGroup
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.HardLevelGroup)" href="../../models/hsr/#hakushin.models.hsr.HardLevelGroup">HardLevelGroup</a></span><span class="p">]]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Download and structure EliteGroup and HardLevelGroup data from a JavaScript module.</p>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-internal" title="            EliteGroup
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EliteGroup)" href="../../models/hsr/#hakushin.models.hsr.EliteGroup">EliteGroup</a>], <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#tuple">tuple</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a>], <a class="autorefs autorefs-internal" title="            HardLevelGroup
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.HardLevelGroup)" href="../../models/hsr/#hakushin.models.hsr.HardLevelGroup">HardLevelGroup</a>]]</code>
+          –
+          <div class="doc-md-description">
+            <p>A tuple of:
+- dict[int, EliteGroup]: keyed by EliteGroup ID
+- dict[tuple[int, int], HardLevelGroup]: keyed by (HardLevelGroup, Level)</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_light_cone_detail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_light_cone_detail</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_light_cone_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="light_cone_id (hakushin.clients.hsr.HSRClient.fetch_light_cone_detail(light_cone_id))" href="#hakushin.clients.hsr.HSRClient.fetch_light_cone_detail(light_cone_id)">light_cone_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_light_cone_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_light_cone_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            LightConeDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.LightConeDetail)" href="../../models/hsr/#hakushin.models.hsr.LightConeDetail">LightConeDetail</a></span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the details of a Honkai Star Rail light cone.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_light_cone_detail(light_cone_id)" class="doc doc-heading doc-heading-parameter">              <b><code>light_cone_id</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The light cone ID.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_light_cone_detail(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            LightConeDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.LightConeDetail)" href="../../models/hsr/#hakushin.models.hsr.LightConeDetail">LightConeDetail</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The light cone details object.</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_light_cones" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_light_cones</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_light_cones</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_light_cones(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_light_cones(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="version (hakushin.clients.hsr.HSRClient.fetch_light_cones(version))" href="#hakushin.clients.hsr.HSRClient.fetch_light_cones(version)">version</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            LightCone
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.LightCone)" href="../../models/hsr/#hakushin.models.hsr.LightCone">LightCone</a></span><span class="p">]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch all Honkai Star Rail light cones.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_light_cones(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_light_cones(version)" class="doc doc-heading doc-heading-parameter">              <b><code>version</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The version of the light cones to fetch.</p>
+          </div>
+        </li>
+    </ul>
+        <p>Returns:
+    A list of light cone objects.</p>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_moc" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_moc</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_moc</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_moc(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_moc(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            EndgameSummary
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EndgameSummary)" href="../../models/hsr/#hakushin.models.hsr.EndgameSummary">EndgameSummary</a></span><span class="p">]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch a list of Memory of Chaos (MoC) event summaries.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_moc(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-internal" title="            EndgameSummary
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EndgameSummary)" href="../../models/hsr/#hakushin.models.hsr.EndgameSummary">EndgameSummary</a>]</code>
+          –
+          <div class="doc-md-description">
+            <p>A list of <code>EndgameSummary</code> objects for each MoC event.</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_moc_detail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_moc_detail</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+          <div class="doc-overloads">
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_moc_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="moc_id (hakushin.clients.hsr.HSRClient.fetch_moc_detail(moc_id))" href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(moc_id)">moc_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="full (hakushin.clients.hsr.HSRClient.fetch_moc_detail(full))" href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(full)">full</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Literal" href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a></span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_moc_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            MOCDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.MOCDetail)" href="../../models/hsr/#hakushin.models.hsr.MOCDetail">MOCDetail</a></span>
+</span></code></pre></div><div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_moc_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="moc_id (hakushin.clients.hsr.HSRClient.fetch_moc_detail(moc_id))" href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(moc_id)">moc_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="full (hakushin.clients.hsr.HSRClient.fetch_moc_detail(full))" href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(full)">full</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Literal" href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a></span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_moc_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            FullMOCDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.FullMOCDetail)" href="../../models/hsr/#hakushin.models.hsr.FullMOCDetail">FullMOCDetail</a></span>
+</span></code></pre></div>          </div>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_moc_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="moc_id (hakushin.clients.hsr.HSRClient.fetch_moc_detail(moc_id))" href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(moc_id)">moc_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="full (hakushin.clients.hsr.HSRClient.fetch_moc_detail(full))" href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(full)">full</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_moc_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_moc_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            MOCDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.MOCDetail)" href="../../models/hsr/#hakushin.models.hsr.MOCDetail">MOCDetail</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-internal" title="            FullMOCDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.FullMOCDetail)" href="../../models/hsr/#hakushin.models.hsr.FullMOCDetail">FullMOCDetail</a></span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch detailed stage and wave data for a specific Memory of Chaos event.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_moc_detail(moc_id)" class="doc doc-heading doc-heading-parameter">              <b><code>moc_id</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The ID of the Memory of Chaos event to retrieve.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_moc_detail(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>If True, use a cached response if available.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_moc_detail(full)" class="doc doc-heading doc-heading-parameter">              <b><code>full</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>False</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>If True, automatically resolve and attach <code>ProcessedEnemy</code> stats
+     to each wave in the stage data. If False, return raw model data.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            MOCDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.MOCDetail)" href="../../models/hsr/#hakushin.models.hsr.MOCDetail">MOCDetail</a> | <a class="autorefs autorefs-internal" title="            FullMOCDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.FullMOCDetail)" href="../../models/hsr/#hakushin.models.hsr.FullMOCDetail">FullMOCDetail</a></code>
+          –
+          <div class="doc-md-description">
+            <p><code>FullMOCDetail</code> if <code>full=True</code>, otherwise <code>MOCDetail</code>.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>When <code>full=True</code>, this method performs additional stat
+calculation using <a class="autorefs autorefs-internal" title="            calculate_hsr_enemy_stats
+
+
+  
+      async
+  " href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats">calculate_hsr_enemy_stats</a> and replaces enemy ID lists
+with <code>ProcessedEnemy</code> models directly on the wave objects.</p>
+</details>
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_monsters" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_monsters</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_monsters</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_monsters(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_monsters(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            Monster
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.Monster)" href="../../models/hsr/#hakushin.models.hsr.Monster">Monster</a></span><span class="p">]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch all Honkai Star Rail monsters.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_monsters(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-internal" title="            Monster
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.Monster)" href="../../models/hsr/#hakushin.models.hsr.Monster">Monster</a>]</code>
+          –
+          <div class="doc-md-description">
+            <p>A list of monster objects.</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_monsters_detail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_monsters_detail</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_monsters_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="monster_id (hakushin.clients.hsr.HSRClient.fetch_monsters_detail(monster_id))" href="#hakushin.clients.hsr.HSRClient.fetch_monsters_detail(monster_id)">monster_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_monsters_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_monsters_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            MonsterDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.MonsterDetail)" href="../../models/hsr/#hakushin.models.hsr.MonsterDetail">MonsterDetail</a></span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the full detail of a specific monster.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_monsters_detail(monster_id)" class="doc doc-heading doc-heading-parameter">              <b><code>monster_id</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The ID of the monster to retrieve.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_monsters_detail(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            MonsterDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.MonsterDetail)" href="../../models/hsr/#hakushin.models.hsr.MonsterDetail">MonsterDetail</a></code>
+          –
+          <div class="doc-md-description">
+            <p>A <code>MonsterDetail</code> object containing the full monster stats and metadata.</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_new" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_new</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_new</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_new(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_new(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            New
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.New)" href="../../models/hsr/#hakushin.models.hsr.New">New</a></span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the ID of beta items in Honkai Star Rail.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_new(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            New
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.New)" href="../../models/hsr/#hakushin.models.hsr.New">New</a></code>
+          –
+          <div class="doc-md-description">
+            <p>A model representing the new items.</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_pf" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_pf</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_pf</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_pf(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_pf(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            EndgameSummary
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EndgameSummary)" href="../../models/hsr/#hakushin.models.hsr.EndgameSummary">EndgameSummary</a></span><span class="p">]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch a list of Pure Fiction (PF) event summaries.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_pf(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a class="autorefs autorefs-internal" title="            EndgameSummary
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.EndgameSummary)" href="../../models/hsr/#hakushin.models.hsr.EndgameSummary">EndgameSummary</a>]</code>
+          –
+          <div class="doc-md-description">
+            <p>A list of <code>EndgameSummary</code> objects for each Pure Fiction event.</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_pf_detail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_pf_detail</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+          <div class="doc-overloads">
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_pf_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="pf_id (hakushin.clients.hsr.HSRClient.fetch_pf_detail(pf_id))" href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(pf_id)">pf_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="full (hakushin.clients.hsr.HSRClient.fetch_pf_detail(full))" href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(full)">full</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Literal" href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a></span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_pf_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            PFDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.PFDetail)" href="../../models/hsr/#hakushin.models.hsr.PFDetail">PFDetail</a></span>
+</span></code></pre></div><div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_pf_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="pf_id (hakushin.clients.hsr.HSRClient.fetch_pf_detail(pf_id))" href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(pf_id)">pf_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="full (hakushin.clients.hsr.HSRClient.fetch_pf_detail(full))" href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(full)">full</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="typing.Literal" href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a></span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_pf_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            FullPFDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.FullPFDetail)" href="../../models/hsr/#hakushin.models.hsr.FullPFDetail">FullPFDetail</a></span>
+</span></code></pre></div>          </div>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_pf_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="pf_id (hakushin.clients.hsr.HSRClient.fetch_pf_detail(pf_id))" href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(pf_id)">pf_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="full (hakushin.clients.hsr.HSRClient.fetch_pf_detail(full))" href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(full)">full</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_pf_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_pf_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            PFDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.PFDetail)" href="../../models/hsr/#hakushin.models.hsr.PFDetail">PFDetail</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-internal" title="            FullPFDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.FullPFDetail)" href="../../models/hsr/#hakushin.models.hsr.FullPFDetail">FullPFDetail</a></span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch detailed stage and wave data for a specific Pure Fiction event.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_pf_detail(pf_id)" class="doc doc-heading doc-heading-parameter">              <b><code>pf_id</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The ID of the Pure Fiction event.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_pf_detail(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_pf_detail(full)" class="doc doc-heading doc-heading-parameter">              <b><code>full</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>False</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>If True, return calculated <code>ProcessedEnemy</code> stats instead of the raw model.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            PFDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.PFDetail)" href="../../models/hsr/#hakushin.models.hsr.PFDetail">PFDetail</a> | <a class="autorefs autorefs-internal" title="            FullPFDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.FullPFDetail)" href="../../models/hsr/#hakushin.models.hsr.FullPFDetail">FullPFDetail</a></code>
+          –
+          <div class="doc-md-description">
+            <p><code>FullPFDetail</code> if <code>full=True</code>, otherwise <code>PFDetail</code>.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<details class="note" open>
+  <summary>Note</summary>
+  <p>When <code>full=True</code>, this method performs additional stat
+calculation using <a class="autorefs autorefs-internal" title="            calculate_hsr_enemy_stats
+
+
+  
+      async
+  " href="#hakushin.clients.hsr.HSRClient.calculate_hsr_enemy_stats">calculate_hsr_enemy_stats</a> and replaces enemy ID lists
+with <code>ProcessedEnemy</code> models directly on the wave objects.</p>
+</details>
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_relic_set_detail" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_relic_set_detail</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_relic_set_detail</span><span class="p">(</span><span class="n"><a class="autorefs autorefs-internal" title="set_id (hakushin.clients.hsr.HSRClient.fetch_relic_set_detail(set_id))" href="#hakushin.clients.hsr.HSRClient.fetch_relic_set_detail(set_id)">set_id</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_relic_set_detail(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_relic_set_detail(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            RelicSetDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.RelicSetDetail)" href="../../models/hsr/#hakushin.models.hsr.RelicSetDetail">RelicSetDetail</a></span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch the details of a Honkai Star Rail relic set.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_relic_set_detail(set_id)" class="doc doc-heading doc-heading-parameter">              <b><code>set_id</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>)
+          –
+          <div class="doc-md-description">
+            <p>The relic set ID.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_relic_set_detail(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+    </ul>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><a class="autorefs autorefs-internal" title="            RelicSetDetail
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.RelicSetDetail)" href="../../models/hsr/#hakushin.models.hsr.RelicSetDetail">RelicSetDetail</a></code>
+          –
+          <div class="doc-md-description">
+            <p>The relic set details object.</p>
+          </div>
+        </li>
+    </ul>
+
+          
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h4 id="hakushin.clients.hsr.HSRClient.fetch_relic_sets" class="doc doc-heading">
+<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">fetch_relic_sets</span>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h4>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">fetch_relic_sets</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="use_cache (hakushin.clients.hsr.HSRClient.fetch_relic_sets(use_cache))" href="#hakushin.clients.hsr.HSRClient.fetch_relic_sets(use_cache)">use_cache</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n"><a class="autorefs autorefs-internal" title="version (hakushin.clients.hsr.HSRClient.fetch_relic_sets(version))" href="#hakushin.clients.hsr.HSRClient.fetch_relic_sets(version)">version</a></span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            RelicSet
+
+
+  
+      pydantic-model
+   (hakushin.models.hsr.RelicSet)" href="../../models/hsr/#hakushin.models.hsr.RelicSet">RelicSet</a></span><span class="p">]</span>
+</span></code></pre></div>
+
+    <div class="doc doc-contents ">
+
+        <p>Fetch all Honkai Star Rail relic sets.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_relic_sets(use_cache)" class="doc doc-heading doc-heading-parameter">              <b><code>use_cache</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
+                  <code>True</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>Whether to use the response cache.</p>
+          </div>
+        </li>
+        <li class="doc-section-item field-body">
+<h5 id="hakushin.clients.hsr.HSRClient.fetch_relic_sets(version)" class="doc doc-heading doc-heading-parameter">              <b><code>version</code></b>
+</h5>              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</code>, default:
+                  <code>None</code>
+)
+          –
+          <div class="doc-md-description">
+            <p>The version of the relic sets to fetch.</p>
+          </div>
+        </li>
+    </ul>
+        <p>Returns:
+    A list of relic set objects.</p>
+
+          
+
+    </div>
+
+</div>
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2025 - 2025 Seria Ati
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
