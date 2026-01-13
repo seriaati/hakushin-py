@@ -104,6 +104,12 @@ class CharacterDetail(APIModel):
     def __convert_description(cls, value: str | None) -> str:
         return value or ""
 
+    @field_validator("skills", mode="before")
+    @classmethod
+    def __remove_invalid_skills(cls, value: dict[str, Any]) -> dict[str, Any]:
+        # Remove skills with empty names
+        return {k: v for k, v in value.items() if v.get("Name")}
+
     @model_validator(mode="before")
     @classmethod
     def __extract_id(cls, values: dict[str, Any]) -> dict[str, Any]:
