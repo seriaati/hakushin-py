@@ -15,8 +15,8 @@ async def test_characters(hsr_client: HSRClient) -> None:
 
 
 async def test_character(hsr_client: HSRClient) -> None:
-    new = await hsr_client.fetch_new()
-    for chara_id in new.character_ids:
+    characters = await hsr_client.fetch_characters()
+    for chara_id in [char.id for char in characters]:
         await hsr_client.fetch_character_detail(chara_id)
 
 
@@ -25,20 +25,20 @@ async def test_light_cones(hsr_client: HSRClient) -> None:
 
 
 async def test_light_cone(hsr_client: HSRClient) -> None:
-    hsr_new = await hsr_client.fetch_new()
-    for light_cone_id in hsr_new.light_cone_ids:
+    light_cones = await hsr_client.fetch_light_cones()
+    for light_cone_id in [light_cone.id for light_cone in light_cones]:
         await hsr_client.fetch_light_cone_detail(light_cone_id)
 
 
 async def test_relic_set(hsr_client: HSRClient) -> None:
-    hsr_new = await hsr_client.fetch_new()
-    for relic_set_id in hsr_new.relic_set_ids:
+    relic_sets = await hsr_client.fetch_relic_sets()
+    for relic_set_id in [relic_set.id for relic_set in relic_sets]:
         await hsr_client.fetch_relic_set_detail(relic_set_id)
 
 
 async def test_monsters(hsr_client: HSRClient) -> None:
-    hsr_new = await hsr_client.fetch_new()
-    for monster_id in hsr_new.monster_ids:
+    monsters = await hsr_client.fetch_monsters()
+    for monster_id in [monster.id for monster in monsters]:
         await hsr_client.fetch_monsters_detail(monster_id)
 
 

@@ -15,8 +15,8 @@ async def test_characters(gi_client: GIClient) -> None:
 
 
 async def test_character(gi_client: GIClient) -> None:
-    new = await gi_client.fetch_new()
-    for chara_id in new.character_ids:
+    characters = await gi_client.fetch_characters()
+    for chara_id in [char.id for char in characters]:
         await gi_client.fetch_character_detail(str(chara_id))
 
 
@@ -25,8 +25,8 @@ async def test_weapons(gi_client: GIClient) -> None:
 
 
 async def test_weapon(gi_client: GIClient) -> None:
-    gi_new = await gi_client.fetch_new()
-    for weapon_id in gi_new.weapon_ids:
+    weapons = await gi_client.fetch_weapons()
+    for weapon_id in [weapon.id for weapon in weapons]:
         await gi_client.fetch_weapon_detail(weapon_id)
 
 
@@ -35,8 +35,8 @@ async def test_artifact_sets(gi_client: GIClient) -> None:
 
 
 async def test_artifact_set(gi_client: GIClient) -> None:
-    gi_new = await gi_client.fetch_new()
-    for artifact_set_id in gi_new.artifact_set_ids:
+    artifact_sets = await gi_client.fetch_artifact_sets()
+    for artifact_set_id in [artifact_set.id for artifact_set in artifact_sets]:
         await gi_client.fetch_artifact_set_detail(artifact_set_id)
 
 
