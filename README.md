@@ -1,3 +1,12 @@
+# Important Notice
+
+hakushin-py will be archived because hakush.in's developer has decided to discontinue the project.
+
+<img width="807" height="1024" alt="image" src="https://github.com/user-attachments/assets/6649b303-caec-4475-8bb6-ab26845f7f3c" />
+
+The package and source code will remain on GitHub and PyPi, but no more updates will be made, thank you for using the project.
+
+
 # hakushin-py
 
 ## Introduction
