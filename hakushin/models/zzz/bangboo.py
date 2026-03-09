@@ -34,7 +34,7 @@ class Bangboo(APIModel):
     code_name: str = Field(alias="codename")
     description: str = Field(alias="desc")
     name: str = Field("")  # This field doesn't exist in the API response
-    names: dict[Literal["EN", "JA", "CHS", "KO"], str]
+    names: dict[Literal["en", "ja", "zh", "ko"], str]
 
     @field_validator("icon")
     @classmethod
@@ -51,10 +51,10 @@ class Bangboo(APIModel):
     @classmethod
     def __pop_names(cls, values: dict[str, Any]) -> dict[str, Any]:
         values["names"] = {
-            "EN": values.pop("EN"),
-            "KO": values.pop("KO"),
-            "CHS": values.pop("CHS"),
-            "JA": values.pop("JA"),
+            "en": values.pop("en"),
+            "ko": values.pop("ko"),
+            "zh": values.pop("zh"),
+            "ja": values.pop("ja"),
         }
         return values
 

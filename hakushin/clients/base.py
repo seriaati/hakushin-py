@@ -1,10 +1,16 @@
 from __future__ import annotations
 
+import json
+import time
 from typing import TYPE_CHECKING, Any, Final, Self
 
+import aiofiles
+import aiofiles.os
 from aiohttp_client_cache.backends.sqlite import SQLiteBackend
 from aiohttp_client_cache.session import CachedSession
 from loguru import logger
+
+from hakushin.models.manifest import GameManifest, ManifestResponse
 
 from ..constants import HSR_API_LANG_MAP
 from ..enums import Game, Language
@@ -27,13 +33,14 @@ class BaseClient:
         cache_ttl: Time-to-live for cached responses in seconds.
     """
 
-    BASE_URL: Final[str] = "https://api.hakush.in"
+    BASE_URL: Final[str] = "https://static.nanoka.cc"
 
     def __init__(
         self,
         game: Game,
         lang: Language = Language.EN,
         *,
+        use_live: bool = False,
         cache_path: str = "./.cache/hakushin/aiohttp-cache.db",
         cache_ttl: int = 3600,
         headers: dict[str, Any] | None = None,
@@ -45,6 +52,7 @@ class BaseClient:
         Args:
             game: The game to fetch data for.
             lang: The language to fetch data in.
+            use_live: Whether to use the live game version in API requests. If false, use latest version.
             cache_path: The path to the cache database.
             cache_ttl: The time-to-live for cache entries.
             headers: The headers to pass with the request.
@@ -53,6 +61,7 @@ class BaseClient:
         """
         self.lang = lang
         self.cache_ttl = cache_ttl
+        self.use_live = use_live
 
         self._game = game
         self._using_custom_session = session is not None
@@ -67,6 +76,41 @@ class BaseClient:
 
     async def __aexit__(self, exc_type, exc, tb) -> None:  # noqa: ANN001
         await self.close()
+
+    async def _get_game_version(self) -> str:
+        try:
+            async with aiofiles.open("./.cache/hakushin/version.json") as f:
+                version_data = await f.read()
+                version_json: dict[str, Any] = json.loads(version_data)
+        except (FileNotFoundError, json.JSONDecodeError):
+            version_json = {}
+
+        last_updated = version_json.get("last_updated", 0)
+        if time.time() - last_updated < 24 * 3600:  # 24 hours
+            game_version = version_json.get(self._game.value, {}).get(
+                "live" if self.use_live else "latest"
+            )
+            if game_version:
+                return game_version
+
+        manifest = await self.fetch_manifest()
+        version_info: GameManifest = getattr(manifest, self._game.value)
+
+        version_data = {
+            "gi": {"live": manifest.gi.live_version, "latest": manifest.gi.latest_version},
+            "hsr": {"live": manifest.hsr.live_version, "latest": manifest.hsr.latest_version},
+            "zzz": {"live": manifest.zzz.live_version, "latest": manifest.zzz.latest_version},
+            "last_updated": time.time(),
+        }
+
+        try:
+            await aiofiles.os.makedirs("./.cache/hakushin", exist_ok=True)
+            async with aiofiles.open("./.cache/hakushin/version_data.json", "w") as f:
+                await f.write(json.dumps(version_data, indent=4))
+        except Exception as e:
+            logger.warning(f"Failed to write version data to cache: {e}")
+
+        return version_info.live_version if self.use_live else version_info.latest_version
 
     async def _request(
         self,
@@ -87,16 +131,14 @@ class BaseClient:
 
         game = self._game
         lang = HSR_API_LANG_MAP[self.lang] if game is Game.HSR else self.lang.value
+        version = version or await self._get_game_version()
 
         if static:
             url = f"{self.BASE_URL}/{game.value}/{endpoint}.json"
         elif in_data:
-            url = f"{self.BASE_URL}/{game.value}/data/{endpoint}.json"
+            url = f"{self.BASE_URL}/{game.value}/{version}/{endpoint}.json"
         else:
-            url = f"{self.BASE_URL}/{game.value}/data/{lang}/{endpoint}.json"
-
-        if version:
-            url = url.replace("/data/", f"/{version}/")
+            url = f"{self.BASE_URL}/{game.value}/{version}/{lang}/{endpoint}.json"
 
         logger.debug(f"Requesting {url}")
 
@@ -123,6 +165,29 @@ class BaseClient:
                 raise NotFoundError(url)
             case _:
                 raise HakushinError(code, "An error occurred while fetching data.", url)
+
+    async def fetch_manifest(self) -> ManifestResponse:
+        """Fetch the game manifest from the Hakushin API.
+
+        This method retrieves the latest manifest information for all supported games,
+        including available versions and new item IDs.
+
+        Args:
+            use_cache: Whether to use cached responses. If False, the cache will be bypassed for this request.
+
+        Returns:
+            A ManifestResponse object containing the manifest data.
+        """
+        if self._session is None:
+            msg = "Call `start` before making requests."
+            raise RuntimeError(msg)
+
+        async with self._session.get(f"{self.BASE_URL}/manifest.json") as resp:
+            if resp.status != 200:
+                self._handle_error(resp.status, f"{self.BASE_URL}/manifest.json")
+            data = await resp.json()
+
+        return ManifestResponse.model_validate(data)
 
     async def start(self) -> None:
         """Start the client session.

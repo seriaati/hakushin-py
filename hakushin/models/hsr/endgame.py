@@ -231,7 +231,7 @@ class EndgameSummary(APIModel):
 
     id: int
     type: HSREndgameType
-    names: dict[Literal["en", "cn", "kr", "jp"], str]
+    names: dict[Literal["en", "zh", "ko", "ja"], str]
     name: str = Field("")  # The value of this field is assigned in post processing.
     begin: str = Field(alias="live_begin", default="")
     end: str = Field(alias="live_end", default="")
@@ -241,9 +241,9 @@ class EndgameSummary(APIModel):
     def __transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
         values["names"] = {
             "en": values.pop("en", "") or "",
-            "cn": values.pop("cn", "") or "",
-            "kr": values.pop("kr", "") or "",
-            "jp": values.pop("jp", "") or "",
+            "zh": values.pop("zh", "") or "",
+            "ko": values.pop("ko", "") or "",
+            "ja": values.pop("ja", "") or "",
         }
         return values
 

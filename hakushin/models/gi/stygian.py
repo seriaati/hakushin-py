@@ -175,7 +175,7 @@ class Stygian(APIModel):
     """
 
     id: int
-    names: dict[Literal["EN", "CHS", "KR", "JP"], str]
+    names: dict[Literal["en", "zh", "ko", "ja"], str]
 
     beta_start_at: datetime.datetime | None = Field(default=None, alias="begin")
     beta_end_at: datetime.datetime | None = Field(default=None, alias="begin")
@@ -189,9 +189,9 @@ class Stygian(APIModel):
     @classmethod
     def __transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
         values["names"] = {
-            "EN": values.pop("EN"),
-            "CHS": values.pop("CHS"),
-            "KR": values.pop("KR"),
-            "JP": values.pop("JP"),
+            "en": values.pop("en"),
+            "zh": values.pop("zh"),
+            "ko": values.pop("ko"),
+            "ja": values.pop("ja"),
         }
         return values

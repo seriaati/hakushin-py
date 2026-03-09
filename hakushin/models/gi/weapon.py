@@ -97,7 +97,7 @@ class Weapon(APIModel):
     icon: str
     rarity: Literal[1, 2, 3, 4, 5] = Field(alias="rank")
     description: str = Field(alias="desc")
-    names: dict[Literal["EN", "CHS", "KR", "JP"], str]
+    names: dict[Literal["en", "zh", "ko", "ja"], str]
     name: str = Field("")
 
     @field_validator("icon", mode="before")
@@ -109,9 +109,9 @@ class Weapon(APIModel):
     @classmethod
     def __transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
         values["names"] = {
-            "EN": values.pop("EN"),
-            "CHS": values.pop("CHS"),
-            "KR": values.pop("KR"),
-            "JP": values.pop("JP"),
+            "en": values.pop("en"),
+            "zh": values.pop("zh"),
+            "ko": values.pop("ko"),
+            "ja": values.pop("ja"),
         }
         return values

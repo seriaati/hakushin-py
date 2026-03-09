@@ -43,27 +43,27 @@ HSR_LIGHT_CONE_RARITY_MAP: Final[dict[str, Literal[3, 4, 5]]] = {
 }
 """Map HSR light cone rarity strings to integer values."""
 
-HSR_API_LANG_MAP: Final[dict[Language, Literal["en", "jp", "kr", "cn"]]] = {
+HSR_API_LANG_MAP: Final[dict[Language, Literal["en", "ja", "ko", "zh"]]] = {
     Language.EN: "en",
-    Language.JA: "jp",
-    Language.KO: "kr",
-    Language.ZH: "cn",
+    Language.JA: "ja",
+    Language.KO: "ko",
+    Language.ZH: "zh",
 }
 """Map Language enum to HSR API language strings."""
 
-GI_LANG_MAP: Final[dict[Language, Literal["EN", "JP", "KR", "CHS"]]] = {
-    Language.EN: "EN",
-    Language.JA: "JP",
-    Language.KO: "KR",
-    Language.ZH: "CHS",
+GI_LANG_MAP: Final[dict[Language, Literal["en", "ja", "ko", "zh"]]] = {
+    Language.EN: "en",
+    Language.JA: "ja",
+    Language.KO: "ko",
+    Language.ZH: "zh",
 }
 """Map Language enum to GI data language strings."""
 
-ZZZ_LANG_MAP: Final[dict[Language, Literal["EN", "KO", "CHS", "JA"]]] = {
-    Language.EN: "EN",
-    Language.JA: "JA",
-    Language.KO: "KO",
-    Language.ZH: "CHS",
+ZZZ_LANG_MAP: Final[dict[Language, Literal["en", "ko", "zh", "ja"]]] = {
+    Language.EN: "en",
+    Language.JA: "ja",
+    Language.KO: "ko",
+    Language.ZH: "zh",
 }
 """Map Language enum to ZZZ API language strings."""
 

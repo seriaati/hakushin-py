@@ -107,9 +107,9 @@ class ArtifactSetEffect(APIModel):
         description: Description of the artifact set effect.
     """
 
-    names: dict[Literal["EN", "KR", "CHS", "JP"], str]
+    names: dict[Literal["en", "ko", "zh", "ja"], str]
     name: str = Field("")  # The value of this field is assigned in post processing.
-    descriptions: dict[Literal["EN", "KR", "CHS", "JP"], str] = Field(alias="desc")
+    descriptions: dict[Literal["en", "ko", "zh", "ja"], str] = Field(alias="desc")
     description: str = Field("")  # The value of this field is assigned in post processing.
 
     @model_validator(mode="before")
@@ -148,7 +148,7 @@ class ArtifactSet(APIModel):
     icon: str
     rarities: list[int] = Field(alias="rank")
     set_effect: ArtifactSetEffects = Field(alias="set")
-    names: dict[Literal["EN", "KR", "CHS", "JP"], str]
+    names: dict[Literal["en", "ko", "zh", "ja"], str]
     name: str = Field("")  # The value of this field is assigned in post processing.
 
     @field_validator("icon", mode="before")

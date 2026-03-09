@@ -22,6 +22,7 @@ class ZZZClient(BaseClient):
         self,
         lang: Language = Language.EN,
         *,
+        use_live: bool = False,
         cache_path: str = "./.cache/hakushin/aiohttp-cache.db",
         cache_ttl: int = 3600,
         headers: dict[str, Any] | None = None,
@@ -31,6 +32,7 @@ class ZZZClient(BaseClient):
         super().__init__(
             Game.ZZZ,
             lang,
+            use_live=use_live,
             cache_path=cache_path,
             cache_ttl=cache_ttl,
             headers=headers,

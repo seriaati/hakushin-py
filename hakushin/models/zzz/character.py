@@ -118,7 +118,7 @@ class Character(APIModel):
     attack_type: ZZZAttackType | None = Field(None, alias="hit")
     image: str = Field(alias="icon")
     en_description: str = Field(alias="desc")
-    names: dict[Literal["EN", "KO", "CHS", "JA"], str]
+    names: dict[Literal["en", "ko", "zh", "ja"], str]
     skins: list[CharacterSkin] = Field(alias="skin", default_factory=list)
 
     @computed_field
@@ -188,10 +188,10 @@ class Character(APIModel):
     @classmethod
     def __pop_names(cls, values: dict[str, Any]) -> dict[str, Any]:
         values["names"] = {
-            "EN": values.pop("EN"),
-            "KO": values.pop("KO"),
-            "CHS": values.pop("CHS"),
-            "JA": values.pop("JA"),
+            "en": values.pop("en"),
+            "ko": values.pop("ko"),
+            "zh": values.pop("zh"),
+            "ja": values.pop("ja"),
         }
         return values
 

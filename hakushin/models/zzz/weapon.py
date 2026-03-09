@@ -35,7 +35,7 @@ class Weapon(APIModel):
     id: int
     icon: str
     name: str = Field("")  # This field doesn't exist in the API response
-    names: dict[Literal["EN", "JA", "CHS", "KO"], str]
+    names: dict[Literal["en", "ja", "zh", "ko"], str]
     specialty: ZZZSpecialty = Field(alias="type")
     rarity: Literal["S", "A", "B"] = Field(alias="rank")
 
@@ -56,10 +56,10 @@ class Weapon(APIModel):
     def __pop_names(cls, values: dict[str, Any]) -> dict[str, Any]:
         """Pop names from the values and assign them to the 'names' field."""
         values["names"] = {
-            "EN": values.pop("EN"),
-            "KO": values.pop("KO"),
-            "CHS": values.pop("CHS"),
-            "JA": values.pop("JA"),
+            "en": values.pop("en"),
+            "ko": values.pop("ko"),
+            "zh": values.pop("zh"),
+            "ja": values.pop("ja"),
         }
         return values
 

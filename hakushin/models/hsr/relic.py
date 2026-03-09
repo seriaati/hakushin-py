@@ -112,7 +112,7 @@ class RelicSetEffect(APIModel):
         parameters: A list of parameters for the relic set effect.
     """
 
-    descriptions: dict[Literal["en", "cn", "kr", "jp"], str]
+    descriptions: dict[Literal["en", "zh", "ko", "ja"], str]
     description: str = Field("")  # The value of this field is assigned in post processing.
     parameters: list[float] = Field(alias="ParamList")
 
@@ -121,9 +121,9 @@ class RelicSetEffect(APIModel):
     def __assign_descriptions(cls, value: dict[str, Any]) -> dict[str, Any]:
         value["descriptions"] = {
             "en": value.pop("en"),
-            "cn": value.pop("cn"),
-            "kr": value.pop("kr"),
-            "jp": value.pop("jp"),
+            "zh": value.pop("zh"),
+            "ko": value.pop("ko"),
+            "ja": value.pop("ja"),
         }
         return value
 
@@ -153,7 +153,7 @@ class RelicSet(APIModel):
 
     id: int  # This field is not present in the API response.
     icon: str
-    names: dict[Literal["en", "cn", "kr", "jp"], str]
+    names: dict[Literal["en", "zh", "ko", "ja"], str]
     name: str = Field("")  # The value of this field is assigned in post processing.
     set_effect: RelicSetEffects = Field(alias="set")
 
@@ -173,8 +173,8 @@ class RelicSet(APIModel):
     def __assign_names(cls, value: dict[str, Any]) -> dict[str, Any]:
         value["names"] = {
             "en": value.pop("en"),
-            "cn": value.pop("cn"),
-            "kr": value.pop("kr"),
-            "jp": value.pop("jp"),
+            "zh": value.pop("zh"),
+            "ko": value.pop("ko"),
+            "ja": value.pop("ja"),
         }
         return value

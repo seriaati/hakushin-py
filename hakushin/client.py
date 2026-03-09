@@ -21,6 +21,7 @@ class HakushinAPI:
         game: Literal[Game.GI],
         lang: Language = Language.EN,
         *,
+        use_live: bool = False,
         cache_path: str = "./.cache/hakushin/aiohttp-cache.db",
         cache_ttl: int = 3600,
         headers: dict[str, Any] | None = None,
@@ -32,6 +33,7 @@ class HakushinAPI:
         Args:
             game: The game to initialize the client for.
             lang: The language to use for API responses.
+            use_live: Whether to use the live game version in API requests. If false, use latest version.
             cache_path: The path to the cache database.
             cache_ttl: The time-to-live for cached responses, in seconds.
             headers: Optional custom headers to include in API requests.
@@ -48,6 +50,7 @@ class HakushinAPI:
         game: Literal[Game.HSR],
         lang: Language = Language.EN,
         *,
+        use_live: bool = False,
         cache_path: str = "./.cache/hakushin/aiohttp-cache.db",
         cache_ttl: int = 3600,
         headers: dict[str, Any] | None = None,
@@ -59,6 +62,7 @@ class HakushinAPI:
         Args:
             game: The game to initialize the client for.
             lang: The language to use for API responses.
+            use_live: Whether to use the live game version in API requests. If false, use latest version.
             cache_path: The path to the cache database.
             cache_ttl: The time-to-live for cached responses, in seconds.
             headers: Optional custom headers to include in API requests.
@@ -75,6 +79,7 @@ class HakushinAPI:
         game: Literal[Game.ZZZ],
         lang: Language = Language.EN,
         *,
+        use_live: bool = False,
         cache_path: str = "./.cache/hakushin/aiohttp-cache.db",
         cache_ttl: int = 3600,
         headers: dict[str, Any] | None = None,
@@ -86,6 +91,7 @@ class HakushinAPI:
         Args:
             game: The game to initialize the client for.
             lang: The language to use for API responses.
+            use_live: Whether to use the live game version in API requests. If false, use latest version.
             cache_path: The path to the cache database.
             cache_ttl: The time-to-live for cached responses, in seconds.
             headers: Optional custom headers to include in API requests.
@@ -101,6 +107,7 @@ class HakushinAPI:
         game: Game,
         lang: Language = Language.EN,
         *,
+        use_live: bool = False,
         cache_path: str = "./.cache/hakushin/aiohttp-cache.db",
         cache_ttl: int = 3600,
         headers: dict[str, Any] | None = None,
@@ -110,6 +117,7 @@ class HakushinAPI:
         if game is Game.GI:
             return GIClient(
                 lang,
+                use_live=use_live,
                 cache_path=cache_path,
                 cache_ttl=cache_ttl,
                 headers=headers,
@@ -119,6 +127,7 @@ class HakushinAPI:
         if game is Game.HSR:
             return HSRClient(
                 lang,
+                use_live=use_live,
                 cache_path=cache_path,
                 cache_ttl=cache_ttl,
                 headers=headers,
@@ -127,6 +136,7 @@ class HakushinAPI:
             )
         return ZZZClient(
             lang,
+            use_live=use_live,
             cache_path=cache_path,
             cache_ttl=cache_ttl,
             headers=headers,

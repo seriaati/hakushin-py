@@ -1,4 +1,5 @@
 """Genshin Impact character models."""
+
 from __future__ import annotations
 
 from typing import Any, Literal
@@ -299,7 +300,7 @@ class Character(APIModel):
     rarity: Literal[4, 5] = Field(alias="rank")
     description: str = Field(alias="desc")
     element: GIElement | None = None
-    names: dict[Literal["EN", "CHS", "KR", "JP"], str]
+    names: dict[Literal["en", "zh", "ko", "ja"], str]
     name: str = Field("")
 
     @field_validator("icon", mode="before")
@@ -321,9 +322,9 @@ class Character(APIModel):
     @classmethod
     def __transform_names(cls, values: dict[str, Any]) -> dict[str, Any]:
         values["names"] = {
-            "EN": values.pop("EN"),
-            "CHS": values.pop("CHS"),
-            "KR": values.pop("KR"),
-            "JP": values.pop("JP"),
+            "en": values.pop("en"),
+            "zh": values.pop("zh"),
+            "ko": values.pop("ko"),
+            "ja": values.pop("ja"),
         }
         return values

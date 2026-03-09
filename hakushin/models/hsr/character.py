@@ -147,7 +147,7 @@ class Character(APIModel):
     description: str = Field(alias="desc")
     path: HSRPath = Field(alias="baseType")
     element: HSRElement = Field(alias="damageType")
-    names: dict[Literal["en", "cn", "kr", "jp"], str]
+    names: dict[Literal["en", "zh", "ko", "ja"], str]
     name: str = Field("")  # The value of this field is assigned in post processing.
 
     @field_validator("icon", mode="before")
@@ -171,8 +171,8 @@ class Character(APIModel):
         # This is probably the most questionable API design decision I've ever seen.
         values["names"] = {
             "en": values.pop("en"),
-            "cn": values.pop("cn"),
-            "kr": values.pop("kr"),
-            "jp": values.pop("jp"),
+            "zh": values.pop("zh"),
+            "ko": values.pop("ko"),
+            "ja": values.pop("ja"),
         }
         return values
