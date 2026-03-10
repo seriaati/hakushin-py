@@ -58,7 +58,7 @@ hakushin-py is an async API wrapper for the hakush.in API that fetches game data
 - `BaseClient` provides shared functionality for all game clients
 - Handles HTTP requests with caching via `aiohttp-client-cache` and SQLite backend
 - Implements context manager protocol for session management
-- Base URL: `https://api.hakush.in`
+- Base URL: `https://static.nanoka.cc`
 
 #### Game-Specific Clients
 
