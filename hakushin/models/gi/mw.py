@@ -15,25 +15,25 @@ __all__ = ("MWCostume", "MWCostumeSet", "MWItem")
 class BaseMWCostume(APIModel):
     """Miliastra Wonderland costume base model"""
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    rarity: Literal[5, 4, 3, 2] | None = Field(alias="Rarity")
-    icon: str = Field(alias="Icon")
+    id: int
+    name: str
+    description: str = Field(alias="desc")
+    rarity: Literal[5, 4, 3, 2] | None
+    icon: str
 
-    body_types: list[MWCostumeBodyType] = Field(alias="BodyType")
-    colors: list[str] = Field(alias="Color")
+    body_types: list[MWCostumeBodyType] = Field(alias="body_type")
+    colors: list[str] = Field(alias="color")
 
     @field_validator("rarity", mode="before")
     @classmethod
     def __convert_rarity(cls, v: Literal["Purple", "Blue", "Green", "None"]) -> int | None:
         mapping = {"Orange": 5, "Purple": 4, "Blue": 3, "Green": 2, "None": None}
-        return mapping[v]
+        return mapping.get(v)
 
     @field_validator("icon", mode="before")
     @classmethod
     def __icon_url(cls, v: str) -> str:
-        return f"https://api.hakush.in/gi/UI/{v}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{v}.webp"
 
 
 class MWCostumeSet(BaseMWCostume):
@@ -43,23 +43,23 @@ class MWCostumeSet(BaseMWCostume):
 class MWCostume(BaseMWCostume):
     """Miliastra Wonderland costume"""
 
-    slots: list[str] = Field(alias="SlotType")
+    slots: list[str] = Field(alias="slot_type")
 
 
 class MWItem(APIModel):
     """Miliastra Wonderland item"""
 
     id: int
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    rarity: Literal[5, 4, 3, 2, 1] | None = Field(alias="Rank")
-    icon: str | None = Field(alias="Icon")
-    type: str = Field(alias="ItemType")
-    sources: list[str] = Field(alias="SourceList")
+    name: str
+    description: str = Field(alias="desc")
+    rarity: Literal[5, 4, 3, 2, 1] | None = Field(alias="rank")
+    icon: str | None
+    type: str = Field(alias="item_type")
+    sources: list[str] = Field(alias="source_list")
 
     @field_validator("icon", mode="before")
     @classmethod
     def __icon_url(cls, v: str) -> str | None:
         if not v:
             return None
-        return f"https://api.hakush.in/gi/UI/{v}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{v}.webp"

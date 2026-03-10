@@ -20,8 +20,8 @@ class WeaponProperty(APIModel):
         growth_type: Growth type of the property.
     """
 
-    type: str = Field(alias="propType")
-    init_value: float = Field(alias="initValue")
+    type: str = Field(alias="prop_type")
+    init_value: float
     growth_type: str = Field(alias="type")
 
 
@@ -33,8 +33,8 @@ class WeaponStatModifier(APIModel):
         levels: Dictionary of level-based stat modifiers.
     """
 
-    base: float = Field(alias="Base")
-    levels: dict[str, float] = Field(alias="Levels")
+    base: float
+    levels: dict[str, float]
 
 
 class WeaponRefinement(APIModel):
@@ -46,9 +46,9 @@ class WeaponRefinement(APIModel):
         parameters: List of parameters for the refinement.
     """
 
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    parameters: list[float] = Field(alias="ParamList")
+    name: str
+    description: str = Field(alias="desc")
+    parameters: list[float] = Field(alias="param_list")
 
 
 class WeaponDetail(APIModel):
@@ -65,20 +65,20 @@ class WeaponDetail(APIModel):
         refinments: Dictionary of refinements for the weapon.
     """
 
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    rarity: Literal[1, 2, 3, 4, 5] = Field(alias="Rarity")
-    icon: str = Field(alias="Icon")
+    name: str
+    description: str = Field(alias="desc")
+    rarity: Literal[1, 2, 3, 4, 5]
+    icon: str
 
-    stat_modifiers: dict[str, WeaponStatModifier] = Field(alias="StatsModifier")
-    xp_requirements: dict[str, float] = Field(alias="XPRequirements")
-    ascension: dict[str, dict[str, float]] = Field(alias="Ascension")
-    refinments: dict[str, WeaponRefinement] = Field(alias="Refinement")
+    stat_modifiers: dict[str, WeaponStatModifier] | None = Field(None, alias="stats_modifier")
+    xp_requirements: dict[str, float] | None = None
+    ascension: dict[str, dict[str, float]] | None = None
+    refinments: dict[str, WeaponRefinement] | None = Field(None, alias="refinement")
 
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
 
 class Weapon(APIModel):
@@ -103,7 +103,7 @@ class Weapon(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
     @model_validator(mode="before")
     @classmethod

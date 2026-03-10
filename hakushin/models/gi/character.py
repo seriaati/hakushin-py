@@ -37,15 +37,15 @@ class Namecard(APIModel):
         icon: Icon URL of the namecard.
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    icon: str = Field(alias="Icon")
+    id: int
+    name: str
+    description: str = Field(alias="desc")
+    icon: str
 
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
 
 class CharacterInfo(APIModel):
@@ -55,7 +55,7 @@ class CharacterInfo(APIModel):
         namecard: Character's namecard, if available.
     """
 
-    namecard: Namecard | None = Field(None, alias="Namecard")
+    namecard: Namecard | None = None
 
     @field_validator("namecard", mode="before")
     @classmethod
@@ -73,15 +73,15 @@ class SkillUpgradeInfo(APIModel):
         parameters: List of parameters for the skill upgrade.
     """
 
-    level: int = Field(alias="Level")
-    icon: str = Field(alias="Icon")
-    attributes: list[str] = Field(alias="Desc")
-    parameters: list[float] = Field(alias="Param")
+    level: int
+    icon: str
+    attributes: list[str] = Field(alias="desc")
+    parameters: list[float] = Field(alias="param")
 
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
     @field_validator("attributes", mode="before")
     @classmethod
@@ -98,9 +98,9 @@ class CharacterSkill(APIModel):
         upgrade_info: Dictionary of skill upgrade information.
     """
 
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    upgrade_info: dict[str, SkillUpgradeInfo] = Field(alias="Promote")
+    name: str
+    description: str = Field(alias="desc")
+    upgrade_info: dict[str, SkillUpgradeInfo] = Field(alias="promote")
 
 
 class CharacterPassive(APIModel):
@@ -113,16 +113,16 @@ class CharacterPassive(APIModel):
         icon: Icon URL of the passive talent.
     """
 
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    unlock: int | list[int] = Field(alias="Unlock")
-    parameters: list[float] = Field(alias="ParamList")
-    icon: str = Field(alias="Icon")
+    name: str
+    description: str = Field(alias="desc")
+    unlock: int | list[int]
+    parameters: list[float] = Field(alias="param_list")
+    icon: str
 
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
 
 class CharacterConstellation(APIModel):
@@ -135,15 +135,15 @@ class CharacterConstellation(APIModel):
         icon: Icon URL of the constellation.
     """
 
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    parameters: list[float] = Field(alias="ParamList")
-    icon: str = Field(alias="Icon")
+    name: str
+    description: str = Field(alias="desc")
+    parameters: list[float] = Field(alias="param_list")
+    icon: str
 
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
 
 class UpgradeMaterial(APIModel):
@@ -156,15 +156,15 @@ class UpgradeMaterial(APIModel):
         rarity: Rarity of the material.
     """
 
-    name: str = Field(alias="Name")
-    id: int = Field(alias="Id")
-    count: int = Field(alias="Count")
-    rarity: Literal[0, 1, 2, 3, 4, 5] = Field(alias="Rank")
+    name: str
+    id: int
+    count: int
+    rarity: Literal[0, 1, 2, 3, 4, 5] = Field(alias="rank")
 
     @property
     def icon(self) -> str:
         """Get the material's icon URL."""
-        return f"https://api.hakush.in/gi/UI/UI_ItemIcon_{self.id}.webp"
+        return f"https://static.nanoka.cc/gi/UI/UI_ItemIcon_{self.id}.webp"
 
 
 class UpgradeMaterialInfo(APIModel):
@@ -175,8 +175,8 @@ class UpgradeMaterialInfo(APIModel):
         mora_cost: Mora cost for the upgrade.
     """
 
-    materials: list[UpgradeMaterial] = Field(alias="Mats")
-    mora_cost: int = Field(alias="Cost")
+    materials: list[UpgradeMaterial] = Field(alias="mats")
+    mora_cost: int = Field(alias="cost")
 
 
 class UpgradeMaterialInfos(APIModel):
@@ -187,8 +187,8 @@ class UpgradeMaterialInfos(APIModel):
         talents: List of lists of upgrade material information for talents.
     """
 
-    ascensions: list[UpgradeMaterialInfo] = Field(alias="Ascensions")
-    talents: list[list[UpgradeMaterialInfo]] = Field(alias="Talents")
+    ascensions: list[UpgradeMaterialInfo]
+    talents: list[list[UpgradeMaterialInfo]]
 
 
 class FightPropGrowthCurve(APIModel):
@@ -200,7 +200,7 @@ class FightPropGrowthCurve(APIModel):
     """
 
     stat_type: str = Field(alias="type")
-    growth_type: str = Field(alias="growCurve")
+    growth_type: str = Field(alias="grow_curve")
 
 
 class CharacterStatsModifier(APIModel):
@@ -214,11 +214,11 @@ class CharacterStatsModifier(APIModel):
         prop_growth_curves: List of property growth curves.
     """
 
-    hp: dict[str, float] = Field(alias="HP")
-    atk: dict[str, float] = Field(alias="ATK")
-    def_: dict[str, float] = Field(alias="DEF")
-    ascension: list[dict[str, float]] = Field(alias="Ascension")
-    prop_growth_curves: list[FightPropGrowthCurve] = Field(alias="PropGrowCurves")
+    hp: dict[str, float]
+    atk: dict[str, float]
+    def_: dict[str, float] = Field(alias="def")
+    ascension: list[dict[str, float]]
+    prop_growth_curves: list[FightPropGrowthCurve] | None = Field(None, alias="prop_grow_curves")
 
 
 class CharacterDetail(APIModel):
@@ -244,27 +244,27 @@ class CharacterDetail(APIModel):
     """
 
     # Info
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    info: CharacterInfo = Field(alias="CharaInfo")
-    rarity: Literal[4, 5] = Field(alias="Rarity")
-    icon: str = Field(alias="Icon")
+    name: str
+    description: str = Field(alias="desc")
+    info: CharacterInfo = Field(alias="chara_info")
+    rarity: Literal[4, 5]
+    icon: str
 
     # Combat
-    skills: list[CharacterSkill] = Field(alias="Skills")
-    passives: list[CharacterPassive] = Field(alias="Passives")
-    constellations: list[CharacterConstellation] = Field(alias="Constellations")
+    skills: list[CharacterSkill]
+    passives: list[CharacterPassive]
+    constellations: list[CharacterConstellation]
 
     # Props
-    stamina_recovery: float = Field(alias="StaminaRecovery")
-    base_hp: float = Field(alias="BaseHP")
-    base_atk: float = Field(alias="BaseATK")
-    base_def: float = Field(alias="BaseDEF")
-    crit_rate: float = Field(alias="CritRate")
-    crit_dmg: float = Field(alias="CritDMG")
+    stamina_recovery: float
+    base_hp: float
+    base_atk: float
+    base_def: float
+    crit_rate: float
+    crit_dmg: float
 
-    stats_modifier: CharacterStatsModifier = Field(alias="StatsModifier")
-    upgrade_materials: UpgradeMaterialInfos = Field(alias="Materials")
+    stats_modifier: CharacterStatsModifier
+    upgrade_materials: UpgradeMaterialInfos = Field(alias="materials")
 
     @property
     def gacha_art(self) -> str:
@@ -274,11 +274,13 @@ class CharacterDetail(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
     @field_validator("rarity", mode="before")
     @classmethod
-    def __convert_rarity(cls, value: str) -> Literal[4, 5]:
+    def __convert_rarity(cls, value: str | int) -> Literal[4, 5]:
+        if isinstance(value, int):
+            return value  # type: ignore
         return GI_CHARA_RARITY_MAP[value]
 
 
@@ -306,11 +308,13 @@ class Character(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
     @field_validator("rarity", mode="before")
     @classmethod
-    def __convert_rarity(cls, value: str) -> Literal[4, 5]:
+    def __convert_rarity(cls, value: str | int) -> Literal[4, 5]:
+        if isinstance(value, int):
+            return value  # type: ignore
         return GI_CHARA_RARITY_MAP[value]
 
     @field_validator("element", mode="before")

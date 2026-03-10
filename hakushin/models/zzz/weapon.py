@@ -49,7 +49,7 @@ class Weapon(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         """Convert the icon path to a full URL."""
-        return f"https://api.hakush.in/zzz/UI/{value}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
 
     @model_validator(mode="before")
     @classmethod
@@ -92,10 +92,10 @@ class WeaponProp(APIModel):
         value: Numerical property value.
     """
 
-    name: str = Field(alias="Name")
-    name2: str = Field(alias="Name2")
-    format: str = Field(alias="Format")
-    value: float = Field(alias="Value")
+    name: str
+    name2: str
+    format: str
+    value: float
 
     @computed_field
     @property
@@ -118,9 +118,9 @@ class WeaponLevel(APIModel):
         rate2: Secondary stat scaling rate.
     """
 
-    exp: int = Field(alias="Exp")
-    rate: int = Field(alias="Rate")
-    rate2: int = Field(alias="Rate2")
+    exp: int
+    rate: int
+    rate2: int
 
 
 class WeaponStar(APIModel):
@@ -134,8 +134,8 @@ class WeaponStar(APIModel):
         rand_rate: Randomization rate factor.
     """
 
-    star_rate: int = Field(alias="StarRate")
-    rand_rate: int = Field(alias="RandRate")
+    star_rate: int = Field(alias="star_rate")
+    rand_rate: int = Field(alias="rand_rate")
 
 
 class WeaponRefinement(APIModel):
@@ -148,8 +148,8 @@ class WeaponRefinement(APIModel):
         name: Refinement level name or description.
     """
 
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
+    name: str
+    description: str = Field(alias="desc")
 
     @field_validator("description")
     @classmethod
@@ -179,21 +179,21 @@ class WeaponDetail(APIModel):
         refinements: Dictionary of weapon refinements.
     """
 
-    id: int = Field(alias="Id")
-    code_name: str = Field(alias="CodeName")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    description2: str = Field(alias="Desc2")
-    short_description: str = Field(alias="Desc3")
-    rarity: Literal["S", "A", "B"] | None = Field(alias="Rarity")
-    icon: str = Field(alias="Icon")
-    type: WeaponType = Field(alias="WeaponType")
-    base_property: WeaponProp = Field(alias="BaseProperty")
-    rand_property: WeaponProp = Field(alias="RandProperty")
-    levels: dict[str, WeaponLevel] = Field(alias="Level")
-    stars: dict[str, WeaponStar] = Field(alias="Stars")
-    materials: str = Field(alias="Materials")
-    refinements: dict[str, WeaponRefinement] = Field(alias="Talents")  # {'1': ..., '2': ...}
+    id: int
+    code_name: str = Field(alias="code_name")
+    name: str
+    description: str = Field(alias="desc")
+    description2: str = Field(alias="desc2")
+    short_description: str = Field(alias="desc3")
+    rarity: Literal["S", "A", "B"] | None
+    icon: str
+    type: WeaponType = Field(alias="weapon_type")
+    base_property: WeaponProp = Field(alias="base_property")
+    rand_property: WeaponProp = Field(alias="rand_property")
+    levels: dict[str, WeaponLevel] = Field(alias="level")
+    stars: dict[str, WeaponStar]
+    materials: str
+    refinements: dict[str, WeaponRefinement] = Field(alias="talents")  # {'1': ..., '2': ...}
     """Dictionary of refinements, key starts from 1."""
 
     @field_validator("type", mode="before")
@@ -208,7 +208,7 @@ class WeaponDetail(APIModel):
     def __convert_icon(cls, value: str) -> str:
         """Convert the icon path to a full URL."""
         value = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://api.hakush.in/zzz/UI/{value}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
 
     @field_validator("rarity", mode="before")
     @classmethod

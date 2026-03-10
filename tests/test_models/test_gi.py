@@ -6,10 +6,6 @@ if TYPE_CHECKING:
     from hakushin.clients.gi import GIClient
 
 
-async def test_new(gi_client: GIClient) -> None:
-    await gi_client.fetch_new()
-
-
 async def test_characters(gi_client: GIClient) -> None:
     await gi_client.fetch_characters()
 

@@ -40,18 +40,6 @@ class ZZZClient(BaseClient):
             session=session,
         )
 
-    async def fetch_new(self, *, use_cache: bool = True) -> zzz.New:
-        """Fetch the ID of beta items in Zenless Zone Zero.
-
-        Args:
-            use_cache: Whether to use the response cache.
-
-        Returns:
-            A model representing the new items.
-        """
-        data = await self._request("new", use_cache=use_cache, static=True)
-        return zzz.New(**data)
-
     async def fetch_characters(
         self, *, version: str | None = None, use_cache: bool = True
     ) -> list[zzz.Character]:

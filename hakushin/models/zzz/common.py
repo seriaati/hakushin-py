@@ -29,10 +29,10 @@ class ZZZExtraProp(APIModel):
         value: Value of the property.
     """
 
-    id: int = Field(alias="Prop")
-    name: str = Field(alias="Name")
-    format: str = Field(alias="Format")
-    value: int = Field(alias="Value")
+    id: int = Field(alias="prop")
+    name: str
+    format: str
+    value: int
 
     @computed_field
     @property

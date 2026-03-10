@@ -57,7 +57,7 @@ class DriveDisc(APIModel):
     @classmethod
     def __convert_icon(cls, icon: str) -> str:
         filename = icon.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://api.hakush.in/zzz/UI/{filename}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/{filename}.webp"
 
 
 class DriveDiscDetail(APIModel):
@@ -75,15 +75,15 @@ class DriveDiscDetail(APIModel):
         icon: Drive disc icon image URL.
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    two_piece_effect: str = Field(alias="Desc2")
-    four_piece_effect: str = Field(alias="Desc4")
-    story: str = Field(alias="Story")
-    icon: str = Field(alias="Icon")
+    id: int
+    name: str
+    two_piece_effect: str = Field(alias="desc2")
+    four_piece_effect: str = Field(alias="desc4")
+    story: str
+    icon: str
 
     @field_validator("icon")
     @classmethod
     def __convert_icon(cls, icon: str) -> str:
         filename = icon.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://api.hakush.in/zzz/UI/{filename}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/{filename}.webp"

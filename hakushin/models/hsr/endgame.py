@@ -62,7 +62,7 @@ class EndgameWave(APIModel):
     """
 
     enemies: list[int] = Field(default_factory=list)
-    hp_multiplier: float = Field(alias="HPMultiplier", default=0)
+    hp_multiplier: float = Field(alias="hp_multiplier", default=0)
 
     @field_validator("hp_multiplier", mode="before")
     @classmethod
@@ -79,7 +79,7 @@ class EndgameWave(APIModel):
         if "enemies" not in values:
             enemies = []
             for key, val in values.items():
-                if key.startswith("Monster") and isinstance(val, int):
+                if (key.startswith("Monster") or key.startswith("monster")) and isinstance(val, int):
                     enemies.append(val)
             values["enemies"] = enemies
         return values
@@ -106,10 +106,10 @@ class EndgameHalf(APIModel):
         waves: List of enemy waves in this half.
     """
 
-    hlg_id: int = Field(alias="HardLevelGroup", default=1)
-    hlg_level: int = Field(alias="Level", default=1)
-    eg_id: int = Field(alias="EliteGroup", default=1)
-    waves: list[EndgameWave] = Field(alias="MonsterList")
+    hlg_id: int = Field(alias="hard_level_group", default=1)
+    hlg_level: int = Field(alias="level", default=1)
+    eg_id: int = Field(alias="elite_group", default=1)
+    waves: list[EndgameWave] = Field(alias="monster_list")
 
 
 class FullEndgameHalf(EndgameHalf):
@@ -122,7 +122,7 @@ class FullEndgameHalf(EndgameHalf):
         waves: List of enemy waves in this half with processed enemies.
     """
 
-    waves: list[FullEndgameWave] = Field(alias="MonsterList")
+    waves: list[FullEndgameWave] = Field(alias="monster_list")
 
 
 class EndgameStage(APIModel):
@@ -137,14 +137,14 @@ class EndgameStage(APIModel):
         second_half: The second half of the stage.
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
+    id: int
+    name: str
 
-    first_half_weaknesses: list[HSRElement] = Field(alias="DamageType1")
-    second_half_weaknesses: list[HSRElement] = Field(alias="DamageType2")
+    first_half_weaknesses: list[HSRElement] = Field(alias="damage_type1")
+    second_half_weaknesses: list[HSRElement] = Field(alias="damage_type2")
 
-    first_half: EndgameHalf = Field(alias="EventIDList1")
-    second_half: EndgameHalf | None = Field(alias="EventIDList2")
+    first_half: EndgameHalf = Field(alias="event_id_list1")
+    second_half: EndgameHalf | None = Field(alias="event_id_list2")
 
     @field_validator("name", mode="before")
     @classmethod
@@ -154,16 +154,16 @@ class EndgameStage(APIModel):
     @model_validator(mode="before")
     @classmethod
     def __unwrap_event_lists(cls, values: dict[str, Any]) -> dict[str, Any]:
-        if "EventIDList1" in values and isinstance(values["EventIDList1"], list):
-            values["EventIDList1"] = values["EventIDList1"][0]
-
-        if "EventIDList2" in values:
-            if isinstance(values["EventIDList2"], list) and values["EventIDList2"]:
-                values["EventIDList2"] = values["EventIDList2"][0]
-            elif not values["EventIDList2"]:
-                values["EventIDList2"] = None  # Let Pydantic handle it as optional
-        else:
-            values["EventIDList2"] = None
+        for key in ["event_id_list1", "event_id_list2", "EventIDList1", "EventIDList2"]:
+            if key in values:
+                new_key = key.lower()
+                if isinstance(values[key], list) and values[key]:
+                    values[new_key] = values[key][0]
+                elif not values[key]:
+                    values[new_key] = None
+        
+        if "event_id_list2" not in values:
+             values["event_id_list2"] = None
 
         return values
 
@@ -176,8 +176,8 @@ class FullEndgameStage(EndgameStage):
         second_half: The second half of the stage with processed enemies.
     """
 
-    first_half: FullEndgameHalf = Field(alias="EventIDList1")
-    second_half: FullEndgameHalf | None = Field(alias="EventIDList2")
+    first_half: FullEndgameHalf = Field(alias="event_id_list1")
+    second_half: FullEndgameHalf | None = Field(alias="event_id_list2")
 
 
 class EndgameBaseModel(APIModel):
@@ -191,11 +191,11 @@ class EndgameBaseModel(APIModel):
         stages: List of stages in this endgame mode.
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name", default="")
-    begin_time: str = Field(alias="BeginTime", default="")
-    end_time: str = Field(alias="EndTime", default="")
-    stages: list[EndgameStage] = Field(alias="Level")
+    id: int
+    name: str = Field(default="")
+    begin_time: str = Field(alias="begin_time", default="")
+    end_time: str = Field(alias="end_time", default="")
+    stages: list[EndgameStage] = Field(alias="level")
 
     @field_validator("name", "begin_time", "end_time", mode="before")
     @classmethod
@@ -214,7 +214,7 @@ class FullEndgameBaseModel(EndgameBaseModel):
         stages: List of stages in this endgame mode with processed enemies.
     """
 
-    stages: list[FullEndgameStage] = Field(alias="Level")
+    stages: list[FullEndgameStage] = Field(alias="level")
 
 
 class EndgameSummary(APIModel):
@@ -249,16 +249,18 @@ class EndgameSummary(APIModel):
 
 
 class MOCBase(APIModel):
-    memory_turbulence: str = Field(alias="MemoryTurbulence")
+    memory_turbulence: str = Field(alias="memory_turbulence")
 
     @model_validator(mode="before")
     @classmethod
     def __transform_data(cls, data: dict[str, Any]) -> dict[str, Any]:
-        first_level = data["Level"][0]
-        data["Name"] = first_level["GroupName"]
-        data["MemoryTurbulence"] = first_level["Desc"]
-        data["BeginTime"] = first_level["BeginTime"]
-        data["EndTime"] = first_level["EndTime"]
+        levels = data.get("level") or data.get("Level")
+        if levels and len(levels) > 0:
+            first_level = levels[0]
+            data["name"] = first_level.get("group_name") or first_level.get("GroupName")
+            data["memory_turbulence"] = first_level.get("desc") or first_level.get("Desc")
+            data["begin_time"] = first_level.get("begin_time") or first_level.get("BeginTime")
+            data["end_time"] = first_level.get("end_time") or first_level.get("EndTime")
         return data
 
 
@@ -287,9 +289,9 @@ class EndgameBuffOptions(APIModel):
         params: List of parameters applied by the buff.
     """
 
-    name: str = Field(alias="Name")
-    desc: str = Field(alias="Desc")
-    params: list[float] = Field(alias="Param")
+    name: str
+    desc: str
+    params: list[float] = Field(alias="param")
 
 
 class ApocBuff(APIModel):
@@ -300,8 +302,8 @@ class ApocBuff(APIModel):
         desc: Description of the effect.
     """
 
-    name: str = Field(alias="Name", default="")
-    desc: str = Field(alias="Desc", default="")
+    name: str = Field(default="")
+    desc: str = Field(default="")
 
     @field_validator("name", "desc", mode="before")
     @classmethod
@@ -310,10 +312,10 @@ class ApocBuff(APIModel):
 
 
 class ApocBase(APIModel):
-    buff: ApocBuff = Field(alias="Buff")
+    buff: ApocBuff
 
-    buff_list_1: list[EndgameBuffOptions] = Field(alias="BuffList1")
-    buff_list_2: list[EndgameBuffOptions] = Field(alias="BuffList2")
+    buff_list_1: list[EndgameBuffOptions] = Field(alias="buff_list1")
+    buff_list_2: list[EndgameBuffOptions] = Field(alias="buff_list2")
 
 
 class ApocDetail(EndgameBaseModel, ApocBase):
@@ -337,8 +339,8 @@ class FullApocDetail(FullEndgameBaseModel, ApocBase):
 
 
 class PFBase(APIModel):
-    buff_options: list[EndgameBuffOptions] = Field(alias="Option")
-    buff_suboptions: list[EndgameBuffOptions] = Field(alias="SubOption")
+    buff_options: list[EndgameBuffOptions] = Field(alias="option")
+    buff_suboptions: list[EndgameBuffOptions] = Field(alias="sub_option")
 
 
 class PFDetail(EndgameBaseModel, PFBase):
@@ -361,33 +363,42 @@ class FullPFDetail(FullEndgameBaseModel, PFBase):
     @model_validator(mode="before")
     @classmethod
     def __transform_level_data(cls, data: dict[str, Any]) -> dict[str, Any]:
-        levels = data.get("Level", [])
+        levels = data.get("level") or data.get("Level", [])
         transformed_stages = []
 
         for raw_stage in levels:
-            infinite_list_stage_1 = list(raw_stage["InfiniteList1"].values())
-            infinite_list_stage_2 = list(raw_stage["InfiniteList2"].values())
-            raw_stage["EventIDList1"][0]["EliteGroup"] = infinite_list_stage_1[0]["EliteGroup"]
-            raw_stage["EventIDList2"][0]["EliteGroup"] = infinite_list_stage_2[0]["EliteGroup"]
+            infinite_list1 = raw_stage.get("infinite_list1") or raw_stage.get("InfiniteList1")
+            infinite_list2 = raw_stage.get("infinite_list2") or raw_stage.get("InfiniteList2")
+            event_id_list1 = raw_stage.get("event_id_list1") or raw_stage.get("EventIDList1")
+            event_id_list2 = raw_stage.get("event_id_list2") or raw_stage.get("EventIDList2")
 
-            raw_stage["EventIDList1"][0]["MonsterList"] = []
+            if infinite_list1 and event_id_list1:
+                infinite_list_stage_1 = list(infinite_list1.values())
+                event_id_list1[0]["elite_group"] = infinite_list_stage_1[0].get("elite_group") or infinite_list_stage_1[0].get("EliteGroup")
+                event_id_list1[0]["monster_list"] = []
 
-            for wave in infinite_list_stage_1:
-                unique_wave_enemies = list(set(wave["MonsterGroupIDList"]))
-                enemies_dict = {f"Monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)}
-                param_list = wave.get("ParamList", [])
-                enemies_dict["HPMultiplier"] = param_list[1] if len(param_list) > 1 else 0.0
-                raw_stage["EventIDList1"][0]["MonsterList"].append(enemies_dict)
+                for wave in infinite_list_stage_1:
+                    monster_group_id_list = wave.get("monster_group_id_list") or wave.get("MonsterGroupIDList")
+                    unique_wave_enemies = list(set(monster_group_id_list))
+                    enemies_dict = {f"monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)}
+                    param_list = wave.get("param_list") or wave.get("ParamList", [])
+                    enemies_dict["hp_multiplier"] = param_list[1] if len(param_list) > 1 else 0.0
+                    event_id_list1[0]["monster_list"].append(enemies_dict)
 
-            raw_stage["EventIDList2"][0]["MonsterList"] = []
+            if infinite_list2 and event_id_list2:
+                infinite_list_stage_2 = list(infinite_list2.values())
+                event_id_list2[0]["elite_group"] = infinite_list_stage_2[0].get("elite_group") or infinite_list_stage_2[0].get("EliteGroup")
+                event_id_list2[0]["monster_list"] = []
 
-            for wave in infinite_list_stage_2:
-                unique_wave_enemies = list(set(wave["MonsterGroupIDList"]))
-                enemies_dict = {f"Monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)}
-                param_list = wave.get("ParamList", [])
-                enemies_dict["HPMultiplier"] = param_list[1] if len(param_list) > 1 else 0.0
-                raw_stage["EventIDList2"][0]["MonsterList"].append(enemies_dict)
+                for wave in infinite_list_stage_2:
+                    monster_group_id_list = wave.get("monster_group_id_list") or wave.get("MonsterGroupIDList")
+                    unique_wave_enemies = list(set(monster_group_id_list))
+                    enemies_dict = {f"monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)}
+                    param_list = wave.get("param_list") or wave.get("ParamList", [])
+                    enemies_dict["hp_multiplier"] = param_list[1] if len(param_list) > 1 else 0.0
+                    event_id_list2[0]["monster_list"].append(enemies_dict)
+            
             transformed_stages.append(raw_stage)
 
-        data["Level"] = transformed_stages
+        data["level"] = transformed_stages
         return data

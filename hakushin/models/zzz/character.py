@@ -35,8 +35,8 @@ class PotentialMaterial(APIModel):
         number: Quantity of the material needed? Or maybe it's just a number...
     """
 
-    id: int = Field(alias="ItemId")
-    number: int = Field(alias="Number")
+    id: int = Field(alias="item_id")
+    number: int
 
 
 class CharacterPotential(APIModel):
@@ -53,19 +53,19 @@ class CharacterPotential(APIModel):
         materials: List of materials required to unlock or upgrade this potential.
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    short_name: str = Field(alias="LevelShowName")
-    description: str = Field(alias="Desc")
-    image: str = Field(alias="Image")
-    level: int = Field(alias="Level")
-    affected_skills: list[int] = Field(alias="AbilityList")
-    materials: list[PotentialMaterial] = Field(alias="PotentialMaterials")
+    id: int
+    name: str
+    short_name: str = Field(alias="level_show_name")
+    description: str = Field(alias="desc")
+    image: str
+    level: int
+    affected_skills: list[int] = Field(alias="ability_list")
+    materials: list[PotentialMaterial] = Field(alias="potential_materials")
 
     @field_validator("image", mode="after")
     @classmethod
     def __convert_image(cls, value: str) -> str:
-        return f"https://api.hakush.in/zzz/UI/AvatarSpecialAwakenBg_{value}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/AvatarSpecialAwakenBg_{value}.webp"
 
 
 class CharacterSkin(APIModel):
@@ -81,15 +81,15 @@ class CharacterSkin(APIModel):
         image: Skin image URL.
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    image: str = Field(alias="Image")
+    id: int
+    name: str
+    description: str = Field(alias="desc")
+    image: str
 
     @field_validator("image")
     @classmethod
     def __convert_image(cls, value: str) -> str:
-        return f"https://api.hakush.in/zzz/UI/{value}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
 
 
 class Character(APIModel):
@@ -126,34 +126,34 @@ class Character(APIModel):
     def phase_3_cinema_art(self) -> str:
         """Agent phase 3 mindscape cinema art.
 
-        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_3.webp
+        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_3.webp
         """
-        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_3.webp"
+        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_3.webp"
 
     @computed_field
     @property
     def phase_2_cinema_art(self) -> str:
         """Agent phase 2 mindscape cinema art.
 
-        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_2.webp
+        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_2.webp
         """
-        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_2.webp"
+        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_2.webp"
 
     @computed_field
     @property
     def phase_1_cinema_art(self) -> str:
         """Agent phase 1 mindscape cinema art.
 
-        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_1.webp
+        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_1.webp
         """
-        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_1.webp"
+        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_1.webp"
 
     @computed_field
     @property
     def icon(self) -> str:
         """Agent icon.
 
-        Example: https://api.hakush.in/zzz/UI/IconRoleSelect01.webp
+        Example: https://static.nanoka.cc/zzz/UI/IconRoleSelect01.webp
         """
         return self.image.replace("Role", "RoleSelect")
 
@@ -162,7 +162,7 @@ class Character(APIModel):
     def cropped_icon(self) -> str:
         """Agent cropped icon.
 
-        Example: https://api.hakush.in/zzz/UI/IconRoleCrop01.webp
+        Example: https://static.nanoka.cc/zzz/UI/IconRoleCrop01.webp
         """
         return self.image.replace("Role", "RoleCrop")
 
@@ -182,7 +182,7 @@ class Character(APIModel):
     @field_validator("image")
     @classmethod
     def __convert_image(cls, value: str) -> str:
-        return f"https://api.hakush.in/zzz/UI/{value}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
 
     @model_validator(mode="before")
     @classmethod
@@ -198,7 +198,7 @@ class Character(APIModel):
     @field_validator("skins", mode="before")
     @classmethod
     def __convert_skins(cls, value: dict[str, dict[str, Any]]) -> list[CharacterSkin]:
-        return [CharacterSkin(Id=int(k), **v) for k, v in value.items()]
+        return [CharacterSkin(id=int(k), **v) for k, v in value.items()]
 
 
 class CharacterProp(APIModel):
@@ -242,15 +242,15 @@ class CharacterInfo(APIModel):
         unlock_conditions: List of conditions to unlock the character.
     """
 
-    birthday: str = Field(alias="Birthday")
-    full_name: str = Field(alias="FullName")
-    gender: str = Field(alias="Gender")
-    female_impression: str = Field(alias="ImpressionF")
-    male_impression: str = Field(alias="ImpressionM")
-    outlook_desc: str = Field(alias="OutlookDesc")
-    profile_desc: str = Field(alias="ProfileDesc")
-    faction: str = Field(alias="Race")
-    unlock_conditions: list[str] = Field(alias="UnlockCondition")
+    birthday: str
+    full_name: str
+    gender: str
+    female_impression: str = Field(alias="impression_f")
+    male_impression: str = Field(alias="impression_m")
+    outlook_desc: str
+    profile_desc: str
+    faction: str = Field(alias="race")
+    unlock_conditions: list[str] = Field(alias="unlock_condition")
 
     @field_validator("female_impression", "male_impression", "outlook_desc", "profile_desc")
     @classmethod
@@ -271,10 +271,10 @@ class MindscapeCinema(APIModel):
         description2: Secondary effect description.
     """
 
-    level: int = Field(alias="Level")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    description2: str = Field(alias="Desc2")
+    level: int
+    name: str
+    description: str = Field(alias="desc")
+    description2: str = Field(alias="desc2")
 
     @field_validator("description", "description2")
     @classmethod
@@ -297,12 +297,12 @@ class CharacterAscension(APIModel):
         materials: Required materials for ascension.
     """
 
-    max_hp: int = Field(alias="HpMax")
-    attack: int = Field(alias="Attack")
-    defense: int = Field(alias="Defence")
-    max_level: int = Field(alias="LevelMax")
-    min_level: int = Field(alias="LevelMin")
-    materials: list[ZZZMaterial] = Field(alias="Materials")
+    max_hp: int = Field(alias="hp_max")
+    attack: int
+    defense: int = Field(alias="defence")
+    max_level: int = Field(alias="level_max")
+    min_level: int = Field(alias="level_min")
+    materials: list[ZZZMaterial]
 
     @field_validator("materials", mode="before")
     @classmethod
@@ -321,8 +321,8 @@ class CharacterExtraAscension(APIModel):
         props: Additional properties and bonuses gained.
     """
 
-    max_level: int = Field(alias="MaxLevel")
-    props: list[ZZZExtraProp] = Field(alias="Extra")
+    max_level: int = Field(alias="max_level")
+    props: list[ZZZExtraProp] = Field(alias="extra")
 
     @field_validator("props", mode="before")
     @classmethod
@@ -342,9 +342,9 @@ class CharaSkillDescParamProp(APIModel):
         format: Display formatting specification.
     """
 
-    main: int = Field(alias="Main")
-    growth: int = Field(alias="Growth")
-    format: str = Field(alias="Format")
+    main: int
+    growth: int
+    format: str
 
 
 class CharaSkillDescParam(APIModel):
@@ -359,9 +359,9 @@ class CharaSkillDescParam(APIModel):
         params: Dictionary of parameter properties.
     """
 
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    params: dict[str, CharaSkillDescParamProp] | None = Field(None, alias="Param")
+    name: str
+    description: str = Field(alias="desc")
+    params: dict[str, CharaSkillDescParamProp] | None = Field(None, alias="param")
 
 
 class CharacterSkillDesc(APIModel):
@@ -376,9 +376,9 @@ class CharacterSkillDesc(APIModel):
         params: List of skill parameters.
     """
 
-    name: str = Field(alias="Name")
-    description: str | None = Field(None, alias="Desc")
-    params: list[CharaSkillDescParam] | None = Field(None, alias="Param")
+    name: str
+    description: str | None = Field(None, alias="desc")
+    params: list[CharaSkillDescParam] | None = Field(None, alias="param")
 
 
 class CharacterSkill(APIModel):
@@ -393,9 +393,9 @@ class CharacterSkill(APIModel):
         type: Skill type classification.
     """
 
-    descriptions: list[CharacterSkillDesc] = Field(alias="Description")
-    materials: dict[str, list[ZZZMaterial]] = Field(alias="Material")
-    type: ZZZSkillType = Field(alias="Type")
+    descriptions: list[CharacterSkillDesc] = Field(alias="description")
+    materials: dict[str, list[ZZZMaterial]] = Field(alias="material")
+    type: ZZZSkillType
 
     @field_validator("materials", mode="before")
     @classmethod
@@ -419,10 +419,10 @@ class CharaCoreSkillLevel(APIModel):
         descriptions: Skill effect descriptions.
     """
 
-    level: int = Field(alias="Level")
-    id: int = Field(alias="Id")
-    names: list[str] = Field(alias="Name")
-    descriptions: list[str] = Field(alias="Desc")
+    level: int
+    id: int
+    names: list[str] = Field(alias="name")
+    descriptions: list[str] = Field(alias="desc")
 
     @field_validator("descriptions")
     @classmethod
@@ -441,8 +441,8 @@ class CharacterCoreSkill(APIModel):
         level_up_materials: Materials required for each upgrade level.
     """
 
-    levels: dict[int, CharaCoreSkillLevel] = Field(alias="Level")
-    level_up_materials: dict[str, list[ZZZMaterial]] | None = Field(None, alias="Materials")
+    levels: dict[int, CharaCoreSkillLevel] = Field(alias="level")
+    level_up_materials: dict[str, list[ZZZMaterial]] | None = Field(None, alias="materials")
 
     @field_validator("level_up_materials", mode="before")
     @classmethod
@@ -455,7 +455,7 @@ class CharacterCoreSkill(APIModel):
     @field_validator("levels", mode="before")
     @classmethod
     def __intify_keys(cls, value: dict[str, dict[str, Any]]) -> dict[int, CharaCoreSkillLevel]:
-        return {v["Level"]: CharaCoreSkillLevel(**v) for v in value.values()}
+        return {v.get("level") or v.get("Level"): CharaCoreSkillLevel(**v) for v in value.values()}
 
 
 class CharacterDetail(APIModel):
@@ -484,59 +484,59 @@ class CharacterDetail(APIModel):
         passive: Character core passive skill.
     """
 
-    id: int = Field(alias="Id")
-    image: str = Field(alias="Icon")
-    name: str = Field(alias="Name")
-    code_name: str = Field(alias="CodeName")
-    rarity: Literal["S", "A"] | None = Field(alias="Rarity")
-    specialty: CharacterProp = Field(alias="WeaponType")
-    element: CharacterProp = Field(alias="ElementType")
-    attack_type: CharacterProp = Field(alias="HitType")
-    faction: CharacterProp = Field(alias="Camp")
-    gender: Literal["M", "F"] = Field(alias="Gender")
-    info: CharacterInfo | None = Field(alias="PartnerInfo")
-    stats: dict[str, float] = Field(alias="Stats")
-    mindscape_cinemas: list[MindscapeCinema] = Field(alias="Talent")
-    ascension: list[CharacterAscension] = Field(alias="Level")
-    extra_ascension: list[CharacterExtraAscension] = Field(alias="ExtraLevel")
-    skills: dict[ZZZSkillType, CharacterSkill] = Field(alias="Skill")
-    passive: CharacterCoreSkill = Field(alias="Passive")
-    skins: list[CharacterSkin] = Field(alias="Skin", default_factory=list)
-    potentials: list[CharacterPotential] = Field(alias="PotentialDetail", default_factory=list)
+    id: int
+    image: str = Field(alias="icon")
+    name: str
+    code_name: str
+    rarity: Literal["S", "A"] | None
+    specialty: CharacterProp = Field(alias="weapon_type")
+    element: CharacterProp = Field(alias="element_type")
+    attack_type: CharacterProp = Field(alias="hit_type")
+    faction: CharacterProp = Field(alias="camp")
+    gender: Literal["M", "F"]
+    info: CharacterInfo | None = Field(alias="partner_info")
+    stats: dict[str, float]
+    mindscape_cinemas: list[MindscapeCinema] = Field(alias="talent")
+    ascension: list[CharacterAscension] = Field(alias="level")
+    extra_ascension: list[CharacterExtraAscension] = Field(alias="extra_level")
+    skills: dict[ZZZSkillType, CharacterSkill] = Field(alias="skill")
+    passive: CharacterCoreSkill
+    skins: list[CharacterSkin] = Field(alias="skin", default_factory=list)
+    potentials: list[CharacterPotential] = Field(alias="potential_detail", default_factory=list)
 
     @computed_field
     @property
     def phase_3_cinema_art(self) -> str:
         """Agent phase 3 mindscape cinema art.
 
-        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_3.webp
+        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_3.webp
         """
-        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_3.webp"
+        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_3.webp"
 
     @computed_field
     @property
     def phase_2_cinema_art(self) -> str:
         """Agent phase 2 mindscape cinema art.
 
-        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_2.webp
+        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_2.webp
         """
-        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_2.webp"
+        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_2.webp"
 
     @computed_field
     @property
     def phase_1_cinema_art(self) -> str:
         """Agent phase 1 mindscape cinema art.
 
-        Example: https://api.hakush.in/zzz/UI/Mindscape_1041_1.webp
+        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_1.webp
         """
-        return f"https://api.hakush.in/zzz/UI/Mindscape_{self.id}_1.webp"
+        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_1.webp"
 
     @computed_field
     @property
     def icon(self) -> str:
         """Character icon.
 
-        Example: https://api.hakush.in/zzz/UI/IconRoleSelect01.webp
+        Example: https://static.nanoka.cc/zzz/UI/IconRoleSelect01.webp
         """
         return self.image.replace("Role", "RoleSelect")
 
@@ -551,7 +551,7 @@ class CharacterDetail(APIModel):
         cls, value: dict[str, dict[str, Any]]
     ) -> dict[ZZZSkillType, CharacterSkill]:
         return {
-            ZZZSkillType(k): CharacterSkill(Type=ZZZSkillType(k), **v) for k, v in value.items()
+            ZZZSkillType(k): CharacterSkill(type=ZZZSkillType(k), **v) for k, v in value.items()
         }
 
     @field_validator("extra_ascension", mode="before")
@@ -575,6 +575,7 @@ class CharacterDetail(APIModel):
     @classmethod
     def __pop_tags(cls, value: dict[str, Any]) -> dict[str, float]:
         value.pop("Tags", None)
+        value.pop("tags", None)
         return value
 
     @field_validator("gender", mode="before")
@@ -592,12 +593,12 @@ class CharacterDetail(APIModel):
     @field_validator("image")
     @classmethod
     def __convert_image(cls, value: str) -> str:
-        return f"https://api.hakush.in/zzz/UI/{value}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
 
     @field_validator("skins", mode="before")
     @classmethod
     def __convert_skins(cls, value: dict[str, dict[str, Any]]) -> list[CharacterSkin]:
-        return [CharacterSkin(Id=int(k), **v) for k, v in value.items()]
+        return [CharacterSkin(id=int(k), **v) for k, v in value.items()]
 
     @field_validator("potentials", mode="before")
     @classmethod

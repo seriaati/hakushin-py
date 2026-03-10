@@ -66,29 +66,17 @@ class HSRClient(BaseClient):
 
         self._elite_groups_cache = {
             item["EliteGroup"]: hsr.EliteGroup(**item)
-            for item in elite_raw["Level"]
+            for item in elite_raw["level"]
             if "EliteGroup" in item
         }
 
         self._hard_level_groups_cache = {
             (item["HardLevelGroup"], item["Level"]): hsr.HardLevelGroup(**item)
-            for item in hlg_raw["Level"]
+            for item in hlg_raw["level"]
             if "HardLevelGroup" in item and "Level" in item
         }
 
         return self._elite_groups_cache, self._hard_level_groups_cache
-
-    async def fetch_new(self, *, use_cache: bool = True) -> hsr.New:
-        """Fetch the ID of beta items in Honkai Star Rail.
-
-        Args:
-            use_cache: Whether to use the response cache.
-
-        Returns:
-            A model representing the new items.
-        """
-        data = await self._request("new", use_cache=use_cache, static=True)
-        return hsr.New(**data)
 
     async def fetch_monsters(self, *, use_cache: bool = True) -> list[hsr.Monster]:
         """Fetch all Honkai Star Rail monsters.
@@ -174,7 +162,7 @@ class HSRClient(BaseClient):
         """
         endpoint = f"maze/{moc_id}"
         data: dict[str, Any] = await self._request(endpoint, use_cache=use_cache)
-        data["Id"] = moc_id
+        data["id"] = moc_id
 
         detail = hsr.MOCDetail(**data)
         if full:

@@ -31,10 +31,10 @@ class SetEffect(APIModel):
     """
 
     id: int
-    affix_id: int = Field(alias="affixId")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    parameters: list[float] = Field(alias="paramList")
+    affix_id: int = Field(alias="affix_id")
+    name: str
+    description: str = Field(alias="desc")
+    parameters: list[float] = Field(alias="param_list")
 
 
 class ArtifactSetDetailSetEffects(APIModel):
@@ -58,15 +58,15 @@ class Artifact(APIModel):
         description: Description of the artifact.
     """
 
-    icon: str = Field(alias="Icon")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
+    icon: str
+    name: str
+    description: str = Field(alias="desc")
 
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         """Convert the icon path to a full URL."""
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
 
 class ArtifactSetDetail(APIModel):
@@ -79,16 +79,16 @@ class ArtifactSetDetail(APIModel):
         parts: Parts of the artifact set.
     """
 
-    id: int = Field(alias="Id")
-    icon: str = Field(alias="Icon")
-    set_effect: ArtifactSetDetailSetEffects = Field(alias="Affix")
-    parts: dict[str, Artifact] = Field(alias="Parts")
+    id: int
+    icon: str
+    set_effect: ArtifactSetDetailSetEffects = Field(alias="affix")
+    parts: dict[str, Artifact]
 
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         """Convert the icon path to a full URL."""
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
     @field_validator("set_effect", mode="before")
     @classmethod
@@ -155,7 +155,7 @@ class ArtifactSet(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         """Convert the icon path to a full URL."""
-        return f"https://api.hakush.in/gi/UI/{value}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
 
     @field_validator("set_effect", mode="before")
     @classmethod

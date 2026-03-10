@@ -19,8 +19,8 @@ class SkillLevelInfo(APIModel):
         parameters: A list of parameters for the skill level.
     """
 
-    level: int = Field(alias="Level")
-    parameters: list[float] = Field(alias="ParamList")
+    level: int
+    parameters: list[float] = Field(alias="param_list")
 
 
 class Skill(APIModel):
@@ -35,12 +35,12 @@ class Skill(APIModel):
         level_info: A dictionary of skill level information.
     """
 
-    name: str = Field(alias="Name")
-    description: str | None = Field(None, alias="Desc")
-    type: str | None = Field(None, alias="Type")
-    tag: str = Field(alias="Tag")
-    energy_generation: int | None = Field(None, alias="SPBase")
-    level_info: dict[str, SkillLevelInfo] = Field(alias="Level")
+    name: str
+    description: str | None = Field(None, alias="desc")
+    type: str | None = None
+    tag: str
+    energy_generation: int | None = Field(None, alias="sp_base")
+    level_info: dict[str, SkillLevelInfo] = Field(alias="level")
 
     @computed_field
     @property
@@ -59,10 +59,10 @@ class Eidolon(APIModel):
         parameters: A list of parameters for the eidolon.
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    parameters: list[float] = Field(alias="ParamList")
+    id: int
+    name: str
+    description: str = Field(alias="desc")
+    parameters: list[float] = Field(alias="param_list")
 
     @computed_field
     @property
@@ -70,7 +70,7 @@ class Eidolon(APIModel):
         """Get the eidolon's image URL."""
         character_id = str(self.id)[:4]
         eidolon_index = str(self.id)[-1]
-        return f"https://api.hakush.in/hsr/UI/rank/_dependencies/textures/{character_id}/{character_id}_Rank_{eidolon_index}.webp"
+        return f"https://static.nanoka.cc/hsr/UI/rank/_dependencies/textures/{character_id}/{character_id}_Rank_{eidolon_index}.webp"
 
 
 class CharacterDetail(APIModel):
@@ -86,17 +86,19 @@ class CharacterDetail(APIModel):
         ascension_stats: A dictionary of ascension stats for the character.
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    rarity: Literal[4, 5] = Field(alias="Rarity")
-    eidolons: dict[str, Eidolon] = Field(alias="Ranks")
-    skills: dict[str, Skill] = Field(alias="Skills")
-    ascension_stats: dict[str, dict[str, Any]] = Field(alias="Stats")
+    id: int
+    name: str
+    description: str = Field(alias="desc")
+    rarity: Literal[4, 5]
+    eidolons: dict[str, Eidolon] = Field(alias="ranks")
+    skills: dict[str, Skill]
+    ascension_stats: dict[str, dict[str, Any]] = Field(alias="stats")
 
     @field_validator("rarity", mode="before")
     @classmethod
-    def __convert_rarity(cls, value: str) -> Literal[4, 5]:
+    def __convert_rarity(cls, value: str | int) -> Literal[4, 5]:
+        if isinstance(value, int):
+            return value  # type: ignore
         return HSR_CHARA_RARITY_MAP[value]
 
     @field_validator("description", mode="before")
@@ -108,18 +110,21 @@ class CharacterDetail(APIModel):
     @classmethod
     def __remove_invalid_skills(cls, value: dict[str, Any]) -> dict[str, Any]:
         # Remove skills with empty names
-        return {k: v for k, v in value.items() if v.get("Name")}
+        return {k: v for k, v in value.items() if v.get("name") or v.get("Name")}
 
     @model_validator(mode="before")
     @classmethod
     def __extract_id(cls, values: dict[str, Any]) -> dict[str, Any]:
-        values["Id"] = values["Relics"]["AvatarID"]
+        if "relics" in values:
+            values["id"] = values["relics"]["avatar_id"]
+        elif "Relics" in values:
+            values["id"] = values["Relics"]["AvatarID"]
         return values
 
     @property
     def icon(self) -> str:
         """Get the character's icon URL."""
-        return f"https://api.hakush.in/hsr/UI/avatarshopicon/{self.id}.webp"
+        return f"https://static.nanoka.cc/hsr/UI/avatarshopicon/{self.id}.webp"
 
     @property
     def gacha_art(self) -> str:
@@ -153,11 +158,13 @@ class Character(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/hsr/UI/avatarshopicon/{value}.webp"
+        return f"https://static.nanoka.cc/hsr/UI/avatarshopicon/{value}.webp"
 
     @field_validator("rarity", mode="before")
     @classmethod
-    def __convert_rarity(cls, value: str) -> Literal[4, 5]:
+    def __convert_rarity(cls, value: str | int) -> Literal[4, 5]:
+        if isinstance(value, int):
+            return value  # type: ignore
         return HSR_CHARA_RARITY_MAP[value]
 
     @field_validator("description", mode="before")

@@ -39,18 +39,6 @@ class GIClient(BaseClient):
             session=session,
         )
 
-    async def fetch_new(self, *, use_cache: bool = True) -> gi.New:
-        """Fetch the ID of beta items in Genshin Impact.
-
-        Args:
-            use_cache: Whether to use the response cache.
-
-        Returns:
-            A model representing the new items.
-        """
-        data = await self._request("new", use_cache=use_cache, static=True)
-        return gi.New(**data)
-
     async def fetch_characters(
         self, *, use_cache: bool = True, version: str | None = None
     ) -> list[gi.Character]:

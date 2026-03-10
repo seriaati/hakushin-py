@@ -40,7 +40,7 @@ class Bangboo(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         value = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://api.hakush.in/zzz/UI/{value}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
 
     @field_validator("rarity", mode="before")
     @classmethod
@@ -75,13 +75,13 @@ class BangbooAscension(APIModel):
         extra_props: Additional properties gained.
     """
 
-    max_hp: int = Field(alias="HpMax")
-    attack: int = Field(alias="Attack")
-    defense: int = Field(alias="Defence")
-    max_level: int = Field(alias="LevelMax")
-    min_level: int = Field(alias="LevelMin")
-    materials: list[ZZZMaterial] = Field(alias="Materials")
-    extra_props: list[ZZZExtraProp] = Field(alias="Extra")
+    max_hp: int = Field(alias="hp_max")
+    attack: int
+    defense: int = Field(alias="defence")
+    max_level: int = Field(alias="level_max")
+    min_level: int = Field(alias="level_min")
+    materials: list[ZZZMaterial]
+    extra_props: list[ZZZExtraProp] = Field(alias="extra")
 
     @field_validator("extra_props", mode="before")
     @classmethod
@@ -107,10 +107,10 @@ class BangbooSkill(APIModel):
         parameter: Skill parameter values.
     """
 
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    properties: list[str] = Field(alias="Property")
-    parameter: str = Field(alias="Param")
+    name: str
+    description: str = Field(alias="desc")
+    properties: list[str] = Field(alias="property")
+    parameter: str = Field(alias="param")
 
     @field_validator("description")
     @classmethod
@@ -136,28 +136,31 @@ class BangbooDetail(APIModel):
         skills: Skills organized by type (A, B, C).
     """
 
-    id: int = Field(alias="Id")
-    code_name: str = Field(alias="CodeName")
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    rarity: Literal["S", "A"] = Field(alias="Rarity")
-    icon: str = Field(alias="Icon")
-    stats: dict[str, float] = Field(alias="Stats")
-    ascensions: dict[str, BangbooAscension] = Field(alias="Level")
-    skills: dict[Literal["A", "B", "C"], dict[str, BangbooSkill]] = Field(alias="Skill")
+    id: int
+    code_name: str = Field(alias="code_name")
+    name: str
+    description: str = Field(alias="desc")
+    rarity: Literal["S", "A"]
+    icon: str
+    stats: dict[str, float]
+    ascensions: dict[str, BangbooAscension] = Field(alias="level")
+    skills: dict[Literal["a", "b", "c"], dict[str, BangbooSkill] | None] = Field(alias="skill")
 
     @field_validator("skills", mode="before")
     @classmethod
     def __unnest_level(
-        cls, value: dict[Literal["A", "B", "C"], dict[Literal["Level"], dict[str, Any]]]
-    ) -> dict[Literal["A", "B", "C"], dict[str, BangbooSkill]]:
-        return {key: value[key]["Level"] for key in value}
+        cls, value: dict[Literal["a", "b", "c"], dict[str, Any] | None]
+    ) -> dict[Literal["a", "b", "c"], dict[str, BangbooSkill] | None]:
+        return {
+            key: (value[key].get("level") or value[key].get("Level")) if value.get(key) else None
+            for key in value
+        }
 
     @field_validator("icon")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         value = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://api.hakush.in/zzz/UI/{value}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
 
     @field_validator("rarity", mode="before")
     @classmethod

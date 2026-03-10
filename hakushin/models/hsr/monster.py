@@ -20,10 +20,10 @@ class HSREnemySkill(APIModel):
         damage_type: The type of damage the skill does (out of the HSRElements or None)
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="SkillName", default="")
-    desc: str = Field(alias="SkillDesc", default="")
-    damage_type: HSRElement | None = Field(alias="DamageType", default=None)
+    id: int
+    name: str = Field(alias="skill_name", default="")
+    desc: str = Field(alias="skill_desc", default="")
+    damage_type: HSRElement | None = Field(alias="damage_type", default=None)
 
     @field_validator("name", "desc", mode="before")
     @classmethod
@@ -46,8 +46,8 @@ class DamageTypeResistance(APIModel):
         value: The value of the resistance.
     """
 
-    element: HSRElement = Field(alias="DamageType")
-    value: float = Field(alias="Value")
+    element: HSRElement = Field(alias="damage_type")
+    value: float
 
 
 class ChildMonster(APIModel):
@@ -66,17 +66,17 @@ class ChildMonster(APIModel):
         skills: List of skills this monster instance can use in combat.
     """
 
-    id: int = Field(alias="Id")
-    attack_modify_ratio: float = Field(alias="AttackModifyRatio", default=1)
-    defence_modify_ratio: float = Field(alias="DefenceModifyRatio", default=1)
-    hp_modify_ratio: float = Field(alias="HPModifyRatio", default=1)
-    spd_modify_ratio: float = Field(alias="SpeedModifyRatio", default=1)
-    spd_modify_value: float | None = Field(alias="SpeedModifyValue", default=None)
-    stance_modify_value: float = Field(alias="StanceModifyRatio", default=1)
+    id: int
+    attack_modify_ratio: float = Field(alias="attack_modify_ratio", default=1)
+    defence_modify_ratio: float = Field(alias="defence_modify_ratio", default=1)
+    hp_modify_ratio: float = Field(alias="hp_modify_ratio", default=1)
+    spd_modify_ratio: float = Field(alias="speed_modify_ratio", default=1)
+    spd_modify_value: float | None = Field(alias="speed_modify_value", default=None)
+    stance_modify_value: float = Field(alias="stance_modify_ratio", default=1)
 
-    stance_weak_list: list[HSRElement] = Field(alias="StanceWeakList")
-    damage_type_resistances: list[DamageTypeResistance] = Field(alias="DamageTypeResistance")
-    skills: list[HSREnemySkill] = Field(alias="SkillList")
+    stance_weak_list: list[HSRElement] = Field(alias="stance_weak_list")
+    damage_type_resistances: list[DamageTypeResistance] = Field(alias="damage_type_resistance")
+    skills: list[HSREnemySkill] = Field(alias="skill_list")
 
 
 class MonsterDetail(APIModel):
@@ -95,18 +95,18 @@ class MonsterDetail(APIModel):
         monster_types: A list of `ChildMonster` variants derived from this monster.
     """
 
-    id: int = Field(alias="Id")
-    rank: str = Field(alias="Rank")
-    name: str = Field(alias="Name", default="")
-    description: str = Field(alias="Desc", default="")
-    attack_base: float = Field(alias="AttackBase", default=0)
-    defence_base: float = Field(alias="DefenceBase", default=0)
-    hp_base: float = Field(alias="HPBase", default=0)
-    spd_base: float = Field(alias="SpeedBase", default=0)
-    stance_base: float = Field(alias="StanceBase", default=0)
-    status_resistance_base: float = Field(alias="StatusResistanceBase", default=0)
+    id: int
+    rank: str
+    name: str = Field(default="")
+    description: str = Field(alias="desc", default="")
+    attack_base: float = Field(alias="attack_base", default=0)
+    defence_base: float = Field(alias="defence_base", default=0)
+    hp_base: float = Field(alias="hp_base", default=0)
+    spd_base: float = Field(alias="speed_base", default=0)
+    stance_base: float = Field(alias="stance_base", default=0)
+    status_resistance_base: float = Field(alias="status_resistance_base", default=0)
 
-    monster_types: list[ChildMonster] = Field(alias="Child")
+    monster_types: list[ChildMonster] = Field(alias="child")
 
     @field_validator(
         "attack_base",
@@ -121,10 +121,15 @@ class MonsterDetail(APIModel):
     def default_zero_if_none(cls, value: int | float | None) -> int | float:
         return value if isinstance(value, (int, float)) else 0
 
+    @field_validator("description", mode="before")
+    @classmethod
+    def default_empty_string(cls, value: str | None) -> str:
+        return value or ""
+
     @property
     def icon(self) -> str:
         """Get the monster's icon URL."""
-        return f"https://api.hakush.in/hsr/UI/monsterfigure/Monster_{self.id}.webp"
+        return f"https://static.nanoka.cc/hsr/UI/monsterfigure/Monster_{self.id}.webp"
 
 
 class Monster(APIModel):
@@ -146,15 +151,20 @@ class Monster(APIModel):
     children: list[int] = Field(alias="child")
     weaknesses: list[HSRElement] = Field(alias="weak")
     names: dict[Literal["en", "zh", "ko", "ja"], str]
-    description: str = Field(alias="desc")
+    description: str = Field(alias="desc", default="")
     name: str = Field("")  # The value of this field is assigned in post processing.
+
+    @field_validator("description", mode="before")
+    @classmethod
+    def default_empty_string_listing(cls, value: str | None) -> str:
+        return value or ""
 
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         filename = value.rsplit("/", 1)[-1]
         filename = filename.replace(".png", ".webp")
-        return f"https://api.hakush.in/hsr/UI/monsterfigure/{filename}"
+        return f"https://static.nanoka.cc/hsr/UI/monsterfigure/{filename}"
 
     @model_validator(mode="before")
     @classmethod

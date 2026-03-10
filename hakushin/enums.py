@@ -119,11 +119,13 @@ class ZZZAttackType(IntEnum):
 class ZZZSkillType(StrEnum):
     """Represent a ZZZ character skill type."""
 
-    BASIC = "Basic"
-    DODGE = "Dodge"
-    SPECIAL = "Special"
-    CHAIN = "Chain"
-    ASSIST = "Assist"
+    BASIC = "basic"
+    DODGE = "dodge"
+    SPECIAL = "special"
+    CHAIN = "chain"
+    ASSIST = "assist"
+    CORE = "core"
+    PASSIVE = "passive"
 
 
 class MWCostumeBodyType(StrEnum):

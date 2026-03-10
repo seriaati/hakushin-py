@@ -6,10 +6,6 @@ if TYPE_CHECKING:
     from hakushin.clients.zzz import ZZZClient
 
 
-async def test_new(zzz_client: ZZZClient) -> None:
-    await zzz_client.fetch_new()
-
-
 async def test_characters(zzz_client: ZZZClient) -> None:
     await zzz_client.fetch_characters()
 

@@ -214,7 +214,7 @@ ZZZ_SAB_RARITY_CONVERTER: Final[dict[int, Literal["B", "A", "S"]]] = {2: "B", 3:
 ZZZ_SA_RARITY_CONVERTER: Final[dict[int, Literal["A", "S"]]] = {3: "A", 4: "S"}
 """Convert ZZZ S/A rarity integer values to string literals."""
 
-GI_ICON_URL_PREFIX: Final[str] = "https://api.hakush.in/gi/UI"
+GI_ICON_URL_PREFIX: Final[str] = "https://static.nanoka.cc/gi/UI"
 _gi_sprite_preset_map: dict[str, str] = {
     "SPRITE_PRESET#1101": "UI_Gcg_DiceS_Frost",
     "SPRITE_PRESET#1102": "UI_Gcg_DiceS_Water",

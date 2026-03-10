@@ -30,9 +30,9 @@ class StygianDifficultyConfig(APIModel):
         descriptions: A list of descriptions for the difficulty.
     """
 
-    level: int = Field(alias="Level")
-    name: str = Field(alias="Name")
-    descriptions: list[str] = Field(alias="DescList")
+    level: int
+    name: str
+    descriptions: list[str] = Field(alias="desc_list")
 
 
 class StygianEnemyBuff(APIModel):
@@ -81,9 +81,9 @@ class StygianEnemy(APIModel):
     """
 
     id: int
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    icon: str = Field(alias="Icon")
+    name: str
+    description: str = Field(alias="desc")
+    icon: str
 
     buffs: list[StygianEnemyBuff] = Field(default_factory=list)
     recommendation: StygianEnemyRecommendation | None = None
@@ -91,19 +91,32 @@ class StygianEnemy(APIModel):
     @field_validator("icon", mode="after")
     @classmethod
     def __process_icon(cls, v: str) -> str:
-        return f"https://api.hakush.in/gi/UI/{v}.webp"
+        return f"https://static.nanoka.cc/gi/UI/{v}.webp"
 
     @model_validator(mode="before")
     @classmethod
     def __process_model(cls, v: dict[str, Any]) -> dict[str, Any]:
-        if "MonsterBuffNameList" in v and "MonsterBuffDetailList" in v:
+        if "monster_buff_name_list" in v and "monster_buff_detail_list" in v:
+            names = v.pop("monster_buff_name_list", [])
+            descs = v.pop("monster_buff_detail_list", [])
+            v["buffs"] = [
+                StygianEnemyBuff(name=name, description=desc)
+                for name, desc in zip(names, descs, strict=False)
+            ]
+        elif "MonsterBuffNameList" in v and "MonsterBuffDetailList" in v:
             names = v.pop("MonsterBuffNameList", [])
             descs = v.pop("MonsterBuffDetailList", [])
             v["buffs"] = [
                 StygianEnemyBuff(name=name, description=desc)
                 for name, desc in zip(names, descs, strict=False)
             ]
-        if "RecommendList" in v:
+
+        if "recommend_list" in v:
+            recs = v.pop("recommend_list", [])
+            v["recommendation"] = StygianEnemyRecommendation(
+                recommend=recs[0], dont_recommend=recs[1] if len(recs) > 1 else None
+            )
+        elif "RecommendList" in v:
             recs = v.pop("RecommendList", [])
             v["recommendation"] = StygianEnemyRecommendation(
                 recommend=recs[0], dont_recommend=recs[1] if len(recs) > 1 else None
@@ -122,9 +135,9 @@ class StygianLevel(APIModel):
     """
 
     id: int
-    enemy_level: int = Field(alias="MonsterLevel")
-    difficulty_config: StygianDifficultyConfig = Field(alias="DifficultyConfig")
-    enemies: dict[int, StygianEnemy] = Field(alias="LevelConfig")
+    enemy_level: int = Field(alias="monster_level")
+    difficulty_config: StygianDifficultyConfig = Field(alias="difficulty_config")
+    enemies: dict[int, StygianEnemy] = Field(alias="level_config")
 
     @field_validator("enemies", mode="before")
     @classmethod
@@ -146,11 +159,11 @@ class StygianDetail(APIModel):
         levels: A mapping of level IDs to StygianLevel objects.
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    start_at: datetime.datetime = Field(alias="BeginTime")
-    end_at: datetime.datetime = Field(alias="EndTime")
-    levels: dict[int, StygianLevel] = Field(alias="Level")
+    id: int
+    name: str
+    start_at: datetime.datetime = Field(alias="begin_time")
+    end_at: datetime.datetime = Field(alias="end_time")
+    levels: dict[int, StygianLevel] = Field(alias="level")
 
     @field_validator("levels", mode="before")
     @classmethod

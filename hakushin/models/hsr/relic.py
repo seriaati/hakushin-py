@@ -29,9 +29,9 @@ class Relic(APIModel):
     """
 
     id: int = Field(0)  # This field is not present in the API response.
-    name: str = Field(alias="Name")
-    description: str | None = Field(alias="Desc", default=None)
-    story: str | None = Field(alias="Story", default=None)
+    name: str
+    description: str | None = Field(alias="desc", default=None)
+    story: str | None = None
 
     @computed_field
     @property
@@ -39,7 +39,7 @@ class Relic(APIModel):
         """Get the relic's icon URL."""
         relic_id = str(self.id)[1:4]
         part_id = str(self.id)[-1]
-        return f"https://api.hakush.in/hsr/UI/relicfigures/IconRelic_{relic_id}_{part_id}.webp"
+        return f"https://static.nanoka.cc/hsr/UI/relicfigures/IconRelic_{relic_id}_{part_id}.webp"
 
 
 class SetDetailSetEffect(APIModel):
@@ -50,8 +50,8 @@ class SetDetailSetEffect(APIModel):
         parameters: A list of parameters for the set effect.
     """
 
-    description: str = Field(alias="Desc")
-    parameters: list[float] = Field(alias="ParamList")
+    description: str = Field(alias="desc")
+    parameters: list[float] = Field(alias="param_list")
 
     @model_validator(mode="after")
     def __format_parameters(self) -> Self:
@@ -81,16 +81,16 @@ class RelicSetDetail(APIModel):
         set_effects: The set effects of the relic set.
     """
 
-    name: str = Field(alias="Name")
-    icon: str = Field(alias="Icon")
-    parts: dict[str, Relic] = Field(alias="Parts")
-    set_effects: SetDetailSetEffects = Field(alias="RequireNum")
+    name: str
+    icon: str
+    parts: dict[str, Relic]
+    set_effects: SetDetailSetEffects = Field(alias="require_num")
 
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         icon_id = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://api.hakush.in/hsr/UI/itemfigures/{icon_id}.webp"
+        return f"https://static.nanoka.cc/hsr/UI/itemfigures/{icon_id}.webp"
 
     @field_validator("set_effects", mode="before")
     @classmethod
@@ -119,11 +119,14 @@ class RelicSetEffect(APIModel):
     @model_validator(mode="before")
     @classmethod
     def __assign_descriptions(cls, value: dict[str, Any]) -> dict[str, Any]:
+        # Support both old and new field names for backward compatibility if needed,
+        # but here we focus on transforming languages for the listing endpoint.
+        # The listing still uses ParamList and languages.
         value["descriptions"] = {
-            "en": value.pop("en"),
-            "zh": value.pop("zh"),
-            "ko": value.pop("ko"),
-            "ja": value.pop("ja"),
+            "en": value.get("en", ""),
+            "zh": value.get("zh", ""),
+            "ko": value.get("ko", ""),
+            "ja": value.get("ja", ""),
         }
         return value
 
@@ -161,7 +164,7 @@ class RelicSet(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         icon_id = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://api.hakush.in/hsr/UI/itemfigures/{icon_id}.webp"
+        return f"https://static.nanoka.cc/hsr/UI/itemfigures/{icon_id}.webp"
 
     @field_validator("set_effect", mode="before")
     @classmethod

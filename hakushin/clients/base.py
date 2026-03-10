@@ -155,7 +155,7 @@ class BaseClient:
 
         # for HSR Memory of Chaos, returns a list
         if isinstance(data, list):
-            data = {"Level": data}
+            data = {"level": data}
 
         return data
 

@@ -20,16 +20,20 @@ class SuperimposeInfo(APIModel):
         parameters: A dictionary of parameters for the superimpose information.
     """
 
-    name: str = Field(alias="Name")
-    description: str = Field(alias="Desc")
-    parameters: dict[str, list[float]] = Field(alias="Level")
+    name: str
+    description: str = Field(alias="desc")
+    parameters: dict[str, list[float]] = Field(alias="level")
 
     @model_validator(mode="before")
     @classmethod
     def __flatten_parameters(cls, values: dict[str, Any]) -> dict[str, Any]:
-        level = values["Level"]
-        for key in level:
-            level[key] = level[key]["ParamList"]
+        level = values.get("level") or values.get("Level")
+        if level:
+            for key in level:
+                if "param_list" in level[key]:
+                    level[key] = level[key]["param_list"]
+                elif "ParamList" in level[key]:
+                    level[key] = level[key]["ParamList"]
 
         return values
 
@@ -47,30 +51,34 @@ class LightConeDetail(APIModel):
         ascension_stats: A list of ascension stats for the light cone.
     """
 
-    id: int = Field(alias="Id")
-    name: str = Field(alias="Name")
-    description: str | None = Field(alias="Desc", default=None)
-    path: HSRPath = Field(alias="BaseType")
-    rarity: Literal[3, 4, 5] = Field(alias="Rarity")
-    superimpose_info: SuperimposeInfo = Field(alias="Refinements")
-    ascension_stats: list[dict[str, Any]] = Field(alias="Stats")
+    id: int
+    name: str
+    description: str | None = Field(alias="desc", default=None)
+    path: HSRPath = Field(alias="base_type")
+    rarity: Literal[3, 4, 5]
+    superimpose_info: SuperimposeInfo = Field(alias="refinements")
+    ascension_stats: list[dict[str, Any]] = Field(alias="stats")
 
     @field_validator("rarity", mode="before")
     @classmethod
-    def __convert_rarity(cls, value: str) -> Literal[3, 4, 5]:
+    def __convert_rarity(cls, value: str | int) -> Literal[3, 4, 5]:
+        if isinstance(value, int):
+            return value  # type: ignore
         return HSR_LIGHT_CONE_RARITY_MAP[value]
 
     @model_validator(mode="before")
     @classmethod
     def __extract_id(cls, values: dict[str, Any]) -> dict[str, Any]:
-        values["Id"] = values["Stats"][0]["EquipmentID"]
+        stats = values.get("stats") or values.get("Stats")
+        if stats and len(stats) > 0:
+            values["id"] = stats[0].get("equipment_id") or stats[0].get("EquipmentID")
         return values
 
     @computed_field
     @property
     def icon(self) -> str:
         """Get the light cone's icon URL."""
-        return f"https://api.hakush.in/hsr/UI/lightconemediumicon/{self.id}.webp"
+        return f"https://static.nanoka.cc/hsr/UI/lightconemediumicon/{self.id}.webp"
 
     @computed_field
     @property
@@ -102,7 +110,7 @@ class LightCone(APIModel):
     @property
     def icon(self) -> str:
         """Get the light cone's icon URL."""
-        return f"https://api.hakush.in/hsr/UI/lightconemediumicon/{self.id}.webp"
+        return f"https://static.nanoka.cc/hsr/UI/lightconemediumicon/{self.id}.webp"
 
     @field_validator("description", mode="before")
     @classmethod
@@ -112,11 +120,13 @@ class LightCone(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://api.hakush.in/hsr/UI/avatarshopicon/{value}.webp"
+        return f"https://static.nanoka.cc/hsr/UI/avatarshopicon/{value}.webp"
 
     @field_validator("rarity", mode="before")
     @classmethod
-    def __convert_rarity(cls, value: str) -> Literal[3, 4, 5]:
+    def __convert_rarity(cls, value: str | int) -> Literal[3, 4, 5]:
+        if isinstance(value, int):
+            return value  # type: ignore
         return HSR_LIGHT_CONE_RARITY_MAP[value]
 
     @model_validator(mode="before")

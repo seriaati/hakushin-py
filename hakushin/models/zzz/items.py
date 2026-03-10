@@ -30,4 +30,4 @@ class Item(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         icon = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://api.hakush.in/zzz/UI/{icon}.webp"
+        return f"https://static.nanoka.cc/zzz/UI/{icon}.webp"

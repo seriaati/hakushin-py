@@ -6,10 +6,6 @@ if TYPE_CHECKING:
     from hakushin.clients.hsr import HSRClient
 
 
-async def test_new(hsr_client: HSRClient) -> None:
-    await hsr_client.fetch_new()
-
-
 async def test_characters(hsr_client: HSRClient) -> None:
     await hsr_client.fetch_characters()
 
