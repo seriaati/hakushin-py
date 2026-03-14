@@ -24,7 +24,7 @@ docs = ["mkdocs-material>=9.6.15", "mkdocstrings[python]>=0.29.1", "griffe-pydan
 test = ["pytest>=8.4.1", "pytest-asyncio>=1.1.0"]
 
 [build-system]
-requires = ["uv_build>=0.9.0,<0.10.0"]
+requires = ["uv_build>=0.10.10,<0.11.0"]
 build-backend = "uv_build"
 
 [tool.pytest.ini_options]
