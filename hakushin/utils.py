@@ -245,6 +245,9 @@ def calc_weapon_upgrade_stat_values(
     """
     result: dict[str, float] = {}
 
+    assert weapon.stat_modifiers is not None
+    assert weapon.ascension is not None
+
     result["FIGHT_PROP_BASE_ATTACK"] = (
         weapon.stat_modifiers["ATK"].base * weapon.stat_modifiers["ATK"].levels[str(level)]
     )

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Any, Literal, cast
 
 from pydantic import Field, computed_field, field_validator, model_validator
 
@@ -98,7 +98,7 @@ class CharacterDetail(APIModel):
     @classmethod
     def __convert_rarity(cls, value: str | int) -> Literal[4, 5]:
         if isinstance(value, int):
-            return value  # type: ignore
+            return cast(Literal[4, 5], value)
         return HSR_CHARA_RARITY_MAP[value]
 
     @field_validator("description", mode="before")
@@ -164,7 +164,7 @@ class Character(APIModel):
     @classmethod
     def __convert_rarity(cls, value: str | int) -> Literal[4, 5]:
         if isinstance(value, int):
-            return value  # type: ignore
+            return cast(Literal[4, 5], value)
         return HSR_CHARA_RARITY_MAP[value]
 
     @field_validator("description", mode="before")

@@ -455,7 +455,10 @@ class CharacterCoreSkill(APIModel):
     @field_validator("levels", mode="before")
     @classmethod
     def __intify_keys(cls, value: dict[str, dict[str, Any]]) -> dict[int, CharaCoreSkillLevel]:
-        return {v.get("level") or v.get("Level"): CharaCoreSkillLevel(**v) for v in value.values()}
+        return {
+            int(v.get("level") or v.get("Level") or 0): CharaCoreSkillLevel(**v)
+            for v in value.values()
+        }
 
 
 class CharacterDetail(APIModel):

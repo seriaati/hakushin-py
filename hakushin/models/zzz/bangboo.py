@@ -152,7 +152,7 @@ class BangbooDetail(APIModel):
         cls, value: dict[Literal["a", "b", "c"], dict[str, Any] | None]
     ) -> dict[Literal["a", "b", "c"], dict[str, BangbooSkill] | None]:
         return {
-            key: (value[key].get("level") or value[key].get("Level")) if value.get(key) else None
+            key: (v.get("level") or v.get("Level")) if (v := value.get(key)) else None
             for key in value
         }
 

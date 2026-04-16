@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Literal
+from typing import Any, Literal, cast
 
 from pydantic import Field, computed_field, field_validator, model_validator
 
@@ -63,7 +63,7 @@ class LightConeDetail(APIModel):
     @classmethod
     def __convert_rarity(cls, value: str | int) -> Literal[3, 4, 5]:
         if isinstance(value, int):
-            return value  # type: ignore
+            return cast(Literal[3, 4, 5], value)
         return HSR_LIGHT_CONE_RARITY_MAP[value]
 
     @model_validator(mode="before")
@@ -126,7 +126,7 @@ class LightCone(APIModel):
     @classmethod
     def __convert_rarity(cls, value: str | int) -> Literal[3, 4, 5]:
         if isinstance(value, int):
-            return value  # type: ignore
+            return cast(Literal[3, 4, 5], value)
         return HSR_LIGHT_CONE_RARITY_MAP[value]
 
     @model_validator(mode="before")

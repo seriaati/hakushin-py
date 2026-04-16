@@ -79,7 +79,7 @@ class EndgameWave(APIModel):
         if "enemies" not in values:
             enemies = []
             for key, val in values.items():
-                if (key.startswith("Monster") or key.startswith("monster")) and isinstance(val, int):
+                if (key.startswith(("Monster", "monster"))) and isinstance(val, int):
                     enemies.append(val)
             values["enemies"] = enemies
         return values
@@ -161,9 +161,9 @@ class EndgameStage(APIModel):
                     values[new_key] = values[key][0]
                 elif not values[key]:
                     values[new_key] = None
-        
+
         if "event_id_list2" not in values:
-             values["event_id_list2"] = None
+            values["event_id_list2"] = None
 
         return values
 
@@ -374,30 +374,42 @@ class FullPFDetail(FullEndgameBaseModel, PFBase):
 
             if infinite_list1 and event_id_list1:
                 infinite_list_stage_1 = list(infinite_list1.values())
-                event_id_list1[0]["elite_group"] = infinite_list_stage_1[0].get("elite_group") or infinite_list_stage_1[0].get("EliteGroup")
+                event_id_list1[0]["elite_group"] = infinite_list_stage_1[0].get(
+                    "elite_group"
+                ) or infinite_list_stage_1[0].get("EliteGroup")
                 event_id_list1[0]["monster_list"] = []
 
                 for wave in infinite_list_stage_1:
-                    monster_group_id_list = wave.get("monster_group_id_list") or wave.get("MonsterGroupIDList")
+                    monster_group_id_list = wave.get("monster_group_id_list") or wave.get(
+                        "MonsterGroupIDList"
+                    )
                     unique_wave_enemies = list(set(monster_group_id_list))
-                    enemies_dict = {f"monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)}
+                    enemies_dict = {
+                        f"monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)
+                    }
                     param_list = wave.get("param_list") or wave.get("ParamList", [])
                     enemies_dict["hp_multiplier"] = param_list[1] if len(param_list) > 1 else 0.0
                     event_id_list1[0]["monster_list"].append(enemies_dict)
 
             if infinite_list2 and event_id_list2:
                 infinite_list_stage_2 = list(infinite_list2.values())
-                event_id_list2[0]["elite_group"] = infinite_list_stage_2[0].get("elite_group") or infinite_list_stage_2[0].get("EliteGroup")
+                event_id_list2[0]["elite_group"] = infinite_list_stage_2[0].get(
+                    "elite_group"
+                ) or infinite_list_stage_2[0].get("EliteGroup")
                 event_id_list2[0]["monster_list"] = []
 
                 for wave in infinite_list_stage_2:
-                    monster_group_id_list = wave.get("monster_group_id_list") or wave.get("MonsterGroupIDList")
+                    monster_group_id_list = wave.get("monster_group_id_list") or wave.get(
+                        "MonsterGroupIDList"
+                    )
                     unique_wave_enemies = list(set(monster_group_id_list))
-                    enemies_dict = {f"monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)}
+                    enemies_dict = {
+                        f"monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)
+                    }
                     param_list = wave.get("param_list") or wave.get("ParamList", [])
                     enemies_dict["hp_multiplier"] = param_list[1] if len(param_list) > 1 else 0.0
                     event_id_list2[0]["monster_list"].append(enemies_dict)
-            
+
             transformed_stages.append(raw_stage)
 
         data["level"] = transformed_stages
