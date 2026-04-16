@@ -247,9 +247,9 @@ class CharacterInfo(APIModel):
     gender: str
     female_impression: str = Field(alias="impression_f")
     male_impression: str = Field(alias="impression_m")
-    outlook_desc: str
+    outlook_desc: str | None = None
     profile_desc: str
-    faction: str = Field(alias="race")
+    faction: str | None = Field(alias="race", default=None)
     unlock_conditions: list[str] = Field(alias="unlock_condition")
 
     @field_validator("female_impression", "male_impression", "outlook_desc", "profile_desc")
