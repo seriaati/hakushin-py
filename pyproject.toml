@@ -20,7 +20,20 @@ Repository = "https://github.com/seriaati/hakushin-py.git"
 Issues = "https://github.com/seriaati/hakushin-py/issues"
 
 [dependency-groups]
-docs = ["mkdocs-material>=9.6.15", "mkdocstrings[python]>=0.29.1", "griffe-pydantic>=1.1.7"]
+dev = [
+    "mkdocs-material>=9.6.15",
+    "mkdocstrings[python]>=0.29.1",
+    "griffe-pydantic>=1.1.7",
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.1.0",
+    "pyright>=1.1.408",
+    "ruff>=0.15.11",
+]
+docs = [
+    "mkdocs-material>=9.6.15",
+    "mkdocstrings[python]>=0.29.1",
+    "griffe-pydantic>=1.1.7",
+]
 test = ["pytest>=8.4.1", "pytest-asyncio>=1.1.0"]
 
 [build-system]
@@ -40,9 +53,6 @@ reportUnnecessaryContains = true
 reportUnnecessaryIsInstance = true
 reportUnnecessaryTypeIgnoreComment = true
 typeCheckingMode = "standard"
-
-[tool.uv]
-default-groups = "all"
 
 [tool.uv.build-backend]
 module-root = ""
