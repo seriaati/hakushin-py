@@ -202,6 +202,11 @@ class EndgameBaseModel(APIModel):
     def __handle_missing_fields(cls, value: Any) -> str:
         return "" if value is None else value
 
+    @field_validator("stages", mode="before")
+    @classmethod
+    def __handle_invalid_stages(cls, value: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        return [stage for stage in value if "name" in stage]
+
 
 class FullEndgameBaseModel(EndgameBaseModel):
     """Endgame base model with processed enemies.
