@@ -106,6 +106,7 @@ class ZZZElement(IntEnum):
     ICE = 202
     ELECTRIC = 203
     ETHER = 205
+    WIND = 204
 
 
 class ZZZAttackType(IntEnum):
