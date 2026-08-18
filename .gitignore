@@ -155,3 +155,5 @@ test.py
 
 # Claude Code
 .claude/
+
+.serena/
