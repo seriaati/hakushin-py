@@ -242,20 +242,20 @@ class CharacterInfo(APIModel):
         unlock_conditions: List of conditions to unlock the character.
     """
 
-    birthday: str
-    full_name: str
-    gender: str
-    female_impression: str = Field(alias="impression_f")
-    male_impression: str = Field(alias="impression_m")
+    birthday: str | None = None
+    full_name: str | None = None
+    gender: str | None = None
+    female_impression: str | None = Field(alias="impression_f", default=None)
+    male_impression: str | None = Field(alias="impression_m", default=None)
     outlook_desc: str | None = None
-    profile_desc: str
+    profile_desc: str | None = None
     faction: str | None = Field(alias="race", default=None)
-    unlock_conditions: list[str] = Field(alias="unlock_condition")
+    unlock_conditions: list[str] = Field(alias="unlock_condition", default_factory=list)
 
     @field_validator("female_impression", "male_impression", "outlook_desc", "profile_desc")
     @classmethod
-    def __cleanup_text(cls, value: str) -> str:
-        return cleanup_text(value)
+    def __cleanup_text(cls, value: str | None) -> str | None:
+        return cleanup_text(value) if value is not None else None
 
 
 class MindscapeCinema(APIModel):
