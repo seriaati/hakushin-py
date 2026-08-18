@@ -96,6 +96,7 @@ class ZZZSpecialty(IntEnum):
     SUPPORT = 4
     DEFENSE = 5
     RUPTURE = 6
+    ARMORER = 7
 
 
 class ZZZElement(IntEnum):
@@ -107,6 +108,7 @@ class ZZZElement(IntEnum):
     ELECTRIC = 203
     ETHER = 205
     WIND = 204
+    LUMIFLUX = 300
 
 
 class ZZZAttackType(IntEnum):
