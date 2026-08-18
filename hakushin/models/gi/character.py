@@ -320,7 +320,7 @@ class Character(APIModel):
     @field_validator("element", mode="before")
     @classmethod
     def __convert_element(cls, value: str) -> GIElement | None:
-        return GIElement(value) if value else None
+        return GIElement(value) if value and value != "None" else None
 
     @model_validator(mode="before")
     @classmethod
