@@ -24,6 +24,7 @@ __all__ = (
     "CharacterSkill",
     "CharacterSkillDesc",
     "MindscapeCinema",
+    "SpecialElement",
 )
 
 
@@ -222,6 +223,30 @@ class CharacterProp(APIModel):
             return {"id": 0, "name": "Unknown"}
         first_item = next(iter(values.items()))
         return {"id": first_item[0], "name": first_item[1]}
+
+
+class SpecialElement(APIModel):
+    """Represent a character's special element.
+
+    Special elements are variants of standard elements, such as Miyabi's
+    Frost being a special variant of Ice.
+
+    Attributes:
+        name: Name of the special element.
+        title: Title of the special element.
+        desc: Description of the special element.
+        icon: Icon path of the special element.
+    """
+
+    name: str
+    title: str
+    desc: str
+    icon: str
+
+    @field_validator("desc")
+    @classmethod
+    def __cleanup_text(cls, value: str) -> str:
+        return cleanup_text(value)
 
 
 class CharacterInfo(APIModel):
@@ -475,6 +500,7 @@ class CharacterDetail(APIModel):
         rarity: Character rarity rank (S or A).
         specialty: Character weapon specialty.
         element: Character elemental attribute.
+        special_element: Character special element, if any.
         attack_type: Character combat attack type.
         faction: Character faction or camp.
         gender: Character gender (M or F).
@@ -494,6 +520,7 @@ class CharacterDetail(APIModel):
     rarity: Literal["S", "A"] | None
     specialty: CharacterProp = Field(alias="weapon_type")
     element: CharacterProp = Field(alias="element_type")
+    special_element: SpecialElement | None = Field(alias="special_element_type", default=None)
     attack_type: CharacterProp = Field(alias="hit_type")
     faction: CharacterProp = Field(alias="camp")
     gender: Literal["M", "F"]
@@ -506,6 +533,11 @@ class CharacterDetail(APIModel):
     passive: CharacterCoreSkill
     skins: list[CharacterSkin] = Field(alias="skin", default_factory=list)
     potentials: list[CharacterPotential] = Field(alias="potential_detail", default_factory=list)
+
+    @field_validator("special_element", mode="before")
+    @classmethod
+    def __convert_special_element(cls, value: dict[str, Any] | None) -> dict[str, Any] | None:
+        return value or None
 
     @computed_field
     @property
