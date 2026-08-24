@@ -42,6 +42,12 @@ async def test_stygians(gi_client: GIClient) -> None:
         await gi_client.fetch_stygian_detail(entry.id)
 
 
+async def test_spiral_abysses(gi_client: GIClient) -> None:
+    abysses = await gi_client.fetch_spiral_abysses()
+    for entry in abysses:
+        await gi_client.fetch_spiral_abyss_detail(entry.id)
+
+
 async def test_mw_costumes(gi_client: GIClient) -> None:
     await gi_client.fetch_mw_costumes()
 

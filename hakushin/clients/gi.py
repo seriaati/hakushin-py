@@ -190,6 +190,39 @@ class GIClient(BaseClient):
         data = await self._request(endpoint, use_cache=use_cache)
         return gi.StygianDetail(**data)
 
+    async def fetch_spiral_abysses(self, *, use_cache: bool = True) -> list[gi.SpiralAbyss]:
+        """Fetch all Genshin Impact Spiral Abyss phases.
+
+        Args:
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            A list of SpiralAbyss objects.
+        """
+        data = await self._request("tower", use_cache=use_cache, in_data=True)
+
+        abysses = [gi.SpiralAbyss(id=int(abyss_id), **abyss) for abyss_id, abyss in data.items()]
+        for abyss in abysses:
+            abyss.name = abyss.names[GI_LANG_MAP[self.lang]]
+
+        return abysses
+
+    async def fetch_spiral_abyss_detail(
+        self, abyss_id: int, *, use_cache: bool = True
+    ) -> gi.SpiralAbyssDetail:
+        """Fetch the details of a Spiral Abyss phase.
+
+        Args:
+            abyss_id: The Spiral Abyss phase ID.
+            use_cache: Whether to use the response cache.
+
+        Returns:
+            The Spiral Abyss details object.
+        """
+        endpoint = f"tower/{abyss_id}"
+        data = await self._request(endpoint, use_cache=use_cache)
+        return gi.SpiralAbyssDetail(id=abyss_id, **data)
+
     async def fetch_mw_costumes(self, *, use_cache: bool = True) -> list[gi.MWCostume]:
         """Fetch all Miliastra Wonderland costumes and costume sets.
 
