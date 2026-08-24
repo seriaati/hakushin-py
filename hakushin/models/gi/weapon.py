@@ -6,6 +6,7 @@ from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
 
+from ...constants import GI_ICON_URL_PREFIX
 from ..base import APIModel
 
 __all__ = ("Weapon", "WeaponDetail", "WeaponProperty", "WeaponRefinement", "WeaponStatModifier")
@@ -78,7 +79,7 @@ class WeaponDetail(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
 
 class Weapon(APIModel):
@@ -103,7 +104,7 @@ class Weapon(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
     @model_validator(mode="before")
     @classmethod

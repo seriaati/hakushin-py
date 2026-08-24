@@ -6,7 +6,7 @@ from typing import Any, Literal, cast
 
 from pydantic import Field, field_validator, model_validator
 
-from ...constants import GI_CHARA_RARITY_MAP
+from ...constants import GI_CHARA_RARITY_MAP, GI_ICON_URL_PREFIX
 from ...enums import GIElement
 from ..base import APIModel
 
@@ -45,7 +45,7 @@ class Namecard(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
 
 class CharacterInfo(APIModel):
@@ -81,7 +81,7 @@ class SkillUpgradeInfo(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
     @field_validator("attributes", mode="before")
     @classmethod
@@ -122,7 +122,7 @@ class CharacterPassive(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
 
 class CharacterConstellation(APIModel):
@@ -143,7 +143,7 @@ class CharacterConstellation(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
 
 class UpgradeMaterial(APIModel):
@@ -164,7 +164,7 @@ class UpgradeMaterial(APIModel):
     @property
     def icon(self) -> str:
         """Get the material's icon URL."""
-        return f"https://static.nanoka.cc/gi/UI/UI_ItemIcon_{self.id}.webp"
+        return f"{GI_ICON_URL_PREFIX}/UI_ItemIcon_{self.id}.webp"
 
 
 class UpgradeMaterialInfo(APIModel):
@@ -274,7 +274,7 @@ class CharacterDetail(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
     @field_validator("rarity", mode="before")
     @classmethod
@@ -308,7 +308,7 @@ class Character(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
     @field_validator("rarity", mode="before")
     @classmethod

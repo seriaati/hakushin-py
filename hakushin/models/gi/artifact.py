@@ -6,6 +6,7 @@ from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
 
+from ...constants import GI_ICON_URL_PREFIX
 from ..base import APIModel
 
 __all__ = (
@@ -66,7 +67,7 @@ class Artifact(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         """Convert the icon path to a full URL."""
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
 
 class ArtifactSetDetail(APIModel):
@@ -88,7 +89,7 @@ class ArtifactSetDetail(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         """Convert the icon path to a full URL."""
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
     @field_validator("set_effect", mode="before")
     @classmethod
@@ -155,7 +156,7 @@ class ArtifactSet(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         """Convert the icon path to a full URL."""
-        return f"https://static.nanoka.cc/gi/UI/{value}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
 
     @field_validator("set_effect", mode="before")
     @classmethod

@@ -6,6 +6,7 @@ from typing import Literal
 
 from pydantic import Field, field_validator
 
+from hakushin.constants import GI_ICON_URL_PREFIX
 from hakushin.enums import MWCostumeBodyType
 from hakushin.models.base import APIModel
 
@@ -33,7 +34,7 @@ class BaseMWCostume(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __icon_url(cls, v: str) -> str:
-        return f"https://static.nanoka.cc/gi/UI/{v}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{v}.webp"
 
 
 class MWCostumeSet(BaseMWCostume):
@@ -62,4 +63,4 @@ class MWItem(APIModel):
     def __icon_url(cls, v: str) -> str | None:
         if not v:
             return None
-        return f"https://static.nanoka.cc/gi/UI/{v}.webp"
+        return f"{GI_ICON_URL_PREFIX}/{v}.webp"
