@@ -222,6 +222,15 @@ class MonsterDetail(APIModel):
         filename = filename.replace(".png", ".webp")
         return get_asset_url(Game.HSR, f"monsterfigure/{filename}")
 
+    @property
+    def skills(self) -> list[HSREnemySkill]:
+        """Get the unique skills across all monster variants, deduplicated by ID."""
+        skills: dict[int, HSREnemySkill] = {}
+        for monster_type in self.monster_types:
+            for skill in monster_type.skills:
+                skills.setdefault(skill.id, skill)
+        return list(skills.values())
+
 
 class Monster(APIModel):
     """
