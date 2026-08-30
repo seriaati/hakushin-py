@@ -13,7 +13,7 @@ Every API call goes through the `HakushinAPI` class. You can see more details in
 ```py
 import hakushin
 
-async with hakushin.HakushinAPI(hakushin.Game.GI) as api: 
+async with hakushin.HakushinAPI(hakushin.Game.GI) as api:
     characters = await api.fetch_characters()
     print(characters)
 ```

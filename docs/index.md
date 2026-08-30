@@ -46,6 +46,7 @@ Note: This wrapper changes very rapidly since the Hakushin API also changes very
 import hakushin
 import asyncio
 
+
 async def main() -> None:
     async with hakushin.HakushinAPI(hakushin.Game.GI, hakushin.Language.EN) as client:
         await client.fetch_characters()
@@ -53,6 +54,7 @@ async def main() -> None:
         await client.fetch_light_cones()
     async with hakushin.HakushinAPI(hakushin.Game.ZZZ, hakushin.Language.KO) as client:
         await client.fetch_weapons()
+
 
 asyncio.run(main())
 ```
