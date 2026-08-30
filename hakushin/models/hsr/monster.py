@@ -93,6 +93,7 @@ class MonsterDetail(APIModel):
         spd_base: The base speed stat.
         stance_base: The base toughness value.
         status_resistance_base: The base status resistance (used for debuff resist chance).
+        icon: The monster's icon URL.
         monster_types: A list of `ChildMonster` variants derived from this monster.
     """
 
@@ -106,6 +107,7 @@ class MonsterDetail(APIModel):
     spd_base: float = Field(alias="speed_base", default=0)
     stance_base: float = Field(alias="stance_base", default=0)
     status_resistance_base: float = Field(alias="status_resistance_base", default=0)
+    icon: str = Field(alias="image_path")
 
     monster_types: list[ChildMonster] = Field(alias="child")
 
@@ -127,10 +129,12 @@ class MonsterDetail(APIModel):
     def default_empty_string(cls, value: str | None) -> str:
         return value or ""
 
-    @property
-    def icon(self) -> str:
-        """Get the monster's icon URL."""
-        return get_asset_url(Game.HSR, f"monsterfigure/Monster_{self.id}.webp")
+    @field_validator("icon", mode="before")
+    @classmethod
+    def __convert_icon(cls, value: str) -> str:
+        filename = value.rsplit("/", 1)[-1]
+        filename = filename.replace(".png", ".webp")
+        return get_asset_url(Game.HSR, f"monsterfigure/{filename}")
 
 
 class Monster(APIModel):
