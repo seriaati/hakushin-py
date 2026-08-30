@@ -5,7 +5,8 @@ from typing import Any, Literal
 from pydantic import Field, field_validator, model_validator
 
 from ...constants import ZZZ_SA_RARITY_CONVERTER
-from ...utils import cleanup_text
+from ...enums import Game
+from ...utils import cleanup_text, get_asset_url
 from ..base import APIModel
 from .common import ZZZExtraProp, ZZZMaterial
 
@@ -40,7 +41,7 @@ class Bangboo(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         value = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
+        return get_asset_url(Game.ZZZ, f"{value}.webp")
 
     @field_validator("rarity", mode="before")
     @classmethod
@@ -160,7 +161,7 @@ class BangbooDetail(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         value = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
+        return get_asset_url(Game.ZZZ, f"{value}.webp")
 
     @field_validator("rarity", mode="before")
     @classmethod

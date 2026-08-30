@@ -5,8 +5,8 @@ from typing import Any, Literal
 from pydantic import Field, computed_field, field_validator, model_validator
 
 from ...constants import ZZZ_SAB_RARITY_CONVERTER
-from ...enums import ZZZSpecialty
-from ...utils import cleanup_text
+from ...enums import Game, ZZZSpecialty
+from ...utils import cleanup_text, get_asset_url
 from ..base import APIModel
 
 __all__ = (
@@ -49,7 +49,7 @@ class Weapon(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         """Convert the icon path to a full URL."""
-        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
+        return get_asset_url(Game.ZZZ, f"{value}.webp")
 
     @model_validator(mode="before")
     @classmethod
@@ -208,7 +208,7 @@ class WeaponDetail(APIModel):
     def __convert_icon(cls, value: str) -> str:
         """Convert the icon path to a full URL."""
         value = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
+        return get_asset_url(Game.ZZZ, f"{value}.webp")
 
     @field_validator("rarity", mode="before")
     @classmethod

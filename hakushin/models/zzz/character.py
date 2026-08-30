@@ -5,8 +5,8 @@ from typing import Any, Literal
 from pydantic import Field, computed_field, field_validator, model_validator
 
 from ...constants import ZZZ_SA_RARITY_CONVERTER
-from ...enums import ZZZAttackType, ZZZElement, ZZZSkillType, ZZZSpecialty
-from ...utils import cleanup_text
+from ...enums import Game, ZZZAttackType, ZZZElement, ZZZSkillType, ZZZSpecialty
+from ...utils import cleanup_text, get_asset_url
 from ..base import APIModel
 from .common import ZZZExtraProp, ZZZMaterial
 
@@ -66,7 +66,7 @@ class CharacterPotential(APIModel):
     @field_validator("image", mode="after")
     @classmethod
     def __convert_image(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/zzz/UI/AvatarSpecialAwakenBg_{value}.webp"
+        return get_asset_url(Game.ZZZ, f"AvatarSpecialAwakenBg_{value}.webp")
 
 
 class CharacterSkin(APIModel):
@@ -90,7 +90,7 @@ class CharacterSkin(APIModel):
     @field_validator("image")
     @classmethod
     def __convert_image(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
+        return get_asset_url(Game.ZZZ, f"{value}.webp")
 
 
 class Character(APIModel):
@@ -127,34 +127,34 @@ class Character(APIModel):
     def phase_3_cinema_art(self) -> str:
         """Agent phase 3 mindscape cinema art.
 
-        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_3.webp
+        Example: https://static.nanoka.cc/assets/zzz/Mindscape_1041_3.webp
         """
-        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_3.webp"
+        return get_asset_url(Game.ZZZ, f"Mindscape_{self.id}_3.webp")
 
     @computed_field
     @property
     def phase_2_cinema_art(self) -> str:
         """Agent phase 2 mindscape cinema art.
 
-        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_2.webp
+        Example: https://static.nanoka.cc/assets/zzz/Mindscape_1041_2.webp
         """
-        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_2.webp"
+        return get_asset_url(Game.ZZZ, f"Mindscape_{self.id}_2.webp")
 
     @computed_field
     @property
     def phase_1_cinema_art(self) -> str:
         """Agent phase 1 mindscape cinema art.
 
-        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_1.webp
+        Example: https://static.nanoka.cc/assets/zzz/Mindscape_1041_1.webp
         """
-        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_1.webp"
+        return get_asset_url(Game.ZZZ, f"Mindscape_{self.id}_1.webp")
 
     @computed_field
     @property
     def icon(self) -> str:
         """Agent icon.
 
-        Example: https://static.nanoka.cc/zzz/UI/IconRoleSelect01.webp
+        Example: https://static.nanoka.cc/assets/zzz/IconRoleSelect01.webp
         """
         return self.image.replace("Role", "RoleSelect")
 
@@ -163,7 +163,7 @@ class Character(APIModel):
     def cropped_icon(self) -> str:
         """Agent cropped icon.
 
-        Example: https://static.nanoka.cc/zzz/UI/IconRoleCrop01.webp
+        Example: https://static.nanoka.cc/assets/zzz/IconRoleCrop01.webp
         """
         return self.image.replace("Role", "RoleCrop")
 
@@ -183,7 +183,7 @@ class Character(APIModel):
     @field_validator("image")
     @classmethod
     def __convert_image(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
+        return get_asset_url(Game.ZZZ, f"{value}.webp")
 
     @model_validator(mode="before")
     @classmethod
@@ -544,34 +544,34 @@ class CharacterDetail(APIModel):
     def phase_3_cinema_art(self) -> str:
         """Agent phase 3 mindscape cinema art.
 
-        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_3.webp
+        Example: https://static.nanoka.cc/assets/zzz/Mindscape_1041_3.webp
         """
-        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_3.webp"
+        return get_asset_url(Game.ZZZ, f"Mindscape_{self.id}_3.webp")
 
     @computed_field
     @property
     def phase_2_cinema_art(self) -> str:
         """Agent phase 2 mindscape cinema art.
 
-        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_2.webp
+        Example: https://static.nanoka.cc/assets/zzz/Mindscape_1041_2.webp
         """
-        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_2.webp"
+        return get_asset_url(Game.ZZZ, f"Mindscape_{self.id}_2.webp")
 
     @computed_field
     @property
     def phase_1_cinema_art(self) -> str:
         """Agent phase 1 mindscape cinema art.
 
-        Example: https://static.nanoka.cc/zzz/UI/Mindscape_1041_1.webp
+        Example: https://static.nanoka.cc/assets/zzz/Mindscape_1041_1.webp
         """
-        return f"https://static.nanoka.cc/zzz/UI/Mindscape_{self.id}_1.webp"
+        return get_asset_url(Game.ZZZ, f"Mindscape_{self.id}_1.webp")
 
     @computed_field
     @property
     def icon(self) -> str:
         """Character icon.
 
-        Example: https://static.nanoka.cc/zzz/UI/IconRoleSelect01.webp
+        Example: https://static.nanoka.cc/assets/zzz/IconRoleSelect01.webp
         """
         return self.image.replace("Role", "RoleSelect")
 
@@ -628,7 +628,7 @@ class CharacterDetail(APIModel):
     @field_validator("image")
     @classmethod
     def __convert_image(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/zzz/UI/{value}.webp"
+        return get_asset_url(Game.ZZZ, f"{value}.webp")
 
     @field_validator("skins", mode="before")
     @classmethod
