@@ -4,7 +4,8 @@ from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
 
-from ...enums import HSRElement
+from ...enums import Game, HSRElement
+from ...utils import get_asset_url
 from ..base import APIModel
 
 __all__ = ("ChildMonster", "DamageTypeResistance", "HSREnemySkill", "Monster", "MonsterDetail")
@@ -129,7 +130,7 @@ class MonsterDetail(APIModel):
     @property
     def icon(self) -> str:
         """Get the monster's icon URL."""
-        return f"https://static.nanoka.cc/hsr/UI/monsterfigure/Monster_{self.id}.webp"
+        return get_asset_url(Game.HSR, f"monsterfigure/Monster_{self.id}.webp")
 
 
 class Monster(APIModel):
@@ -164,7 +165,7 @@ class Monster(APIModel):
     def __convert_icon(cls, value: str) -> str:
         filename = value.rsplit("/", 1)[-1]
         filename = filename.replace(".png", ".webp")
-        return f"https://static.nanoka.cc/hsr/UI/monsterfigure/{filename}"
+        return get_asset_url(Game.HSR, f"monsterfigure/{filename}")
 
     @model_validator(mode="before")
     @classmethod

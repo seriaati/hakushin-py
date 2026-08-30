@@ -5,7 +5,8 @@ from typing import Any, Literal, cast
 from pydantic import Field, computed_field, field_validator, model_validator
 
 from ...constants import HSR_LIGHT_CONE_RARITY_MAP
-from ...enums import HSRPath
+from ...enums import Game, HSRPath
+from ...utils import get_asset_url
 from ..base import APIModel
 
 __all__ = ("LightCone", "LightConeDetail", "SuperimposeInfo")
@@ -78,7 +79,7 @@ class LightConeDetail(APIModel):
     @property
     def icon(self) -> str:
         """Get the light cone's icon URL."""
-        return f"https://static.nanoka.cc/hsr/UI/lightconemediumicon/{self.id}.webp"
+        return get_asset_url(Game.HSR, f"lightconemediumicon/{self.id}.webp")
 
     @computed_field
     @property
@@ -110,7 +111,7 @@ class LightCone(APIModel):
     @property
     def icon(self) -> str:
         """Get the light cone's icon URL."""
-        return f"https://static.nanoka.cc/hsr/UI/lightconemediumicon/{self.id}.webp"
+        return get_asset_url(Game.HSR, f"lightconemediumicon/{self.id}.webp")
 
     @field_validator("description", mode="before")
     @classmethod
@@ -120,7 +121,7 @@ class LightCone(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/hsr/UI/avatarshopicon/{value}.webp"
+        return get_asset_url(Game.HSR, f"avatarshopicon/{value}.webp")
 
     @field_validator("rarity", mode="before")
     @classmethod

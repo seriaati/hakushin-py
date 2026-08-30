@@ -5,7 +5,8 @@ from typing import Any, Literal, cast
 from pydantic import Field, computed_field, field_validator, model_validator
 
 from ...constants import HSR_CHARA_RARITY_MAP
-from ...enums import HSRElement, HSRPath
+from ...enums import Game, HSRElement, HSRPath
+from ...utils import get_asset_url
 from ..base import APIModel
 
 __all__ = ("Character", "CharacterDetail", "Eidolon", "Skill", "SkillLevelInfo")
@@ -70,7 +71,10 @@ class Eidolon(APIModel):
         """Get the eidolon's image URL."""
         character_id = str(self.id)[:4]
         eidolon_index = str(self.id)[-1]
-        return f"https://static.nanoka.cc/hsr/UI/rank/_dependencies/textures/{character_id}/{character_id}_Rank_{eidolon_index}.webp"
+        return get_asset_url(
+            Game.HSR,
+            f"rank/_dependencies/textures/{character_id}/{character_id}_Rank_{eidolon_index}.webp",
+        )
 
 
 class CharacterDetail(APIModel):
@@ -124,7 +128,7 @@ class CharacterDetail(APIModel):
     @property
     def icon(self) -> str:
         """Get the character's icon URL."""
-        return f"https://static.nanoka.cc/hsr/UI/avatarshopicon/{self.id}.webp"
+        return get_asset_url(Game.HSR, f"avatarshopicon/{self.id}.webp")
 
     @property
     def gacha_art(self) -> str:
@@ -158,7 +162,7 @@ class Character(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"https://static.nanoka.cc/hsr/UI/avatarshopicon/{value}.webp"
+        return get_asset_url(Game.HSR, f"avatarshopicon/{value}.webp")
 
     @field_validator("rarity", mode="before")
     @classmethod

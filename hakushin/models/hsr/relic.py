@@ -4,7 +4,8 @@ from typing import Any, Literal, Self
 
 from pydantic import Field, computed_field, field_validator, model_validator
 
-from ...utils import replace_placeholders
+from ...enums import Game
+from ...utils import get_asset_url, replace_placeholders
 from ..base import APIModel
 
 __all__ = (
@@ -39,7 +40,7 @@ class Relic(APIModel):
         """Get the relic's icon URL."""
         relic_id = str(self.id)[1:4]
         part_id = str(self.id)[-1]
-        return f"https://static.nanoka.cc/hsr/UI/relicfigures/IconRelic_{relic_id}_{part_id}.webp"
+        return get_asset_url(Game.HSR, f"relicfigures/IconRelic_{relic_id}_{part_id}.webp")
 
 
 class SetDetailSetEffect(APIModel):
@@ -90,7 +91,7 @@ class RelicSetDetail(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         icon_id = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://static.nanoka.cc/hsr/UI/itemfigures/{icon_id}.webp"
+        return get_asset_url(Game.HSR, f"itemfigures/{icon_id}.webp")
 
     @field_validator("set_effects", mode="before")
     @classmethod
@@ -164,7 +165,7 @@ class RelicSet(APIModel):
     @classmethod
     def __convert_icon(cls, value: str) -> str:
         icon_id = value.rsplit("/", maxsplit=1)[-1].split(".", maxsplit=1)[0]
-        return f"https://static.nanoka.cc/hsr/UI/itemfigures/{icon_id}.webp"
+        return get_asset_url(Game.HSR, f"itemfigures/{icon_id}.webp")
 
     @field_validator("set_effect", mode="before")
     @classmethod
