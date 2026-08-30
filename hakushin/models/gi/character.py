@@ -6,8 +6,9 @@ from typing import Any, Literal, cast
 
 from pydantic import Field, field_validator, model_validator
 
-from ...constants import GI_CHARA_RARITY_MAP, GI_ICON_URL_PREFIX
-from ...enums import GIElement
+from ...constants import GI_CHARA_RARITY_MAP
+from ...enums import Game, GIElement
+from ...utils import get_asset_url
 from ..base import APIModel
 
 __all__ = (
@@ -45,7 +46,7 @@ class Namecard(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
+        return get_asset_url(Game.GI, f"{value}.webp")
 
 
 class CharacterInfo(APIModel):
@@ -81,7 +82,7 @@ class SkillUpgradeInfo(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
+        return get_asset_url(Game.GI, f"{value}.webp")
 
     @field_validator("attributes", mode="before")
     @classmethod
@@ -122,7 +123,7 @@ class CharacterPassive(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
+        return get_asset_url(Game.GI, f"{value}.webp")
 
 
 class CharacterConstellation(APIModel):
@@ -143,7 +144,7 @@ class CharacterConstellation(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
+        return get_asset_url(Game.GI, f"{value}.webp")
 
 
 class UpgradeMaterial(APIModel):
@@ -164,7 +165,7 @@ class UpgradeMaterial(APIModel):
     @property
     def icon(self) -> str:
         """Get the material's icon URL."""
-        return f"{GI_ICON_URL_PREFIX}/UI_ItemIcon_{self.id}.webp"
+        return get_asset_url(Game.GI, f"UI_ItemIcon_{self.id}.webp")
 
 
 class UpgradeMaterialInfo(APIModel):
@@ -274,7 +275,7 @@ class CharacterDetail(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
+        return get_asset_url(Game.GI, f"{value}.webp")
 
     @field_validator("rarity", mode="before")
     @classmethod
@@ -308,7 +309,7 @@ class Character(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
+        return get_asset_url(Game.GI, f"{value}.webp")
 
     @field_validator("rarity", mode="before")
     @classmethod

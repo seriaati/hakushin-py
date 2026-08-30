@@ -7,8 +7,9 @@ from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
 
-from hakushin.constants import GI_ICON_URL_PREFIX
+from hakushin.enums import Game
 from hakushin.models.base import APIModel
+from hakushin.utils import get_asset_url
 
 __all__ = (
     "SpiralAbyss",
@@ -36,7 +37,7 @@ class SpiralAbyssBlessing(APIModel):
     @field_validator("icon", mode="after")
     @classmethod
     def __process_icon(cls, v: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{v}.webp"
+        return get_asset_url(Game.GI, f"{v}.webp")
 
 
 class SpiralAbyssEnemy(APIModel):
@@ -57,7 +58,7 @@ class SpiralAbyssEnemy(APIModel):
     @field_validator("icon", mode="after")
     @classmethod
     def __process_icon(cls, v: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{v}.webp"
+        return get_asset_url(Game.GI, f"{v}.webp")
 
 
 class SpiralAbyssChamber(APIModel):
@@ -165,7 +166,7 @@ class SpiralAbyss(APIModel):
     @field_validator("icon", mode="after")
     @classmethod
     def __process_icon(cls, v: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{v}.webp"
+        return get_asset_url(Game.GI, f"{v}.webp")
 
     @model_validator(mode="before")
     @classmethod

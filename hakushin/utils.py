@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, TypeVar
 from .constants import (
     ASCENDED_LEVEL_TO_ASCENSION,
     ASCENSION_TO_MAX_LEVEL,
+    ASSET_URL_PREFIX,
     GI_SPRITE_PRESET_MAP,
     NOT_ASCENDED_LEVEL_TO_ASCENSION,
     PERCENTAGE_FIGHT_PROPS,
@@ -393,3 +394,16 @@ def extract_sprite_presets(text: str) -> list[tuple[str, str]]:
             result.append((keyword, icon_url))
 
     return result
+
+
+def get_asset_url(game: Game, path: str) -> str:
+    """Build the full asset URL for a game from a relative asset path.
+
+    Args:
+        game: The game the asset belongs to.
+        path: The asset path relative to the game's asset root, e.g. ``avatarshopicon/1001.webp``.
+
+    Returns:
+        The full asset URL.
+    """
+    return f"{ASSET_URL_PREFIX}/{game.value}/{path}"

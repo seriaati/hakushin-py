@@ -6,7 +6,8 @@ from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
 
-from ...constants import GI_ICON_URL_PREFIX
+from ...enums import Game
+from ...utils import get_asset_url
 from ..base import APIModel
 
 __all__ = ("Weapon", "WeaponDetail", "WeaponProperty", "WeaponRefinement", "WeaponStatModifier")
@@ -79,7 +80,7 @@ class WeaponDetail(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
+        return get_asset_url(Game.GI, f"{value}.webp")
 
 
 class Weapon(APIModel):
@@ -104,7 +105,7 @@ class Weapon(APIModel):
     @field_validator("icon", mode="before")
     @classmethod
     def __convert_icon(cls, value: str) -> str:
-        return f"{GI_ICON_URL_PREFIX}/{value}.webp"
+        return get_asset_url(Game.GI, f"{value}.webp")
 
     @model_validator(mode="before")
     @classmethod

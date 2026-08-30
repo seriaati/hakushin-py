@@ -214,7 +214,8 @@ ZZZ_SAB_RARITY_CONVERTER: Final[dict[int, Literal["B", "A", "S"]]] = {2: "B", 3:
 ZZZ_SA_RARITY_CONVERTER: Final[dict[int, Literal["A", "S"]]] = {3: "A", 4: "S"}
 """Convert ZZZ S/A rarity integer values to string literals."""
 
-GI_ICON_URL_PREFIX: Final[str] = "https://static.nanoka.cc/assets/gi"
+ASSET_URL_PREFIX: Final[str] = "https://static.nanoka.cc/assets"
+"""URL prefix for game asset files, followed by a `Game` value and the asset path."""
 _gi_sprite_preset_map: dict[str, str] = {
     "SPRITE_PRESET#1101": "UI_Gcg_DiceS_Frost",
     "SPRITE_PRESET#1102": "UI_Gcg_DiceS_Water",
@@ -314,5 +315,5 @@ _gi_sprite_preset_map: dict[str, str] = {
     "SPRITE_PRESET#21002": "UI_Icon_AutoChess_Text_Heal",
 }
 GI_SPRITE_PRESET_MAP: Final[dict[str, str]] = {
-    k: f"{GI_ICON_URL_PREFIX}/{v}.webp" for k, v in _gi_sprite_preset_map.items()
+    k: f"{ASSET_URL_PREFIX}/{Game.GI.value}/{v}.webp" for k, v in _gi_sprite_preset_map.items()
 }
