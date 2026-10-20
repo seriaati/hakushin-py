@@ -6,7 +6,7 @@ hakushin-py is an async API wrapper for [hakush.in](https://hakush.in/) written 
 
 hakush.in is a website that displays Genshin Impact, Honkai Star Rail, Zenless Zone Zero, and Wuthering Waves game data.
 
-Developing something for Hoyoverse games? You might be interested in [other API wrappers](https://github.com/seriaati#api-wrappers) written by me.
+Developing something for Hoyoverse games? You might be interested in [other API wrappers](https://projects.seria.moe/projects/#wrapper) written by me.
 
 > Note: I am not the developer of hakush.in
 
