@@ -84,6 +84,19 @@ async def test_apoc(hsr_client: HSRClient) -> None:
         await hsr_client.fetch_apoc_detail(apoc.id)
 
 
+async def test_apoc_extra_node_buffs(hsr_client: HSRClient) -> None:
+    apoc = await hsr_client.fetch_apoc_detail(3020)
+    assert [buff.name for buff in apoc.buff_list_3] == [
+        "Beaming Bliss",
+        "Unto Apotheosis",
+        "Armed Up",
+    ]
+    assert apoc.buff_list_3[0].params == [0.3, 0.5]
+
+    old_apoc = await hsr_client.fetch_apoc_detail(3001)
+    assert old_apoc.buff_list_3 == []
+
+
 async def test_enemy_stat_calculations(hsr_client: HSRClient) -> None:
     mocs = await hsr_client.fetch_moc()
     for moc in mocs:

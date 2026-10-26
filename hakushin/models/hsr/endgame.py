@@ -402,6 +402,7 @@ class ApocBase(APIModel):
 
     buff_list_1: list[EndgameBuffOptions] = Field(alias="buff_list1")
     buff_list_2: list[EndgameBuffOptions] = Field(alias="buff_list2")
+    buff_list_3: list[EndgameBuffOptions] = Field(alias="buff_list3")
 
 
 class ApocDetail(EndgameBaseModel, ApocBase):
@@ -411,6 +412,7 @@ class ApocDetail(EndgameBaseModel, ApocBase):
         buff: The static global buff applied in all stages.
         buff_list_1: Selectable buffs for first half.
         buff_list_2: Selectable buffs for second half.
+        buff_list_3: Selectable buffs for the extra node, empty for events without one.
     """
 
 
@@ -421,6 +423,7 @@ class FullApocDetail(FullEndgameBaseModel, ApocBase):
         buff: The static global buff applied in all stages.
         buff_list_1: Selectable buffs for first half.
         buff_list_2: Selectable buffs for second half.
+        buff_list_3: Selectable buffs for the extra node, empty for events without one.
     """
 
 
