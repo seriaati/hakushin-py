@@ -238,8 +238,8 @@ class EndgameSummary(APIModel):
     type: HSREndgameType
     names: dict[Literal["en", "zh", "ko", "ja"], str]
     name: str = Field("")  # The value of this field is assigned in post processing.
-    begin: str = Field(alias="live_begin", default="")
-    end: str = Field(alias="live_end", default="")
+    begin: str = ""
+    end: str = ""
 
     @model_validator(mode="before")
     @classmethod
