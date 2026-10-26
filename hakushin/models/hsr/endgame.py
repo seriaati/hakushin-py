@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Any, Literal
 
 from pydantic import Field, field_validator, model_validator
@@ -13,6 +14,7 @@ __all__ = (
     "ApocDetail",
     "EndgameBaseModel",
     "EndgameBuffOptions",
+    "EndgameChallenge",
     "EndgameHalf",
     "EndgameStage",
     "EndgameSummary",
@@ -126,6 +128,26 @@ class FullEndgameHalf(EndgameHalf):
     waves: list[FullEndgameWave] = Field(alias="monster_list")
 
 
+class EndgameChallenge(APIModel):
+    """Represents a star requirement of an endgame stage.
+
+    Attributes:
+        name: The formatted requirement text.
+        param: The value substituted into the requirement text.
+    """
+
+    name: str
+    param: int = 0
+
+    @model_validator(mode="before")
+    @classmethod
+    def __format_name(cls, values: dict[str, Any]) -> dict[str, Any]:
+        values["name"] = re.sub(
+            r"#1(\[[^\]]*\])?", str(values.get("param") or 0), values.get("name") or ""
+        )
+        return values
+
+
 class EndgameStage(APIModel):
     """Represents a stage in an endgame mode.
 
@@ -140,6 +162,9 @@ class EndgameStage(APIModel):
         second_half_weaknesses: Elements that enemies in the second half are weak to.
         first_half: The first half of the stage.
         second_half: The second half of the stage.
+        challenges: The star requirements of the stage.
+        special_challenge: The extra requirement of an extra node, if any.
+        cycle_limit: The raw countdown value; the number of cycles available in Memory of Chaos.
     """
 
     id: int
@@ -151,6 +176,10 @@ class EndgameStage(APIModel):
 
     first_half: EndgameHalf = Field(alias="event_id_list1")
     second_half: EndgameHalf | None = Field(alias="event_id_list2")
+
+    challenges: list[EndgameChallenge] = Field(alias="challenge", default_factory=list)
+    special_challenge: EndgameChallenge | None = Field(alias="challenge_special", default=None)
+    cycle_limit: int | None = Field(alias="countdown", default=None)
 
     @field_validator("name", mode="before")
     @classmethod
