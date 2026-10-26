@@ -129,9 +129,13 @@ class FullEndgameHalf(EndgameHalf):
 class EndgameStage(APIModel):
     """Represents a stage in an endgame mode.
 
+    A stage with `pre_id` set is the single-half extra node that follows the stage
+    with that ID (e.g. node 3 of the last Memory of Chaos stage).
+
     Attributes:
         id: Unique ID of the stage.
-        name: Stage name.
+        name: Stage name, empty for extra nodes.
+        pre_id: ID of the stage this extra node follows, if any.
         first_half_weaknesses: Elements that enemies in the first half are weak to.
         second_half_weaknesses: Elements that enemies in the second half are weak to.
         first_half: The first half of the stage.
@@ -139,10 +143,11 @@ class EndgameStage(APIModel):
     """
 
     id: int
-    name: str
+    name: str = ""
+    pre_id: int | None = None
 
     first_half_weaknesses: list[HSRElement] = Field(alias="damage_type1")
-    second_half_weaknesses: list[HSRElement] = Field(alias="damage_type2")
+    second_half_weaknesses: list[HSRElement] = Field(alias="damage_type2", default_factory=list)
 
     first_half: EndgameHalf = Field(alias="event_id_list1")
     second_half: EndgameHalf | None = Field(alias="event_id_list2")
@@ -155,6 +160,11 @@ class EndgameStage(APIModel):
     @model_validator(mode="before")
     @classmethod
     def __unwrap_event_lists(cls, values: dict[str, Any]) -> dict[str, Any]:
+        # Extra nodes have a single half under unnumbered keys
+        for key in ("event_id_list", "damage_type"):
+            if key in values and f"{key}1" not in values:
+                values[f"{key}1"] = values.pop(key)
+
         for key in ["event_id_list1", "event_id_list2", "EventIDList1", "EventIDList2"]:
             if key in values:
                 new_key = key.lower()
@@ -206,7 +216,7 @@ class EndgameBaseModel(APIModel):
     @field_validator("stages", mode="before")
     @classmethod
     def __handle_invalid_stages(cls, value: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        return [stage for stage in value if "name" in stage]
+        return [stage for stage in value if "name" in stage or "pre_id" in stage]
 
 
 class FullEndgameBaseModel(EndgameBaseModel):
@@ -376,19 +386,24 @@ class FullPFDetail(FullEndgameBaseModel, PFBase):
         transformed_stages = []
 
         for raw_stage in levels:
-            infinite_list1 = raw_stage.get("infinite_list1") or raw_stage.get("InfiniteList1")
-            infinite_list2 = raw_stage.get("infinite_list2") or raw_stage.get("InfiniteList2")
-            event_id_list1 = raw_stage.get("event_id_list1") or raw_stage.get("EventIDList1")
-            event_id_list2 = raw_stage.get("event_id_list2") or raw_stage.get("EventIDList2")
+            # Suffix "" is the single half of an extra node
+            for suffix in ("1", "2", ""):
+                infinite_list = raw_stage.get(f"infinite_list{suffix}") or raw_stage.get(
+                    f"InfiniteList{suffix}"
+                )
+                event_id_list = raw_stage.get(f"event_id_list{suffix}") or raw_stage.get(
+                    f"EventIDList{suffix}"
+                )
+                if not (infinite_list and event_id_list):
+                    continue
 
-            if infinite_list1 and event_id_list1:
-                infinite_list_stage_1 = list(infinite_list1.values())
-                event_id_list1[0]["elite_group"] = infinite_list_stage_1[0].get(
+                infinite_list_stage = list(infinite_list.values())
+                event_id_list[0]["elite_group"] = infinite_list_stage[0].get(
                     "elite_group"
-                ) or infinite_list_stage_1[0].get("EliteGroup")
-                event_id_list1[0]["monster_list"] = []
+                ) or infinite_list_stage[0].get("EliteGroup")
+                event_id_list[0]["monster_list"] = []
 
-                for wave in infinite_list_stage_1:
+                for wave in infinite_list_stage:
                     monster_group_id_list = wave.get("monster_group_id_list") or wave.get(
                         "MonsterGroupIDList"
                     )
@@ -398,26 +413,7 @@ class FullPFDetail(FullEndgameBaseModel, PFBase):
                     }
                     param_list = wave.get("param_list") or wave.get("ParamList", [])
                     enemies_dict["hp_multiplier"] = param_list[1] if len(param_list) > 1 else 0.0
-                    event_id_list1[0]["monster_list"].append(enemies_dict)
-
-            if infinite_list2 and event_id_list2:
-                infinite_list_stage_2 = list(infinite_list2.values())
-                event_id_list2[0]["elite_group"] = infinite_list_stage_2[0].get(
-                    "elite_group"
-                ) or infinite_list_stage_2[0].get("EliteGroup")
-                event_id_list2[0]["monster_list"] = []
-
-                for wave in infinite_list_stage_2:
-                    monster_group_id_list = wave.get("monster_group_id_list") or wave.get(
-                        "MonsterGroupIDList"
-                    )
-                    unique_wave_enemies = list(set(monster_group_id_list))
-                    enemies_dict = {
-                        f"monster{i}": enemy for i, enemy in enumerate(unique_wave_enemies)
-                    }
-                    param_list = wave.get("param_list") or wave.get("ParamList", [])
-                    enemies_dict["hp_multiplier"] = param_list[1] if len(param_list) > 1 else 0.0
-                    event_id_list2[0]["monster_list"].append(enemies_dict)
+                    event_id_list[0]["monster_list"].append(enemies_dict)
 
             transformed_stages.append(raw_stage)
 
