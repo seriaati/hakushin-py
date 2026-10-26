@@ -44,6 +44,34 @@ async def test_moc(hsr_client: HSRClient) -> None:
         await hsr_client.fetch_moc_detail(moc.id)
 
 
+async def test_moc_extra_node(hsr_client: HSRClient) -> None:
+    summary = next(moc for moc in await hsr_client.fetch_moc() if moc.id == 1036)
+    assert summary.begin == "2026-08-24 04:00:00"
+
+    moc = await hsr_client.fetch_moc_detail(1036, full=True)
+    assert moc.memory_turbulence.startswith(
+        "When an ally target uses their Ultimate, they gain 5 Punchlines.\n"
+    )
+    assert len(moc.stages) == 13
+
+    node = moc.stages[-1]
+    assert node.pre_id == 5512
+    assert node.cycle_limit == 45
+    assert node.second_half is None
+    assert node.challenges[2].name == "No more than 0 downed character(s)"
+    assert node.special_challenge is not None
+    assert node.special_challenge.name == "Gain 3 stars and win with 33 or more Cycles remaining"
+
+    corrosion = node.first_half.corrosion
+    assert corrosion is not None
+    assert corrosion.level == 3
+    assert [m.id for m in corrosion.monsters] == [4064010, 4062010, 4063010]
+
+    boss = node.first_half.waves[1].enemies[0]
+    assert boss.id == 4064010
+    assert (boss.base_hp, boss.max_phase) == (7258991, 2)
+
+
 async def test_pf(hsr_client: HSRClient) -> None:
     pfs = await hsr_client.fetch_pf()
     for pf in pfs:
