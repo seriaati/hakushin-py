@@ -5,6 +5,7 @@ from typing import Any, Literal
 from pydantic import Field, field_validator, model_validator
 
 from ...enums import HSRElement, HSREndgameType
+from ...utils import cleanup_text, replace_placeholders
 from ..base import APIModel
 
 __all__ = (
@@ -263,7 +264,10 @@ class MOCBase(APIModel):
         if levels and len(levels) > 0:
             first_level = levels[0]
             data["name"] = first_level.get("group_name") or first_level.get("GroupName")
-            data["memory_turbulence"] = first_level.get("desc") or first_level.get("Desc")
+            data["memory_turbulence"] = replace_placeholders(
+                cleanup_text(first_level.get("desc") or first_level.get("Desc") or ""),
+                first_level.get("param") or [],
+            )
             data["begin_time"] = first_level.get("begin_time") or first_level.get("BeginTime")
             data["end_time"] = first_level.get("end_time") or first_level.get("EndTime")
         return data
