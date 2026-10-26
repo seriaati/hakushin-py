@@ -493,6 +493,7 @@ class HSRClient(BaseClient):
             speed=speed,
             toughness=toughness,
             effect_res=effect_res,
+            max_phase=enemy_info.max_phase,
         )
 
     async def calculate_hsr_enemy_stats(  # noqa: C901

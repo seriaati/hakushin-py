@@ -46,6 +46,7 @@ class ProcessedEnemy(APIModel):
         speed: The calculated speed value.
         toughness: The calculated toughness value.
         effect_res: Total status effect resistance value.
+        max_phase: The number of HP bars (phases) the enemy has, each with `base_hp`.
     """
 
     id: int
@@ -56,6 +57,7 @@ class ProcessedEnemy(APIModel):
     speed: int | None
     toughness: int | None
     effect_res: float | None
+    max_phase: int = 1
 
 
 class EndgameWave(APIModel):
