@@ -15,6 +15,8 @@ __all__ = (
     "EndgameBaseModel",
     "EndgameBuffOptions",
     "EndgameChallenge",
+    "EndgameCorrosion",
+    "EndgameCorrosionMonster",
     "EndgameHalf",
     "EndgameStage",
     "EndgameSummary",
@@ -99,6 +101,38 @@ class FullEndgameWave(EndgameWave):
     enemies: list[ProcessedEnemy] = Field(default_factory=list)  # type: ignore
 
 
+class EndgameCorrosionMonster(APIModel):
+    """Represents an enemy affected by corrosion.
+
+    Attributes:
+        id: The monster ID, may include a variant suffix.
+        params: Per-monster corrosion parameters.
+    """
+
+    id: int = Field(alias="monster_id")
+    params: list[float] = Field(alias="param_list", default_factory=list)
+
+
+class EndgameCorrosion(APIModel):
+    """Represents the corrosion (invasion) mechanic applied to an endgame half.
+
+    Attributes:
+        level: The corrosion level.
+        description: Description of the corrosion effect.
+        buff_id: ID of the maze buff that applies the corrosion.
+        buff_params: Parameters of the maze buff.
+        monster_params: Parameters applied to corroded monsters.
+        monsters: Enemies affected by the corrosion, including ones outside the listed waves.
+    """
+
+    level: int
+    description: str = Field(alias="desc", default="")
+    buff_id: int = Field(alias="maze_buff_id")
+    buff_params: list[float] = Field(alias="maze_buff_param", default_factory=list)
+    monster_params: list[float] = Field(alias="monster_param", default_factory=list)
+    monsters: list[EndgameCorrosionMonster] = Field(alias="monster_list", default_factory=list)
+
+
 class EndgameHalf(APIModel):
     """Represents one half of an endgame stage (first or second).
 
@@ -107,12 +141,14 @@ class EndgameHalf(APIModel):
         hlg_level: Level of the HardLevelGroup (affects enemy stats).
         eg_id: ID of the EliteGroup (affects enemy traits).
         waves: List of enemy waves in this half.
+        corrosion: The corrosion applied to this half, if any.
     """
 
     hlg_id: int = Field(alias="hard_level_group", default=1)
     hlg_level: int = Field(alias="level", default=1)
     eg_id: int = Field(alias="elite_group", default=1)
     waves: list[EndgameWave] = Field(alias="monster_list")
+    corrosion: EndgameCorrosion | None = Field(alias="invasion", default=None)
 
 
 class FullEndgameHalf(EndgameHalf):
